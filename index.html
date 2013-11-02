@@ -2145,11 +2145,11 @@ The parent id for this div is "content". Let's verify it.
                         <li class="divider">XDK unique features</li>
                         <li><a href="#xdkInAppMessage">In App Messaging</a></li>
                         <li><a href="#xdkLaunchExternal">Launch External Browser/Apps</a></li>
-                        <li><a href="#xdkMainviewExecute">Execute in MainView</a></li>
                         <li><a href="#xdkInstallNativeApp">Install Native App</a></li>
                         <li><a href="#xdkFacebook">Facebook Integration</a></li>
                         <li><a href="#xdkRemoteData">Access Cross-Origin Data</a></li>
                         <li><a href="#xdkOauth">Oauth</a></li>
+                        <li><a href="#xdkBasicAuthentication">Basic Authentication</a></li>
                         <li><a href="#xdkCache">Device Cache</a></li>
                         <li><a href="#xdkCookies">Cookies</a></li>
                         <li><a href="#xdkCanvas">Accelerated Canvas</a></li>
@@ -2159,7 +2159,6 @@ The parent id for this div is "content". Let's verify it.
                         <li><a href="#xdkOrientation">Device Orientation</a></li>
                         <li><a href="#xdkMultitouch">Multitouch for Android</a></li>
                         <li><a href="#xdkBackButton">Back Button</a></li>
-                        <li><a href="#xdkBasicAuthentication">Basic Authentication</a></li>
                         <li class="divider">Similar to Cordava APIs</li>
                         <li><a href="#xdkAccelerometer">Accelerometer</a></li>
                         <li><a href="#xdkCamera">Camera</a></li>
@@ -2298,9 +2297,55 @@ The parent id for this div is "content". Let's verify it.
                     </script>    
                 </div> 
                 
+                <div class="panel" data-footer="footer" id="xdkARMode" title="Augmented Reality">
+                    <h2>Augmented Reality Demo</h2>
+                    <p></p>
+                    <a class="button" onclick="xdkStartAR()">Start AR Mode</a><br>
+                    <a class="button" onclick="xdkStopAR()">Stop AR Mode</a><br>
+                    <br><br>
+                    <h3>Methods</h3>
+                    <p>Use these methods to start or stop Augmented Reality mode.</p>
+                    <div class="samplecode">intel.xdk.display.startAR();</div>
+                    <div class="samplecode">intel.xdk.display.stopAR();</div>
+                    <script>
+                        function xdkStartAR(){
+                            intel.xdk.display.startAR(); 
+                            $('#xdkARMode').css('background-color','transparent');
+                            $('#afui').css('background-color','transparent');
+                            $('body').css('background-color','transparent');
+                            $('#menu').remove();
+                            $('#aside_menu').remove();
+                        }
+                        function xdkStopAR(){
+                            intel.xdk.display.stopAR(); 
+                            window.location = "index.html";
+                        }
+                    </script>
+                </div>
+                
+                <div class="panel" data-footer="footer" id="xdkViewport" title="Display Viewport">
+                    <h2>Viewport Demo</h2>
+                    <p></p>
+                    <a class="button" onclick="xdkSetViewport()">Set Viewport</a><br>
+                    <a class="button" onclick="xdkResetViewport()">Reset Veiwport</a><br>
+                    <br><br>
+                    <h3>Methods</h3>
+                    <p>Use these methods to set fixed viewport size for all devices.</p>
+                    <div class="samplecode">intel.xdk.display.lockViewportWindow( widthPortrait, heightPortrait, widthLandscape, heightLandscape);</div>
+                    <div class="samplecode">intel.xdk.display.useViewport(widthPortrait, widthLandscape);</div>
+                    <script>
+                        function xdkSetViewport(){
+                            intel.xdk.display.useViewport(800, 1200);
+                        }
+                        function xdkResetViewport(){ 
+                            window.location = "index.html";
+                        }
+                    </script>
+                </div>
+                
                 <div class="panel" data-footer="footer" id="xdkInAppBrowser" title="In App Browser">
                     <h2>In App Browser Demo</h2>
-                    <p>Methods that allow opening a remote website in differnt webview other than the main app webview, whitelising websites, closing webview, control position of close button, callbacks and more.</p>
+                    <p>Methods that allow opening a remote website in <b>different webView</b> other than the main app webview, <b>whitelist websites</b>, closing webview, control position of close button, callbacks and <b>execute code in MainView</b>.</p>
                     <p>
                         <input type="text" value="http://intel.com" id="xdkWebsiteUrl" />
                         <a class="button icon folder" onclick="xdkOpenBrowser()">Open Website</a><br>
@@ -2316,6 +2361,8 @@ The parent id for this div is "content". Let's verify it.
                     <p>You can use this method to whitelist websites that can be opened.</p>
                     <div class="samplecode">intel.xdk.device.closeRemoteSite()</div>
                     <p>You can use this method to close a browser window opened with showRemoteSite() call.</p>
+                    <div class="samplecode">intel.xdk.device.mainViewExecute(command);</div>
+                    <p>You can use this method to execute command in mainView from browser window opened with showRemoteSite() call.</p>
                     <script>
                         function xdkOpenBrowser(){
                             var url = $("#xdkWebsiteUrl").val();
