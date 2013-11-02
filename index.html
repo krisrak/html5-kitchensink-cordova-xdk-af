@@ -85,10 +85,10 @@
                 intel.xdk.device.setRotateOrientation("portrait");
                 intel.xdk.device.setAutoRotate(false);
                 webRoot = intel.xdk.webRoot + "";
-                //hide splash screen
-                intel.xdk.device.hideSplashScreen();
                 $.ui.blockPageScroll(); //block the page from scrolling at the header/footer
                 $.ui.launch();
+                //hide splash screen
+                intel.xdk.device.hideSplashScreen();
                 
                 document.addEventListener("device.pause", function(){incrementBadge("#xdkEvent_pause");}, false);
                 document.addEventListener("device.resume", function(){incrementBadge("#xdkEvent_resume");}, false);
@@ -104,7 +104,6 @@
             var onCordovaDeviceReady = function() {
                 $("#cdvDevicereadyEvent").html("Cordova deviceready event has fired");
                 incrementBadge("#cdvEvent_deviceready");
-                navigator.splashscreen.hide();
 
                 document.addEventListener("pause", function(){incrementBadge("#cdvEvent_pause");}, false);
                 document.addEventListener("resume", function(){incrementBadge("#cdvEvent_resume");}, false);
