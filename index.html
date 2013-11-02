@@ -97,11 +97,8 @@
                 document.addEventListener("device.remote.data", function(){incrementBadge("#xdkEvent_remotedata");}, false);
                 document.addEventListener("device.remote.close", function(){incrementBadge("#xdkEvent_remoteclose");}, false);
                 document.addEventListener("device.remote.block", function(){incrementBadge("#xdkEvent_remoteblock");}, false);
-                document.addEventListener("device.connection.update", function(){incrementBadge("#xdkEvent_connectionupdate");}, false);
-                document.addEventListener("device.barcode.scan", function(){incrementBadge("#xdkEvent_barcodescan");}, false);
                 document.addEventListener("device.hardware.back", function(){incrementBadge("#xdkEvent_hardwareback");}, false);
                 document.addEventListener("device.orientation.change", function(){incrementBadge("#xdkEvent_orientationchange");}, false);
-
             };
             
             var onCordovaDeviceReady = function() {
@@ -2136,21 +2133,31 @@ The parent id for this div is "content". Let's verify it.
                     <br/>
                     <br/>
                 </div>
+                
                 <!-- Device API> intel.xdk -->
+                
                 <div title="intel.xdk APIs" id="intelxdk" class="panel" data-footer="footer">
                     <h2>intel.xdk API Demo</h2>
                     <p id="xdkDevicereadyEvent">intel.xdk device.ready event has not fired, the demos will not work.</p>
                     <ul class="list">
-                        <li><a href="#xdkDevice">Device Info</a></li>
+                        <li><a href="#xdkDevice">Device Properties</a></li>
+                        <li><a href="#xdkProp">XDK App Properties</a></li>
                         <li class="divider">XDK unique features</li>
-                        <li><a href="#xdkInAppBrowser">In App Browser</a></li>
                         <li><a href="#xdkInAppMessage">In App Messaging</a></li>
                         <li><a href="#xdkLaunchExternal">Launch External Browser/Apps</a></li>
-                        <li><a href="#xdkQRCodeReader">QR Code Reader</a></li>
-                        <li><a href="#xdkOrientation">Device Orientation</a></li>
-                        <li><a href="#xdkRemoteData">Cross Origin Data</a></li>
                         <li><a href="#xdkMainviewExecute">Execute in MainView</a></li>
                         <li><a href="#xdkInstallNativeApp">Install Native App</a></li>
+                        <li><a href="#xdkFacebook">Facebook Integration</a></li>
+                        <li><a href="#xdkRemoteData">Access Cross-Origin Data</a></li>
+                        <li><a href="#xdkOauth">Oauth</a></li>
+                        <li><a href="#xdkCache">Device Cache</a></li>
+                        <li><a href="#xdkCookies">Cookies</a></li>
+                        <li><a href="#xdkCanvas">Accelerated Canvas</a></li>
+                        <li><a href="#xdkQRCodeReader">QR Code Reader</a></li>
+                        <li><a href="#xdkViewport">Display Viewport</a></li>
+                        <li><a href="#xdkARMode">Augmented Reality Mode</a></li>
+                        <li><a href="#xdkOrientation">Device Orientation</a></li>
+                        <li><a href="#xdkMultitouch">Multitouch for Android</a></li>
                         <li><a href="#xdkBackButton">Back Button</a></li>
                         <li><a href="#xdkBasicAuthentication">Basic Authentication</a></li>
                         <li class="divider">Similar to Cordava APIs</li>
@@ -2161,13 +2168,60 @@ The parent id for this div is "content". Let's verify it.
                         <li><a href="#xdkMedia">Media</a></li>
                         <li><a href="#xdkFile">File</a></li>
                         <li><a href="#xdkStorage">Storage</a></li>
+                        <li><a href="#xdkNotification">Notification</a></li>
+                        <li><a href="#xdkInAppBrowser">In App Browser</a></li>
                         <li><a href="#xdkContacts">Contacts</a></li>
                         <li><a href="#xdkConnection">Connection</a></li>
                         <li><a href="#xdkSplashScreen">Splash Screen and Status Bar</a></li>                        
-                        <li><a href="#xdkEvents">Device Events</a></li>
-                        <li><a href="#xdkNotification">Notification</a></li>
+                        <li><a href="#xdkEvents">Events</a></li>
                     </ul>
                 </div>
+                
+                <div class="panel" data-footer="footer" title="intel.xdk Properties" id="xdkProp">
+                    <a class="button" onclick="xdkGetProperties()">Get XDK Properties</a>
+                    <ul class="list inset" id="xdkProps">
+                        <li><a>intel.xdk.app</a></li>
+                        <li><a>intel.xdk.isamazon</a></li>
+                        <li><a>intel.xdk.ischrome</a></li>
+                        <li><a>intel.xdk.isfacebook</a></li>
+                        <li><a>intel.xdk.isgoogle</a></li>
+                        <li><a>intel.xdk.isintel</a></li>
+                        <li><a>intel.xdk.ismozilla</a></li>
+                        <li><a>intel.xdk.isnative</a></li>
+                        <li><a>intel.xdk.isnook</a></li>
+                        <li><a>intel.xdk.isphone</a></li>
+                        <li><a>intel.xdk.istablet</a></li>
+                        <li><a>intel.xdk.istest</a></li>
+                        <li><a>intel.xdk.isweb</a></li>
+                        <li><a>intel.xdk.isxdk</a></li>
+                        <li><a>intel.xdk.jsVersion</a></li>
+                        <li><a>intel.xdk.oauthAvailable</a></li>
+                        <li><a>intel.xdk.webRoot</a></li>
+                    </ul>
+                    <script>
+                        function xdkGetProperties(){
+                            var ul = "<li><a>intel.xdk.app : <b>" + intel.xdk.app + "</b></a></li>" +
+                                    "<li><a>intel.xdk.isamazon : <b>" + intel.xdk.isamazon + "</b></a></li>" +
+                                    "<li><a>intel.xdk.ischrome : <b>" + intel.xdk.ischrome + "</b></a></li>" +
+                                    "<li><a>intel.xdk.isfacebook : <b>" + intel.xdk.isfacebook + "</b></a></li>" +
+                                    "<li><a>intel.xdk.isgoogle : <b>" + intel.xdk.isgoogle + "</b></a></li>" +
+                                    "<li><a>intel.xdk.isintel : <b>" + intel.xdk.isintel + "</b></a></li>" +
+                                    "<li><a>intel.xdk.ismozilla : <b>" + intel.xdk.ismozilla + "</b></a></li>" +
+                                    "<li><a>intel.xdk.isnative : <b>" + intel.xdk.isnative + "</b></a></li>" +
+                                    "<li><a>intel.xdk.isnook : <b>" + intel.xdk.isnook + "</b></a></li>" +
+                                    "<li><a>intel.xdk.isphone : <b>" + intel.xdk.isphone + "</b></a></li>" +
+                                    "<li><a>intel.xdk.istablet : <b>" + intel.xdk.istablet + "</b></a></li>" +
+                                    "<li><a>intel.xdk.istest : <b>" + intel.xdk.istest + "</b></a></li>" +
+                                    "<li><a>intel.xdk.isweb : <b>" + intel.xdk.isweb + "</b></a></li>" +
+                                    "<li><a>intel.xdk.isxdk : <b>" + intel.xdk.isxdk + "</b></a></li>" +
+                                    "<li><a>intel.xdk.jsVersion : <b>" + intel.xdk.jsVersion + "</b></a></li>" +
+                                    "<li><a>intel.xdk.oauthAvailable : <b>" + intel.xdk.oauthAvailable + "</b></a></li>" +
+                                    "<li><a>intel.xdk.webRoot : <b>" + intel.xdk.webRoot + "</b></a></li>";
+                            $("#xdkProps").html(ul);
+                        }
+                    </script>
+                </div>
+                
                 <div class="panel" data-footer="footer" title="Device Properties" id="xdkDevice">
                     <a class="button" onclick="xdkUpdateDeviceInfo()">Get Device Properties</a>
                     <ul class="list inset">
@@ -2178,7 +2232,6 @@ The parent id for this div is "content". Let's verify it.
                         <li id="xdkDevicePhonegap">Cordova Version :</li>
                         <li id="xdkDeviceAppMobi">AppMobi Version :</li>
                         <li id="xdkDeviceOrientation">Initial Orientation :</li>
-                        <li id="xdkDeviceConnection">Connection Type :</li>
                         <li id="xdkDeviceCaching">Caching :</li>
                         <li id="xdkDeviceStreaming">Streaming :</li>
                         <li id="xdkDeviceLastStation">Last Station :</li>
@@ -2191,16 +2244,16 @@ The parent id for this div is "content". Let's verify it.
                             $("#xdkDeviceVersion").html("Device Version : " + intel.xdk.device.osversion);
                             $("#xdkDeviceModel").html("Device Model : " + intel.xdk.device.model);
                             $("#xdkDevicePhonegap").html("Cordova Version : " + intel.xdk.device.phonegapversion);
-                            $("#xdkDeviceAppMobi").html("AppMobi Version : " + intel.xdk.device.appmobi);
+                            $("#xdkDeviceAppMobi").html("AppMobi Version : " + intel.xdk.device.appmobiversion);
                             $("#xdkDeviceOrientation").html("Initial Orientation : " + intel.xdk.device.initialOrientation);
-                            $("#xdkDeviceConnection").html("Connection Type : " + intel.xdk.device.connection);
-                            $("#xdkDeviceCaching").html("Caching : " + intel.xdk.device.isCaching);
-                            $("#xdkDeviceStreaming").html("Streaming : " + intel.xdk.device.isStreaming);
+                            $("#xdkDeviceCaching").html("Caching : " + intel.xdk.device.hasCaching);
+                            $("#xdkDeviceStreaming").html("Streaming : " + intel.xdk.device.hasStreaming);
                             $("#xdkDeviceLastStation").html("Last Station : " + intel.xdk.device.lastStation);
                             $("#xdkDeviceQueryString").html("Query String : " + intel.xdk.device.queryString);                                                 
                         }
                     </script>
-                </div>                
+                </div>   
+                
                 <div class="panel" data-footer="footer" id="xdkEvents" title="Device Events">
                     <h2>Events</h2>
                     <p>Monitor intel.xdk device events</p>
@@ -2222,6 +2275,7 @@ The parent id for this div is "content". Let's verify it.
                         <li><a id="xdkEvent_connectionupdate">device.connection.update</a></li>
                     </ul>                    
                 </div>
+                
                 <div class="panel" data-footer="footer" id="xdkRemoteData" title="Remote Data">
                     <h2>Remote Data Demo</h2>
                     <p></p>
@@ -2243,6 +2297,7 @@ The parent id for this div is "content". Let's verify it.
                         }
                     </script>    
                 </div> 
+                
                 <div class="panel" data-footer="footer" id="xdkInAppBrowser" title="In App Browser">
                     <h2>In App Browser Demo</h2>
                     <p>Methods that allow opening a remote website in differnt webview other than the main app webview, whitelising websites, closing webview, control position of close button, callbacks and more.</p>
@@ -2274,6 +2329,7 @@ The parent id for this div is "content". Let's verify it.
                         }
                     </script>
                 </div>
+                
                 <div class="panel" data-footer="footer" id="xdkInAppMessage" title="In App Messaging">
                     <h2>In App Messaging Demo</h2>
                     <p>Methods that allow opening Email or SMS app without leaving the app.</p>
@@ -2286,6 +2342,7 @@ The parent id for this div is "content". Let's verify it.
                     <div class="samplecode">intel.xdk.device.sendSMS(bodyText, toNumber);</div>
                     <p>You can use this method to open a SMS app within the app.</p>
                 </div>
+                
                 <div class="panel" data-footer="footer" id="xdkLaunchExternal" title="Launch External">
                     <h2>Launch External Demo</h2>
                     <p>Methods that allow opening a external browser or apps.</p>
@@ -2300,6 +2357,7 @@ The parent id for this div is "content". Let's verify it.
                     <div class="samplecode">intel.xdk.device.launchExternal(url)</div>
                     <p>You can use this method to open an external website or app on the device.</p>
                 </div>
+                
                 <div class="panel" data-footer="footer" id="xdkOrientation" title="Device Orientation">
                     <h2>Orientation Demo</h2>
                     <p></p>
@@ -2318,6 +2376,7 @@ The parent id for this div is "content". Let's verify it.
                     <div class="samplecode">intel.xdk.device.setRotateOrientation("portrait/landscape");</div>
                     <div class="samplecode">intel.xdk.device.setAutoRotate(BOOL);</div>
                 </div>
+                
                 <div class="panel" data-footer="footer" id="xdkNotification" title="Notifications">
                     <h2>Notifications Demo</h2>
                     <p></p>
@@ -2345,6 +2404,7 @@ The parent id for this div is "content". Let's verify it.
                     <div class="samplecode">intel.xdk.device.notification.showBusyIndicator();</div>
                     <div class="samplecode">intel.xdk.device.notification.hideBusyIndicator();</div>
                 </div>
+                
                 <div class="panel" data-footer="footer" id="xdkQRCodeReader" title="Barcode Scan">
                     <h2>QR Code Scanner Demo</h2>
                     <p>Method and event will make scanning QR Code possible inside the app.</p>
@@ -2368,11 +2428,13 @@ The parent id for this div is "content". Let's verify it.
                                 } else {
                                     intel.xdk.notification.alert("Canceled or Failed", "Scanner", "OK");
                                 }
+                                incrementBadge("#xdkEvent_barcodescan");
                             },false);
                             intel.xdk.device.scanBarcode();
                         }
                     </script>
                 </div>
+                
                 <div class="panel" data-footer="footer" id="xdkSplashScreen" title="Splash Screen">
                     <h2>Status Bar Demo</h2>
                     <p>Methods that allows hiding status bar.</p>
@@ -2382,8 +2444,24 @@ The parent id for this div is "content". Let's verify it.
                     <p>You can use these methods to hide Status Bar or Splash Screen.</p>
                     <div class="samplecode">intel.xdk.device.hideStatusBar()</div>
                     <div class="samplecode">intel.xdk.device.hideSplashScreen()</div>
-                </div>                
+                </div>
+
+                <div class="panel" data-footer="footer" id="xdkConnection" title="Connection">
+                    <a class="button icon wifi" onclick="xdkCheckConnection()">Get Connection Type</a>
+                    <p id="xdkConnectionType"></p>
+                    <script>
+                        function xdkCheckConnection() {
+                            document.addEventListener("intel.xdk.device.connection.update", function(){
+                                incrementBadge("#xdkEvent_connectionupdate");
+                                document.getElementById("xdkConnectionType").innerHTML = 'Connection Type : ' + intel.xdk.device.connection;
+                            },false);
+                            intel.xdk.device.updateConnection();
+                        }
+                    </script>    
+                </div>
+                
                 <!-- Device API> Cordova -->
+                
                 <div title="Cordova APIs" id="cordova" class="panel" data-footer="footer">
                     <h2>Cordova API Demo</h2>
                     <p id="cdvDevicereadyEvent">Cordova deviceready event has not fired, the demos will not work.</p>
@@ -2401,11 +2479,12 @@ The parent id for this div is "content". Let's verify it.
                         <li><a href="#inAppBrowser">InAppBrowser</a></li>
                         <li><a href="#contacts">Contacts</a></li>
                         <li><a href="#connection">Connection</a></li>
-                        <li><a href="#globalization">Globalization</a></li>
                         <li><a href="#splashScreen">Splash Screen</a></li>
                         <li><a href="#events">Events</a></li>
+                        <li><a href="#globalization">Globalization</a></li>
                     </ul>
                 </div>
+                
                 <div class="panel" data-footer="footer" id="events" title="Cordova Events">
                     <h2>Events</h2>
                     <p>Monitor Cordova device events</p>
@@ -2568,9 +2647,11 @@ The parent id for this div is "content". Let's verify it.
                     <p>You can use these methods to hide or show App Splash Screen.</p>
                     <div class="samplecode">navigator.splashscreen.show();</div>
                     <div class="samplecode">navigator.splashscreen.hide();</div>
-                </div>                 
-                <!-- Device API> Cordova -->
+                </div>    
             </div> 
+            
+            <!-- Device API > Cordova -->
+            
             <script type="text/javascript">            
                 /* Accelerometer */
                 var watchId = null;
