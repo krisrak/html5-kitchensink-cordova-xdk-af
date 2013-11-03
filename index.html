@@ -2281,6 +2281,9 @@ The parent id for this div is "content". Let's verify it.
                     <p></p>
                     <a class="button" onclick="xdkGetRemoteData()">Get Remote Data</a><br>
                     <br><br>
+                    <h3>Platforms</h3>
+                    <p>iOS<br>Android<br>Windows<br></p>
+                    <br>
                     <h3>Methods</h3>
                     <div class="samplecode">intel.xdk.device.getRemoteData(url, requestMethod, requestBody, successCallback, errorCallback)</div>
                     <p>You can use this method for making background POST/GET requests for remote data.</p>
@@ -2304,6 +2307,9 @@ The parent id for this div is "content". Let's verify it.
                     <a class="button" onclick="xdkStartAR()">Start AR Mode</a><br>
                     <a class="button" onclick="xdkStopAR()">Stop AR Mode</a><br>
                     <br><br>
+                    <h3>Platforms</h3>
+                    <p>iOS<br>Android<br>Windows<br></p>
+                    <br>
                     <h3>Methods</h3>
                     <p>Use these methods to start or stop Augmented Reality mode.</p>
                     <div class="samplecode">intel.xdk.display.startAR();</div>
@@ -2330,6 +2336,9 @@ The parent id for this div is "content". Let's verify it.
                     <a class="button" onclick="xdkSetViewport()">Set Viewport</a><br>
                     <a class="button" onclick="xdkResetViewport()">Reset Veiwport</a><br>
                     <br><br>
+                    <h3>Platforms</h3>
+                    <p>iOS<br>Android<br>Windows<br></p>
+                    <br>
                     <h3>Methods</h3>
                     <p>Use these methods to set fixed viewport size for all devices.</p>
                     <div class="samplecode">intel.xdk.display.lockViewportWindow( widthPortrait, heightPortrait, widthLandscape, heightLandscape);</div>
@@ -2352,6 +2361,9 @@ The parent id for this div is "content". Let's verify it.
                         <a class="button icon folder" onclick="xdkOpenBrowser()">Open Website</a><br>
                         <a class="button icon folder" onclick="xdkOpenBrowserBlock()">Open Some Websites</a><br>
                     </p>
+                    <br><br>
+                    <h3>Platforms</h3>
+                    <p>iOS<br>Android<br>Windows<br></p>
                     <br>
                     <h3>Methods</h3>
                     <div class="samplecode">intel.xdk.device.showRemoteSite( url, closeImageX, closeImageY, closeImageWidth, closeImageHeight)</div>
@@ -2384,6 +2396,9 @@ The parent id for this div is "content". Let's verify it.
                     <a class="button" href="#" onclick="intel.xdk.device.sendEmail('Email Message', 'user@email.com', 'Email subject', true, null, null)">Send Email</a><br>
                     <a class="button" href="#" onclick="intel.xdk.device.sendSMS('SMS Message', '4087658080')">Send SMS</a>	
                     <br><br>
+                    <h3>Platforms</h3>
+                    <p>iOS<br>Android<br></p>
+                    <br>
                     <h3>Methods</h3>
                     <div class="samplecode">intel.xdk.device.sendEmail(bodyText, toString, subjectText, isHTML, ccString, bccString);</div>
                     <p>You can use this method to open a Email app composer within the app.</p>
@@ -2400,29 +2415,122 @@ The parent id for this div is "content". Let's verify it.
                         <a class="button icon folder" onclick="intel.xdk.device.launchExternal('sms://4087658080')">Open SMS App</a><br>
                         <a class="button icon folder" onclick="intel.xdk.device.launchExternal('twitter://post?message=Message%20Tex')">Open Twitter App</a><br>
                     </p>
+                    <br><br>
+                    <h3>Platforms</h3>
+                    <p>iOS<br>Android<br>Windows<br></p>
                     <br>
                     <h3>Method</h3>
                     <div class="samplecode">intel.xdk.device.launchExternal(url)</div>
                     <p>You can use this method to open an external website or app on the device.</p>
                 </div>
                 
+                <div class="panel" data-footer="footer" id="xdkInstallNativeApp" title="Native App">
+                    <h2>Native App Demo</h2>
+                    <p></p>
+                    <a class="button" onclick="openInstagram()">Open or Install Instagram App</a><br>
+                    <br><br>
+                    <h3>Platforms</h3>
+                    <p>iOS<br>Android<br></p>
+                    <br>
+                    <h3>Methods</h3>
+                    <p>Run or install a native app on the device.</p>
+                    <div class="samplecode">intel.xdk.device.runInstallNativeApp(appName, protocolHandler, appLocationURL, bundleID);</div>
+                    <script>
+                        function openInstagram(){
+                            if(intel.xdk.device.platform=="iOS"){
+                                intel.xdk.device.runInstallNativeApp('Instagram', 'instagram://user?username=intel', 'itms-apps://itunes.apple.com/us/app/instagram/id389801252?mt=8');
+                            } else if(intel.xdk.device.platform=="Android"){
+                                intel.xdk.device.runInstallNativeApp('Instagram', 'instagram://', 'market://details?id=com.instagram.android', 'com.instagram.android');
+                            } else {
+                                intel.xdk.notification.alert("Feature only works on iOS and Android platforms", "Error", "OK"); 
+                            }
+                        }
+                    </script>
+                </div>
+                
                 <div class="panel" data-footer="footer" id="xdkOrientation" title="Device Orientation">
                     <h2>Orientation Demo</h2>
                     <p></p>
                     <div class="button-grouped flex">    
-                        <a class="button" href="#" onclick="intel.xdk.device.setRotateOrientation('portrait');">Set Portait</a>
-                        <a class="button" href="#" onclick="intel.xdk.device.setRotateOrientation('landscape');">Set Landscape</a>
+                        <a class="button" onclick="intel.xdk.device.setRotateOrientation('portrait');">Set Portait</a>
+                        <a class="button" onclick="intel.xdk.device.setRotateOrientation('landscape');">Set Landscape</a>
                     </div>
                     <br>
                     <div class="button-grouped flex">    
-                        <a class="button" href="#" onclick="intel.xdk.device.setAutoRotate(true);">Set AutoRotate</a>
-                        <a class="button" href="#" onclick="intel.xdk.device.setAutoRotate(false);">Unset AutoRotate</a>
+                        <a class="button" onclick="intel.xdk.device.setAutoRotate(true);">Set AutoRotate</a>
+                        <a class="button" onclick="intel.xdk.device.setAutoRotate(false);">Unset AutoRotate</a>
                     </div>
                     <br><br><br>
+                    <h3>Platforms</h3>
+                    <p>iOS<br>Android<br>Windows<br></p>
+                    <br>
                     <h3>Methods</h3>
                     <p>Methods below show how to set auto rotate or fix to a orientation</p>
                     <div class="samplecode">intel.xdk.device.setRotateOrientation("portrait/landscape");</div>
                     <div class="samplecode">intel.xdk.device.setAutoRotate(BOOL);</div>
+                </div>
+                
+                <div class="panel" data-footer="footer" id="xdkPower" title="Power States">
+                    <h2>Power States Demo</h2>
+                    <p></p>  
+                    <a class="button" onclick="intel.xdk.device.managePower(true,true);">Never Sleep</a>
+                    <a class="button" onclick="intel.xdk.device.managePower(true,false);">Never Sleep when Plugged-in</a>
+                    <a class="button" onclick="intel.xdk.device.managePower(false,false);">Reset Sleep State</a>
+                    <br>
+                    <br><br><br>
+                    <h3>Platforms</h3>
+                    <p>iOS<br>Android<br></p>
+                    <br>
+                    <h3>Methods</h3>
+                    <p>This method controls how the device behaves in certain power states. If shouldStayOn is true and onlywhenPluggedIn is true, then the device will not go to sleep if the device is plugged in.</p>
+                    <div class="samplecode">intel.xdk.device.managePower(shouldStayOn, onlyWhenPluggedIn);</div>
+                </div>
+                
+                <div class="panel" data-footer="footer" id="xdkMultitouch" title="Multitouch">
+                    <h2>Multitouch for Android Demo</h2>
+                    <p></p>  
+                    <a class="button" onclick="intel.xdk.multitouch.enable();">Enable Multitouch</a>
+                    <br><br><br>
+                    <h3>Platforms</h3>
+                    <p>Android<br></p>
+                    <br>
+                    <h3>Methods</h3>
+                    <p>This method starts listening for Android multi touch events on HTML elements at the cost of some device resources. It must be called if your app requires multitouch.</p>
+                    <div class="samplecode">intel.xdk.multitouch.enable();</div>
+                </div>
+                
+                <div class="panel" data-footer="footer" id="xdkRemoteScript" title="Remote Script">
+                    <h2>Load Script for Windows Demo</h2>
+                    <p></p>  
+                    <a class="button" onclick="loadScript()">Load script</a>
+                    <br><br><br>
+                    <h3>Platforms</h3>
+                    <p>Microsoft<br></p>
+                    <br>
+                    <h3>Methods</h3>
+                    <p>This method allows for remote loading of a JavaScript file for Microsoft Windows 8 because you can not include script tags loading remote files for this platform.</p>
+                    <div class="samplecode">intel.xdk.device.addRemoteScript(url, onLoad, onError);</div>
+                    <script>
+                        function loadScript(){
+                            intel.xdk.device.addRemoteScript('http://codeorigin.jquery.com/jquery-2.0.3.min.js', function(){alert('Script loaded')}, function(){alert('Error loading script')});
+                        }
+                    </script>    
+                </div>
+                
+                <div class="panel" data-footer="footer" id="xdkBackButton" title="Back Button">
+                    <h2>Back Button Demo</h2>
+                    <a class="button" onclick="intel.xdk.device.addVirtualPage();">Add Virtual Page</a>
+                    <a class="button" onclick="intel.xdk.device.removeVirtualPage();">Remove Virtual Page</a>
+                    <br><br><br>
+                    <h3>Platforms</h3>
+                    <p>Android<br></p>
+                    <br>
+                    <h3>Methods</h3>
+                    <p>addVirtualPage() function will intercept a single press of the device’s hardware "back" button and fire the intel.xdk.device.hardware.back event instead, removeVirtualPage() function will remove the interception.</p>
+                    <div class="samplecode">intel.xdk.device.addVirtualPage();</div>
+                    <div class="samplecode">intel.xdk.device.removeVirtualPage();</div>
+                    <h3>Event</h3>
+                    <div class="samplecode">intel.xdk.device.hardware.back</div>
                 </div>
                 
                 <div class="panel" data-footer="footer" id="xdkNotification" title="Notifications">
@@ -2443,6 +2551,9 @@ The parent id for this div is "content". Let's verify it.
                         <a class="button" href="#" onclick="intel.xdk.notification.hideBusyIndicator();">hideBusyIndicator</a>	
                     </div>
                     <br><br><br>
+                    <h3>Platforms</h3>
+                    <p>iOS<br>Android<br></p>
+                    <br>
                     <h3>Methods</h3>
                     <p>Methods below show how to use the differnet notifications.</p>
                     <div class="samplecode">intel.xdk.device.notification.alert(message, title, buttontext);</div>
@@ -2458,6 +2569,9 @@ The parent id for this div is "content". Let's verify it.
                     <p>Method and event will make scanning QR Code possible inside the app.</p>
                     <a class="button" href="#" onclick="launchQRCode()">QR Code Reader</a>
                     <br><br>
+                    <h3>Platforms</h3>
+                    <p>iOS<br>Android<br></p>
+                    <br>
                     <h3>Method</h3>
                     <div class="samplecode">intel.xdk.device.scanBarcode()</div>
                     <p>You can use this method to open a QR Code scanner and scan.</p>
@@ -2488,6 +2602,9 @@ The parent id for this div is "content". Let's verify it.
                     <p>Methods that allows hiding status bar.</p>
                     <a class="button" href="#" onclick="intel.xdk.device.hideStatusBar()">Hide Status Bar</a><br>
                     <br><br>
+                    <h3>Platforms</h3>
+                    <p>iOS<br>Android<br></p>
+                    <br>
                     <h3>Methods</h3>
                     <p>You can use these methods to hide Status Bar or Splash Screen.</p>
                     <div class="samplecode">intel.xdk.device.hideStatusBar()</div>
