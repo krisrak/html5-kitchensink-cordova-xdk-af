@@ -376,7 +376,7 @@
                         </li>
                     </ul>
                 </div>
-                <div id="afserialize" class="panel" data-footer="footer" title="$().serialize" data-nav="menu_AppFramework">
+                <div id="afserialize" class="panel" data-footer="footer" title="$().serialize">
                     <script>
                         function serializeForm() {
                             alert($("#form").serialize());
@@ -398,7 +398,8 @@
                     </form>
                 </div>
                 <!-- af> af Selector -->
-                <div id="af1" class="panel" data-footer="footer" title="$()" data-nav="menu_AppFramework">	<span id="aftest2">This is some html</span>
+                <div id="af1" class="panel" data-footer="footer" title="$()">
+                    <span id="aftest2">This is some html</span>
                     <br />
                     <br />
                     <a class="button"  onclick="alert($('#aftest2')[0])">Click to get Object</a>
@@ -407,7 +408,7 @@
                     <a class="button"  onclick="alert($('#aftest2').html())">Click to get Content</a>
                 </div>
                 <!-- af> af length() -->
-                <div id="af2" class="panel" data-footer="footer" title=".length()" data-nav="menu_AppFramework">
+                <div id="af2" class="panel" data-footer="footer" title=".length()">
                     <div class='af2'>Div 1 (class="af2")</div>
                     <div class='af2'>Div 2 (class="af2")</div>
                     <div class='af2'>Div 3 (class="af2")</div>
@@ -416,7 +417,7 @@
                     <a class="button"  onclick="alert($('.af2').length)">Click to get the Length by classname</a>
                 </div>
                 <!-- af> af find() -->
-                <div id="af3" class="panel" data-footer="footer" title=".find()" data-nav="menu_AppFramework">$("#div").find("li") find all element(s) inside a container
+                <div id="af3" class="panel" data-footer="footer" title=".find()">$("#div").find("li") find all element(s) inside a container
                     <br />
                     <br />
                     <ul class="list">
@@ -428,7 +429,7 @@
                     <br />
                 </div>
                 <!-- af> af html() -->
-                <div id="af4" class="panel" data-footer="footer" title=".html()" data-nav="menu_AppFramework">$("#div").html() allows you to get or set a contents HTML.
+                <div id="af4" class="panel" data-footer="footer" title=".html()">$("#div").html() allows you to get or set a contents HTML.
                     <br />
                     <br />
                     <div id="af4_content" style='border:1px solid black'>This is some content</div>
@@ -438,7 +439,7 @@
                     <a  class="button" onclick='$("#af4_content").html("New Content")'>Set Content</a>
                 </div>
                 <!-- af> af text() -->
-                <div id="af5" class="panel" data-footer="footer" title=".text()" data-nav="menu_AppFramework">$("#div").text() allows you to get or set a contents text.
+                <div id="af5" class="panel" data-footer="footer" title=".text()">$("#div").text() allows you to get or set a contents text.
                     <br />
                     <br />
                     <div id="af5_content" style='border:1px solid black'><span>This is some text</span> other text</div>
@@ -448,7 +449,7 @@
                     <a class="button"  onclick='$("#af5_content").text("New Text")'>Set Text</a>
                 </div>
                 <!-- af> af css() -->
-                <div id="af6" class="panel" data-footer="footer" title=".css()" data-nav="menu_AppFramework">$("#div").css() - allows you to get or set a CSS property.
+                <div id="af6" class="panel" data-footer="footer" title=".css()">$("#div").css() - allows you to get or set a CSS property.
                     <br />
                     <br />
                     <div style="background:red;color:white;border:1px solid black" id="af6_content">This is some content</div>
@@ -459,7 +460,7 @@
                     <a class="button"  onclick='$("#af6_content").css("background","green")'>Set background color</a>
                 </div>
                 <!-- af> af empty() -->
-                <div id="af7" class="panel" data-footer="footer" title=".empty()" data-nav="menu_AppFramework">$("#div").empty() - will empty out the contents of the element.
+                <div id="af7" class="panel" data-footer="footer" title=".empty()">$("#div").empty() - will empty out the contents of the element.
                     <br />
                     <br />
                     <div id="af7_content" style="border:1px solid black">This is some content</div>
@@ -468,7 +469,7 @@
                     <a class="button"  onclick='$("#af7_content").empty()'>$().empty()</a>
                 </div>
                 <!-- af> af hide() -->
-                <div id="af8" class="panel" data-footer="footer" title=".hide()" data-nav="menu_AppFramework">$("#div").hide() - will set the elements display property to "none".
+                <div id="af8" class="panel" data-footer="footer" title=".hide()">$("#div").hide() - will set the elements display property to "none".
                     <br />
                     <br />
                     <div id="af8_content" style="border:1px solid black">This is some content</div>
@@ -476,7 +477,7 @@
                     <a class="button"  onclick='$("#af8_content").hide()'>Hide the div</a>
                 </div>
                 <!-- af> af show() -->
-                <div id="af9" class="panel" data-footer="footer" title=".show()" data-nav="menu_AppFramework">$("#div").show() - will set the elements display property to "block".
+                <div id="af9" class="panel" data-footer="footer" title=".show()">$("#div").show() - will set the elements display property to "block".
                     <br />
                     <br />
                     <div id="af9_content" style="border:1px solid black;display:none;">This is some content</div>
@@ -484,7 +485,7 @@
                     <a class="button"  onclick='$("#af9_content").show()'>Show the div</a>
                 </div>
                 <!-- af> af toggle() -->
-                <div id="af10" class="panel" data-footer="footer" title=".toggle()" data-nav="menu_AppFramework">$("#div").toggle() - will toggle the elements display property.
+                <div id="af10" class="panel" data-footer="footer" title=".toggle()">$("#div").toggle() - will toggle the elements display property.
                     <br />
                     <br />
                     <div id="af10_content" style="border:1px solid black;display:block;">This is some content</div>
@@ -493,7 +494,7 @@
                     <a class="button"  onclick='$("#af10_content").toggle()'>Toggle a div</a>
                 </div>
                 <!-- af> af val() -->
-                <div id="af11" class="panel" data-footer="footer" title=".val()" data-nav="menu_AppFramework">$("#div").val() - will get or set the value of an HTML element.
+                <div id="af11" class="panel" data-footer="footer" title=".val()">$("#div").val() - will get or set the value of an HTML element.
                     <br />
                     <br />
                     <input type="text" id="af11_input" size=15>
@@ -504,7 +505,7 @@
                     <a class="button"  onclick='($("#af11_input").val("set value"))'>Set Value</a>
                 </div>
                 <!-- af> af attr() -->
-                <div id="af12" class="panel" data-footer="footer" title=".attr()" data-nav="menu_AppFramework">$("#div").attr() - will get or set an attribute of an HTML element.
+                <div id="af12" class="panel" data-footer="footer" title=".attr()">$("#div").attr() - will get or set an attribute of an HTML element.
                     <br />
                     <br />
                     <div id="af12_content" data-test="foo">The data-test attribute is set to "foo" - data-test="foo"</div>
@@ -515,7 +516,7 @@
                     <a class="button"  onclick='($("#af12_content").attr("data-test","bar"))'>Set Attribute Value</a>
                 </div>
                 <!-- af> af removeAttr() -->
-                <div id="af13" class="panel" data-footer="footer" title=".removeAttr()" data-nav="menu_AppFramework">$("#div").removeAttr() - will remove an attribute of an HTML element.
+                <div id="af13" class="panel" data-footer="footer" title=".removeAttr()">$("#div").removeAttr() - will remove an attribute of an HTML element.
                     <br />
                     <br />
                     <div id="af13_content" data-test="foo">The data-test attribute is set to "foo" - data-test="foo"</div>
@@ -525,7 +526,7 @@
                     <a class="button"  onclick='($("#af13_content").removeAttr("data-test"))'>Remove Attribute Value</a>
                 </div>
                 <!-- af> af remove() -->
-                <div id="af14" class="panel" data-footer="footer" title=".remove()" data-nav="menu_AppFramework">$("#div").remove() - will remove an element from the parent container.
+                <div id="af14" class="panel" data-footer="footer" title=".remove()">$("#div").remove() - will remove an element from the parent container.
                     <br />
                     <br />
                     <div id="af14_content" style="border:1px solid black">This is content that will be removed from the DOM.</div>
@@ -533,7 +534,7 @@
                     <a class="button"  onclick='$("#af14_content").remove()'>Remove the Element</a>
                 </div>
                 <!-- af> af addClass() -->
-                <div id="af15" class="panel" data-footer="footer" title=".addClass()" data-nav="menu_AppFramework">$("#div").addClass() - adds a css class to the element.
+                <div id="af15" class="panel" data-footer="footer" title=".addClass()">$("#div").addClass() - adds a css class to the element.
                     <br />
                     <br />
                     <div style='border:1px solid black' id="af15_content">This is some content</div>
@@ -542,7 +543,7 @@
                     <a class="button"  onclick='($("#af15_content").addClass("class16"))'>Add a Class</a>
                 </div>
                 <!-- af> af removeClass() -->
-                <div id="af16" class="panel" data-footer="footer" title=".removeClass()" data-nav="menu_AppFramework">$("#div").removeClass() - removes a css class to the element.
+                <div id="af16" class="panel" data-footer="footer" title=".removeClass()">$("#div").removeClass() - removes a css class to the element.
                     <br />
                     <br />
                     <div style='border:1px solid black' id="af16_content" class="class16">This is some content</div>
@@ -550,7 +551,7 @@
                     <a class="button"  onclick='($("#af16_content").removeClass("class16"))'>Remove the Class</a>
                 </div>
                 <!-- af> af hassClass() -->
-                <div id="af17" class="panel" data-footer="footer" title=".hasClass()" data-nav="menu_AppFramework">$("#div").hassClass() - returns a boolean if an element has a class.
+                <div id="af17" class="panel" data-footer="footer" title=".hasClass()">$("#div").hassClass() - returns a boolean if an element has a class.
                     <br />
                     <br />
                     <div style='border:1px solid black' id="af17_content" class="class16">This is some content</div>
@@ -558,7 +559,7 @@
                     <a class="button"  onclick='alert($("#af17_content").hasClass("class16"))'>Check if it has the class</a>
                 </div>
                 <!-- af> af bind() -->
-                <div id="af18" class="panel" data-footer="footer" title=".bind()" data-nav="menu_AppFramework">$("#div").bind() - binds an event to an element.
+                <div id="af18" class="panel" data-footer="footer" title=".bind()">$("#div").bind() - binds an event to an element.
                     <br />
                     <br />
                     <a class="button"  id="af18_content">Test Link to bind event to</a>
@@ -568,7 +569,7 @@
                     <br />
                 </div>
                 <!-- af> af unbind() -->
-                <div id="af19" class="panel" data-footer="footer" title=".unbind()" data-nav="menu_AppFramework">$("#div").unbind() - unbinds an event from an element.
+                <div id="af19" class="panel" data-footer="footer" title=".unbind()">$("#div").unbind() - unbinds an event from an element.
                     <br />
                     <br />
                     <a class="button"  id="af19_content">This is a test link</a>
@@ -579,7 +580,7 @@
                     <a class="button"  onclick='$("#af19_content").unbind("click")'>Unbind Event</a>
                 </div>
                 <!-- af> af trigger() -->
-                <div id="af20" class="panel" data-footer="footer" title=".trigger()" data-nav="menu_AppFramework">$("#div").trigger() - triggers an event on an element.
+                <div id="af20" class="panel" data-footer="footer" title=".trigger()">$("#div").trigger() - triggers an event on an element.
                     <br />
                     <br />
                     <a id="af20_content"  onclick="alert('I was clicked')">Click to test me</a>
@@ -588,7 +589,7 @@
                     <a class="button"  onclick='$("#af20_content").trigger("click")'>Trigger Event</a>
                 </div>
                 <!-- af> af append() -->
-                <div id="af21" class="panel" data-footer="footer" title=".append()" data-nav="menu_AppFramework">$("#div").append() - appends an element or content.
+                <div id="af21" class="panel" data-footer="footer" title=".append()">$("#div").append() - appends an element or content.
                     <br />
                     <br />
                     <div id="af21_content">I'll append content after the &lt;hr>
@@ -599,7 +600,7 @@
                     <a class="button"  onclick='$("#af21_content").append("<span>Some more content<br /></span>");'>Append Content</a>
                 </div>
                 <!-- af> af prepend() -->
-                <div id="af22" class="panel" data-footer="footer" title=".prepend()" data-nav="menu_AppFramework">$("#div").prepend() - prepends an element or content.
+                <div id="af22" class="panel" data-footer="footer" title=".prepend()">$("#div").prepend() - prepends an element or content.
                     <br />
                     <br />
                     <div id="af22_content">
@@ -609,7 +610,7 @@
                     <a class="button"  onclick='$("#af22_content").prepend("<span>Some more content<br /></span>");'>Prepend Content</a>
                 </div>
                 <!-- af> af offset() -->
-                <div id="af31" class="panel" data-footer="footer" title=".offset()" data-nav="menu_AppFramework">
+                <div id="af31" class="panel" data-footer="footer" title=".offset()">
                     <script>
                         function getElementOffset() {
                             var data = $("#af31").offset();
@@ -621,7 +622,7 @@
                     <a class="button"  onclick='getElementOffset()'>Get Offsett</a>
                 </div>
                 <!-- af> af get(0) -->
-                <div id="af32" class="panel" data-footer="footer" title=".get(0)" data-nav="menu_AppFramework">$("#div").get(0) - Get's an individual element by index.
+                <div id="af32" class="panel" data-footer="footer" title=".get(0)">$("#div").get(0) - Get's an individual element by index.
                     <br />
                     <br />
                     <script>
@@ -633,7 +634,7 @@
                     <a class="button"  onclick='getElementByIndex();'>Get first panel</a>
                 </div>
                 <!-- af> af jsonP() -->
-                <div id="af23" class="panel" data-footer="footer" title=".jsonP()" data-nav="menu_AppFramework">$.jsonP(url:"URL", success:function(){}, timeout:"1000", error:function(){} ) - makes a jsonP call for cross domain scripting
+                <div id="af23" class="panel" data-footer="footer" title=".jsonP()">$.jsonP(url:"URL", success:function(){}, timeout:"1000", error:function(){} ) - makes a jsonP call for cross domain scripting
                     <br />
                     <br />
                     <div id="af23_content" style="border:1px solid black;">This will get updated with content from the jsonP call</div>
@@ -642,7 +643,7 @@
                     <a class="button"  onclick="$.jsonP({url:'http://jsfiddle.net/echo/jsonp/?test=some+html+content&callback=?',success:function(data){$('#af23_content').html(data.test)}});">Make jsonP call</a>
                 </div>
                 <!-- af> af ajax() -->
-                <div id="af24" class="panel" data-footer="footer" title=".ajax()" data-nav="menu_AppFramework">$.ajax(url:"URL", success:function(){}, timeout:"1000", error:function(){} ) - makes an Ajax call
+                <div id="af24" class="panel" data-footer="footer" title=".ajax()">$.ajax(url:"URL", success:function(){}, timeout:"1000", error:function(){} ) - makes an Ajax call
                     <br />
                     <br />
                     <script type="text/javascript">
@@ -661,7 +662,7 @@
                     <a class="button"  onclick="doAjax()">Make Ajax Call</a>
                 </div>
                 <!-- af> af get(0) -->
-                <div id="af25" class="panel" data-footer="footer" title=".get(0)" data-nav="menu_AppFramework">$.get(url:"URL", success:function(){}, timeout:"1000", error:function(){} ) - makes an Ajax call
+                <div id="af25" class="panel" data-footer="footer" title=".get(0)">$.get(url:"URL", success:function(){}, timeout:"1000", error:function(){} ) - makes an Ajax call
                     <br />
                     <br />
                     <script type="text/javascript">
@@ -677,7 +678,7 @@
                     <a class="button"  onclick="doget()">Make Get Call</a>
                 </div>
                 <!-- af> af post() -->
-                <div id="af26" class="panel" data-footer="footer" title=".post()" data-nav="menu_AppFramework">$.post(url,data:{foo:"bar"}, success:function(){}, timeout:"1000",error: function(){} ) - makes an Ajax call
+                <div id="af26" class="panel" data-footer="footer" title=".post()">$.post(url,data:{foo:"bar"}, success:function(){}, timeout:"1000",error: function(){} ) - makes an Ajax call
                     <br />
                     <br />
                     <script type="text/javascript">
@@ -695,7 +696,7 @@
                     <a class="button"  onclick="doPost()">Make Post Call</a>
                 </div>
                 <!-- af> af getJSON() -->
-                <div id="af27" class="panel" data-footer="footer" title=".getJSON()" data-nav="menu_AppFramework">$.getJSON(url,data,success); - Makes a XMLHpttRequest GET request and returns a JSON object.
+                <div id="af27" class="panel" data-footer="footer" title=".getJSON()">$.getJSON(url,data,success); - Makes a XMLHpttRequest GET request and returns a JSON object.
                     <br />
                     <br />
                     <script>
@@ -732,7 +733,7 @@
                     <a class="button"  onclick="doSerialize()">Make param Call</a>
                 </div>
                 <!-- af> af parseJSON() -->
-                <div id="af29" class="panel" data-footer="footer" title=".parseJSON()" data-nav="menu_AppFramework">$.parseJSON() - parses a string and converts it into a JSON object. Uses the native JSON parser, but is added for backwards compatibility.
+                <div id="af29" class="panel" data-footer="footer" title=".parseJSON()">$.parseJSON() - parses a string and converts it into a JSON object. Uses the native JSON parser, but is added for backwards compatibility.
                     <br>
                     <br>	<code>
 									var obj='{"foo":"bar"}';
@@ -748,7 +749,7 @@
                     <a class="button"  onclick="doParseJson()">Parse JSON string</a>
                 </div>
                 <!-- af> os -->
-                <div id="af30" class="panel" data-footer="footer" title=".os" data-nav="menu_AppFramework">$.os - holds information about the OS of the device, and if it is a webkit browser
+                <div id="af30" class="panel" data-footer="footer" title=".os">$.os - holds information about the OS of the device, and if it is a webkit browser
                     <br>
                     <br>	<div class="samplecode" >
 									$.os.webkit  = <script>document.write($.os.webkit);</script><br>
@@ -765,7 +766,7 @@
 
                 </div>
                 <!-- af> isArray -->
-                <div id="af33" class="panel" data-footer="footer" title=".isArray()" data-nav="menu_AppFramework">$.isArray(param) - returns a boolean if the parameter is an array.
+                <div id="af33" class="panel" data-footer="footer" title=".isArray()">$.isArray(param) - returns a boolean if the parameter is an array.
                     <br>
                     <br>	<div class="samplecode">var notArrayTest="foo";<br>
 									var isArrayTest=[];
@@ -791,7 +792,7 @@
                     <br>
                 </div>
                 <!-- af> isFunction -->
-                <div id="af34" class="panel" data-footer="footer" title=".isFunction()" data-nav="menu_AppFramework">$.isFunction(param) - returns a boolean if the parameter is a function.
+                <div id="af34" class="panel" data-footer="footer" title=".isFunction()">$.isFunction(param) - returns a boolean if the parameter is a function.
                     <br>
                     <br>	<div class="samplecode">
 									var notFunctionTest="foo";<br>
@@ -817,7 +818,7 @@
                     <a class="button"  onclick="isAFunction()">test isFunctionTest</a>
                     <br>
                 </div>
-                <div id="afparent" class="panel" data-footer="footer" title=".parent()" data-nav="menu_AppFramework">This returns the parent elements for the previously found elements in the container	<div class="samplecode">
+                <div id="afparent" class="panel" data-footer="footer" title=".parent()">This returns the parent elements for the previously found elements in the container	<div class="samplecode">
 									$("#afparent").parent();
 								</div>
 The parent id for this div is "content". Let's verify it.
