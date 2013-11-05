@@ -217,6 +217,11 @@
                 <a href="#deviceapi" id='navbar_deviceapi' class="icon camera" data-transition="fade">Device</a>
             </div>
             
+            <footer id="custom_footer">
+                <a href="#" class='icon tools'>Custom</a>
+                <a href="#" class="icon basket">Footer</a>
+            </footer>
+            
             <div id="content">
                 <div title='Welcome' id="main" class="panel" data-tab="navbar_home" selected="true" data-load="loadedPanel" data-unload="unloadedPanel">
                     <h2 class='expanded' onclick='showHide(this,"main_info");'>Welcome</h2>
@@ -1116,8 +1121,7 @@ The parent id for this div is "content". Let's verify it.
                     <br>If you are on a tablet, you'll already see the side menu. If you are on a phone, click the "Powered by AppFramework" button to expand it.
                     <br>
                     <Br>Side menu's are created using the &lt;nav&gt; tags. You can set the id and then refer to them on each panel by setting the data-menu='id' property. The side menu's will only show if you have &lt;nav&gt; defined.</div>
-                <div id="uifooter" title="Custom Footers"
-                class="panel">
+                <div id="uifooter" title="Custom Footers" data-footer="custom_footer" class="panel">
                     <p>You should notice that the footer is no longer the default. It is specific to App Framework UI, with options for Transitions, UI and API</p>You can create custom fotoers using the &lt;footer&gt; tag. You then set the id on each panel to change them using
                     the data-footer='id' property.</div>
                 <div id="afgrid" title="Grid System" class="panel">
