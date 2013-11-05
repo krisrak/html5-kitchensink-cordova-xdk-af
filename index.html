@@ -2147,9 +2147,11 @@ The parent id for this div is "content". Let's verify it.
                         <li><a href="#xdkLaunchExternal">Launch External Browser/Apps</a></li>
                         <li><a href="#xdkInstallNativeApp">Install Native App</a></li>
                         <li><a href="#xdkFacebook">Facebook Integration</a></li>
+                        <li><a href="#xdkFileUpload">File Upload to Server</a></li>
                         <li><a href="#xdkRemoteData">Access Cross-Origin Data</a></li>
                         <li><a href="#xdkOauth">Oauth</a></li>
-                        <li><a href="#xdkBasicAuthentication">Basic Authentication</a></li>
+                        <li><a href="#xdkBasicAuth">Basic Authentication</a></li>
+                        <li><a href="#xdkPlayer">Audio Video Player</a></li>
                         <li><a href="#xdkCache">Device Cache</a></li>
                         <li><a href="#xdkCookies">Cookies</a></li>
                         <li><a href="#xdkCanvas">Accelerated Canvas</a></li>
@@ -2163,12 +2165,8 @@ The parent id for this div is "content". Let's verify it.
                         <li><a href="#xdkRemoteScript">Load remote script for Win8</a></li>
                         <li class="divider">Similar to Cordava APIs</li>
                         <li><a href="#xdkAccelerometer">Accelerometer</a></li>
-                        <li><a href="#xdkCamera">Camera</a></li>
                         <li><a href="#xdkGeolocation">Geolocation</a></li>
-                        <li><a href="#xdkCapture">Capture</a></li>
-                        <li><a href="#xdkMedia">Media</a></li>
-                        <li><a href="#xdkFile">File</a></li>
-                        <li><a href="#xdkStorage">Storage</a></li>
+                        <li><a href="#xdkCamera">Camera (Photos)</a></li>
                         <li><a href="#xdkNotification">Notification</a></li>
                         <li><a href="#xdkInAppBrowser">In App Browser</a></li>
                         <li><a href="#xdkContacts">Contacts</a></li>
@@ -2181,43 +2179,43 @@ The parent id for this div is "content". Let's verify it.
                 <div class="panel" data-footer="footer" title="intel.xdk Properties" id="xdkProp">
                     <a class="button" onclick="xdkGetProperties()">Get XDK Properties</a>
                     <ul class="list inset" id="xdkProps">
-                        <li><a>intel.xdk.app</a></li>
-                        <li><a>intel.xdk.isamazon</a></li>
-                        <li><a>intel.xdk.ischrome</a></li>
-                        <li><a>intel.xdk.isfacebook</a></li>
-                        <li><a>intel.xdk.isgoogle</a></li>
-                        <li><a>intel.xdk.isintel</a></li>
-                        <li><a>intel.xdk.ismozilla</a></li>
-                        <li><a>intel.xdk.isnative</a></li>
-                        <li><a>intel.xdk.isnook</a></li>
-                        <li><a>intel.xdk.isphone</a></li>
-                        <li><a>intel.xdk.istablet</a></li>
-                        <li><a>intel.xdk.istest</a></li>
-                        <li><a>intel.xdk.isweb</a></li>
-                        <li><a>intel.xdk.isxdk</a></li>
-                        <li><a>intel.xdk.jsVersion</a></li>
-                        <li><a>intel.xdk.oauthAvailable</a></li>
-                        <li><a>intel.xdk.webRoot</a></li>
+                        <li>intel.xdk.app</li>
+                        <li>intel.xdk.isamazon</li>
+                        <li>intel.xdk.ischrome</li>
+                        <li>intel.xdk.isfacebook</li>
+                        <li>intel.xdk.isgoogle</li>
+                        <li>intel.xdk.isintel</li>
+                        <li>intel.xdk.ismozilla</li>
+                        <li>intel.xdk.isnative</li>
+                        <li>intel.xdk.isnook</li>
+                        <li>intel.xdk.isphone</li>
+                        <li>intel.xdk.istablet</li>
+                        <li>intel.xdk.istest</li>
+                        <li>intel.xdk.isweb</li>
+                        <li>intel.xdk.isxdk</li>
+                        <li>intel.xdk.jsVersion</li>
+                        <li>intel.xdk.oauthAvailable</li>
+                        <li>intel.xdk.webRoot</li>
                     </ul>
                     <script>
                         function xdkGetProperties(){
-                            var ul = "<li><a>intel.xdk.app : <b>" + intel.xdk.app + "</b></a></li>" +
-                                    "<li><a>intel.xdk.isamazon : <b>" + intel.xdk.isamazon + "</b></a></li>" +
-                                    "<li><a>intel.xdk.ischrome : <b>" + intel.xdk.ischrome + "</b></a></li>" +
-                                    "<li><a>intel.xdk.isfacebook : <b>" + intel.xdk.isfacebook + "</b></a></li>" +
-                                    "<li><a>intel.xdk.isgoogle : <b>" + intel.xdk.isgoogle + "</b></a></li>" +
-                                    "<li><a>intel.xdk.isintel : <b>" + intel.xdk.isintel + "</b></a></li>" +
-                                    "<li><a>intel.xdk.ismozilla : <b>" + intel.xdk.ismozilla + "</b></a></li>" +
-                                    "<li><a>intel.xdk.isnative : <b>" + intel.xdk.isnative + "</b></a></li>" +
-                                    "<li><a>intel.xdk.isnook : <b>" + intel.xdk.isnook + "</b></a></li>" +
-                                    "<li><a>intel.xdk.isphone : <b>" + intel.xdk.isphone + "</b></a></li>" +
-                                    "<li><a>intel.xdk.istablet : <b>" + intel.xdk.istablet + "</b></a></li>" +
-                                    "<li><a>intel.xdk.istest : <b>" + intel.xdk.istest + "</b></a></li>" +
-                                    "<li><a>intel.xdk.isweb : <b>" + intel.xdk.isweb + "</b></a></li>" +
-                                    "<li><a>intel.xdk.isxdk : <b>" + intel.xdk.isxdk + "</b></a></li>" +
-                                    "<li><a>intel.xdk.jsVersion : <b>" + intel.xdk.jsVersion + "</b></a></li>" +
-                                    "<li><a>intel.xdk.oauthAvailable : <b>" + intel.xdk.oauthAvailable + "</b></a></li>" +
-                                    "<li><a>intel.xdk.webRoot : <b>" + intel.xdk.webRoot + "</b></a></li>";
+                            var ul = "<li>intel.xdk.app : <b>" + intel.xdk.app + "</b></li>" +
+                                    "<li>intel.xdk.isamazon : <b>" + intel.xdk.isamazon + "</b></li>" +
+                                    "<li>intel.xdk.ischrome : <b>" + intel.xdk.ischrome + "</b></li>" +
+                                    "<li>intel.xdk.isfacebook : <b>" + intel.xdk.isfacebook + "</b></li>" +
+                                    "<li>intel.xdk.isgoogle : <b>" + intel.xdk.isgoogle + "</b></li>" +
+                                    "<li>intel.xdk.isintel : <b>" + intel.xdk.isintel + "</b></li>" +
+                                    "<li>intel.xdk.ismozilla : <b>" + intel.xdk.ismozilla + "</b></li>" +
+                                    "<li>intel.xdk.isnative : <b>" + intel.xdk.isnative + "</b></li>" +
+                                    "<li>intel.xdk.isnook : <b>" + intel.xdk.isnook + "</b></li>" +
+                                    "<li>intel.xdk.isphone : <b>" + intel.xdk.isphone + "</b></li>" +
+                                    "<li>intel.xdk.istablet : <b>" + intel.xdk.istablet + "</b></li>" +
+                                    "<li>intel.xdk.istest : <b>" + intel.xdk.istest + "</b></li>" +
+                                    "<li>intel.xdk.isweb : <b>" + intel.xdk.isweb + "</b></li>" +
+                                    "<li>intel.xdk.isxdk : <b>" + intel.xdk.isxdk + "</b></li>" +
+                                    "<li>intel.xdk.jsVersion : <b>" + intel.xdk.jsVersion + "</b></li>" +
+                                    "<li>intel.xdk.oauthAvailable : <b>" + intel.xdk.oauthAvailable + "</b></li>" +
+                                    "<li>intel.xdk.webRoot : <b>" + intel.xdk.webRoot + "</b></li>";
                             $("#xdkProps").html(ul);
                         }
                     </script>
@@ -2259,21 +2257,21 @@ The parent id for this div is "content". Let's verify it.
                     <h2>Events</h2>
                     <p>Monitor intel.xdk device events</p>
                     <ul class="list inset">
-                        <li><a id="xdkEvent_deviceready">device.ready</a></li>
+                        <li><a id="xdkEvent_deviceready">intel.xdk.device.ready</a></li>
                         <li class="divider">device state</li>
-                        <li><a id="xdkEvent_pause">device.pause</a></li>
-                        <li><a id="xdkEvent_resume">device.resume</a></li>
-                        <li><a id="xdkEvent_continue">device.continue</a></li>
-                        <li><a id="xdkEvent_suspend">device.suspend</a></li>
+                        <li><a id="xdkEvent_pause">intel.xdk.device.pause</a></li>
+                        <li><a id="xdkEvent_resume">intel.xdk.device.resume</a></li>
+                        <li><a id="xdkEvent_continue">intel.xdk.device.continue</a></li>
+                        <li><a id="xdkEvent_suspend">intel.xdk.device.suspend</a></li>
                         <li class="divider">misc events</li>
-                        <li><a id="xdkEvent_backbutton">device.hardware.back</a></li>
-                        <li><a id="xdkEvent_orientation">device.orientation.change</a></li>
-                        <li><a id="xdkEvent_barcodescan">devicedevice.barcode.scan</a></li>
+                        <li><a id="xdkEvent_backbutton">intel.xdk.device.hardware.back</a></li>
+                        <li><a id="xdkEvent_orientation">intel.xdk.device.orientation.change</a></li>
+                        <li><a id="xdkEvent_barcodescan">intel.xdk.device.barcode.scan</a></li>
                         <li class="divider">remote connection events</li>
-                        <li><a id="xdkEvent_remoteData">device.remote.data</a></li>
-                        <li><a id="xdkEvent_remoteClose">device.remote.close</a></li>
-                        <li><a id="xdkEvent_remoteBlock">device.remote.block</a></li>
-                        <li><a id="xdkEvent_connectionupdate">device.connection.update</a></li>
+                        <li><a id="xdkEvent_remoteData">intel.xdk.device.remote.data</a></li>
+                        <li><a id="xdkEvent_remoteClose">intel.xdk.device.remote.close</a></li>
+                        <li><a id="xdkEvent_remoteBlock">intel.xdk.device.remote.block</a></li>
+                        <li><a id="xdkEvent_connectionupdate">intel.xdk.device.connection.update</a></li>
                     </ul>                    
                 </div>
                 
@@ -2282,25 +2280,196 @@ The parent id for this div is "content". Let's verify it.
                     <p></p>
                     <a class="button" onclick="xdkGetRemoteData()">Get Remote Data</a><br>
                     <br><br>
-                    <h3>Platforms</h3>
-                    <p>iOS<br>Android<br>Windows<br></p>
-                    <br>
                     <h3>Methods</h3>
+                    <p>You can use this method for making background POST/GET requests for remote data.</p>
                     <div class="samplecode">intel.xdk.device.getRemoteData(url, requestMethod, requestBody, successCallback, errorCallback)</div>
-                    <p>You can use this method for making background POST/GET requests for remote data.</p>
                     <div class="samplecode">intel.xdk.device.getRemoteDataWithID(url, requestMethod, requestBody, successCallback, errorCallback, uniqueIdentifier)</div>
-                    <p>You can use this method for making background POST/GET requests for remote data.</p>
                     <div class="samplecode">var param = new intel.xdk.device.RemoteDataParameters();<br><br>//param : {url, header, body, subject, url, method}<br><br>intel.xdk.device.getRemoteDataExt(param);</div>
-                    <p>You can use this method for making background POST/GET requests for remote data.</p>
                     <h3>Event</h3>
-                    <div class="samplecode">document.addEventListener( "intel.xdk.device.remote.data", function(e){alert(e.response)}, false)</div>
                     <p>Use this event listener to get the remote data from getRemoteDataExt().</p>
+                    <div class="samplecode">document.addEventListener( "intel.xdk.device.remote.data", function(e){alert(e.response)}, false)</div>
                     <script>
                         function xdkGetRemoteData(){
-                            
+                            intel.xdk.notification.alert("No Demo", "Demo", "OK");
+                        }
+                    </script>    
+                </div>
+                
+                <div class="panel" data-footer="footer" id="xdkFileUpload" title="File Upload">
+                    <h2>Upload File Demo</h2>
+                    <p></p>
+                    <a class="button" onclick="xdkFileUpload()">Upload File</a><br>
+                    <br><br>
+                    <h3>Methods</h3>
+                    <p>You can use this method for uploading files to remote data.</p>
+                    <div class="samplecode">intel.xdk.file.uploadToServer(localURL, uploadURL, folderName, mimeType, uploadProgressCallback)</div>
+                    <div class="samplecode">intel.xdk.file.cancelUpload()</div>
+                    <h3>Events</h3>
+                    <p>Use this event listener to get the remote data from file upload methods.</p>
+                    <div class="samplecode">intel.xdk.file.upload<br>intel.xdk.file.upload.busy<br>intel.xdk.file.upload.cancel</div>
+                    <script>
+                        function xdkFileUpload(){
+                            intel.xdk.notification.alert("No Demo", "Demo", "OK");
                         }
                     </script>    
                 </div> 
+                
+                <div class="panel" data-footer="footer" id="xdkOauth" title="Oauth">
+                    <h2>Oauth Demo</h2>
+                    <p></p>
+                    <a class="button" onclick="xdkOauth()">Oauth</a><br>
+                    <br><br>
+                    <h3>Methods</h3>
+                    <p>This method is used to get oauth authorization for a service, or update oauth protected data for a service once authorization is received.</p>
+                    <div class="samplecode">intel.xdk.oauth.getProtectedData(params)<br><br>//param : {service, url, id, method, body}<br><br>var params = new intel.xdk.OAuth.ProtectedDataParameters()</div>
+                    <p>This method removes authorization for a service that had previously been authorized.</p>
+                    <div class="samplecode">intel.xdk.oauth.unauthorizeService(service)</div>
+                    <h3>Events</h3>
+                    <p>Use this event listener to get the remote data from Oauth methods.</p>
+                    <div class="samplecode">intel.xdk.oauth.busy<br>intel.xdk.oauth.protected.data<br>intel.xdk.oauth.setup<br>intel.xdk.oauth.unavailable<br>intel.xdk.oauth.unauthorize</div>
+                    <script>
+                        function xdkOauth(){
+                            intel.xdk.notification.alert("No Demo", "Demo", "OK");
+                        }
+                    </script>    
+                </div> 
+                
+                <div class="panel" data-footer="footer" id="xdkBasicAuth" title="Basic Authentication">
+                    <h2>Basic Authentication Demo</h2>
+                    <p></p>
+                    <a class="button" onclick="xdkBasicAuth()">Basic Auth</a><br>
+                    <br><br>
+                    <h3>Platforms</h3>
+                    <p>iOS<br>Android<br></p>
+                    <br>
+                    <h3>Methods</h3>
+                    <p>This function will set header data required for basic authentication over the Internet.</p>
+                    <div class="samplecode">intel.xdk.device.setBasicAuthentication(domain, username, password)</div>
+                    <script>
+                        function xdkBasicAuth(){
+                            intel.xdk.notification.alert("No Demo", "Demo", "OK");
+                        }
+                    </script>    
+                </div> 
+                
+                <div class="panel" data-footer="footer" id="xdkFacebook" title="Facebook">
+                    <h2>Facebook Integration Demo</h2>
+                    <p></p>
+                    <a class="button" onclick="xdkFacebook()">Facebook</a><br>
+                    <br><br>
+                    <h3>Methods</h3>
+                    <p>This object gives applications the capability to log users into Facebook in order to access their Facebook Graph as well as to post to the news feed and share request dialogs.</p>
+                    <div class="samplecode">intel.xdk.facebook.login(FB_PERMISSIONS)</div>
+                    <div class="samplecode">intel.xdk.facebook.logout</div>
+                    <div class="samplecode">intel.xdk.facebook.requestWithGraphAPI(path, method, parameters);</div>
+                    <div class="samplecode">intel.xdk.facebook.requestWithRestAPI(command, method, parameters);</div>
+                    <div class="samplecode">intel.xdk.facebook.showAppRequestDialog(parameters);</div>
+                    <div class="samplecode">intel.xdk.facebook.showNewsFeedDialog(parameters);</div>
+                    <div class="samplecode">intel.xdk.facebook.enableFrictionlessRequests()</div>
+                    <h3>Events</h3>
+                    <p>Use this event listener to get the remote data from facebook methods.</p>
+                    <div class="samplecode">intel.xdk.facebook.busy            <br>intel.xdk.facebook.dialog.complete<br>intel.xdk.facebook.dialog.fail<br>intel.xdk.facebook.login<br>intel.xdk.facebook.logout<br>intel.xdk.facebook.request.response<br>intel.xdk.facebook.session.invalidate</div>
+                    <script>
+                        function xdkFacebook(){
+                            intel.xdk.notification.alert("No Demo", "Demo", "OK");
+                        }
+                    </script>    
+                </div>
+                
+                <div class="panel" data-footer="footer" id="xdkCache" title="Device Cache">
+                    <h2>Caching Demo</h2>
+                    <p></p>
+                    <a class="button" onclick="xdkCache()">Cache</a><br>
+                    <br><br>
+                    <h3>Methods</h3>
+                    <p>This object is intended to provide local storage for data to speed up applications. These are meant to provide quicker access to files such as videos and images. These are files that are cached across sessions and are not in your application bundle. </p>
+                    <div class="samplecode">intel.xdk.cache.addToMediaCache(url)</div>
+                    <div class="samplecode">intel.xdk.cache.addToMediaCacheExt(url,id)</div>
+                    <div class="samplecode">intel.xdk.cache.clearMediaCache()</div>
+                    <div class="samplecode">intel.xdk.cache.getMediaCacheList()</div>
+                    <div class="samplecode">intel.xdk.cache.getMediaCacheLocalURL(url)</div>
+                    <div class="samplecode">intel.xdk.cache.removeFromMediaCache(url)</div>
+                    <h3>Events</h3>
+                    <p>Use this event listener to get the remote data from facebook methods.</p>
+                    <div class="samplecode">intel.xdk.cache.media.add            <br>intel.xdk.cache.media.clear<br>intel.xdk.cache.media.remove<br>intel.xdk.cache.media.update<br></div>
+                    <script>
+                        function xdkCache(){
+                            intel.xdk.notification.alert("No Demo", "Demo", "OK");
+                        }
+                    </script>    
+                </div>
+                
+                <div class="panel" data-footer="footer" id="xdkCookies" title="Cookie">
+                    <h2>Cookies Demo</h2>
+                    <p></p>
+                    <div>
+                        <label for="lat">username:</label>
+                        <input type="text" id="xdk-username" style='width:150px' />
+                    </div>
+                    <a class="button" onclick="xdkSetCookie()">Set Cookie</a><br>
+                    <a class="button" onclick="xdkGetCookie()">Get Cookie</a><br>
+                    <a class="button" onclick="xdkRemoveCookie()">Remove Cookie</a><br>
+                    <br><br>
+                    <h3>Methods</h3>
+                    <p>This object is intended to provide local storage for data to speed up applications. These are meant to save string data in name-value pairs.Cookies persist between application sessions.</p>
+                    <div class="samplecode">intel.xdk.cache.setCookie(name,value,expirationDays)</div>
+                    <div class="samplecode">intel.xdk.cache.getCookie(name)</div>
+                    <div class="samplecode">intel.xdk.cache.getCookieList()</div>
+                    <div class="samplecode">intel.xdk.cache.removeCookie(name)</div>
+                    <div class="samplecode">intel.xdk.cache.clearAllCookies()</div>
+                    <script>
+                        function xdkSetCookie(){
+                            intel.xdk.cache.setCookie("username", $("#xdk-username").val(), 10);
+                        }
+                        function xdkGetCookie(){
+                            intel.xdk.notification.alert("username: " + intel.xdk.cache.getCookie("username"), "Get Cookie", "OK");
+                        }
+                        function xdkRemoveCookie(){
+                            intel.xdk.cache.removeCookie("username");
+                        }
+                    </script>    
+                </div>
+                
+                <div class="panel" data-footer="footer" id="xdkPlayer" title="Audio Video Player">
+                    <h2>Audio Video Player Demo</h2>
+                    <p></p>
+                    <a class="button" onclick="xdkPlayer()">Player</a><br>
+                    <br><br>
+                    <h3>Methods</h3>
+                    <p>The player object is used to play media natively in applications.</p>
+                    <div class="samplecode">intel.xdk.player</div>
+                    <h3>Properties</h3>
+                    <div class="samplecode">intel.xdk.player<br></div>
+                    <h3>Events</h3>
+                    <div class="samplecode">intel.xdk.player.<br></div>
+                    <script>
+                        function xdkPlayer(){
+                            intel.xdk.notification.alert("No Demo", "Demo", "OK");
+                        }
+                    </script>    
+                </div>
+                
+                <div class="panel" data-footer="footer" id="xdkCanvas" title="Accelerated Canvas">
+                    <h2>Canvas Demo</h2>
+                    <p></p>
+                    <a class="button" onclick="xdkCanvas()">Canvas</a><br>
+                    <br><br>
+                    <h3>Methods</h3>
+                    <p>The canvas object provides the bridge functions to the Accelerated Canvas App Game Interface plugin.</p>
+                    <div class="samplecode">intel.xdk.canvas.execute(javascript)</div>
+                    <div class="samplecode">intel.xdk.canvas.hide()</div>
+                    <div class="samplecode">intel.xdk.canvas.load(javascriptFile)</div>
+                    <div class="samplecode">intel.xdk.canvas.reset()</div>
+                    <div class="samplecode">intel.xdk.canvas.setFramesPerSecond(framesPerSecond)</div>
+                    <div class="samplecode">intel.xdk.canvas.show()</div>
+                    <h3>Properties</h3>
+                    <div class="samplecode">intel.xdk.canvas.isHidden<br></div>
+                    <script>
+                        function xdkCanvas(){
+                            intel.xdk.notification.alert("No Demo", "Demo", "OK");
+                        }
+                    </script>    
+                </div>
                 
                 <div class="panel" data-footer="footer" id="xdkARMode" title="Augmented Reality">
                     <h2>Augmented Reality Demo</h2>
@@ -2598,6 +2767,195 @@ The parent id for this div is "content". Let's verify it.
                     </script>
                 </div>
                 
+                <div class="panel" data-footer="footer" id="xdkAccelerometer" title="Accelerometer">
+                    <a class="button" onclick="xdkStartAccelerometer()">Start Accelerometer</a>
+                    <div>
+                        <label for="acceleration-x">X:</label>
+                        <input type="text" id="xdk-acceleration-x" style='width:150px' disabled />
+                    </div>
+                    <br>
+                    <div>
+                        <label for="acceleration-y">Y:</label>
+                        <input type="text" id="xdk-acceleration-y" style='width:150px' disabled />
+                    </div>
+                    <br>
+                    <div>
+                        <label for="acceleration-z">Z:</label>
+                        <input type="text" id="xdk-acceleration-z" style='width:150px' disabled />
+                    </div>
+                    <a class="button" onclick="xdkStopAccelerometer()">Stop Accelerometer</a>
+                    <br><br><br>
+                    <h3>Methods</h3>
+                    <p>Use these accelerometer object to listen to the device's motion sensor. Successful data is returned as an object with the attributes ".x", ".y", and ".z". Values of accelerometer samples for each axis range from -1 to 1.</p>
+                    <div class="samplecode">intel.xdk.accelerometer.getCurrentAcceleration( accelerometerSuccess, accelerometerOptions);</div>
+                    <div class="samplecode">watchID = intel.xdk.accelerometer.watchAcceleration( accelerometerSuccess, accelerometerOptions);</div>
+                    <div class="samplecode">intel.xdk.accelerometer.clearWatch(watchID);</div>
+                    <script>
+                        /* Accelerometer */
+                        var xdkAccelerometerWatchId = null;
+                        function xdkStartAccelerometer() {
+                            var onSuccess = function(acceleration) {
+                                document.getElementById('xdk-acceleration-x').value = acceleration.x;
+                                document.getElementById('xdk-acceleration-y').value = acceleration.y;
+                                document.getElementById('xdk-acceleration-z').value = acceleration.z;
+                            };
+                    
+                            var options = {
+                                frequency: 250
+                            };
+                    
+                            try { intel.xdk.accelerometer.clearWatch(xdkAccelerometerWatchId); } catch(e) {}
+                            xdkAccelerometerWatchId = intel.xdk.accelerometer.watchAcceleration(onSuccess, options);
+                            // stop when not in accelerometer page
+                            setTimeout(function clearAccel(){
+                                if(window.location.hash != "#xdkAccelerometer") {
+                                    intel.xdk.accelerometer.clearWatch(xdkAccelerometerWatchId); 
+                                } else {
+                                    setTimeout(clearAccel, 1000);
+                                }
+                            }, 1000);
+                        }
+                        function xdkStopAccelerometer(){
+                            try { intel.xdk.accelerometer.clearWatch(xdkAccelerometerWatchId); } catch(e) {}
+                        }
+                    </script>
+                </div>
+                
+                <div class="panel" data-footer="footer" id="xdkCamera" title="Camera">
+                    <a class="button icon camera" onclick="xdkStartCamera();" >Camera</a>
+                    <a class="button icon picture" onclick="xdkCameraGallery();">Gallery</a><br/>
+                    <div id="xdk-camera-image"></div>
+                    <br><br><br>
+                    <h3>Methods</h3>
+                    <p>Use these methods to access device camera and gallery.</p>
+                    <div class="samplecode">intel.xdk.camera.takePicture(quality, saveToLibrary, pictureType);</div>
+                    <div class="samplecode">intel.xdk.camera.importPicture();</div>
+                    <div class="samplecode">intel.xdk.camera.getPictureURL(filename);</div>
+                    <div class="samplecode">intel.xdk.camera.getPictureList();</div>
+                    <div class="samplecode">intel.xdk.camera.deletePicture(filename);</div>
+                    <div class="samplecode">intel.xdk.camera.clearPictures();</div>
+                    <br><br>
+                    <h3>Events</h3>
+                    <div class="samplecode">intel.xdk.camera.picture.add</div>
+                    <div class="samplecode">intel.xdk.camera.picture.busy</div>
+                    <div class="samplecode">intel.xdk.camera.picture.cancel</div>
+                    <div class="samplecode">intel.xdk.camera.picture.clear</div>
+                    <div class="samplecode">intel.xdk.camera.picture.remove</div>
+                    <script>
+                        /* Camera */
+                        function xdkStartCamera() {
+                            var onSuccess = function(event) {
+                                if (event.success == true){
+                                    $('#xdk-camera-image').html("<img src="+intel.xdk.camera.getPictureURL(event.filename)+" width='250' />");
+                                } else {
+                                    if (event.message != undefined) {
+                                        alert(event.message);
+                                    } else {
+                                        alert("error capturing picture");
+                                    }
+                                }
+                            }
+                            document.addEventListener("intel.xdk.camera.picture.add", onSuccess); 
+                            document.addEventListener("intel.xdk.camera.picture.busy", onSuccess); 
+                            document.addEventListener("intel.xdk.camera.picture.cancel", onSuccess);
+                            intel.xdk.camera.takePicture (70, false, "jpg");
+                        }
+                        
+                        function xdkCameraGallery() {			
+                            var onSuccess = function(event) {
+                                if (event.success == true){
+                                    $('#xdk-camera-image').html("<img src="+intel.xdk.camera.getPictureURL(event.filename)+" width='250' />");
+                                } else {
+                                    if (event.message != undefined) {
+                                        alert(event.message);
+                                    } else {
+                                        alert("error capturing picture");
+                                    }
+                                }
+                            }
+                            document.addEventListener("intel.xdk.camera.picture.add", onSuccess); 
+                            document.addEventListener("intel.xdk.camera.picture.busy", onSuccess); 
+                            document.addEventListener("intel.xdk.camera.picture.cancel", onSuccess);
+                            intel.xdk.camera.importPicture();
+                        }                     
+                    
+                    </script>
+                </div>
+                
+                <div class="panel" data-footer="footer" id="xdkGeolocation" title="Geolocation">
+                    <a class="button icon location" onclick="xdkStartGeo()">Get Current Location</a>
+                    <div>
+                        <label for="lat">Latitude:</label>
+                        <input type="text" id="xdk-lat" style='width:150px' disabled />
+                    </div>
+                    <br>
+                    <div>
+                        <label for="lng">Longitude:</label>
+                        <input type="text" id="xdk-lng" style='width:150px' disabled />
+                    </div>
+                    <br><br><br>
+                    <h3>Methods</h3>
+                    <p>Use these methods listen and get the device's geo location sensor.</p>
+                    <div class="samplecode">intel.xdk.geolocation.getCurrentPosition( successFunction, errorFunction);</div>
+                    <div class="samplecode">watchID = intel.xdk.geolocation.watchPosition( successFunction, errorFunction, options);</div>
+                    <div class="samplecode">intel.xdk.geolocation.clearWatch(watchID);</div>
+                    <script>
+                         /* Geolocation */
+                        function xdkStartGeo() {
+                            var onSuccess = function(position) {
+                                document.getElementById('xdk-lat').value = position.coords.latitude;
+                                document.getElementById('xdk-lng').value = position.coords.longitude;                    
+                            };
+                            var onFail = function() {
+                                navigator.notification.alert('geolocation failed');
+                            };
+                            intel.xdk.geolocation.getCurrentPosition(onSuccess, onFail, {maximumAge:0, timeout:5000, enableHighAccuracy: true});
+                        }  
+                    </script>
+                </div>
+                
+                <div title="Contacts" class="panel" data-footer="footer" id="xdkContacts" >
+                    <a class="button icon user" onclick="xdkGetContacts()">Get Contacts</a>
+                    <ul id="xdkContactList" class="list inset">
+                
+                    </ul>
+                    <script>
+                    /* Contacts */
+                    function xdkGetContacts() {
+                        var onSuccess = function() {
+                            var contacts = intel.xdk.contacts.getContactList ();
+                            if (contacts.length == 0){
+                                $("#xdkContactList").html("<li>No Contact Found</li>");
+                            }
+                            var currentGroup = null;
+                            var content      = '';
+                            
+                            contacts.forEach(function(contactData) {
+                                // Create a group if needed
+                                var contact = intel.xdk.contacts.getContactData(contactData);
+                                
+                                if (contact.name != null){
+                                    var group = contact.name;
+                                    if (group.length <= 0) return;
+                                    group = group[0].toUpperCase();
+                    
+                                    if (group !== currentGroup) {
+                                        currentGroup = group;
+                                        content += '<li class="divider">' + currentGroup + '</li>';
+                                    }
+                                    content += '<li>' + contact.name  + '</li>';
+                                }
+                            });
+                            $("#xdkContactList").html(content);
+                        };
+                        document.addEventListener('intel.xdk.contacts.get', onSuccess, false);
+                        intel.xdk.contacts.getContacts();
+                    }
+
+                        
+                    </script>
+                </div>
+                
                 <div class="panel" data-footer="footer" id="xdkSplashScreen" title="Splash Screen">
                     <h2>Status Bar Demo</h2>
                     <p>Methods that allows hiding status bar.</p>
@@ -2634,11 +2992,11 @@ The parent id for this div is "content". Let's verify it.
                     <ul class="list">
                         <li><a href="#device">Device Info</a></li>
                         <li><a href="#accelerometer">Accelerometer</a></li>
-                        <li><a href="#camera">Camera</a></li>
                         <li><a href="#compass">Compass</a></li>
                         <li><a href="#geolocation">Geolocation</a></li>
-                        <li><a href="#capture">Capture</a></li>
-                        <li><a href="#media">Media</a></li>
+                        <li><a href="#camera">Camera (Photos)</a></li>
+                        <li><a href="#capture">Capture (Audio, Video, Picture)</a></li>
+                        <li><a href="#media">Media (Audio Playback)</a></li>
                         <li><a href="#file">File</a></li>
                         <li><a href="#storage">Storage</a></li>
                         <li><a href="#notification">Notification</a></li>
@@ -2692,11 +3050,12 @@ The parent id for this div is "content". Let's verify it.
                         <label for="acceleration-z">Z:</label>
                         <input type="text" id="acceleration-z" style='width:150px' disabled />
                     </div>
+                    <a class="button" onclick="stopAccelerometer()">Stop Accelerometer</a>
                 </div>
                 
                 <div class="panel" data-footer="footer" id="camera" title="Camera">
 			         <a class="button icon camera" onclick="startCamera();" >Camera</a>
-			         <a class="button icon picture" onclick="selectFileFromGallery();" class="buttonStyle">Gallery</a><br/>
+			         <a class="button icon picture" onclick="cameraGallery();" class="buttonStyle">Gallery</a><br/>
                     <div id="camera-image" class="ui-body ui-body-b" style="background-size:100%;min-height:250px"></div>
                 </div>
                 
@@ -2710,15 +3069,14 @@ The parent id for this div is "content". Let's verify it.
                 <div class="panel" data-footer="footer" title="Device Info" id="device">
                     <a class="button" onclick="updateDeviceInfo()">Get Device Info</a>
                     <ul class="list inset">
-                        <li id="liDeviceName">Name :</li>
-                        <li id="liDeviceUUID">UUID :</li>
-                        <li id="liDevicePlatform">Platform : </li>
-                        <li id="liDeviceVersion">Device Version : </li>
-                        <li id="liDeviceModel">Device Model :</li>
-                        <li id="liDevicePhonegap">Cordova Version :</li>
+                        <li id="cdvDeviceName">Name :</li>
+                        <li id="cdvDeviceUUID">UUID :</li>
+                        <li id="cdvDevicePlatform">Platform : </li>
+                        <li id="cdvDeviceVersion">Device Version : </li>
+                        <li id="cdvDeviceModel">Device Model :</li>
+                        <li id="cdvDevicePhonegap">Cordova Version :</li>
                     </ul>	
                 </div>
-                
                         
                 <div class="panel" data-footer="footer" id="notification" title="Notification">
                     <br>
@@ -2733,7 +3091,6 @@ The parent id for this div is "content". Let's verify it.
                         <a class="button" href="#" onclick="navigator.notification.vibrate(1000);">Vibrate</a>	
                     </div>
                 </div>
-                
                         
                 <div class="panel" data-footer="footer" id="geolocation" title="Geolocation">
                     <a class="button icon location" onclick="startGeo()">Get Geo Location</a>
@@ -2752,9 +3109,11 @@ The parent id for this div is "content". Let's verify it.
                 <div class="panel" data-footer="footer" id="compass" title="Compass">
                     <a class="button" onclick="startCompass()">Start Compass</a>
                     <div id="info-panel" style="font-size:80px; text-align:center;"></div>
+                    <a class="button" onclick="stopCompass()">Stop Compass</a>
                 </div>
                 
                 <div class="panel" data-footer="footer" id="media" title="Media">
+                    <p>Records Audio for 5 seconds and playback</p>
                     <a class="button icon mic" onclick="startRecord()">Record</a><br/>
                     <a class="button icon headset" onclick="startPlay()">Play</a><br/>
                     <a class="button icon error" onclick="stopPlay()">Stop</a><br/>
@@ -2801,6 +3160,7 @@ The parent id for this div is "content". Let's verify it.
                     <a class="button icon picture" onclick="captureImage();" class="buttonStyle">Capture Image</a><br/>
                     <a class="button icon mic" onclick="captureAudio()" class="buttonStyle">Capture Audio</a><br/>
                     <a class="button icon tv" onclick="captureVideo();" class="buttonStyle">Capture Video</a><br/>
+                    <p id="cdv-capture"></p>
                 </div>
                 
                 <div class="panel" data-footer="footer" id="storage" title="Storage">
@@ -2820,7 +3180,7 @@ The parent id for this div is "content". Let's verify it.
             
             <script type="text/javascript">            
                 /* Accelerometer */
-                var watchId = null;
+                var accelerometerWatchId = null;
                 function startAccelerometer() {
                     var onSuccess = function(acceleration) {
                         document.getElementById('acceleration-x').value = acceleration.x;
@@ -2836,16 +3196,20 @@ The parent id for this div is "content". Let's verify it.
                         frequency: 250
                     };
             
-                    try { navigator.accelerometer.clearWatch(watchId); } catch(e) {}
-                    watchId = navigator.accelerometer.watchAcceleration(onSuccess, onFail, options);
+                    try { navigator.accelerometer.clearWatch(accelerometerWatchId); } catch(e) {}
+                    accelerometerWatchId = navigator.accelerometer.watchAcceleration(onSuccess, onFail, options);
                     setTimeout(function clearAccel(){
                         if(window.location.hash != "#accelerometer") {
-                            navigator.accelerometer.clearWatch(watchId); 
+                            navigator.accelerometer.clearWatch(accelerometerWatchId); 
                         } else {
                             setTimeout(clearAccel, 1000);
                         }
                     }, 1000);
                 }
+                function stopAccelerometer(){
+                    try { navigator.accelerometer.clearWatch(accelerometerWatchId); } catch(e) {}
+                }
+                
             
                 /* Geolocation */
                 function startGeo() {
@@ -2861,45 +3225,35 @@ The parent id for this div is "content". Let's verify it.
                 
                 /* Camera */
                 function startCamera() {
-                    var onSuccess = function(uri) {
-                        console.log("camera successfully started");
-                        //switched to DATA_URL to fix file permission issue
-                        //document.getElementById('camera-image').style.backgroundImage="url('"+uri+"')";
-                        document.getElementById('camera-image').style.backgroundImage="url('data: image/jpeg;base64,"+encodeURIComponent(uri)+"')";
-                        document.getElementById('camera-image').style.width="100%";
-                        document.getElementById('camera-image').style.height="100%";
+                    var onSuccess = function(url) {
+                    //    $('#camera-image').html("<img src="+url+" width='250' />");
+                        $('#camera-image').css("background-image", "url('data: image/jpeg;base64,"+encodeURIComponent(url)+"')");
+                        $('#camera-image').css("background-repeat", "no-repeat");
+                        $('#camera-image').css("width", "250px");
                     };
-            
                     var onFail = function() {
-                        console.log('Failed to get an image');
+                        alert('Error');
                     };
-            
-                    console.log("about to call navigator.camera.getPicture");
                     navigator.camera.getPicture(onSuccess, onFail, {
                         quality: 50,
-                        //switched to DATA_URL to fix file permission issue
-                        //destinationType: navigator.camera.DestinationType.FILE_URI
+                    //    destinationType: navigator.camera.DestinationType.FILE_URL,    
                         destinationType: navigator.camera.DestinationType.DATA_URL
                     });
                 }
                 
-                function selectFileFromGallery() {			
-                    
-                    var onSuccess = function(uri) {
-                        console.log("camera successfully started");
-                        
-                        document.getElementById('camera-image').style.backgroundImage="url('data: image/jpeg;base64,"+encodeURIComponent(uri)+"')";
-                        document.getElementById('camera-image').style.width="100%";
-                        document.getElementById('camera-image').style.height="100%";
-                        console.log(uri);
+                function cameraGallery() {        
+                    var onSuccess = function(url) {
+                    //    $('#camera-image').html("<img src="+url+" width='250' />");
+                        $('#camera-image').css("background-image", "url('data: image/jpeg;base64,"+encodeURIComponent(url)+"')");
+                        $('#camera-image').css("background-repeat", "no-repeat");
+                        $('#camera-image').css("width", "250px");
                     };
-            
                     var onFail = function() {
-                        console.log('Failed to get an image');
+                        alert('Error');
                     };
-                    
                     navigator.camera.getPicture(onSuccess, onFail, {
                         quality: 50,
+                    //    destinationType: navigator.camera.DestinationType.FILE_URL,
                         destinationType: navigator.camera.DestinationType.DATA_URL,
                         sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY
                     });
@@ -2909,34 +3263,21 @@ The parent id for this div is "content". Let's verify it.
                 /* Device */
                 function updateDeviceInfo()
                 {
-                    document.getElementById("liDeviceName").innerHTML = "Name : " +window.device.name;
-                    document.getElementById("liDeviceUUID").innerHTML = "UUID : " +window.device.uuid;
-                    document.getElementById("liDevicePlatform").innerHTML = "Platform : " +window.device.platform;
-                    document.getElementById("liDeviceVersion").innerHTML = "Device Version : " +window.device.version;
-                    document.getElementById("liDeviceModel").innerHTML = "Device Model : " +window.device.model;
-                    document.getElementById("liDevicePhonegap").innerHTML = "Cordova : " +window.device.cordova;
+                    document.getElementById("cdvDeviceName").innerHTML = "Name : " +window.device.name;
+                    document.getElementById("cdvDeviceUUID").innerHTML = "UUID : " +window.device.uuid;
+                    document.getElementById("cdvDevicePlatform").innerHTML = "Platform : " +window.device.platform;
+                    document.getElementById("cdvDeviceVersion").innerHTML = "Device Version : " +window.device.version;
+                    document.getElementById("cdvDeviceModel").innerHTML = "Device Model : " +window.device.model;
+                    document.getElementById("cdvDevicePhonegap").innerHTML = "Cordova : " +window.device.cordova;
                 }
                 
                 /* Contacts */
-                var boolContactsLoaded=false;
-                function getContacts()
-                {
-                    
+                function getContacts(){
                     var onSuccess = function(contacts) {
-                    
                         // For demo purposes, load a few test contacts
-                        if (contacts.length == 0)
-                        {
+                        if (contacts.length == 0){
                             $("#cdvContacts").html("<li>No Contact Found</li>");
                         }
-                        
-            
-                        // Helper function to find contacts last name
-                        var lastName = function(name) {
-                            name = name.split(' ');
-                            return name[name.length - 1];
-                        };
-                        
                         // Sort contacts by last name
                         contacts.sort(function(a, b) {
                             //handle empty display names - sort to end
@@ -2946,10 +3287,8 @@ The parent id for this div is "content". Let's verify it.
                             if(!b.displayName) {
                                 return -1;
                             }
-            
-                            a = lastName(a.displayName.toLowerCase());
-                            b = lastName(b.displayName.toLowerCase());
-            
+                            a = a.displayName.toLowerCase();
+                            b = b.displayName.toLowerCase();
                             if (a > b)
                                 return 1;
                             else if (a < b)
@@ -2958,33 +3297,25 @@ The parent id for this div is "content". Let's verify it.
                                 return 0;
             
                         });
-            
                         var currentGroup = null;
                         var content      = '';
                         var itemCount 	= 0;
-                        
                         contacts.forEach(function(contact) {
                             // Create a last name group if needed
                             if (contact.displayName != null){
-                                var group = lastName(contact.displayName);
+                                var group = contact.displayName;
                                 if (group.length <= 0) return;
                                 group = group[0].toUpperCase();
-                
                                 if (group !== currentGroup) {
                                     currentGroup = group;
                                     content += '<li class="divider">' + currentGroup + 
                                     '</li>';
                                 }
-                
                                 content += '<li>' + contact.displayName + '</li>';
                                 itemCount = itemCount + 1;
                             }
                         });
-                        
-            
-                        $("#cdvContacts").html(content);
-                        
-                        
+                        $("#cdvContacts").html(content);    
                     };
             
                     var onFail = function() {
@@ -2999,12 +3330,11 @@ The parent id for this div is "content". Let's verify it.
             
                     var filter  = [ 'displayName' ];
                     navigator.contacts.find(filter, onSuccess, onFail, options);
-            
-            
                 }
                 /* Compass */
                 
                 // Array of names for directions for Info panel
+                var compassWatchID;
                 var directions = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW', 'N'];
                 function direction(heading) {
                     var dir = Math.abs(parseInt((heading) / 45) + 1);
@@ -3012,7 +3342,7 @@ The parent id for this div is "content". Let's verify it.
                 }
                 function startCompass(){
                     var options = { frequency: 500 };
-                    watchID = navigator.compass.watchHeading(onSuccess, onError, options);
+                    compassWatchID = navigator.compass.watchHeading(onSuccess, onError, options);
                     
                     // onSuccess: Get the current heading
                     //
@@ -3029,13 +3359,14 @@ The parent id for this div is "content". Let's verify it.
                         navigator.notification.alert('Compass error: ' + compassError.code);
                     }
                 }
-            
+                function stopCompass(){
+                    navigator.compass.clearWatch(compassWatchID);
+                }
+                
                 /* Media */
                 var src = "myrecording.wav";
-                function startRecord(){
-                    
-                    var mediaRec = new Media(src, function(){console.log("recordAudio():Audio Success");}, function(){ navigator.notification.alert('code: '    + error.code    + '\n' + 
-                                 'message: ' + error.message + '\n');});
+                function startRecord(){ 
+                    var mediaRec = new Media(src, function(){console.log("recordAudio():Audio Success");}, function(){ navigator.notification.alert('code: '    + error.code    + '\n' + 'message: ' + error.message + '\n');});
             
                     // Record audio
                     mediaRec.startRecord();
@@ -3045,10 +3376,10 @@ The parent id for this div is "content". Let's verify it.
                     var recInterval = setInterval(function() {
                         recTime = recTime + 1;
                         setAudioPosition(recTime + " sec");
-                        if (recTime >= 10) {
+                        if (recTime >= 5) {
                             clearInterval(recInterval);
                             mediaRec.stopRecord();
-                            document.getElementById('audio_position').innerHTML = 'Your record was saved as "'+src+'"';
+                            document.getElementById('audio_position').innerHTML = 'Done Recording';
                         }
                     }, 1000);
                 }
@@ -3058,46 +3389,26 @@ The parent id for this div is "content". Let's verify it.
                 var my_media = null;
                 var mediaTimer = null;
                 function startPlay(){
-                     if (my_media == null) {
-                         // Create Media object from src
-                         if (src != null){            	 
-                            my_media = new Media(src, function(){ console.log("playAudio():Audio Success");}, function(){ navigator.notification.alert('code: '    + error.code    + '\n' + 
-                                                                                                            'message: ' + error.message + '\n');});
-                         }
-                         else{
-                             navigator.notification.alert("Please, record something at first");
-                             return;
-                         }
-                     } // else play current audio
-                     // Play audio
-                     my_media.play();
-            
-                     // Update my_media position every second
-                     if (mediaTimer == null) {
-                         mediaTimer = setInterval(function() {
-                             // get my_media position
-                             my_media.getCurrentPosition(
-                                 // success callback
-                                 function(position) {
-                                     if (position > -1) {
-                                         setAudioPosition((position) + " sec");
-                                     }
-                                 },
-                                 // error callback
-                                 function(e) {
-                                     console.log("Error getting pos=" + e);
-                                     setAudioPosition("Error: " + e);
-                                 }
-                             );
-                         }, 1000);
-                     }
+                    if (my_media == null) {
+                        // Create Media object from src
+                        if (src != null){            	 
+                            my_media = new Media(src, function(){ console.log("playAudio():Audio Success");}, function(){ navigator.notification.alert('code: '    + error.code    + '\n' + 'message: ' + error.message + '\n');});
+                        } else {
+                            navigator.notification.alert("Please, record something at first");
+                            return;
+                        }
+                    }
+                    // Play audio
+                    my_media.play();
+                    document.getElementById('audio_position').innerHTML = "Playback";       
                 }
                 function stopPlay(){
-                      if (my_media) {
-                          my_media.stop();
-                      }
-                      clearInterval(mediaTimer);
-                      mediaTimer = null;
+                    if (my_media) {
+                        my_media.stop();
+                    }
+                    clearInterval(mediaTimer);
+                    mediaTimer = null;
+                    document.getElementById('audio_position').innerHTML = "Stopped Playback";
                 }
                 
                 /* File */
@@ -3202,28 +3513,29 @@ The parent id for this div is "content". Let's verify it.
                 
                 
                 /*Capture*/
+
+                function captureSuccess(mediaFiles) {
+                    var html = "";
+                    for (var i = 0; i < mediaFiles.length; i++) {
+                        html = mediaFiles[i].fullPath;
+                    }
+                    $("#cdv-capture").html(html);
+                }
+                function captureError(error) {
+                    var msg = 'An error occurred during capture: ' + error.code + error.message + error;
+                    if (error.code == 3){
+                        navigator.notification.alert("Nothing was captured", null, "Error", "OK");
+                    }
+                    else{
+                        navigator.notification.alert(msg, null, "Error", "OK");
+                    }
+                }
                 function captureImage(){
                      navigator.device.capture.captureImage(captureSuccess, captureError, {limit: 2});
-                }
-                function captureSuccess(mediaFiles) {
-                    console.log("Capture Success");
-                }
-            
-                // Called if something bad happens.
-                // 
-                function captureError(error) {
-                        var msg = 'An error occurred during capture: ' + error.code + error.message + error;
-                        if (error.code == 3){
-                            navigator.notification.alert("Nothing was captured", null, 'Uh oh!');
-                        }
-                        else{
-                            navigator.notification.alert(msg, null, 'Uh oh!');
-                        }
-                    }
+                }                
                 function captureVideo(){
                      navigator.device.capture.captureVideo(captureSuccess, captureError, {limit: 2});
                 }
-                
                 function captureAudio(){
                      navigator.device.capture.captureAudio(captureSuccess, captureError, {limit: 2});
                 }
@@ -3299,7 +3611,7 @@ The parent id for this div is "content". Let's verify it.
                     </li>
                  <li class="divider">Kitchen Sink</li>
                     <li>
-                        <a href="index.html">Reset App</a>
+                        <a href="index.html" data-ignore="true">Reset App</a>
                     </li>                    
                 </ul>
             </nav>
