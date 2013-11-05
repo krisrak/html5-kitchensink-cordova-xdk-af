@@ -2323,20 +2323,38 @@ The parent id for this div is "content". Let's verify it.
                     <h2>Remote Data Demo</h2>
                     <p></p>
                     <a class="button" onclick="xdkGetRemoteData()">Get Remote Data</a><br>
+                    <a class="button" onclick="xdkGetRemoteDataExt()">Get Remote Data Ext</a><br>
+                    <code id="xdk-remote-data"></code>
                     <br><br>
                     <h3>Methods</h3>
                     <p>You can use this method for making background POST/GET requests for remote data.</p>
                     <div class="samplecode">intel.xdk.device.getRemoteData(url, requestMethod, requestBody, successCallback, errorCallback)</div>
                     <div class="samplecode">intel.xdk.device.getRemoteDataWithID(url, requestMethod, requestBody, successCallback, errorCallback, uniqueIdentifier)</div>
-                    <div class="samplecode">var param = new intel.xdk.device.RemoteDataParameters();<br><br>//param : {url, header, body, subject, url, method}<br><br>intel.xdk.device.getRemoteDataExt(param);</div>
+                    <div class="samplecode">var param = new intel.xdk.Device.RemoteDataParameters();<br><br>//param : {url, header, body, subject, url, method}<br><br>intel.xdk.device.getRemoteDataExt(param);</div>
                     <h3>Event</h3>
                     <p>Use this event listener to get the remote data from getRemoteDataExt().</p>
                     <div class="samplecode">document.addEventListener( "intel.xdk.device.remote.data", function(e){alert(e.response)}, false)</div>
                     <script>
                         function xdkGetRemoteData(){
-                            intel.xdk.notification.alert("No Demo", "Demo", "OK");
+                            intel.xdk.device.getRemoteData("http://time.jsontest.com/?alloworigin=false", "GET", "", "getRemoteDataEvent", "getRemoteDataEvent");
                         }
-                    </script>    
+                        function getRemoteDataEvent(data){
+                            $("#xdk-remote-data").html(data);
+                        }
+                        function xdkGetRemoteDataExt(){
+                            var getRemoteDataExtEvent = function(event){
+                                if(event.success){
+                                    $("#xdk-remote-data").html(event.response);
+                                } else {
+                                    $("#xdk-remote-data").html("error");
+                                }
+                            }
+                            var param = new intel.xdk.Device.RemoteDataParameters(); 
+                            param.url = "http://time.jsontest.com/?alloworigin=false";
+                            document.addEventListener("intel.xdk.device.remote.data", getRemoteDataExtEvent, false);
+                            intel.xdk.device.getRemoteDataExt(param);
+                        }
+                    </script> 
                 </div>
                 
                 <div class="panel" id="xdkFileUpload" title="File Upload">
@@ -2423,7 +2441,8 @@ The parent id for this div is "content". Let's verify it.
                 <div class="panel" id="xdkCache" title="Device Cache">
                     <h2>Caching Demo</h2>
                     <p></p>
-                    <a class="button" onclick="xdkCache()">Cache</a><br>
+                    <a class="button" onclick="xdkAddCache()">Cache Media</a><br>
+                    <a class="button" onclick="xdkListCache()">List Cached Media</a><br>
                     <br><br>
                     <h3>Methods</h3>
                     <p>This object is intended to provide local storage for data to speed up applications. These are meant to provide quicker access to files such as videos and images. These are files that are cached across sessions and are not in your application bundle. </p>
@@ -2437,8 +2456,24 @@ The parent id for this div is "content". Let's verify it.
                     <p>Use this event listener to get the remote data from facebook methods.</p>
                     <div class="samplecode">intel.xdk.cache.media.add            <br>intel.xdk.cache.media.clear<br>intel.xdk.cache.media.remove<br>intel.xdk.cache.media.update<br></div>
                     <script>
-                        function xdkCache(){
-                            intel.xdk.notification.alert("No Demo", "Demo", "OK");
+                        function xdkAddCache(){
+                            var cacheAdded = function(e){
+                                intel.xdk.notification.alert(e.url, "Cache Added");
+                            }
+                            var cacheUpdated = function(e){
+                                intel.xdk.notification.alert(e.url , "Cache Updated");
+                            }
+                            document.addEventListener("intel.xdk.cache.media.add", cacheAdded, false);
+                            document.addEventListener("intel.xdk.cache.media.update", cacheUpdated, false);
+                            intel.xdk.cache.addToMediaCache("http://app-framework-software.intel.com/images/intel_logo.png");
+                        }
+                        function xdkListCache(){
+                            var cacheArray = intel.xdk.cache.getMediaCacheList();
+                            var cacheList = "";
+                            for (var i=0; i<cacheArray.length; i++){
+                                cacheList += cacheArray[i] + "\n" + intel.xdk.cache.getMediaCacheLocalURL(cacheArray[i]) + "\n\n";
+                            }
+                            intel.xdk.notification.alert(cacheList, "Cache");
                         }
                     </script>    
                 </div>
@@ -2479,13 +2514,7 @@ The parent id for this div is "content". Let's verify it.
                     <p></p>
                     <a class="button" onclick="xdkPlayer()">Player</a><br>
                     <br><br>
-                    <h3>Methods</h3>
-                    <p>The player object is used to play media natively in applications.</p>
-                    <div class="samplecode">intel.xdk.player</div>
-                    <h3>Properties</h3>
-                    <div class="samplecode">intel.xdk.player<br></div>
-                    <h3>Events</h3>
-                    <div class="samplecode">intel.xdk.player.<br></div>
+                    <h3>WIP</h3>
                     <script>
                         function xdkPlayer(){
                             intel.xdk.notification.alert("No Demo", "Demo", "OK");
