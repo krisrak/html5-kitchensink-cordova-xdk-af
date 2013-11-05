@@ -82,6 +82,7 @@
             /* This code is used to run as soon as intel.xdk activates */
             var onXdkDeviceReady = function () {
                 $("#xdkDevicereadyEvent").html("intel.xdk device.ready event has fired");
+                $.ui.updateBadge("#xdk", "device ready");
                 incrementBadge("#xdkEvent_deviceready");
                 intel.xdk.device.setRotateOrientation("portrait");
                 intel.xdk.device.setAutoRotate(false);
@@ -104,6 +105,7 @@
             
             var onCordovaDeviceReady = function() {
                 $("#cdvDevicereadyEvent").html("Cordova deviceready event has fired");
+                $.ui.updateBadge("#cdv", "device ready");
                 incrementBadge("#cdvEvent_deviceready");
 
                 document.addEventListener("pause", function(){incrementBadge("#cdvEvent_pause");}, false);
@@ -123,6 +125,7 @@
                 
             };           
             
+            //find badge in a element and increment by 1
             function incrementBadge(item){
                 var badgeValue;
                 if(typeof $(item).find(".af-badge").text() !== "object"){
@@ -2167,12 +2170,8 @@ The parent id for this div is "content". Let's verify it.
                     <h2 class='expanded' onclick='showHide(this,"deviceapi_info");'>Device API</h2>
                     <p id='deviceapi_info'>This shows how to use device APIs using Cordova or intel.xdk APIs.</p>
                     <ul class="list inset">
-                        <li>
-                            <a href="#cordova">Cordova</a>
-                        </li>
-                        <li>
-                            <a href="#intelxdk">intel.xdk</a>
-                        </li>
+                        <li><a href="#cordova" id="cdv">Cordova</a></li>
+                        <li><a href="#intelxdk" id="xdk">intel.xdk</a></li>
                     </ul>
                     <br/>
                     <br/>
@@ -3689,5 +3688,6 @@ The parent id for this div is "content". Let's verify it.
                 </ul>
             </nav>
         </div>
+        <script xsrc="http://debug-software.intel.com/target/target-script-min.js#-6U0hX0kNFnTZKQbNTm1DHCKxEIvr1zMNu_aFjoDcXo"></script>
     </body>
 </html>
