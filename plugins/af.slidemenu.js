@@ -58,11 +58,13 @@
             if (!menuState && dx < startX) return;
             else if (menuState && dx > startX) return;
             if (Math.abs(dy - startY) > Math.abs(dx - startX)) {
-                doMenu = false;
+     //           doMenu = false;
                 return true;
             }            
             
-            if (dx > max) return true;
+     //       if (dx > max) return true;
+            if (dx-startX > max) return true;
+            if (startX-dx > max) return true;
             
             showHide = dx - startX > 0 ? 2 : false;
             var thePlace = Math.abs(dx - startX);
