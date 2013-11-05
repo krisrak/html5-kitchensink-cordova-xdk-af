@@ -45,7 +45,7 @@
         
         <script src="intelxdk.js"></script> 
         <script src="cordova.js"></script>
-        <script src="xhr.js"></script>
+<!--        <script src="xhr.js"></script>      -->
         
         <script type="text/javascript">
             /* This function runs once the page is loaded, but appMobi is not yet active */
@@ -756,9 +756,10 @@
                 <!-- af> af serialize() -->
                 <div id="af28" class="panel" title=".param()">$.param() - serializes an object into key/value pairs for a querystring.
                     <br />
-                    <br />	<code>
-									var obj= {foo:"foo",bar:"bar"};
-								</code>
+                    <br />
+                    <code>
+				        var obj= {foo:"foo",bar:"bar"};
+                    </code>
                     <br />
                     <br />
                     <script>
@@ -778,10 +779,10 @@
                 <!-- af> af parseJSON() -->
                 <div id="af29" class="panel" title=".parseJSON()">$.parseJSON() - parses a string and converts it into a JSON object. Uses the native JSON parser, but is added for backwards compatibility.
                     <br>
-                    <br>	<code>
-									var obj='{"foo":"bar"}';
-								</code>
-
+                    <br>
+                    <code>
+				        var obj='{"foo":"bar"}';
+                    </code>
                     <script>
                         function doParseJson() {
                             var obj = '{"foo":"bar"}';
