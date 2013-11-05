@@ -45,6 +45,7 @@
         
         <script src="intelxdk.js"></script> 
         <script src="cordova.js"></script>
+        <script src="xhr.js"></script>
         
         <script type="text/javascript">
             /* This function runs once the page is loaded, but appMobi is not yet active */
@@ -205,16 +206,16 @@
             </div>
             -->
             <!-- navbar -->
-            <footer id="footer">
+            <div id="navbar">
                 <a href="#main" id='navbar_home' class='icon home' data-transition="fade">Home</a>
                 <a href="#af" id='navbar_af' class="icon target" data-transition="fade">Selector</a>
                 <a href="#afuidemo" id='navbar_ui' class="icon picture" data-transition="fade">AF UI</a>
                 <a href="#afweb" id='navbar_plugins' class="icon key" data-transition="fade">Plugins</a>
                 <a href="#deviceapi" id='navbar_deviceapi' class="icon camera" data-transition="fade">Device</a>
-            </footer>
+            </div>
             
             <div id="content">
-                <div title='Welcome' id="main" class="panel" data-footer="footer" data-tab="navbar_home" selected="true" data-load="loadedPanel" data-unload="unloadedPanel">
+                <div title='Welcome' id="main" class="panel" data-tab="navbar_home" selected="true" data-load="loadedPanel" data-unload="unloadedPanel">
                     <h2 class='expanded' onclick='showHide(this,"main_info");'>Welcome</h2>
 
                     <p id='main_info'>Welcome to the kitchen sink demo for App Framework. Here you will find samples of how to use the App Framework libraries. Please select an option from below.</p>
@@ -259,7 +260,7 @@
                     </ul>
                 </div>
                 <!---------------------------------------------->
-                <div title="AppFramework" id="af" class="panel" data-footer="footer" data-tab="navbar_af">   
+                <div title="AppFramework" id="af" class="panel" data-tab="navbar_af">   
                     <header>
                         <h1>AppFramework</h1>
                     </header>    
@@ -351,19 +352,19 @@
                             <a href="#af34">$.isFunction()</a>
                         </li>
                         <li>
-                            <a href="#af23">$.jsonP()</a>
-                        </li>
-                        <li>
                             <a href="#af24">$.ajax()</a>
                         </li>
                         <li>
-                            <a href="#af25">$.get(0)</a>
+                            <a href="#af25">$.get()</a>
                         </li>
                         <li>
                             <a href="#af26">$.post()</a>
                         </li>
                         <li>
                             <a href="#af27">$.getJSON()</a>
+                        </li>
+                        <li>
+                            <a href="#af23">$.jsonP()</a>
                         </li>
                         <li>
                             <a href="#af28">$.param()</a>
@@ -376,7 +377,7 @@
                         </li>
                     </ul>
                 </div>
-                <div id="afserialize" class="panel" data-footer="footer" title="$().serialize">
+                <div id="afserialize" class="panel" title="$().serialize">
                     <script>
                         function serializeForm() {
                             alert($("#form").serialize());
@@ -398,7 +399,7 @@
                     </form>
                 </div>
                 <!-- af> af Selector -->
-                <div id="af1" class="panel" data-footer="footer" title="$()">
+                <div id="af1" class="panel" title="$()">
                     <span id="aftest2">This is some html</span>
                     <br />
                     <br />
@@ -408,7 +409,7 @@
                     <a class="button"  onclick="alert($('#aftest2').html())">Click to get Content</a>
                 </div>
                 <!-- af> af length() -->
-                <div id="af2" class="panel" data-footer="footer" title=".length()">
+                <div id="af2" class="panel" title=".length()">
                     <div class='af2'>Div 1 (class="af2")</div>
                     <div class='af2'>Div 2 (class="af2")</div>
                     <div class='af2'>Div 3 (class="af2")</div>
@@ -417,7 +418,7 @@
                     <a class="button"  onclick="alert($('.af2').length)">Click to get the Length by classname</a>
                 </div>
                 <!-- af> af find() -->
-                <div id="af3" class="panel" data-footer="footer" title=".find()">$("#div").find("li") find all element(s) inside a container
+                <div id="af3" class="panel" title=".find()">$("#div").find("li") find all element(s) inside a container
                     <br />
                     <br />
                     <ul class="list">
@@ -429,7 +430,7 @@
                     <br />
                 </div>
                 <!-- af> af html() -->
-                <div id="af4" class="panel" data-footer="footer" title=".html()">$("#div").html() allows you to get or set a contents HTML.
+                <div id="af4" class="panel" title=".html()">$("#div").html() allows you to get or set a contents HTML.
                     <br />
                     <br />
                     <div id="af4_content" style='border:1px solid black'>This is some content</div>
@@ -439,7 +440,7 @@
                     <a  class="button" onclick='$("#af4_content").html("New Content")'>Set Content</a>
                 </div>
                 <!-- af> af text() -->
-                <div id="af5" class="panel" data-footer="footer" title=".text()">$("#div").text() allows you to get or set a contents text.
+                <div id="af5" class="panel" title=".text()">$("#div").text() allows you to get or set a contents text.
                     <br />
                     <br />
                     <div id="af5_content" style='border:1px solid black'><span>This is some text</span> other text</div>
@@ -449,7 +450,7 @@
                     <a class="button"  onclick='$("#af5_content").text("New Text")'>Set Text</a>
                 </div>
                 <!-- af> af css() -->
-                <div id="af6" class="panel" data-footer="footer" title=".css()">$("#div").css() - allows you to get or set a CSS property.
+                <div id="af6" class="panel" title=".css()">$("#div").css() - allows you to get or set a CSS property.
                     <br />
                     <br />
                     <div style="background:red;color:white;border:1px solid black" id="af6_content">This is some content</div>
@@ -460,7 +461,7 @@
                     <a class="button"  onclick='$("#af6_content").css("background","green")'>Set background color</a>
                 </div>
                 <!-- af> af empty() -->
-                <div id="af7" class="panel" data-footer="footer" title=".empty()">$("#div").empty() - will empty out the contents of the element.
+                <div id="af7" class="panel" title=".empty()">$("#div").empty() - will empty out the contents of the element.
                     <br />
                     <br />
                     <div id="af7_content" style="border:1px solid black">This is some content</div>
@@ -469,7 +470,7 @@
                     <a class="button"  onclick='$("#af7_content").empty()'>$().empty()</a>
                 </div>
                 <!-- af> af hide() -->
-                <div id="af8" class="panel" data-footer="footer" title=".hide()">$("#div").hide() - will set the elements display property to "none".
+                <div id="af8" class="panel" title=".hide()">$("#div").hide() - will set the elements display property to "none".
                     <br />
                     <br />
                     <div id="af8_content" style="border:1px solid black">This is some content</div>
@@ -477,7 +478,7 @@
                     <a class="button"  onclick='$("#af8_content").hide()'>Hide the div</a>
                 </div>
                 <!-- af> af show() -->
-                <div id="af9" class="panel" data-footer="footer" title=".show()">$("#div").show() - will set the elements display property to "block".
+                <div id="af9" class="panel" title=".show()">$("#div").show() - will set the elements display property to "block".
                     <br />
                     <br />
                     <div id="af9_content" style="border:1px solid black;display:none;">This is some content</div>
@@ -485,7 +486,7 @@
                     <a class="button"  onclick='$("#af9_content").show()'>Show the div</a>
                 </div>
                 <!-- af> af toggle() -->
-                <div id="af10" class="panel" data-footer="footer" title=".toggle()">$("#div").toggle() - will toggle the elements display property.
+                <div id="af10" class="panel" title=".toggle()">$("#div").toggle() - will toggle the elements display property.
                     <br />
                     <br />
                     <div id="af10_content" style="border:1px solid black;display:block;">This is some content</div>
@@ -494,7 +495,7 @@
                     <a class="button"  onclick='$("#af10_content").toggle()'>Toggle a div</a>
                 </div>
                 <!-- af> af val() -->
-                <div id="af11" class="panel" data-footer="footer" title=".val()">$("#div").val() - will get or set the value of an HTML element.
+                <div id="af11" class="panel" title=".val()">$("#div").val() - will get or set the value of an HTML element.
                     <br />
                     <br />
                     <input type="text" id="af11_input" size=15>
@@ -505,7 +506,7 @@
                     <a class="button"  onclick='($("#af11_input").val("set value"))'>Set Value</a>
                 </div>
                 <!-- af> af attr() -->
-                <div id="af12" class="panel" data-footer="footer" title=".attr()">$("#div").attr() - will get or set an attribute of an HTML element.
+                <div id="af12" class="panel" title=".attr()">$("#div").attr() - will get or set an attribute of an HTML element.
                     <br />
                     <br />
                     <div id="af12_content" data-test="foo">The data-test attribute is set to "foo" - data-test="foo"</div>
@@ -516,7 +517,7 @@
                     <a class="button"  onclick='($("#af12_content").attr("data-test","bar"))'>Set Attribute Value</a>
                 </div>
                 <!-- af> af removeAttr() -->
-                <div id="af13" class="panel" data-footer="footer" title=".removeAttr()">$("#div").removeAttr() - will remove an attribute of an HTML element.
+                <div id="af13" class="panel" title=".removeAttr()">$("#div").removeAttr() - will remove an attribute of an HTML element.
                     <br />
                     <br />
                     <div id="af13_content" data-test="foo">The data-test attribute is set to "foo" - data-test="foo"</div>
@@ -526,7 +527,7 @@
                     <a class="button"  onclick='($("#af13_content").removeAttr("data-test"))'>Remove Attribute Value</a>
                 </div>
                 <!-- af> af remove() -->
-                <div id="af14" class="panel" data-footer="footer" title=".remove()">$("#div").remove() - will remove an element from the parent container.
+                <div id="af14" class="panel" title=".remove()">$("#div").remove() - will remove an element from the parent container.
                     <br />
                     <br />
                     <div id="af14_content" style="border:1px solid black">This is content that will be removed from the DOM.</div>
@@ -534,7 +535,7 @@
                     <a class="button"  onclick='$("#af14_content").remove()'>Remove the Element</a>
                 </div>
                 <!-- af> af addClass() -->
-                <div id="af15" class="panel" data-footer="footer" title=".addClass()">$("#div").addClass() - adds a css class to the element.
+                <div id="af15" class="panel" title=".addClass()">$("#div").addClass() - adds a css class to the element.
                     <br />
                     <br />
                     <div style='border:1px solid black' id="af15_content">This is some content</div>
@@ -543,7 +544,7 @@
                     <a class="button"  onclick='($("#af15_content").addClass("class16"))'>Add a Class</a>
                 </div>
                 <!-- af> af removeClass() -->
-                <div id="af16" class="panel" data-footer="footer" title=".removeClass()">$("#div").removeClass() - removes a css class to the element.
+                <div id="af16" class="panel" title=".removeClass()">$("#div").removeClass() - removes a css class to the element.
                     <br />
                     <br />
                     <div style='border:1px solid black' id="af16_content" class="class16">This is some content</div>
@@ -551,7 +552,7 @@
                     <a class="button"  onclick='($("#af16_content").removeClass("class16"))'>Remove the Class</a>
                 </div>
                 <!-- af> af hassClass() -->
-                <div id="af17" class="panel" data-footer="footer" title=".hasClass()">$("#div").hassClass() - returns a boolean if an element has a class.
+                <div id="af17" class="panel" title=".hasClass()">$("#div").hassClass() - returns a boolean if an element has a class.
                     <br />
                     <br />
                     <div style='border:1px solid black' id="af17_content" class="class16">This is some content</div>
@@ -559,7 +560,7 @@
                     <a class="button"  onclick='alert($("#af17_content").hasClass("class16"))'>Check if it has the class</a>
                 </div>
                 <!-- af> af bind() -->
-                <div id="af18" class="panel" data-footer="footer" title=".bind()">$("#div").bind() - binds an event to an element.
+                <div id="af18" class="panel" title=".bind()">$("#div").bind() - binds an event to an element.
                     <br />
                     <br />
                     <a class="button"  id="af18_content">Test Link to bind event to</a>
@@ -569,7 +570,7 @@
                     <br />
                 </div>
                 <!-- af> af unbind() -->
-                <div id="af19" class="panel" data-footer="footer" title=".unbind()">$("#div").unbind() - unbinds an event from an element.
+                <div id="af19" class="panel" title=".unbind()">$("#div").unbind() - unbinds an event from an element.
                     <br />
                     <br />
                     <a class="button"  id="af19_content">This is a test link</a>
@@ -580,7 +581,7 @@
                     <a class="button"  onclick='$("#af19_content").unbind("click")'>Unbind Event</a>
                 </div>
                 <!-- af> af trigger() -->
-                <div id="af20" class="panel" data-footer="footer" title=".trigger()">$("#div").trigger() - triggers an event on an element.
+                <div id="af20" class="panel" title=".trigger()">$("#div").trigger() - triggers an event on an element.
                     <br />
                     <br />
                     <a id="af20_content"  onclick="alert('I was clicked')">Click to test me</a>
@@ -589,7 +590,7 @@
                     <a class="button"  onclick='$("#af20_content").trigger("click")'>Trigger Event</a>
                 </div>
                 <!-- af> af append() -->
-                <div id="af21" class="panel" data-footer="footer" title=".append()">$("#div").append() - appends an element or content.
+                <div id="af21" class="panel" title=".append()">$("#div").append() - appends an element or content.
                     <br />
                     <br />
                     <div id="af21_content">I'll append content after the &lt;hr>
@@ -600,7 +601,7 @@
                     <a class="button"  onclick='$("#af21_content").append("<span>Some more content<br /></span>");'>Append Content</a>
                 </div>
                 <!-- af> af prepend() -->
-                <div id="af22" class="panel" data-footer="footer" title=".prepend()">$("#div").prepend() - prepends an element or content.
+                <div id="af22" class="panel" title=".prepend()">$("#div").prepend() - prepends an element or content.
                     <br />
                     <br />
                     <div id="af22_content">
@@ -610,7 +611,7 @@
                     <a class="button"  onclick='$("#af22_content").prepend("<span>Some more content<br /></span>");'>Prepend Content</a>
                 </div>
                 <!-- af> af offset() -->
-                <div id="af31" class="panel" data-footer="footer" title=".offset()">
+                <div id="af31" class="panel" title=".offset()">
                     <script>
                         function getElementOffset() {
                             var data = $("#af31").offset();
@@ -622,7 +623,7 @@
                     <a class="button"  onclick='getElementOffset()'>Get Offsett</a>
                 </div>
                 <!-- af> af get(0) -->
-                <div id="af32" class="panel" data-footer="footer" title=".get(0)">$("#div").get(0) - Get's an individual element by index.
+                <div id="af32" class="panel" title=".get(0)">$("#div").get(0) - Get's an individual element by index.
                     <br />
                     <br />
                     <script>
@@ -634,16 +635,16 @@
                     <a class="button"  onclick='getElementByIndex();'>Get first panel</a>
                 </div>
                 <!-- af> af jsonP() -->
-                <div id="af23" class="panel" data-footer="footer" title=".jsonP()">$.jsonP(url:"URL", success:function(){}, timeout:"1000", error:function(){} ) - makes a jsonP call for cross domain scripting
+                <div id="af23" class="panel" title=".jsonP()">$.jsonP(url:"URL", success:function(){}, timeout:"1000", error:function(){} ) - makes a jsonP call for cross domain scripting
                     <br />
                     <br />
                     <div id="af23_content" style="border:1px solid black;">This will get updated with content from the jsonP call</div>
                     <br />
                     <br />
-                    <a class="button"  onclick="$.jsonP({url:'http://jsfiddle.net/echo/jsonp/?test=some+html+content&callback=?',success:function(data){$('#af23_content').html(data.test)}});">Make jsonP call</a>
+                    <a class="button"  onclick="$.jsonP({url:'http://jsfiddle.net/echo/jsonp/?foo=bar&callback=?',success:function(data){$('#af23_content').html(JSON.stringify(data))}});">Make jsonP call</a>
                 </div>
                 <!-- af> af ajax() -->
-                <div id="af24" class="panel" data-footer="footer" title=".ajax()">$.ajax(url:"URL", success:function(){}, timeout:"1000", error:function(){} ) - makes an Ajax call
+                <div id="af24" class="panel" title=".ajax()">$.ajax(url:"URL", success:function(){}, timeout:"1000", error:function(){} ) - makes an Ajax call
                     <br />
                     <br />
                     <script type="text/javascript">
@@ -655,19 +656,40 @@
                                 }
                             });
                         }
+                        function doAjax2() {
+                            $.ajax({
+                                url: 'http://jsfiddle.net/echo/jsonp/?foo=bar',
+                                type: 'GET',
+                                success: function (data) {
+                                    $('#af24_content').html(data)
+                                }
+                            });
+                        }
+                        function doAjax3() {
+                            $.ajax({
+                                url: 'http://jsfiddle.net/echo/json/',
+                                data: {json: '{"foo": "bar"}'},
+                                type: 'POST',
+                                success: function (data) {
+                                    $('#af24_content').html(data)
+                                }
+                            });
+                        }
                     </script>
                     <div id="af24_content" style="border:1px solid black;">This will get updated with content from the ajax call</div>
                     <br />
                     <br />
-                    <a class="button"  onclick="doAjax()">Make Ajax Call</a>
+                    <a class="button"  onclick="doAjax()">Make local AJAX Call</a>
+                    <a class="button"  onclick="doAjax2()">Make AJAX Call GET</a>
+                    <a class="button"  onclick="doAjax3()">Make AJAX Call POST</a>
                 </div>
-                <!-- af> af get(0) -->
-                <div id="af25" class="panel" data-footer="footer" title=".get(0)">$.get(url:"URL", success:function(){}, timeout:"1000", error:function(){} ) - makes an Ajax call
+                <!-- af> af get() -->
+                <div id="af25" class="panel" title=".get()">$.get(url:"URL", success:function(){}, timeout:"1000", error:function(){} ) - makes an Ajax call
                     <br />
                     <br />
                     <script type="text/javascript">
                         function doget() {
-                            $.get(webRoot + 'ajax.html', function (data) {
+                            $.get('http://jsfiddle.net/echo/jsonp/?foo=bar', function (data) {
                                 $('#af25_content').html(data)
                             });
                         }
@@ -678,13 +700,13 @@
                     <a class="button"  onclick="doget()">Make Get Call</a>
                 </div>
                 <!-- af> af post() -->
-                <div id="af26" class="panel" data-footer="footer" title=".post()">$.post(url,data:{foo:"bar"}, success:function(){}, timeout:"1000",error: function(){} ) - makes an Ajax call
+                <div id="af26" class="panel" title=".post()">$.post(url,data:{foo:"bar"}, success:function(){}, timeout:"1000",error: function(){} ) - makes an Ajax call
                     <br />
                     <br />
                     <script type="text/javascript">
                         function doPost() {
-                            $.post(webRoot + 'ajax.html', {
-                                foo: "bar"
+                            $.post('http://jsfiddle.net/echo/json/', {
+                                json: '{"foo": "bar"}'
                             }, function (data) {
                                 $('#af26_content').html(data)
                             });
@@ -696,22 +718,43 @@
                     <a class="button"  onclick="doPost()">Make Post Call</a>
                 </div>
                 <!-- af> af getJSON() -->
-                <div id="af27" class="panel" data-footer="footer" title=".getJSON()">$.getJSON(url,data,success); - Makes a XMLHpttRequest GET request and returns a JSON object.
+                <div id="af27" class="panel" title=".getJSON()">$.getJSON(url,data,success); - Makes a XMLHpttRequest GET request and returns a JSON object.
                     <br />
                     <br />
                     <script>
                         function doJSON() {
-                            $.getJSON(webRoot + 'json.html', function (data) {
+                            $.getJSON('http://time.jsontest.com/', function (data) {
+                                $('#af27_content').html(JSON.stringify(data))
+                            });
+                        }
+                        function doJSON2() {
+                            $.getJSON('http://time.jsontest.com/?callback=?', function (data) {
+                                $('#af27_content').html(JSON.stringify(data))
+                            });
+                        }
+                        function doJSON3() { // requires xhr.js
+                            $.getJSON('http://time.jsontest.com/?alloworigin=false', function (data) {
+                                $('#af27_content').html(JSON.stringify(data))
+                            });
+                        }
+                        function doJSON4() {
+                            $.getJSON('http://time.jsontest.com/?alloworigin=false&callback=?', function (data) {
                                 $('#af27_content').html(JSON.stringify(data))
                             });
                         }
                     </script>
                     <div style="border:1px solid black" id="af27_content">Returned object</div>
                     <br />
-                    <a class="button"  onclick="doJSON()">Make GetJson Call</a>
+                    <a class="button"  onclick="doJSON()">Get JSON</a>
+                    <br />
+                    <a class="button"  onclick="doJSON2()">Get JSONP</a>
+                    <br />
+                    <a class="button"  onclick="doJSON3()">Get JSON without Access-Control-Allow-Origin header</a>
+                    <br />
+                    <a class="button"  onclick="doJSON4()">Get JSONP without Access-Control-Allow-Origin header</a>
                 </div>
                 <!-- af> af serialize() -->
-                <div id="af28" class="panel" data-footer="footer" title=".param()">$.param() - serializes an object into key/value pairs for a querystring.
+                <div id="af28" class="panel" title=".param()">$.param() - serializes an object into key/value pairs for a querystring.
                     <br />
                     <br />	<code>
 									var obj= {foo:"foo",bar:"bar"};
@@ -733,7 +776,7 @@
                     <a class="button"  onclick="doSerialize()">Make param Call</a>
                 </div>
                 <!-- af> af parseJSON() -->
-                <div id="af29" class="panel" data-footer="footer" title=".parseJSON()">$.parseJSON() - parses a string and converts it into a JSON object. Uses the native JSON parser, but is added for backwards compatibility.
+                <div id="af29" class="panel" title=".parseJSON()">$.parseJSON() - parses a string and converts it into a JSON object. Uses the native JSON parser, but is added for backwards compatibility.
                     <br>
                     <br>	<code>
 									var obj='{"foo":"bar"}';
@@ -749,7 +792,7 @@
                     <a class="button"  onclick="doParseJson()">Parse JSON string</a>
                 </div>
                 <!-- af> os -->
-                <div id="af30" class="panel" data-footer="footer" title=".os">$.os - holds information about the OS of the device, and if it is a webkit browser
+                <div id="af30" class="panel" title=".os">$.os - holds information about the OS of the device, and if it is a webkit browser
                     <br>
                     <br>	<div class="samplecode" >
 									$.os.webkit  = <script>document.write($.os.webkit);</script><br>
@@ -766,7 +809,7 @@
 
                 </div>
                 <!-- af> isArray -->
-                <div id="af33" class="panel" data-footer="footer" title=".isArray()">$.isArray(param) - returns a boolean if the parameter is an array.
+                <div id="af33" class="panel" title=".isArray()">$.isArray(param) - returns a boolean if the parameter is an array.
                     <br>
                     <br>	<div class="samplecode">var notArrayTest="foo";<br>
 									var isArrayTest=[];
@@ -792,7 +835,7 @@
                     <br>
                 </div>
                 <!-- af> isFunction -->
-                <div id="af34" class="panel" data-footer="footer" title=".isFunction()">$.isFunction(param) - returns a boolean if the parameter is a function.
+                <div id="af34" class="panel" title=".isFunction()">$.isFunction(param) - returns a boolean if the parameter is a function.
                     <br>
                     <br>	<div class="samplecode">
 									var notFunctionTest="foo";<br>
@@ -818,7 +861,7 @@
                     <a class="button"  onclick="isAFunction()">test isFunctionTest</a>
                     <br>
                 </div>
-                <div id="afparent" class="panel" data-footer="footer" title=".parent()">This returns the parent elements for the previously found elements in the container	<div class="samplecode">
+                <div id="afparent" class="panel" title=".parent()">This returns the parent elements for the previously found elements in the container	<div class="samplecode">
 									$("#afparent").parent();
 								</div>
 The parent id for this div is "content". Let's verify it.
@@ -828,7 +871,7 @@ The parent id for this div is "content". Let's verify it.
                 <!-- ------------------------------------------ -->
                 <!-- ------------------------------------------ -->
                 <!-- App Framework UI -->
-                <div title="App Framework UI" id="afuidemo" class="panel" data-footer="footer" data-tab="navbar_ui">
+                <div title="App Framework UI" id="afuidemo" class="panel" data-tab="navbar_ui">
                     <header>
                         <h1>AppFramework UI</h1>
                     </header>
@@ -879,7 +922,7 @@ The parent id for this div is "content". Let's verify it.
                         </li>                        
                     </ul>
                 </div>
-                <div id="uiicons" title="Vector Icons" class="panel" data-footer="footer">
+                <div id="uiicons" title="Vector Icons" class="panel">
                     	<h2 class='expanded' onclick='showHide(this,"icons_info");'>Vector Icons</h2>
                     <p id='icons_info'>App Framework UI provides Vector icons to use throughout your app. Simply add the icon class, along with the image class name and additional sizes you want.
                         <br>.mini -  .7em high
@@ -1064,16 +1107,16 @@ The parent id for this div is "content". Let's verify it.
                         </li>
                     </ul>
                 </div>
-                <div id="uidefer" title="Defer Loading" class="panel" data-footer="footer" data-defer="defer.html">Deferred loading requires a web browser for Ajax to work. What we do is load the html after $.ui.ready is called, so you can speed up the initial loading time of your app.</div>
-                <div id="uiside" title="Side Menu Navigation" class="panel" data-footer="footer">	<b>Side Menu Navigation</b>
+                <div id="uidefer" title="Defer Loading" class="panel" data-defer="defer.html">Deferred loading requires a web browser for Ajax to work. What we do is load the html after $.ui.ready is called, so you can speed up the initial loading time of your app.</div>
+                <div id="uiside" title="Side Menu Navigation" class="panel">	<b>Side Menu Navigation</b>
                     <br>If you are on a tablet, you'll already see the side menu. If you are on a phone, click the "Powered by AppFramework" button to expand it.
                     <br>
                     <Br>Side menu's are created using the &lt;nav&gt; tags. You can set the id and then refer to them on each panel by setting the data-menu='id' property. The side menu's will only show if you have &lt;nav&gt; defined.</div>
                 <div id="uifooter" title="Custom Footers"
-                class="panel" data-footer="footer">
+                class="panel">
                     <p>You should notice that the footer is no longer the default. It is specific to App Framework UI, with options for Transitions, UI and API</p>You can create custom fotoers using the &lt;footer&gt; tag. You then set the id on each panel to change them using
                     the data-footer='id' property.</div>
-                <div id="afgrid" title="Grid System" class="panel" data-footer="footer">
+                <div id="afgrid" title="Grid System" class="panel">
                     <p>You can specify the following types of grids</p>
                     <ul class="list inset">
                         <li>col2 - 50% (2x2)</li>
@@ -1115,7 +1158,7 @@ The parent id for this div is "content". Let's verify it.
 
 
                 </div>
-                <div id="afforms" title="Form Styles" class="panel" data-footer="footer">
+                <div id="afforms" title="Form Styles" class="panel">
                 <div class="formGroupHead">Standard</div>
                 <form>
                     <input type="text" placeholder="test">
@@ -1179,7 +1222,7 @@ The parent id for this div is "content". Let's verify it.
         </form>
 
                 </div>
-                <div title="Transitions" id="aftransitions" class="panel" data-footer="footer">
+                <div title="Transitions" id="aftransitions" class="panel">
                     	<h2 class='expanded' onclick='showHide(this,"AFUI_transitions");'>App Framework UI</h2>
                     <p id='AFUI_transitions'>	<strong>af.ui transitions</strong> the following are transitions built in. You can easily add/extend with your own. Set the data-transition attribute on an anchor to change the transition.</p>
                     <ul class="list">
@@ -1208,7 +1251,7 @@ The parent id for this div is "content". Let's verify it.
                     <br/>
                     <br/>
                 </div>
-                <div id="uiinsetlist" title="App Framework UI Inset list" class="panel" data-footer="footer">
+                <div id="uiinsetlist" title="App Framework UI Inset list" class="panel">
                     Inset lists have a margin and rounded corners
                     <ul class="list inset">
                         <li>
@@ -1228,7 +1271,7 @@ The parent id for this div is "content". Let's verify it.
                         </li>
                     </ul>
                 </div>
-                <div id="uibuttons" title="App Framework UI Buttons" class="panel" data-footer="footer">
+                <div id="uibuttons" title="App Framework UI Buttons" class="panel">
                     Below are different types of buttons<br><br>
                     <a class="button">Test</a><br><br>
                     <a class="button red previous">Test red</a><br><br>
@@ -1267,7 +1310,7 @@ The parent id for this div is "content". Let's verify it.
                     <a class="button gray">Gray</a><br><br>
 
                 </div>
-                <div id="uiapi" title="AppFramework UI API" class="panel" data-footer="footer" data-pull-scroller='true'>
+                <div id="uiapi" title="AppFramework UI API" class="panel" data-pull-scroller='true'>
                     <ul class="list">
                         <li>
                             <a href="#uigoback">.goBack()</a>
@@ -1325,7 +1368,7 @@ The parent id for this div is "content". Let's verify it.
                         </li>
                     </ul>
                 </div>
-                <div id="uibadge" title="updateBadge" class="panel" data-footer="footer">Updates a badge with the given value or creates one.
+                <div id="uibadge" title="updateBadge" class="panel">Updates a badge with the given value or creates one.
                     <br>Position can be	<div class="samplecode">
 							bl - bottom left<br>
 							tl - top left<br>
@@ -1344,7 +1387,7 @@ The parent id for this div is "content". Let's verify it.
                     <a  onclick="$.ui.updateBadge('#libadge','Badge Created','tl');" class="button">Create Badge</a>
                     <br>
                 </div>
-                <div id="uiremovebadge" title="removeBadge" class="panel" data-footer="footer">Removes a badge.
+                <div id="uiremovebadge" title="removeBadge" class="panel">Removes a badge.
                     <ul class="list">
                         <li id='libadge2'>
                             <a >Badge</a>
@@ -1357,30 +1400,30 @@ The parent id for this div is "content". Let's verify it.
                     <br>
                     <a  onclick="$.ui.removeBadge('#libadge2');" class="button">Remove Badge</a>
                 </div>
-                <div id="uiready" title="Ready" class="panel" data-footer="footer">Execute a function when $.ui.launch has completed	<div class="samplecode">
+                <div id="uiready" title="Ready" class="panel">Execute a function when $.ui.launch has completed	<div class="samplecode">
 							$.ui.ready(function(){});
 						</div>
 
                 </div>
-                <div id="uigoback" title="Go Back" class="panel" data-footer="footer">You can use this command to go back in history.	<div class="samplecode">
+                <div id="uigoback" title="Go Back" class="panel">You can use this command to go back in history.	<div class="samplecode">
 							$.ui.goBack()
 						</div>
 
                     <a  onclick="$.ui.goBack()" class="button">Go Back</a>
                 </div>
-                <div id="uilaunch" title="Launch" class="panel" data-footer="footer">You can use this command to launch your App Framework UI app if you set autoLaunch=false;	<div class="samplecode">
+                <div id="uilaunch" title="Launch" class="panel">You can use this command to launch your App Framework UI app if you set autoLaunch=false;	<div class="samplecode">
 							$.ui.autoLaunch=false;<br>
 							$.ui.golaunch()
 						</div>
 
                 </div>
-                <div id="uiclearhistory" title="Clear History" class="panel" data-footer="footer">You can use this command to clear the history stack manually	<div class="samplecode">
+                <div id="uiclearhistory" title="Clear History" class="panel">You can use this command to clear the history stack manually	<div class="samplecode">
 							$.ui.clearHistory()
 						</div>
 
                     <a  onclick="$.ui.clearHistory()" class="button">Clear History Stack</a>
                 </div>
-                <div id="uiaddcontentdiv" title="Add Content Div" class="panel" data-footer="footer">You can use this command to add a new div programatically. This will setup scrolling, etc.	<div class="samplecode">
+                <div id="uiaddcontentdiv" title="Add Content Div" class="panel">You can use this command to add a new div programatically. This will setup scrolling, etc.	<div class="samplecode">
 							$.ui.addContentDiv(id, content,title, pullToRefresh, refreshFunc)
 						</div>
 
@@ -1397,20 +1440,20 @@ The parent id for this div is "content". Let's verify it.
 
                     <a id='addContentButton'  onclick="addDiv();" class="button">Add Content Div</a>
                 </div>
-                <div id="uisettitle" title="Set Title" class="panel" data-footer="footer">This will set the page title of the current page programatically. It will not be retained.	<div class="samplecode">
+                <div id="uisettitle" title="Set Title" class="panel">This will set the page title of the current page programatically. It will not be retained.	<div class="samplecode">
 							$.ui.setTitle('Title Change');
 						</div>
 
                     <a  onclick="$.ui.setTitle('Title Change');" class="button">Change Title</a>
                 </div>
-                <div id="uisetbackbutton" title="Change Back Button Text" class="panel" data-footer="footer">This will set the back button text. You can also override this at the start, which we have done.	<div class="samplecode">
+                <div id="uisetbackbutton" title="Change Back Button Text" class="panel">This will set the back button text. You can also override this at the start, which we have done.	<div class="samplecode">
 							$.ui.setBackButtonText('GO BACK');<br><br>
 
 							$.ui.backButtonText="Back" //override
 						</div>
 
                 </div>
-                <div id="uishowmask" title="Show Mask" class="panel" data-footer="footer">This will show the loading mask. You can trigger this manually for long operations.	<div class="samplecode">
+                <div id="uishowmask" title="Show Mask" class="panel">This will show the loading mask. You can trigger this manually for long operations.	<div class="samplecode">
 							$.ui.showMask();
 						</div>
 
@@ -1425,39 +1468,39 @@ The parent id for this div is "content". Let's verify it.
                     </script>
                     <a  onclick="showMask('Mask will hide in 2 seconds')" class="button">Show Mask</a>
                 </div>
-                <div id="uihidemask" title="Hide Mask" class="panel" data-footer="footer">This will hide the loading mask. You can trigger this manually for long operations.	<div class="samplecode">
+                <div id="uihidemask" title="Hide Mask" class="panel">This will hide the loading mask. You can trigger this manually for long operations.	<div class="samplecode">
 							$.ui.hideMask();
 						</div>
 
                     <a  onclick="$.ui.showMask()" class="button">Show Mask</a>|
                     <a  onclick="$.ui.hideMask()" class="button">Hide Mask</a>
                 </div>
-                <div id="uiloadcontent" title="Load Div" class="panel" data-footer="footer">This allows you to programatically trigger a page transition/navigation event.	<div class="samplecode">
+                <div id="uiloadcontent" title="Load Div" class="panel">This allows you to programatically trigger a page transition/navigation event.	<div class="samplecode">
 							$.ui.loadContent()
 						</div>
 
                     <a  onclick="$.ui.loadContent('uiapi',false,false,'flip')" class="button">Load $.ui API page with a flip</a>
                 </div>
-                <div id="uitoggleheader" title="Toggle Header" class="panel" data-footer="footer">This allows you to hide/show the header bar if you have one. When you do this, the content area will expand up for you.	<div class="samplecode">
+                <div id="uitoggleheader" title="Toggle Header" class="panel">This allows you to hide/show the header bar if you have one. When you do this, the content area will expand up for you.	<div class="samplecode">
 							$.ui.toggleHeaderMenu();
 						</div>
 
                     <a  onclick="$.ui.toggleHeaderMenu()" class="button">Toggle Header Menu</a>
                 </div>
-                <div id="uitogglenav" title="Toggle Footer Nav" class="panel" data-footer="footer">This lets you toggle the footer navigation menu if you have one. when you do this, the content area will expand down for you.
+                <div id="uitogglenav" title="Toggle Footer Nav" class="panel">This lets you toggle the footer navigation menu if you have one. when you do this, the content area will expand down for you.
                     <br>You can also do this by setting data-footer="none" on the panel	<div class="samplecode">
 							$.ui.toggleNavMenu();
 						</div>
 
                     <a  onclick="$.ui.toggleNavMenu()" class="button">Toggle Nav Menu</a>
                 </div>
-                <div id="uitoggleside" title="Toggle Side Nav" class="panel" data-footer="footer">This lets you toggle the side navigation menu if you have one. On a tablet, this will be persistent by default.	<div class="samplecode">
+                <div id="uitoggleside" title="Toggle Side Nav" class="panel">This lets you toggle the side navigation menu if you have one. On a tablet, this will be persistent by default.	<div class="samplecode">
 							$.ui.toggleSideNav();
 						</div>
 
                     <a  onclick="$.ui.toggleSideMenu();" class="button">Toggle Side Menu</a>
                 </div>
-                <div id="uiactionsheet" title="Actionsheet" class="panel" data-footer="footer">This is a shortcut to the actionsheet plugin. This will wire it correctly to App Framework UI div	<div class="samplecode">
+                <div id="uiactionsheet" title="Actionsheet" class="panel">This is a shortcut to the actionsheet plugin. This will wire it correctly to App Framework UI div	<div class="samplecode">
 							$.ui.actionsheet()
 						</div>
 
@@ -1467,7 +1510,7 @@ The parent id for this div is "content". Let's verify it.
                     <br/>
                     <br/>
                 </div>
-                <div id="uiscrolltotop" title="Scroll to Top" class="panel" data-footer="footer">This allows you to scroll to the top of a page. Scroll to the bottom for the link.	<div class="samplecode">
+                <div id="uiscrolltotop" title="Scroll to Top" class="panel">This allows you to scroll to the top of a page. Scroll to the bottom for the link.	<div class="samplecode">
 							$.ui.scrollToTop(div_id)
 						</div>
 
@@ -1521,7 +1564,7 @@ The parent id for this div is "content". Let's verify it.
                     <br/>
                     <br/>
                 </div>
-                <div id="uiscrolltobottom" title="Scroll to Bottom" class="panel" data-footer="footer">This allows you to scroll to the top of a page. Scroll to the bottom for the link.	<div class="samplecode">
+                <div id="uiscrolltobottom" title="Scroll to Bottom" class="panel">This allows you to scroll to the top of a page. Scroll to the bottom for the link.	<div class="samplecode">
 							$.ui.scrollToTop(div_id)
 						</div>
 
@@ -1595,7 +1638,7 @@ The parent id for this div is "content". Let's verify it.
                 <div title="Fade" id="transition6" class="panel splashscreen" style="padding-left:0px">
                     <div style="text-align:center;width:100%;color:white;font-size:40px">App Framework Fade Transition</div>
                 </div>
-                <div title="Modal" id="transition7" class="panel" data-footer="footer" data-modal="true" data-unload="unloadedPanel">I'm a modal window...woot woot
+                <div title="Modal" id="transition7" class="panel" data-modal="true" data-unload="unloadedPanel">I'm a modal window...woot woot
                     <br>
                     <br>
                     <br>Check the input box out below.
@@ -1605,7 +1648,7 @@ The parent id for this div is "content". Let's verify it.
                 <!-- ------------------------------------------ -->
                 <!-- ------------------------------------------ -->
                 <!-- Plugins -->
-                <div title="Plugins" id="afweb" class="panel" data-footer="footer" data-tab="navbar_plugins">
+                <div title="Plugins" id="afweb" class="panel" data-tab="navbar_plugins">
                     <header>
                         <h1>AppFramework Plugins</h1>
                     </header>
@@ -1639,7 +1682,7 @@ The parent id for this div is "content". Let's verify it.
                     <br/>
                 </div>
                 <!-- Plugins> af.scroller -->
-                <div title="Scroller" class="panel" data-footer="footer" id="webslider">
+                <div title="Scroller" class="panel" id="webslider">
                     <script>
                         var myScroller;
                         $.ui.ready(function () {
@@ -1785,7 +1828,7 @@ The parent id for this div is "content". Let's verify it.
                 </div>
 
                 <!-- Plugins> af.selectBox -->
-                <div title="Select" class="panel" data-footer="footer" id="webselect" scrolling="yes">
+                <div title="Select" class="panel" id="webselect" scrolling="yes">
                     <script>
                         var init_select = function () {
                            // $.selectBox.getOldSelects("selectTest");
@@ -1871,7 +1914,7 @@ The parent id for this div is "content". Let's verify it.
                     <br>
                 </div>
                 <!-- Plugins> af.passwordBox -->
-                <div title="Password" class="panel" data-footer="footer" id="webpassword">
+                <div title="Password" class="panel" id="webpassword">
                     <script>
                         var pwFixer = new $.passwordBox();
                         var init_password = function () {
@@ -1908,7 +1951,7 @@ The parent id for this div is "content". Let's verify it.
                     </div>
                 </div>
                 <!-- Plugins> af.css3animate -->
-                <div title="Animate" class="panel" data-footer="footer" id="webanimate" style="overflow:hidden;">
+                <div title="Animate" class="panel" id="webanimate" style="overflow:hidden;">
                     <script>
                         function moveOnce() {
                             $("#animate").css3Animate({
@@ -2005,7 +2048,7 @@ The parent id for this div is "content". Let's verify it.
                 </div>
                 <!-- ------------------------------------------ -->
                 <!-- Plugins> afActionSheet -->
-                <div title="Action Sheet" class="panel" data-footer="footer" id="webactionsheet">
+                <div title="Action Sheet" class="panel" id="webactionsheet">
                     <script>
                         function showCustomHtmlSheet() {
                             $("#afui").actionsheet('<a  >Back</a><a  onclick="alert(\'hi\');" >Show Alert 3</a><a  onclick="alert(\'goodbye\');">Show Alert 4</a>');
@@ -2039,7 +2082,7 @@ The parent id for this div is "content". Let's verify it.
                     <a class="button"  onClick="showCustomHtmlSheet()">Show Custom Html Sheet</a>
                     <a class="button"  onClick="showCustomJsonSheet()">Show Custom Json Sheet</a>
                 </div>
-                <div title="Popup" class="panel" data-footer="footer" id="webpopup">
+                <div title="Popup" class="panel" id="webpopup">
                     <script>
                         function showPopup1() {
                             $("#afui").popup("I'm replacing an alert box");
@@ -2084,7 +2127,7 @@ The parent id for this div is "content". Let's verify it.
                     <a class="button" onClick="showPopup3()">HTML markup</a>
                     <br>
                 </div>
-                <div class="panel" data-footer="footer" title="touch events" id="touchevents">
+                <div class="panel" title="touch events" id="touchevents">
                 <script>
                 $(document).ready(function(){
                     $("#taptest").bind("tap",function(){
@@ -2116,7 +2159,7 @@ The parent id for this div is "content". Let's verify it.
                 </div>    
                 <!-- ------------------------------------------ -->
                 <!-- Device API -->
-                <div title="Device APIs" id="deviceapi" class="panel" data-footer="footer" data-tab="navbar_deviceapi">
+                <div title="Device APIs" id="deviceapi" class="panel" data-tab="navbar_deviceapi">
                     <header>
                         <h1>Device API</h1>
                     </header>
@@ -2136,7 +2179,7 @@ The parent id for this div is "content". Let's verify it.
                 
                 <!-- Device API> intel.xdk -->
                 
-                <div title="intel.xdk APIs" id="intelxdk" class="panel" data-footer="footer">
+                <div title="intel.xdk APIs" id="intelxdk" class="panel">
                     <h2>intel.xdk API Demo</h2>
                     <p id="xdkDevicereadyEvent">intel.xdk device.ready event has not fired, the demos will not work.</p>
                     <ul class="list">
@@ -2176,7 +2219,7 @@ The parent id for this div is "content". Let's verify it.
                     </ul>
                 </div>
                 
-                <div class="panel" data-footer="footer" title="intel.xdk Properties" id="xdkProp">
+                <div class="panel" title="intel.xdk Properties" id="xdkProp">
                     <a class="button" onclick="xdkGetProperties()">Get XDK Properties</a>
                     <ul class="list inset" id="xdkProps">
                         <li>intel.xdk.app</li>
@@ -2221,7 +2264,7 @@ The parent id for this div is "content". Let's verify it.
                     </script>
                 </div>
                 
-                <div class="panel" data-footer="footer" title="Device Properties" id="xdkDevice">
+                <div class="panel" title="Device Properties" id="xdkDevice">
                     <a class="button" onclick="xdkUpdateDeviceInfo()">Get Device Properties</a>
                     <ul class="list inset">
                         <li id="xdkDeviceUUID">UUID : </li>
@@ -2253,7 +2296,7 @@ The parent id for this div is "content". Let's verify it.
                     </script>
                 </div>   
                 
-                <div class="panel" data-footer="footer" id="xdkEvents" title="Device Events">
+                <div class="panel" id="xdkEvents" title="Device Events">
                     <h2>Events</h2>
                     <p>Monitor intel.xdk device events</p>
                     <ul class="list inset">
@@ -2275,7 +2318,7 @@ The parent id for this div is "content". Let's verify it.
                     </ul>                    
                 </div>
                 
-                <div class="panel" data-footer="footer" id="xdkRemoteData" title="Remote Data">
+                <div class="panel" id="xdkRemoteData" title="Remote Data">
                     <h2>Remote Data Demo</h2>
                     <p></p>
                     <a class="button" onclick="xdkGetRemoteData()">Get Remote Data</a><br>
@@ -2295,7 +2338,7 @@ The parent id for this div is "content". Let's verify it.
                     </script>    
                 </div>
                 
-                <div class="panel" data-footer="footer" id="xdkFileUpload" title="File Upload">
+                <div class="panel" id="xdkFileUpload" title="File Upload">
                     <h2>Upload File Demo</h2>
                     <p></p>
                     <a class="button" onclick="xdkFileUpload()">Upload File</a><br>
@@ -2314,7 +2357,7 @@ The parent id for this div is "content". Let's verify it.
                     </script>    
                 </div> 
                 
-                <div class="panel" data-footer="footer" id="xdkOauth" title="Oauth">
+                <div class="panel" id="xdkOauth" title="Oauth">
                     <h2>Oauth Demo</h2>
                     <p></p>
                     <a class="button" onclick="xdkOauth()">Oauth</a><br>
@@ -2334,7 +2377,7 @@ The parent id for this div is "content". Let's verify it.
                     </script>    
                 </div> 
                 
-                <div class="panel" data-footer="footer" id="xdkBasicAuth" title="Basic Authentication">
+                <div class="panel" id="xdkBasicAuth" title="Basic Authentication">
                     <h2>Basic Authentication Demo</h2>
                     <p></p>
                     <a class="button" onclick="xdkBasicAuth()">Basic Auth</a><br>
@@ -2352,7 +2395,7 @@ The parent id for this div is "content". Let's verify it.
                     </script>    
                 </div> 
                 
-                <div class="panel" data-footer="footer" id="xdkFacebook" title="Facebook">
+                <div class="panel" id="xdkFacebook" title="Facebook">
                     <h2>Facebook Integration Demo</h2>
                     <p></p>
                     <a class="button" onclick="xdkFacebook()">Facebook</a><br>
@@ -2376,7 +2419,7 @@ The parent id for this div is "content". Let's verify it.
                     </script>    
                 </div>
                 
-                <div class="panel" data-footer="footer" id="xdkCache" title="Device Cache">
+                <div class="panel" id="xdkCache" title="Device Cache">
                     <h2>Caching Demo</h2>
                     <p></p>
                     <a class="button" onclick="xdkCache()">Cache</a><br>
@@ -2399,7 +2442,7 @@ The parent id for this div is "content". Let's verify it.
                     </script>    
                 </div>
                 
-                <div class="panel" data-footer="footer" id="xdkCookies" title="Cookie">
+                <div class="panel" id="xdkCookies" title="Cookie">
                     <h2>Cookies Demo</h2>
                     <p></p>
                     <div>
@@ -2430,7 +2473,7 @@ The parent id for this div is "content". Let's verify it.
                     </script>    
                 </div>
                 
-                <div class="panel" data-footer="footer" id="xdkPlayer" title="Audio Video Player">
+                <div class="panel" id="xdkPlayer" title="Audio Video Player">
                     <h2>Audio Video Player Demo</h2>
                     <p></p>
                     <a class="button" onclick="xdkPlayer()">Player</a><br>
@@ -2449,7 +2492,7 @@ The parent id for this div is "content". Let's verify it.
                     </script>    
                 </div>
                 
-                <div class="panel" data-footer="footer" id="xdkCanvas" title="Accelerated Canvas">
+                <div class="panel" id="xdkCanvas" title="Accelerated Canvas">
                     <h2>Canvas Demo</h2>
                     <p></p>
                     <a class="button" onclick="xdkCanvas()">Canvas</a><br>
@@ -2471,7 +2514,7 @@ The parent id for this div is "content". Let's verify it.
                     </script>    
                 </div>
                 
-                <div class="panel" data-footer="footer" id="xdkARMode" title="Augmented Reality">
+                <div class="panel" id="xdkARMode" title="Augmented Reality">
                     <h2>Augmented Reality Demo</h2>
                     <p></p>
                     <a class="button" onclick="xdkStartAR()">Start AR Mode</a><br>
@@ -2500,7 +2543,7 @@ The parent id for this div is "content". Let's verify it.
                     </script>
                 </div>
                 
-                <div class="panel" data-footer="footer" id="xdkViewport" title="Display Viewport">
+                <div class="panel" id="xdkViewport" title="Display Viewport">
                     <h2>Viewport Demo</h2>
                     <p></p>
                     <a class="button" onclick="xdkSetViewport()">Set Viewport</a><br>
@@ -2523,7 +2566,7 @@ The parent id for this div is "content". Let's verify it.
                     </script>
                 </div>
                 
-                <div class="panel" data-footer="footer" id="xdkInAppBrowser" title="In App Browser">
+                <div class="panel" id="xdkInAppBrowser" title="In App Browser">
                     <h2>In App Browser Demo</h2>
                     <p>Methods that allow opening a remote website in <b>different webView</b> other than the main app webview, <b>whitelist websites</b>, closing webview, control position of close button, callbacks and <b>execute code in MainView</b>.</p>
                     <p>
@@ -2560,7 +2603,7 @@ The parent id for this div is "content". Let's verify it.
                     </script>
                 </div>
                 
-                <div class="panel" data-footer="footer" id="xdkInAppMessage" title="In App Messaging">
+                <div class="panel" id="xdkInAppMessage" title="In App Messaging">
                     <h2>In App Messaging Demo</h2>
                     <p>Methods that allow opening Email or SMS app without leaving the app.</p>
                     <a class="button" href="#" onclick="intel.xdk.device.sendEmail('Email Message', 'user@email.com', 'Email subject', true, null, null)">Send Email</a><br>
@@ -2576,7 +2619,7 @@ The parent id for this div is "content". Let's verify it.
                     <p>You can use this method to open a SMS app within the app.</p>
                 </div>
                 
-                <div class="panel" data-footer="footer" id="xdkLaunchExternal" title="Launch External">
+                <div class="panel" id="xdkLaunchExternal" title="Launch External">
                     <h2>Launch External Demo</h2>
                     <p>Methods that allow opening a external browser or apps.</p>
                     <p>
@@ -2594,7 +2637,7 @@ The parent id for this div is "content". Let's verify it.
                     <p>You can use this method to open an external website or app on the device.</p>
                 </div>
                 
-                <div class="panel" data-footer="footer" id="xdkInstallNativeApp" title="Native App">
+                <div class="panel" id="xdkInstallNativeApp" title="Native App">
                     <h2>Native App Demo</h2>
                     <p></p>
                     <a class="button" onclick="openInstagram()">Open or Install Instagram App</a><br>
@@ -2618,7 +2661,7 @@ The parent id for this div is "content". Let's verify it.
                     </script>
                 </div>
                 
-                <div class="panel" data-footer="footer" id="xdkOrientation" title="Device Orientation">
+                <div class="panel" id="xdkOrientation" title="Device Orientation">
                     <h2>Orientation Demo</h2>
                     <p></p>
                     <div class="button-grouped flex">    
@@ -2640,7 +2683,7 @@ The parent id for this div is "content". Let's verify it.
                     <div class="samplecode">intel.xdk.device.setAutoRotate(BOOL);</div>
                 </div>
                 
-                <div class="panel" data-footer="footer" id="xdkPower" title="Power States">
+                <div class="panel" id="xdkPower" title="Power States">
                     <h2>Power States Demo</h2>
                     <p></p>  
                     <a class="button" onclick="intel.xdk.device.managePower(true,true);">Never Sleep</a>
@@ -2656,7 +2699,7 @@ The parent id for this div is "content". Let's verify it.
                     <div class="samplecode">intel.xdk.device.managePower(shouldStayOn, onlyWhenPluggedIn);</div>
                 </div>
                 
-                <div class="panel" data-footer="footer" id="xdkMultitouch" title="Multitouch">
+                <div class="panel" id="xdkMultitouch" title="Multitouch">
                     <h2>Multitouch for Android Demo</h2>
                     <p></p>  
                     <a class="button" onclick="intel.xdk.multitouch.enable();">Enable Multitouch</a>
@@ -2669,7 +2712,7 @@ The parent id for this div is "content". Let's verify it.
                     <div class="samplecode">intel.xdk.multitouch.enable();</div>
                 </div>
                 
-                <div class="panel" data-footer="footer" id="xdkRemoteScript" title="Remote Script">
+                <div class="panel" id="xdkRemoteScript" title="Remote Script">
                     <h2>Load Script for Windows Demo</h2>
                     <p></p>  
                     <a class="button" onclick="loadScript()">Load script</a>
@@ -2687,7 +2730,7 @@ The parent id for this div is "content". Let's verify it.
                     </script>    
                 </div>
                 
-                <div class="panel" data-footer="footer" id="xdkBackButton" title="Back Button">
+                <div class="panel" id="xdkBackButton" title="Back Button">
                     <h2>Back Button Demo</h2>
                     <a class="button" onclick="intel.xdk.device.addVirtualPage();">Add Virtual Page</a>
                     <a class="button" onclick="intel.xdk.device.removeVirtualPage();">Remove Virtual Page</a>
@@ -2703,7 +2746,7 @@ The parent id for this div is "content". Let's verify it.
                     <div class="samplecode">intel.xdk.device.hardware.back</div>
                 </div>
                 
-                <div class="panel" data-footer="footer" id="xdkNotification" title="Notifications">
+                <div class="panel" id="xdkNotification" title="Notifications">
                     <h2>Notifications Demo</h2>
                     <p></p>
                     <div class="button-grouped flex">    
@@ -2734,7 +2777,7 @@ The parent id for this div is "content". Let's verify it.
                     <div class="samplecode">intel.xdk.device.notification.hideBusyIndicator();</div>
                 </div>
                 
-                <div class="panel" data-footer="footer" id="xdkQRCodeReader" title="Barcode Scan">
+                <div class="panel" id="xdkQRCodeReader" title="Barcode Scan">
                     <h2>QR Code Scanner Demo</h2>
                     <p>Method and event will make scanning QR Code possible inside the app.</p>
                     <a class="button" href="#" onclick="launchQRCode()">QR Code Reader</a>
@@ -2767,7 +2810,7 @@ The parent id for this div is "content". Let's verify it.
                     </script>
                 </div>
                 
-                <div class="panel" data-footer="footer" id="xdkAccelerometer" title="Accelerometer">
+                <div class="panel" id="xdkAccelerometer" title="Accelerometer">
                     <a class="button" onclick="xdkStartAccelerometer()">Start Accelerometer</a>
                     <div>
                         <label for="acceleration-x">X:</label>
@@ -2821,7 +2864,7 @@ The parent id for this div is "content". Let's verify it.
                     </script>
                 </div>
                 
-                <div class="panel" data-footer="footer" id="xdkCamera" title="Camera">
+                <div class="panel" id="xdkCamera" title="Camera">
                     <a class="button icon camera" onclick="xdkStartCamera();" >Camera</a>
                     <a class="button icon picture" onclick="xdkCameraGallery();">Gallery</a><br/>
                     <div id="xdk-camera-image"></div>
@@ -2882,7 +2925,7 @@ The parent id for this div is "content". Let's verify it.
                     </script>
                 </div>
                 
-                <div class="panel" data-footer="footer" id="xdkGeolocation" title="Geolocation">
+                <div class="panel" id="xdkGeolocation" title="Geolocation">
                     <a class="button icon location" onclick="xdkStartGeo()">Get Current Location</a>
                     <div>
                         <label for="lat">Latitude:</label>
@@ -2914,7 +2957,7 @@ The parent id for this div is "content". Let's verify it.
                     </script>
                 </div>
                 
-                <div title="Contacts" class="panel" data-footer="footer" id="xdkContacts" >
+                <div title="Contacts" class="panel" id="xdkContacts" >
                     <a class="button icon user" onclick="xdkGetContacts()">Get Contacts</a>
                     <ul id="xdkContactList" class="list inset">
                 
@@ -2956,7 +2999,7 @@ The parent id for this div is "content". Let's verify it.
                     </script>
                 </div>
                 
-                <div class="panel" data-footer="footer" id="xdkSplashScreen" title="Splash Screen">
+                <div class="panel" id="xdkSplashScreen" title="Splash Screen">
                     <h2>Status Bar Demo</h2>
                     <p>Methods that allows hiding status bar.</p>
                     <a class="button" href="#" onclick="intel.xdk.device.hideStatusBar()">Hide Status Bar</a><br>
@@ -2970,7 +3013,7 @@ The parent id for this div is "content". Let's verify it.
                     <div class="samplecode">intel.xdk.device.hideSplashScreen()</div>
                 </div>
 
-                <div class="panel" data-footer="footer" id="xdkConnection" title="Connection">
+                <div class="panel" id="xdkConnection" title="Connection">
                     <a class="button icon wifi" onclick="xdkCheckConnection()">Get Connection Type</a>
                     <p id="xdkConnectionType"></p>
                     <script>
@@ -2986,7 +3029,7 @@ The parent id for this div is "content". Let's verify it.
                 
                 <!-- Device API> Cordova -->
                 
-                <div title="Cordova APIs" id="cordova" class="panel" data-footer="footer">
+                <div title="Cordova APIs" id="cordova" class="panel">
                     <h2>Cordova API Demo</h2>
                     <p id="cdvDevicereadyEvent">Cordova deviceready event has not fired, the demos will not work.</p>
                     <ul class="list">
@@ -3009,7 +3052,7 @@ The parent id for this div is "content". Let's verify it.
                     </ul>
                 </div>
                 
-                <div class="panel" data-footer="footer" id="events" title="Cordova Events">
+                <div class="panel" id="events" title="Cordova Events">
                     <h2>Events</h2>
                     <p>Monitor Cordova device events</p>
                     <ul class="list inset">
@@ -3034,7 +3077,7 @@ The parent id for this div is "content". Let's verify it.
                     </ul>
                 </div>
 
-                <div class="panel" data-footer="footer" id="accelerometer" title="Accelerometer">
+                <div class="panel" id="accelerometer" title="Accelerometer">
                     <a class="button" onclick="startAccelerometer()">Start Accelerometer</a>
                     <div>
                         <label for="acceleration-x">X:</label>
@@ -3053,20 +3096,20 @@ The parent id for this div is "content". Let's verify it.
                     <a class="button" onclick="stopAccelerometer()">Stop Accelerometer</a>
                 </div>
                 
-                <div class="panel" data-footer="footer" id="camera" title="Camera">
+                <div class="panel" id="camera" title="Camera">
 			         <a class="button icon camera" onclick="startCamera();" >Camera</a>
 			         <a class="button icon picture" onclick="cameraGallery();" class="buttonStyle">Gallery</a><br/>
                     <div id="camera-image" class="ui-body ui-body-b" style="background-size:100%;min-height:250px"></div>
                 </div>
                 
-                <div title="Contacts" class="panel" data-footer="footer" id="contacts" >
+                <div title="Contacts" class="panel" id="contacts" >
                     <a class="button icon user" onclick="getContacts()">Get Contacts</a>
                     <ul id="cdvContacts" class="list inset">
                 
                     </ul>
                 </div>
         
-                <div class="panel" data-footer="footer" title="Device Info" id="device">
+                <div class="panel" title="Device Info" id="device">
                     <a class="button" onclick="updateDeviceInfo()">Get Device Info</a>
                     <ul class="list inset">
                         <li id="cdvDeviceName">Name :</li>
@@ -3078,7 +3121,7 @@ The parent id for this div is "content". Let's verify it.
                     </ul>	
                 </div>
                         
-                <div class="panel" data-footer="footer" id="notification" title="Notification">
+                <div class="panel" id="notification" title="Notification">
                     <br>
                     <div class="button-grouped flex">    
                         <a class="button" href="#" onclick="navigator.notification.alert('Alert Message',function() { navigator.notification.alert('Callback'); },'Alert Title','OK');">Alert</a>
@@ -3092,7 +3135,7 @@ The parent id for this div is "content". Let's verify it.
                     </div>
                 </div>
                         
-                <div class="panel" data-footer="footer" id="geolocation" title="Geolocation">
+                <div class="panel" id="geolocation" title="Geolocation">
                     <a class="button icon location" onclick="startGeo()">Get Geo Location</a>
                     <div>
                         <label for="lat">Latitude:</label>
@@ -3106,13 +3149,13 @@ The parent id for this div is "content". Let's verify it.
                     <br>
                 </div>
                 
-                <div class="panel" data-footer="footer" id="compass" title="Compass">
+                <div class="panel" id="compass" title="Compass">
                     <a class="button" onclick="startCompass()">Start Compass</a>
                     <div id="info-panel" style="font-size:80px; text-align:center;"></div>
                     <a class="button" onclick="stopCompass()">Stop Compass</a>
                 </div>
                 
-                <div class="panel" data-footer="footer" id="media" title="Media">
+                <div class="panel" id="media" title="Media">
                     <p>Records Audio for 5 seconds and playback</p>
                     <a class="button icon mic" onclick="startRecord()">Record</a><br/>
                     <a class="button icon headset" onclick="startPlay()">Play</a><br/>
@@ -3121,7 +3164,7 @@ The parent id for this div is "content". Let's verify it.
                     <p id="audio_position"></p>
                 </div>
                 
-                <div class="panel" data-footer="footer" id="file" title="File">
+                <div class="panel" id="file" title="File">
                      <a class="button icon paper" onclick="requestFS(false)" class="buttonStyle">Read File</a>
                      <p id="fs_info_label">File System Info</p>
                      <p id="fs_info"></p>
@@ -3132,12 +3175,12 @@ The parent id for this div is "content". Let's verify it.
                       
                 </div>
                 
-                <div class="panel" data-footer="footer" id="connection" title="Connection">
+                <div class="panel" id="connection" title="Connection">
                     <a class="button icon wifi" onclick="checkConnection()">Get Connection Type</a>
                     <p id="cdvConnectionType"></p>
                 </div>
                 
-                <div class="panel" data-footer="footer" title="Globalization" id="globalization">
+                <div class="panel" title="Globalization" id="globalization">
                     <a class="button icon calendar" onclick="updateGlobalization()">Get Globalization Info</a>
                     <ul class="list inset">
                         <li id="cdvPreferredLanguage">Preferred Language :</li>
@@ -3149,26 +3192,26 @@ The parent id for this div is "content". Let's verify it.
                     </ul>	
                 </div>
                 
-                <div class="panel" data-footer="footer" id="inAppBrowser" title="InAppBrowser">
+                <div class="panel" id="inAppBrowser" title="InAppBrowser">
                     <p>
                         <input type="text" value="http://intel.com" id="websiteUrl" />
                         <a class="button icon folder" onclick="openInAppBrowser()">Open InAppBrowser</a>
                     </p>
                 </div>
                 
-                <div class="panel" data-footer="footer" id="capture" title="Capture">
+                <div class="panel" id="capture" title="Capture">
                     <a class="button icon picture" onclick="captureImage();" class="buttonStyle">Capture Image</a><br/>
                     <a class="button icon mic" onclick="captureAudio()" class="buttonStyle">Capture Audio</a><br/>
                     <a class="button icon tv" onclick="captureVideo();" class="buttonStyle">Capture Video</a><br/>
                     <p id="cdv-capture"></p>
                 </div>
                 
-                <div class="panel" data-footer="footer" id="storage" title="Storage">
+                <div class="panel" id="storage" title="Storage">
                     <a class="button icon database" onclick="openDB()">Open DB</a>
                     <div id="result_set"></div>
                 </div>
 
-                <div class="panel" data-footer="footer" id="splashScreen" title="Splash Screen">
+                <div class="panel" id="splashScreen" title="Splash Screen">
                     <h3>Methods</h3>
                     <p>You can use these methods to hide or show App Splash Screen.</p>
                     <div class="samplecode">navigator.splashscreen.show();</div>
