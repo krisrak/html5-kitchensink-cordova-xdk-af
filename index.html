@@ -2142,7 +2142,7 @@ The parent id for this div is "content". Let's verify it.
                     <a class="button" onClick="showPopup3()">HTML markup</a>
                     <br>
                 </div>
-                <div class="panel" title="touch events" id="touchevents">
+                <div class="panel" title="Touch Events" id="touchevents">
                 <script>
                 $(document).ready(function(){
                     $("#taptest").bind("tap",function(){
@@ -2162,14 +2162,13 @@ The parent id for this div is "content". Let's verify it.
                     })
                 });
                 </script>
-                    <h2>Touch Events</h2>
-
-                    <ul class="list">
-                        <li><a id='taptest' >Tap Test</a></li>
-                        <li><a id='longtaptest' >Long Tap Test</a></li>
-                        <li><a id='singletaptest' >Single Tap Test</a></li>
-                        <li><a id='doubletaptest' >Double Tap Test</a></li>
-                        <li><a id='swipetest' >Swipe Test</a></li>
+                    <h2>Touch Demo</h2>
+                    <ul class="list inset">
+                        <li id='taptest' >Tap Test</li>
+                        <li id='longtaptest' >Long Tap Test</li>
+                        <li id='singletaptest' >Single Tap Test</li>
+                        <li id='doubletaptest' >Double Tap Test</li>
+                        <li id='swipetest' ><br><br>Swipe Test<br><br><br></li>
                     </ul>
                 </div> 
                 <div class="panel" title="Slide Menu" id="slidemenu">
@@ -2180,10 +2179,10 @@ The parent id for this div is "content". Let's verify it.
                 <!-- Device API -->
                 <div title="Device APIs" id="deviceapi" class="panel" data-tab="navbar_deviceapi">
                     <header>
-                        <h1>Device API</h1>
+                        <h1>Device APIs</h1>
                     </header>
-                    <h2 class='expanded' onclick='showHide(this,"deviceapi_info");'>Device API</h2>
-                    <p id='deviceapi_info'>This shows how to use device APIs using Cordova or intel.xdk APIs.</p>
+                    <h2 class='expanded' onclick='showHide(this,"deviceapi_info");'>Hybrid App Development</h2>
+                    <p id='deviceapi_info'>This shows capabilities of cross platform app development with Cordova device APIs and intel.xdk APIs.<br>It enables developing HTML5 app that use device's camera, gps, compass and other capabilities in native OS.</p>
                     <ul class="list inset">
                         <li><a href="#cordova" id="cdv">Cordova</a></li>
                         <li><a href="#intelxdk" id="xdk">intel.xdk</a></li>
