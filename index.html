@@ -13,7 +13,7 @@
             }
         })();
         </script>
-        <title>App Framework Kitchen Sink</title>
+        <title>Intel XDK Kitchen Sink</title>
         <meta http-equiv="Content-type" content="text/html; charset=utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0">
         <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -21,18 +21,13 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <link rel="stylesheet" type="text/css" href="css/icons.css" />    
         <link rel="stylesheet" type="text/css" href="css/af.ui.css" />
-                
-        
+
+        <script src="intelxdk.js"></script>
+        <script src="cordova.js"></script>
+        <script src="xhr.js"></script>
         
         <script type="text/javascript" charset="utf-8" src="appframework.ui.min.js"></script>
-        <!-- include af.desktopBrowsers.js on desktop browsers only -->
-        <script>
-            if (!((window.DocumentTouch && document instanceof DocumentTouch) || 'ontouchstart' in window)) {
-                var script = document.createElement("script");
-                script.src = "plugins/af.desktopBrowsers.js";
-                var tag = $("head").append(script);
-            }
-        </script>
+        <!-- include afplugins  -->
         <script type="text/javascript" charset="utf-8" src="plugins/af.8tiles.js"></script>
         <script type="text/javascript" charset="utf-8" src="plugins/af.actionsheet.js"></script>
         <script type="text/javascript" charset="utf-8" src="plugins/af.css3animate.js"></script>
@@ -43,21 +38,18 @@
         <script type="text/javascript" charset="utf-8" src="plugins/af.touchLayer.js"></script>
         <script type="text/javascript" charset="utf-8" src="plugins/af.popup.js"></script>
         <script type="text/javascript" charset="utf-8" src="plugins/af.slidemenu.js"></script>
-        
-        <script src="intelxdk.js"></script> 
-        <script src="cordova.js"></script>
-<!--        <script src="xhr.js"></script>      -->
-        
+        <!-- include af.desktopBrowsers.js on desktop browsers only -->
+        <script>
+            if (!((window.DocumentTouch && document instanceof DocumentTouch) || 'ontouchstart' in window)) {
+                var script = document.createElement("script");
+                script.src = "plugins/af.desktopBrowsers.js";
+                var tag = $("head").append(script);
+            }
+        </script>
         <script type="text/javascript">
-            /* This function runs once the page is loaded, but appMobi is not yet active */
-            //$.ui.animateHeaders=false;
-             var search=document.location.search.toLowerCase().replace("?","");
-             //if(!search)
-                //$.os.useOSThemes=false;
-                
-            if(search) //Android fix has too many buggy issues on iOS - can't preview with $.os.android
-            {
-
+            /* set the right theme based on url param  */
+            var search = document.location.search.toLowerCase().replace("?","");
+            if(search){
                $.os.useOSThemes=true;
                 if(search=="win8")
                     $.os.ie=true;
@@ -65,15 +57,27 @@
                     $("#afui").get(0).className=search;
                 });
             }
+            /* add a new 'light' theme for android and windows*/
+            if($.os.android||$.os.ie||search=="android"){
+                $.ui.ready(function(){
+                    $("#main .list").append("<li><a id='toggleAndroidTheme'>Toggle Theme Color</a></li>");
+                    var $el=$("#afui");
+                    $("#toggleAndroidTheme").bind("click",function(e){
+                        if($el.hasClass("light"))
+                            $el.removeClass("light");
+                        else
+                            $el.addClass("light");
+                    });
+                });
+            }            
             
+            /* init app code */
             var webRoot = "./";
             $.ui.autoLaunch = false;
             $.ui.openLinksNewTab = false;
-            //$.ui.resetScrollers=false;
             $.ui.animateHeaders = false;
             $.ui.backButtonText = "Back";
             
-
             $(document).ready(function(){
                 document.addEventListener("intel.xdk.device.ready", onXdkDeviceReady, false);
                 document.addEventListener("deviceready", onCordovaDeviceReady, false);
@@ -109,6 +113,7 @@
                 document.addEventListener("device.orientation.change", function(){incrementBadge("#xdkEvent_orientationchange");}, false);
             };
             
+            /* This code is used to run as soon as cordova activates */
             var onCordovaDeviceReady = function() {
                 $("#cdvDevicereadyEvent").html("Cordova deviceready event has fired");
                 $.ui.updateBadge("#cdv", "device ready");
@@ -127,11 +132,10 @@
 //                document.addEventListener("volumeupbutton", function(){incrementBadge("#cdvEvent_volumeupbutton");}, false);
 //                document.addEventListener("batterycritical", function(){incrementBadge("#cdvEvent_batterycritical");}, false);
 //                document.addEventListener("batterylow", function(){incrementBadge("#cdvEvent_batterylow");}, false);
-//                document.addEventListener("batterystatus", function(){incrementBadge("#cdvEvent_batterystatus");}, false);
-                
+//                document.addEventListener("batterystatus", function(){incrementBadge("#cdvEvent_batterystatus");}, false);           
             };           
             
-            //find badge in a element and increment by 1
+            /* find badge in a element and increment by 1 */
             function incrementBadge(item){
                 var badgeValue;
                 if(typeof $(item).find(".af-badge").text() !== "object"){
@@ -141,7 +145,8 @@
                 }                
                 $.ui.updateBadge(item, String(badgeValue+1));
             }
-
+            
+            /* toggle an element with content */
             function showHide(obj, objToHide) {
                 var el = $("#" + objToHide)[0];
 
@@ -151,19 +156,6 @@
                     obj.className = "expanded";
                 }
                 $(el).toggle();
-            }
-
-            if($.os.android||$.os.ie||search=="android"){
-                $.ui.ready(function(){
-                    $("#main .list").append("<li><a id='toggleAndroidTheme'>Toggle Theme Color</a></li>");
-                    var $el=$("#afui");
-                    $("#toggleAndroidTheme").bind("click",function(e){
-                        if($el.hasClass("light"))
-                            $el.removeClass("light");
-                        else
-                            $el.addClass("light");
-                    });
-                });
             }
         </script>
         <style>
@@ -184,21 +176,7 @@
     </head>
     <body>
         <div id="afui" class="">
-            <!-- this is the splashscreen you see. -->
-            <!--
-            <div id="splashscreen" class='ui-loader heavy'>
-                App Framework
-                <br>
-                <br>	
-                <span class='ui-icon ui-icon-loading spin'></span>
-                <h1>Starting app</h1>
-            </div>
-            
-            <div id="header">
-                <a id='menubadge' onclick='af.ui.toggleSideMenu()' class='menuButton'></a>
-            </div>
-            -->
-            <!-- navbar -->
+            <!-- default footer -->
             <div id="navbar">
                 <a href="#main" id='navbar_home' class='icon home' data-transition="fade">Home</a>
                 <a href="#af" id='navbar_af' class="icon target" data-transition="fade">Selector</a>
@@ -206,18 +184,68 @@
                 <a href="#afweb" id='navbar_plugins' class="icon key" data-transition="fade">Plugins</a>
                 <a href="#deviceapi" id='navbar_deviceapi' class="icon camera" data-transition="fade">Device</a>
             </div>
-            
+            <!-- default sidemenu -->
+            <nav>
+                <ul class="list">
+                 <li class="divider">UI Themes</li>    
+                    <li>
+                        <a href="index.html" data-ignore="true">Default theme</a>
+                    </li>
+                     <li>
+                        <a href="index.html?ios" data-ignore="true">iOS theme</a>
+                    </li>
+                    <li>
+                        <a href="index.html?android" data-ignore="true">Android theme</a>
+                    </li>
+                    <li>
+                        <a href="index.html?win8" data-ignore="true">Win8 theme</a>
+                    </li>
+                    <li>
+                        <a href="index.html?bb" data-ignore="true">BB10 theme</a>
+                    </li>
+                    <li>
+                        <a href="index.html?ios7" data-ignore="true">iOS7 theme</a>
+                    </li>                    
+                 <li class="divider">Menus</li>
+                    <li>
+                        <a  onclick="$.ui.toggleHeaderMenu();">Toggle Header</a>
+                    </li>
+                    <li>
+                        <a  onclick="$.ui.toggleSideMenu()">Toggle Sidebar</a>
+                    </li>
+                    <li>
+                        <a  onclick="$.ui.toggleNavMenu()">Toggle Footer</a>
+                    </li>
+                 <li class="divider">Kitchen Sink</li>
+                    <li>
+                        <a href="index.html" data-ignore="true">Reset App</a>
+                    </li>                    
+                </ul>
+            </nav>
+            <!-- custom header -->
             <header id="custom_header">
                 <h1>Custom Header</h1>
                 <a onclick="$.ui.goBack()" class='button'>Go Back</a>
                 <a class='button' style="float:right">Settings</a>
             </header>
-            
+            <!-- custom footer -->
             <footer id="custom_footer">
                 <a href="#" class='icon tools'>Custom</a>
                 <a href="#" class="icon basket">Footer</a>
             </footer>
-            
+            <!-- custom sidemenu -->
+            <nav id="custom_sidemenu">
+                <ul class="list">
+                 <li class="divider">Custom Menu</li>    
+                    <li>
+                        <a>Custom</a>
+                    </li>
+                     <li>
+                        <a>Side Menu</a>
+                    </li>                    
+                </ul>
+            </nav>
+            <!-- content with panels -->
             <div id="content">
                 <div title='Welcome' id="main" class="panel" data-tab="navbar_home" selected="true" data-load="loadedPanel">
                     <h2 class='expanded' onclick='showHide(this,"main_info");'>Kitchen Sink</h2>
@@ -271,114 +299,42 @@
                     <h2 class='expanded' onclick='showHide(this,"AppFramework_info");'>AppFramework</h2>
                     <p id='AppFramework_info'>AppFramework is a blazingly fast query selector tool that is optmimized for HTML5 browsers.</p>
                     <ul class="list">
-                        <li>
-                            <a href="#af1">$ Selector</a>
-                        </li>
-                        <li>
-                            <a href="#af2">$().length()</a>
-                        </li>
-                        <li>
-                            <a href="#af3">$().find()</a>
-                        </li>
-                        <li>
-                            <a href="#af4">$().html()</a>
-                        </li>
-                        <li>
-                            <a href="#af5">$().text()</a>
-                        </li>
-                        <li>
-                            <a href="#af6">$().css()</a>
-                        </li>
-                        <li>
-                            <a href="#af7">$().empty()</a>
-                        </li>
-                        <li>
-                            <a href="#af8">$().hide()</a>
-                        </li>
-                        <li>
-                            <a href="#af9">$().show()</a>
-                        </li>
-                        <li>
-                            <a href="#af10">$().toggle()</a>
-                        </li>
-                        <li>
-                            <a href="#af11">$().val()</a>
-                        </li>
-                        <li>
-                            <a href="#af12">$().attr()</a>
-                        </li>
-                        <li>
-                            <a href="#af13">$().removeAttr()</a>
-                        </li>
-                        <li>
-                            <a href="#af14">$().remove()</a>
-                        </li>
-                        <li>
-                            <a href="#af15">$().addClass()</a>
-                        </li>
-                        <li>
-                            <a href="#af16">$().removeClass()</a>
-                        </li>
-                        <li>
-                            <a href="#af17">$().hasClass()</a>
-                        </li>
-                        <li>
-                            <a href="#af18">$().bind()</a>
-                        </li>
-                        <li>
-                            <a href="#af19">$().unbind()</a>
-                        </li>
-                        <li>
-                            <a href="#af20">$().trigger()</a>
-                        </li>
-                        <li>
-                            <a href="#af21">$().append()</a>
-                        </li>
-                        <li>
-                            <a href="#af22">$().prepend()</a>
-                        </li>
-                        <li>
-                            <a href="#af32">$().get(0)</a>
-                        </li>
-                        <li>
-                            <a href="#af31">$().offset()</a>
-                        </li>
-                        <li>
-                            <a href="#afparent">$().parent()</a>
-                        </li>
-                        <li>
-                            <a href="#afserialize">$().serialize()</a>
-                        </li>
-                        <li>
-                            <a href="#af33">$.isArray()</a>
-                        </li>
-                        <li>
-                            <a href="#af34">$.isFunction()</a>
-                        </li>
-                        <li>
-                            <a href="#af24">$.ajax()</a>
-                        </li>
-                        <li>
-                            <a href="#af25">$.get()</a>
-                        </li>
-                        <li>
-                            <a href="#af26">$.post()</a>
-                        </li>
-                        <li>
-                            <a href="#af27">$.getJSON()</a>
-                        </li>
-                        <li>
-                            <a href="#af23">$.jsonP()</a>
-                        </li>
-                        <li>
-                            <a href="#af28">$.param()</a>
-                        </li>
-                        <li>
-                            <a href="#af29">$.parseJSON()</a>
-                        </li>
-                        <li>
-                            <a href="#af30">$.os</a>
-                        </li>
+                        <li><a href="#af1">$ Selector</a></li>
+                        <li><a href="#af2">$().length()</a></li>
+                        <li><a href="#af3">$().find()</a></li>
+                        <li><a href="#af4">$().html()</a></li>
+                        <li><a href="#af5">$().text()</a></li>
+                        <li><a href="#af6">$().css()</a></li>
+                        <li><a href="#af7">$().empty()</a></li>
+                        <li><a href="#af8">$().hide()</a></li>
+                        <li><a href="#af9">$().show()</a></li>
+                        <li><a href="#af10">$().toggle()</a></li>
+                        <li><a href="#af11">$().val()</a></li>
+                        <li><a href="#af12">$().attr()</a></li>
+                        <li><a href="#af13">$().removeAttr()</a></li>
+                        <li><a href="#af14">$().remove()</a></li>
+                        <li><a href="#af15">$().addClass()</a></li>
+                        <li><a href="#af16">$().removeClass()</a></li>
+                        <li><a href="#af17">$().hasClass()</a></li>
+                        <li><a href="#af18">$().bind()</a></li>
+                        <li><a href="#af19">$().unbind()</a></li>
+                        <li><a href="#af20">$().trigger()</a></li>
+                        <li><a href="#af21">$().append()</a></li>
+                        <li><a href="#af22">$().prepend()</a></li>
+                        <li><a href="#af32">$().get(0)</a></li>
+                        <li><a href="#af31">$().offset()</a></li>
+                        <li><a href="#afparent">$().parent()</a></li>
+                        <li><a href="#afserialize">$().serialize()</a></li>
+                        <li><a href="#af33">$.isArray()</a></li>
+                        <li><a href="#af34">$.isFunction()</a></li>
+                        <li><a href="#af24">$.ajax()</a></li>
+                        <li><a href="#af25">$.get()</a></li>
+                        <li><a href="#af26">$.post()</a></li>
+                        <li><a href="#af27">$.getJSON()</a></li>
+                        <li><a href="#af23">$.jsonP()</a></li>
+                        <li><a href="#af28">$.param()</a></li>
+                        <li><a href="#af29">$.parseJSON()</a></li>
+                        <li><a href="#af30">$.os</a></li>
                     </ul>
                 </div>
                 <div id="afserialize" class="panel" title="$().serialize">
@@ -939,180 +895,64 @@ The parent id for this div is "content". Let's verify it.
                         <br>
                     </p>
                     <ul class="list">
-                        <li>
-                            <a  class="icon home">Home</a>
-                        </li>
-                        <li>
-                            <a  class="icon home mini">Home Mini</a>
-                        </li>
-                        <li>
-                            <a  class="icon pencil big">Pencil</a>
-                        </li>
-                        <li>
-                            <a  class="icon picture big">Picture</a>
-                        </li>
-                        <li>
-                            <a  class="icon camera big">Camera</a>
-                        </li>
-                        <li>
-                            <a  class="icon headset big">Headset</a>
-                        </li>
-                        <li>
-                            <a  class="icon paper big">Paper</a>
-                        </li>
-                        <li>
-                            <a  class="icon stack big">Stack</a>
-                        </li>
-                        <li>
-                            <a  class="icon folder big">Folder</a>
-                        </li>
-                        <li>
-                            <a  class="icon tag big">Tag</a>
-                        </li>
-                        <li>
-                            <a  class="icon basket big">Basket</a>
-                        </li>
-                        <li>
-                            <a  class="icon phone big">Phone</a>
-                        </li>
-                        <li>
-                            <a  class="icon mail big">Mail</a>
-                        </li>
-                        <li>
-                            <a  class="icon location big">Location</a>
-                        </li>
-                        <li>
-                            <a  class="icon clock big">Clock</a>
-                        </li>
-                        <li>
-                            <a  class="icon calendar big">Calendar</a>
-                        </li>
-                        <li>
-                            <a  class="icon message big">Message</a>
-                        </li>
-                        <li>
-                            <a  class="icon chat big">Chat</a>
-                        </li>
-                        <li>
-                            <a  class="icon user big">User</a>
-                        </li>
-                        <li>
-                            <a  class="icon loading big">Loading</a>
-                        </li>
-                        <li>
-                            <a  class="icon refresh big">Refresh</a>
-                        </li>
-                        <li>
-                            <a  class="icon magnifier big">Magnifier</a>
-                        </li>
-                        <li>
-                            <a  class="icon key big">Key</a>
-                        </li>
-                        <li>
-                            <a  class="icon settings big">Settings</a>
-                        </li>
-                        <li>
-                            <a  class="icon graph big">Graph</a>
-                        </li>
-                        <li>
-                            <a  class="icon trash big">Trash</a>
-                        </li>
-                        <li>
-                            <a  class="icon pin big">Pin</a>
-                        </li>
-                        <li>
-                            <a  class="icon target big">Target</a>
-                        </li>
-                        <li>
-                            <a  class="icon download big">Download</a>
-                        </li>
-                        <li>
-                            <a  class="icon upload big">Upload</a>
-                        </li>
-                        <li>
-                            <a  class="icon star big">Star</a>
-                        </li>
-                        <li>
-                            <a  class="icon heart big">Heart</a>
-                        </li>
-                        <li>
-                            <a  class="icon warning big">Warning</a>
-                        </li>
-                        <li>
-                            <a  class="icon add big">Add</a>
-                        </li>
-                        <li>
-                            <a  class="icon remove big">Remove</a>
-                        </li>
-                        <li>
-                            <a  class="icon question big">Question</a>
-                        </li>
-                        <li>
-                            <a  class="icon info big">Info</a>
-                        </li>
-                        <li>
-                            <a  class="icon error big">Error</a>
-                        </li>
-                        <li>
-                            <a  class="icon check big">Check</a>
-                        </li>
-                        <li>
-                            <a  class="icon minimize big">Minimize</a>
-                        </li>
-                        <li>
-                            <a  class="icon close big">Close</a>
-                        </li>
-                        <li>
-                            <a  class="icon up big">Up</a>
-                        </li>
-                        <li>
-                            <a  class="icon down big">Down</a>
-                        </li>
-                        <li>
-                            <a  class="icon left big">Left</a>
-                        </li>
-                        <li>
-                            <a  class="icon right big">Right</a>
-                        </li>
-                        <li>
-                            <a  class="icon tools big">Tools</a>
-                        </li>
-                        <li>
-                            <a  class="icon html5 big">HTML5</a>
-                        </li>
-                        <li>
-                            <a  class="icon css big">CSS</a>
-                        </li>
-                        <li>
-                            <a  class="icon js big">JS</a>
-                        </li>
-                        <li>
-                            <a  class="icon cloud big">Cloud</a>
-                        </li>
-                        <li>
-                            <a  class="icon tv big">TV</a>
-                        </li>
-                        <li>
-                            <a  class="icon wifi big">Wifi</a>
-                        </li>
-                        <li>
-                            <a  class="icon new big">New</a>
-                        </li>
-                        <li>
-                            <a  class="icon mic big">Mic</a>
-                        </li>
-                        <li>
-                            <a  class="icon database big">Database</a>
-                        </li>
-                        <li>
-                            <a  class="icon busy big">Busy</a>
-                        </li>
-                        <li>
-                            <a  class="icon bug big">Bug</a>
-                        </li>
-                        <li>
-                            <a  class="icon lamp big">Lamp</a>
-                        </li>
+                        <li><a  class="icon home">Home</a></li>
+                        <li><a  class="icon home mini">Home Mini</a></li>
+                        <li><a  class="icon pencil big">Pencil</a></li>
+                        <li><a  class="icon picture big">Picture</a></li>
+                        <li><a  class="icon camera big">Camera</a></li>
+                        <li><a  class="icon headset big">Headset</a></li>
+                        <li><a  class="icon paper big">Paper</a></li>
+                        <li><a  class="icon stack big">Stack</a></li>
+                        <li><a  class="icon folder big">Folder</a></li>
+                        <li><a  class="icon tag big">Tag</a></li>
+                        <li><a  class="icon basket big">Basket</a></li>
+                        <li><a  class="icon phone big">Phone</a></li>
+                        <li><a  class="icon mail big">Mail</a></li>
+                        <li><a  class="icon location big">Location</a></li>
+                        <li><a  class="icon clock big">Clock</a></li>
+                        <li><a  class="icon calendar big">Calendar</a></li>
+                        <li><a  class="icon message big">Message</a></li>
+                        <li><a  class="icon chat big">Chat</a></li>
+                        <li><a  class="icon user big">User</a></li>
+                        <li><a  class="icon loading big">Loading</a></li>
+                        <li><a  class="icon refresh big">Refresh</a></li>
+                        <li><a  class="icon magnifier big">Magnifier</a></li>
+                        <li><a  class="icon key big">Key</a></li>
+                        <li><a  class="icon settings big">Settings</a></li>
+                        <li><a  class="icon graph big">Graph</a></li>
+                        <li><a  class="icon trash big">Trash</a></li>
+                        <li><a  class="icon pin big">Pin</a></li>
+                        <li><a  class="icon target big">Target</a></li>
+                        <li><a  class="icon download big">Download</a></li>
+                        <li><a  class="icon upload big">Upload</a></li>
+                        <li><a  class="icon star big">Star</a></li>
+                        <li><a  class="icon heart big">Heart</a></li>
+                        <li><a  class="icon warning big">Warning</a></li>
+                        <li><a  class="icon add big">Add</a></li>
+                        <li><a  class="icon remove big">Remove</a></li>
+                        <li><a  class="icon question big">Question</a></li>
+                        <li><a  class="icon info big">Info</a></li>
+                        <li><a  class="icon error big">Error</a></li>
+                        <li><a  class="icon check big">Check</a></li>
+                        <li><a  class="icon minimize big">Minimize</a></li>
+                        <li><a  class="icon close big">Close</a></li>
+                        <li><a  class="icon up big">Up</a></li>
+                        <li><a  class="icon down big">Down</a></li>
+                        <li><a  class="icon left big">Left</a></li>
+                        <li><a  class="icon right big">Right</a></li>
+                        <li><a  class="icon tools big">Tools</a></li>
+                        <li><a  class="icon html5 big">HTML5</a></li>
+                        <li><a  class="icon css big">CSS</a></li>
+                        <li><a  class="icon js big">JS</a></li>
+                        <li><a  class="icon cloud big">Cloud</a></li>
+                        <li><a  class="icon tv big">TV</a></li>
+                        <li><a  class="icon wifi big">Wifi</a></li>
+                        <li><a  class="icon new big">New</a></li>
+                        <li><a  class="icon mic big">Mic</a></li>
+                        <li><a  class="icon database big">Database</a></li>
+                        <li><a  class="icon busy big">Busy</a></li>
+                        <li><a  class="icon bug big">Bug</a></li>
+                        <li><a  class="icon lamp big">Lamp</a></li>
                     </ul>
                 </div>
                 <div id="uidefer" title="Defer Loading" class="panel" data-defer="defer.html">Deferred loading requires a web browser for Ajax to work. What we do is load the html after $.ui.ready is called, so you can speed up the initial loading time of your app.</div>
@@ -3692,58 +3532,6 @@ The parent id for this div is "content". Let's verify it.
                 }
                 
             </script>
-            
-            <!-- ------------------------------------------ -->
-            <!-- ------------------------------------------ -->
-            <nav>
-                <ul class="list">
-                 <li class="divider">UI Themes</li>    
-                    <li>
-                        <a href="index.html" data-ignore="true">Default theme</a>
-                    </li>
-                     <li>
-                        <a href="index.html?ios" data-ignore="true">iOS theme</a>
-                    </li>
-                    <li>
-                        <a href="index.html?android" data-ignore="true">Android theme</a>
-                    </li>
-                    <li>
-                        <a href="index.html?win8" data-ignore="true">Win8 theme</a>
-                    </li>
-                    <li>
-                        <a href="index.html?bb" data-ignore="true">BB10 theme</a>
-                    </li>
-                    <li>
-                        <a href="index.html?ios7" data-ignore="true">iOS7 theme</a>
-                    </li>                    
-                 <li class="divider">Menus</li>
-                    <li>
-                        <a  onclick="$.ui.toggleHeaderMenu();">Toggle Header</a>
-                    </li>
-                    <li>
-                        <a  onclick="$.ui.toggleSideMenu()">Toggle Sidebar</a>
-                    </li>
-                    <li>
-                        <a  onclick="$.ui.toggleNavMenu()">Toggle Footer</a>
-                    </li>
-                 <li class="divider">Kitchen Sink</li>
-                    <li>
-                        <a href="index.html" data-ignore="true">Reset App</a>
-                    </li>                    
-                </ul>
-            </nav>
-            <nav id="custom_sidemenu">
-                <ul class="list">
-                 <li class="divider">Custom Menu</li>    
-                    <li>
-                        <a>Custom</a>
-                    </li>
-                     <li>
-                        <a>Side Menu</a>
-                    </li>                    
-                </ul>
-            </nav>
         </div>
-        <script xsrc="http://debug-software.intel.com/target/target-script-min.js#-6U0hX0kNFnTZKQbNTm1DHCKxEIvr1zMNu_aFjoDcXo"></script>
     </body>
 </html>
