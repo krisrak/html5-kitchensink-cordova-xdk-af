@@ -33,6 +33,7 @@
                 var tag = $("head").append(script);
             }
         </script>
+        <script type="text/javascript" charset="utf-8" src="plugins/af.8tiles.js"></script>
         <script type="text/javascript" charset="utf-8" src="plugins/af.actionsheet.js"></script>
         <script type="text/javascript" charset="utf-8" src="plugins/af.css3animate.js"></script>
         <script type="text/javascript" charset="utf-8" src="plugins/af.passwordBox.js"></script>
@@ -41,7 +42,7 @@
         <script type="text/javascript" charset="utf-8" src="plugins/af.touchEvents.js"></script>
         <script type="text/javascript" charset="utf-8" src="plugins/af.touchLayer.js"></script>
         <script type="text/javascript" charset="utf-8" src="plugins/af.popup.js"></script>
-        <script type="text/javascript" charset="utf-8" src="plugins/af.slidemenu.js"></script>     
+        <script type="text/javascript" charset="utf-8" src="plugins/af.slidemenu.js"></script>
         
         <script src="intelxdk.js"></script> 
         <script src="cordova.js"></script>
@@ -1666,7 +1667,6 @@ The parent id for this div is "content". Let's verify it.
                         <li>
                             <a href="#webslider">af.scroller</a>
                         </li>
-
                         <li>
                             <a href="#webselect">af.selectBox</a>
                         </li>
@@ -1683,7 +1683,10 @@ The parent id for this div is "content". Let's verify it.
                             <a href="#webpopup">af.popup</a>
                         </li>
                         <li>
-                            <a href="#touchevents">Touch events</a>
+                            <a href="#touchevents">af.touchEvents</a>
+                        </li>
+                        <li>
+                            <a href="#slidemenu">af.slidemenu</a>
                         </li>
                     </ul>
                     <br/>
@@ -2164,7 +2167,11 @@ The parent id for this div is "content". Let's verify it.
                         <li><a id='doubletaptest' >Double Tap Test</a></li>
                         <li><a id='swipetest' >Swipe Test</a></li>
                     </ul>
-                </div>    
+                </div> 
+                <div class="panel" title="Slide Menu" id="slidemenu">
+                    <p>This plugin enables app to reveal side menu by swiping on panel.</p>
+                    <p>Swipe right-left on this page to reveal or close the side menu, on iOS or Android.<br>Slide menu is only possible on smaller device which does not have side menu alway open.</p>
+                </div> 
                 <!-- ------------------------------------------ -->
                 <!-- Device API -->
                 <div title="Device APIs" id="deviceapi" class="panel" data-tab="navbar_deviceapi">
