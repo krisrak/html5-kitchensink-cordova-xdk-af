@@ -220,9 +220,9 @@
             
             <div id="content">
                 <div title='Welcome' id="main" class="panel" data-tab="navbar_home" selected="true" data-load="loadedPanel">
-                    <h2 class='expanded' onclick='showHide(this,"main_info");'>Welcome</h2>
+                    <h2 class='expanded' onclick='showHide(this,"main_info");'>Kitchen Sink</h2>
 
-                    <p id='main_info'>Welcome to the kitchen sink demo for App Framework. Here you will find samples of how to use the App Framework libraries. Please select an option from below.</p>
+                    <p id='main_info'>Welcome to the kitchen sink demo for App Framework, intel.xdk APIs and Cordova APIs. Here you will find sample code, demo and some documentation. Please select an option from below.</p>
                     <ul class="list inset">
                         <li class="divider">
                            Documentation / Demos
@@ -1332,10 +1332,10 @@ The parent id for this div is "content". Let's verify it.
                             <a href="#uiclearhistory">.clearHistory()</a>
                         </li>
                         <li>
-                            <a href="#uiaddcontentdiv">.addContentDiv ()</a>
+                            <a href="#uiaddcontentdiv">.addContentDiv()</a>
                         </li>
                         <li>
-                            <a href="#uisettitle">.setTitle(text)</a>
+                            <a href="#uisettitle">.setTitle()</a>
                         </li>
                         <li>
                             <a href="#uisetbackbutton">.setBackButtonText()</a>
@@ -1347,28 +1347,28 @@ The parent id for this div is "content". Let's verify it.
                             <a href="#uihidemask">.hideMask()</a>
                         </li>
                         <li>
-                            <a href="#uiloadcontent">.loadContent();</a>
+                            <a href="#uiloadcontent">.loadContent()</a>
                         </li>
                         <li>
-                            <a href="#uilaunch">.launch();</a>
+                            <a href="#uilaunch">.launch()</a>
                         </li>
                         <li>
-                            <a href="#uiready">.ready();</a>
+                            <a href="#uiready">.ready()</a>
                         </li>
                         <li>
-                            <a href="#uibadge">.updateBadge();</a>
+                            <a href="#uibadge">.updateBadge()</a>
                         </li>
                         <li>
-                            <a href="#uiremovebadge">.removeBadge();</a>
+                            <a href="#uiremovebadge">.removeBadge()</a>
                         </li>
                         <li>
-                            <a href="#uitoggleheader">.toggleHeaderMenu();</a>
+                            <a href="#uitoggleheader">.toggleHeaderMenu()</a>
                         </li>
                         <li>
-                            <a href="#uitoggleside">.toggleSideMenu();</a>
+                            <a href="#uitoggleside">.toggleSideMenu()</a>
                         </li>
                         <li>
-                            <a href="#uitogglenav">.toggleNavMenu();</a>
+                            <a href="#uitogglenav">.toggleNavMenu()</a>
                         </li>
                         <li>
                             <a href="#uiactionsheet">.actionsheet()</a>
@@ -2231,6 +2231,7 @@ The parent id for this div is "content". Let's verify it.
                         <li><a href="#xdkSplashScreen">Splash Screen and Status Bar</a></li>                        
                         <li><a href="#xdkEvents">Events</a></li>
                     </ul>
+                    <a class="button icon folder" onclick="window.open('http://www.html5dev-software.intel.com/documentation/jsAPI/index.html', '_blank', 'location=yes');">Full Documentation</a>
                 </div>
                 
                 <div class="panel" title="intel.xdk Properties" id="xdkProp">
@@ -3088,6 +3089,7 @@ The parent id for this div is "content". Let's verify it.
                         <li><a href="#events">Events</a></li>
                         <li><a href="#globalization">Globalization</a></li>
                     </ul>
+                    <a class="button icon folder" onclick="window.open('http://cordova.apache.org/docs/en/2.9.0/', '_blank', 'location=yes');">Full Documentation</a>
                 </div>
                 
                 <div class="panel" id="events" title="Cordova Events">
@@ -3132,12 +3134,23 @@ The parent id for this div is "content". Let's verify it.
                         <input type="text" id="acceleration-z" style='width:150px' disabled />
                     </div>
                     <a class="button" onclick="stopAccelerometer()">Stop Accelerometer</a>
+                    <br><br><br>
+                    <h3>Methods</h3>
+                    <p>Use these methods listen and access device's accelerometer sensor.</p>
+                    <div class="samplecode">navigator.accelerometer.getCurrentAcceleration(accelerometerSuccess, accelerometerError);</div>
+                    <div class="samplecode">watchID = navigator.accelerometer.watchAcceleration( successFunction, errorFunction, options);</div>
+                    <div class="samplecode">navigator.accelerometer.clearWatch(watchID);</div>
                 </div>
                 
                 <div class="panel" id="camera" title="Camera">
 			         <a class="button icon camera" onclick="startCamera();" >Camera</a>
 			         <a class="button icon picture" onclick="cameraGallery();" class="buttonStyle">Gallery</a><br/>
                     <div id="camera-image" class="ui-body ui-body-b" style="background-size:100%;min-height:250px"></div>
+                    <br><br><br>
+                    <h3>Methods</h3>
+                    <p>Use these methods listen and access device's camera.</p>
+                    <div class="samplecode">navigator.camera.getPicture( cameraSuccess, cameraError, cameraOptions);</div>
+                    <div class="samplecode">navigator.camera.cleanup( cameraSuccess, cameraError);</div>
                 </div>
                 
                 <div title="Contacts" class="panel" id="contacts" >
@@ -3145,6 +3158,11 @@ The parent id for this div is "content". Let's verify it.
                     <ul id="cdvContacts" class="list inset">
                 
                     </ul>
+                    <br><br><br>
+                    <h3>Methods</h3>
+                    <p>Use these methods listen and access device's contacts.</p>
+                    <div class="samplecode">contact = navigator.contacts.create(properties);</div>
+                    <div class="samplecode">navigator.contacts.find(contactFields, contactSuccess, contactError, contactFindOptions);</div>
                 </div>
         
                 <div class="panel" title="Device Info" id="device">
@@ -3171,6 +3189,18 @@ The parent id for this div is "content". Let's verify it.
                         <a class="button" href="#" onclick="navigator.notification.beep(2);">Beep</a>
                         <a class="button" href="#" onclick="navigator.notification.vibrate(1000);">Vibrate</a>	
                     </div>
+                    <br><br><br>
+                    <h3>Methods</h3>
+                    <p>Use these methods listen and use device's notifications.</p>
+                    <div class="samplecode">
+                        navigator.notification.alert(message, alertCallback, title, buttonName)<br><br>
+                        navigator.notification.confirm(message, confirmCallback, title, buttonLabels)<br><br>
+                        navigator.notification.prompt(message, promptCallback, title, buttonLabels, defaultText)
+                    </div>
+                    <div class="samplecode">
+                        navigator.notification.beep(times);<br><br>
+                        navigator.notification.vibrate(milliseconds)
+                    </div>
                 </div>
                         
                 <div class="panel" id="geolocation" title="Geolocation">
@@ -3184,13 +3214,24 @@ The parent id for this div is "content". Let's verify it.
                         <label for="lng">Longitude:</label>
                         <input type="text" id="lng" style='width:150px' disabled />
                     </div>
-                    <br>
+                    <br><br><br>
+                    <h3>Methods</h3>
+                    <p>Use these methods listen and get the device's geo location sensor.</p>
+                    <div class="samplecode">navigator.geolocation.getCurrentPosition( successFunction, errorFunction);</div>
+                    <div class="samplecode">watchID = navigator.geolocation.watchPosition( successFunction, errorFunction, options);</div>
+                    <div class="samplecode">navigator.geolocation.clearWatch(watchID);</div>
                 </div>
                 
                 <div class="panel" id="compass" title="Compass" data-unload="stopCompass">
                     <a class="button" onclick="startCompass()">Start Compass</a>
                     <div id="info-panel" style="font-size:80px; text-align:center;"></div>
                     <a class="button" onclick="stopCompass()">Stop Compass</a>
+                    <br><br><br>
+                    <h3>Methods</h3>
+                    <p>Use these methods listen and get the device's compass sensor.</p>
+                    <div class="samplecode">navigator.compass.getCurrentHeading(compassSuccess, compassError, compassOptions);</div>
+                    <div class="samplecode">watchID = navigator.compass.watchHeading(compassSuccess, compassError, compassOptions);</div>
+                    <div class="samplecode">navigator.compass.clearWatch(watchID);</div>
                 </div>
                 
                 <div class="panel" id="media" title="Media">
@@ -3204,13 +3245,13 @@ The parent id for this div is "content". Let's verify it.
                 
                 <div class="panel" id="file" title="File">
                      <a class="button icon paper" onclick="requestFS(false)" class="buttonStyle">Read File</a>
-                     <p id="fs_info_label">File System Info</p>
+                     <p id="fs_info_label"><b>File System Info</b></p>
                      <p id="fs_info"></p>
-                     <p id="file_content_label">File Content</p>
+                     <p id="file_content_label"><b>File Content</b></p>
                      <p id="file_content"></p>
-                     <p id="update_file">Write "Hello" to the file</p>
+                     <br><br>
                      <a class="button icon stack" onclick="requestFS(true)" class="buttonStyle">Write File</a>
-                      
+                     <p id="update_file">Write "Hello" to the file</p> 
                 </div>
                 
                 <div class="panel" id="connection" title="Connection">
@@ -3242,6 +3283,13 @@ The parent id for this div is "content". Let's verify it.
                     <a class="button icon mic" onclick="captureAudio()" class="buttonStyle">Capture Audio</a><br/>
                     <a class="button icon tv" onclick="captureVideo();" class="buttonStyle">Capture Video</a><br/>
                     <p id="cdv-capture"></p>
+                    <br><br><br>
+                    <h3>Methods</h3>
+                    <p>Use these methods access to the device's audio, image, and video capture capabilities.</p>
+                    <div class="samplecode">navigator.device.capture.captureAudio( captureSuccess, captureError,  options);</div>
+                    <div class="samplecode">navigator.device.capture.captureVideo( captureSuccess, captureError,  options);</div>
+                    <div class="samplecode">navigator.device.capture.captureImage( captureSuccess, captureError,  options);</div>
+                    <div class="samplecode">mediaFile.getFormatData(successCallback, errorCallback);</div>
                 </div>
                 
                 <div class="panel" id="storage" title="Storage">
