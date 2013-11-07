@@ -336,7 +336,7 @@
                         <li><a href="#af29">$.parseJSON()</a></li>
                         <li><a href="#af30">$.os</a></li>
                     </ul>
-                    <a class="button icon folder" onclick="window.open('http://app-framework-software.intel.com/api2/#appframework', '_blank', 'location=yes');">Full Documentation</a>
+                    <a class="button icon folder block" onclick="window.open('http://app-framework-software.intel.com/api2/#appframework', '_blank', 'location=yes');">Full Documentation</a>
                 </div>
                 <!-- af> af serialize() -->
                 <div id="afserialize" class="panel" title="$().serialize">
@@ -853,7 +853,7 @@
                         <li><a href="#uiapi" class="icon js" id="uiapilink">AppFramework UI APIs</a></li>  
                         <li><a href="#uiprop" class="icon js" id="uiproplink">AppFramework UI Properties</a></li> 
                     </ul>
-                    <a class="button icon folder" onclick="window.open('http://app-framework-software.intel.com/api2/#af_ui', '_blank', 'location=yes');">Full Documentation</a>
+                    <a class="button icon folder block" onclick="window.open('http://app-framework-software.intel.com/api2/#af_ui', '_blank', 'location=yes');">Full Documentation</a>
                 </div>
                 <div id="uiicons" title="Vector Icons" class="panel">
                     	<h2 class='expanded' onclick='showHide(this,"icons_info");'>Vector Icons</h2>
@@ -1078,7 +1078,7 @@
                     </ul>
                 </div>
                 
-                <div id="uiinsetlist" title="App Framework UI Inset list" class="panel">
+                <div id="uiinsetlist" title="Inset list" class="panel">
                     <p>Inset lists have a margin and rounded corners</p>
                     <ul class="list inset">
                         <li>
@@ -1099,43 +1099,43 @@
                     </ul>
                 </div>
                 
-                <div id="uibuttons" title="App Framework UI Buttons" class="panel">
+                <div id="uibuttons" title="Buttons" class="panel">
                     <p>Below are different types of buttons</p><br>
-                    <a class="button">Test</a><br><br>
-                    <a class="button red previous">Test red</a><br><br>
-                    <a class="button red next">Test red</a><br><br>
-                    <a class="button icon pencil">Test block</a><br><br><br>
-                    <a class="button block">Test block</a><br><br><br>
+                    <a class="button">Button</a><br><br>
+                    <a class="button previous">Button previous</a><br><br>
+                    <a class="button next">Button next</a><br><br>
+                    <a class="button icon pencil">Button icon</a><br><br>
+                    <a class="button block">Button block</a><br><br>
                     Grouped horizontal
                     <br><br>
                     <div class="button-grouped" style='width:300px'>
-                        <a class="button">Test</a>
-                        <a class="button">Test</a>
-                        <a class="button">Test</a>
+                        <a class="button">Button 1</a>
+                        <a class="button">Button 2</a>
+                        <a class="button">Button 3</a>
                     </div>
                     <br><br>
-                    grouped vertical<br><br>
+                    Grouped vertical<br><br>
                     <div class="button-grouped vertical" style="width:200px;">
-                        <a class="button icon pencil">Test</a>
-                        <a class="button">Test</a>
-                        <a class="button">Test</a>
+                        <a class="button">Button 1</a>
+                        <a class="button">Button 2</a>
+                        <a class="button">Button 3</a>
                     </div>
                     <br><br>
                     Grouped flexbox<br><br>
                     <div class="button-grouped flex">
-                        <a class="button icon cloud">App Framework Button Groups</a>
-                        <a class="button">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</a>
-                        <a class="button">Test</a>
+                        <a class="button">Button 1</a>
+                        <a class="button">Button 2</a>
+                        <a class="button">Button 3</a>
                     </div>
                     <br><br>
                     Colors<br><br>
-                    <a class="button yellow">Yellow</a><br><br>
-                    <a class="button red">Red</a><br><br>
-                    <a class="button green">Green</a><br><br>
-                    <a class="button orange">Orange</a><br><br>
-                    <a class="button slate">Slate</a><br><br>
-                    <a class="button black">Black</a><br><br>
-                    <a class="button gray">Gray</a><br><br>
+                    <a class="button blue">Blue</a><br>
+                    <a class="button red">Red</a><br>
+                    <a class="button green">Green</a><br>
+                    <a class="button orange">Orange</a><br>
+                    <a class="button slate">Slate</a><br>
+                    <a class="button black">Black</a><br>
+                    <a class="button gray">Gray</a>
                 </div>
                 
                 <div id="uiapi" title="AppFramework UI API" class="panel" data-pull-scroller='true'>
@@ -2017,22 +2017,18 @@
                 <div title="Popup" class="panel" id="webpopup">
                     <script>
                         function showPopup1() {
-                            $("#afui").popup("I'm replacing an alert box");
+                            $("#afui").popup("Simple popup alert box");
                         }
 
                         function showPopup2() {
                             $("#afui").popup({
-                                title: "Alert! Alert!",
-                                message: "This is a test of the emergency alert system!! Don't PANIC!",
-                                cancelText: "Cancel me",
-                                cancelCallback: function () {
-                                    console.log("cancelled");
-                                },
-                                doneText: "I'm done!",
-                                doneCallback: function () {
-                                    console.log("Done for!");
-                                },
-                                cancelOnly: false
+                                title:"Popup Title",
+                                message:"This is detail popup message",
+                                cancelText:"Cancel",
+                                cancelCallback: function(){},
+                                doneText:"Done",
+                                doneCallback: function(){},
+                                cancelOnly:false
                             });
                         }
 
@@ -2041,11 +2037,9 @@
                                 title: "Login",
                                 message: "Username: <input type='text' class='af-ui-forms'><br>Password: <input type='text' class='af-ui-forms' style='webkit-text-security:disc'>",
                                 cancelText: "Cancel",
-                                cancelCallback: function () {},
+                                cancelCallback: function(){},
                                 doneText: "Login",
-                                doneCallback: function () {
-                                    alert("Logging in")
-                                },
+                                doneCallback: function(){},
                                 cancelOnly: false
                             });
                         }
@@ -2092,7 +2086,7 @@
                 
                 <div class="panel" title="Slide Menu" id="slidemenu">
                     <p>This plugin enables app to reveal side menu by swiping on panel.</p>
-                    <p>Swipe right-left on this page to reveal or close the side menu, on iOS or Android.<br>Slide menu is only possible on smaller device which does not have side menu alway open.</p>
+                    <p>Swipe right-left on this page to reveal or close the side menu, on iOS or Android.<br>Slide menu is only possible on phone device which does not have side menu already open.</p>
                 </div> 
 
                 <!-- Device API -->
@@ -2150,7 +2144,7 @@
                         <li><a href="#xdkSplashScreen">Splash Screen and Status Bar</a></li>                        
                         <li><a href="#xdkEvents">Events</a></li>
                     </ul>
-                    <a class="button icon folder" onclick="window.open('http://www.html5dev-software.intel.com/documentation/jsAPI/index.html', '_blank', 'location=yes');">Full Documentation</a>
+                    <a class="button icon folder block" onclick="window.open('http://www.html5dev-software.intel.com/documentation/jsAPI/index.html', '_blank', 'location=yes');">Full Documentation</a>
                 </div>
                 
                 <div class="panel" title="intel.xdk Properties" id="xdkProp">
@@ -3008,7 +3002,7 @@
                         <li><a href="#events">Events</a></li>
                         <li><a href="#globalization">Globalization</a></li>
                     </ul>
-                    <a class="button icon folder" onclick="window.open('http://cordova.apache.org/docs/en/2.9.0/', '_blank', 'location=yes');">Full Documentation</a>
+                    <a class="button icon folder block" onclick="window.open('http://cordova.apache.org/docs/en/2.9.0/', '_blank', 'location=yes');">Full Documentation</a>
                 </div>
                 
                 <div class="panel" id="events" title="Cordova Events">
