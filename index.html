@@ -186,7 +186,7 @@
                 <a href="#deviceapi" id='navbar_deviceapi' class="icon camera" data-transition="fade">Device</a>
             </div>
             <!-- default sidemenu -->
-            <nav>
+            <nav id="default_sidemenu">
                 <ul class="list">
                  <li class="divider">UI Themes</li>    
                     <li>
@@ -1203,20 +1203,21 @@ The parent id for this div is "content". Let's verify it.
                         <li><a href="#uiscrolltotop">.scrollToTop()</a></li>
                         <li><a href="#uiscrolltobottom">.scrollToBottom()</a></li>
                         <li><a href="#uidisablenativescrolling">.disableNativeScrolling()</a></li>
+                        <li><a href="#uiblockPageScroll">.blockPageScroll()</a></li>
                     </ul>
                 </div>
                 
                 <div id="uiprop" title="AF UI Properties" class="panel" data-pull-scroller='true'>
-                    <p>These properties can be used to setup AppFramework UI before $.ui.launch()</p>
+                    <p>These properties can be used to setup AppFramework UI, these must be set before calling $.ui.launch()</p>
                     <ul class="list inset">
-                        <li><a href="#uiprop">.manageHistory</a></li>
-                        <li><a href="#uiprop">.loadDefaultHash </a></li>
-                        <li><a href="#uiprop">.useAjaxCacheBuster</a></li>
-                        <li><a href="#uiprop">.autoLaunch</a></li>
-                        <li><a href="#uiprop">.showNavMenu</a></li>
-                        <li><a href="#uiprop">.showBackbutton</a></li>
-                        <li><a href="#uiprop">.resetScrollers</a></li>
-                        <li><a href="#uiprop">.backButtonText</a></li>
+                        <li>$.ui.autoLaunch</li>
+                        <li>$.ui.loadDefaultHash</li>
+                        <li>$.ui.manageHistory</li>
+                        <li>$.ui.backButtonText</li>
+                        <li>$.ui.showBackbutton</li>
+                        <li>$.ui.showNavMenu</li>
+                        <li>$.ui.resetScrollers</li>
+                        <li>$.ui.useAjaxCacheBuster</li>
                     </ul>
                 </div>
                 
@@ -1375,6 +1376,7 @@ The parent id for this div is "content". Let's verify it.
                     <div class="samplecode">
                         $.ui.hideModal(id, transition);
 				    </div>
+                    <a  onclick="$.ui.showModal('modalDemo', 'up')" class="button">Open and Hide Modal</a><br>
                 </div>
                 
                 <div id="modalDemo" class="panel">
@@ -1432,9 +1434,8 @@ The parent id for this div is "content". Let's verify it.
                 <div id="uiupdateHeaderElements" title="Update Header Elements" class="panel">
                     <p>This allows you to updates the elements in the header.</p>
                     <div class="samplecode">
-				        $.ui.updateHeaderElements();
+				        $.ui.updateHeaderElements(element);
 				    </div>
-                    <a  onclick="$.ui.updateHeaderElements()" class="button">Update Header Elements</a>
                 </div>
                 
                 <div id="uitogglenav" title="Toggle Footer Nav" class="panel">
@@ -1449,9 +1450,8 @@ The parent id for this div is "content". Let's verify it.
                 <div id="uiupdateNavbarElements" title="Update Footer Elements" class="panel">
                     <p>This allows you to updates the elements in the footer.</p>
                     <div class="samplecode">
-				        $.ui.updateNavbarElements();
+				        $.ui.updateNavbarElements(element);
 				    </div>
-                    <a  onclick="$.ui.updateNavbarElements()" class="button">Update Footer Elements</a>
                 </div>
                 
                 <div id="uiremoveFooterMenu" title="Remove Footer Menu" class="panel">
@@ -1470,14 +1470,23 @@ The parent id for this div is "content". Let's verify it.
                     <a  onclick="$.ui.toggleSideMenu();" class="button">Toggle Side Menu</a>
                 </div>
                 
+                <div id="uiupdateSideMenuElements" title="Update Side Menu Elements" class="panel">
+                    <p>This allows you to updates the elements in the side menu.</p>
+                    <div class="samplecode">
+				        $.ui.updateSideMenuElements(element);
+				    </div>
+                    <a  onclick="$.ui.updateSideMenuElements($('#custom_sidemenu'))" class="button">Update Custom Side Menu</a><br>
+                    <a  onclick="$.ui.updateSideMenuElements($('#default_sidemenu'))" class="button">Update Default Side Menu</a>
+                </div>
+                
                 <div id="uisetSideMenuWidth" title="Side Menu Width" class="panel">
                     <p>This lets you set width of side menu	</p>
                     <div class="samplecode">
-                        $.ui.setSideMenuWidth();
+                        $.ui.setSideMenuWidth(width);
 				    </div>
-                    <a  onclick="$.ui.setSideMenuWidth('100px');" class="button">Set SideMenu Width = 100px</a><br>
-                    <a  onclick="$.ui.setSideMenuWidth('200px');" class="button">Set SideMenu Width = 200px</a><br>
-                    <a  onclick="$.ui.setSideMenuWidth('300px');" class="button">Set SideMenu Width = 300px</a>
+                    <a  onclick="$.ui.setSideMenuWidth('100px');$.ui.toggleSideMenu();" class="button">Set SideMenu Width = 100px</a><br>
+                    <a  onclick="$.ui.setSideMenuWidth('200px');$.ui.toggleSideMenu();" class="button">Set SideMenu Width = 200px</a><br>
+                    <a  onclick="$.ui.setSideMenuWidth('300px');$.ui.toggleSideMenu();" class="button">Set SideMenu Width = 300px</a>
                 </div>
                 
                 <div id="uidisableSideMenu" title="Disable Side Menu" class="panel">
@@ -1499,27 +1508,57 @@ The parent id for this div is "content". Let's verify it.
                 <div id="uiactionsheet" title="Actionsheet" class="panel">
                     <p>This is a shortcut to the actionsheet plugin. This will wire it correctly to App Framework UI div</p>	
                     <div class="samplecode">
-                        $.ui.actionsheet()
+                        $.ui.actionsheet(buttonsHtml)
 				    </div>
                     <br>
-                    <br>
-                    <a  onclick="$.ui.actionsheet('<a href=\'javascript:;\' class=\'button\'>Test</a>')" class="button">Show a custom sheet</a>
-                    <br/>
-                    <br/>
+                    <a  onclick="uiActionsheet()" class="button">Show Actionsheet</a>
+                    <script>
+                    function uiActionsheet(){    
+                        $.ui.actionsheet("<a href='#'>Button 1</a><a href='#'>Button 2</a>");
+                    }
+                    </script>
                 </div>
                 
-                <div id="uidisableNaviteScrolling" title="Disable Native Scrolling" class="panel">
-                    <p>This will disable native scrolling on iOS.</p>
+                <div id="uipopup" title="Popup" class="panel">
+                    <p>This is a shortcut to the popup plugin. This will wire it correctly to App Framework UI div</p>	
+                    <div class="samplecode">
+                        $.ui.popup(options)
+				    </div>
+                    <br>
+                    <a  onclick="uiPopup()" class="button">Show Popup</a>
+                    <script>
+                    function uiPopup(){    
+                        $.ui.popup( {
+                            title:"Popup Title",
+                            message:"This is popup message",
+                            cancelText:"Cancel",
+                            cancelCallback: function(){},
+                            doneText:"Done",
+                            doneCallback: function(){},
+                            cancelOnly:false
+                        }); 
+                    }
+                    </script>
+                </div>
+                
+                <div id="uidisablenativescrolling" title="Disable Native Scrolling" class="panel">
+                    <p>This will disable native scrolling on iOS, this must be called before $.ui.launch happens. This will disable native scrolling on iOS5+ globally and force javascript scrolling.</p>
                     <div class="samplecode">
                         $.ui.disableNativeScrolling();
 				    </div>
-                    <a  onclick="$.ui.disableNativeScrolling();" class="button">Disable native Scrolling</a>
+                </div>
+                
+                <div id="uiblockPageScroll" title="Block Page Scrolling" class="panel">
+                    <p>This blocks the page from scrolling/panning.  Usefull for native apps.</p>
+                    <div class="samplecode">
+                        $.ui.blockPageScroll();
+				    </div>
                 </div>
                 
                 <div id="uiscrolltotop" title="Scroll to Top" class="panel">
                     <p>This allows you to scroll to the top of a page. Scroll to the bottom for the link.	</p>
                     <div class="samplecode">
-				        $.ui.scrollToTop(div_id)
+				        $.ui.scrollToTop(id)
 				    </div>
                     <br>
                     <br>Keep scrolling down.
@@ -1574,7 +1613,7 @@ The parent id for this div is "content". Let's verify it.
                 <div id="uiscrolltobottom" title="Scroll to Bottom" class="panel">
                     <p>This allows you to scroll to the top of a page. Scroll to the bottom for the link.	</p>
                     <div class="samplecode">
-                        $.ui.scrollToTop(div_id)
+                        $.ui.scrollToTop(id)
 				    </div>
                     <a  onclick="$.ui.scrollToBottom('uiscrolltobottom')" class="button">Scroll to Bottom</a>
                     <br>
