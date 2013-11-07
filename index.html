@@ -296,8 +296,8 @@
                     <header>
                         <h1>AppFramework</h1>
                     </header>    
-                    <h2 class='expanded' onclick='showHide(this,"AppFramework_info");'>AppFramework</h2>
-                    <p id='AppFramework_info'>AppFramework is a blazingly fast query selector tool that is optmimized for HTML5 browsers.</p>
+                    <h2 class='expanded' onclick='showHide(this,"AppFramework_info");'>Query Selector Library</h2>
+                    <p id='AppFramework_info'>AppFramework is a blazingly fast query selector tool that is optmimized for HTML5 browsers. Below are some demos.</p>
                     <ul class="list">
                         <li><a href="#af1">$ Selector</a></li>
                         <li><a href="#af2">$().length()</a></li>
@@ -336,6 +336,7 @@
                         <li><a href="#af29">$.parseJSON()</a></li>
                         <li><a href="#af30">$.os</a></li>
                     </ul>
+                    <a class="button icon folder" onclick="window.open('http://app-framework-software.intel.com/api2/#appframework', '_blank', 'location=yes');">Full Documentation</a>
                 </div>
                 <!-- af> af serialize() -->
                 <div id="afserialize" class="panel" title="$().serialize">
@@ -343,8 +344,8 @@
                         function serializeForm() {
                             alert($("#form").serialize());
                         }
-                    </script>$("#form").serialize() - will return a key/value pair string of the form elements
-                    <br>
+                    </script>
+                    <p>$("#form").serialize() - will return a key/value pair string of the form elements</p>
                     <Br>
                     <form id="form" onsubmit="return false">Name:
                         <input type='text' class='af-ui-forms' name='name' value='John Smith'>
@@ -754,38 +755,36 @@
                     <a class="button"  onclick="doParseJson()">Parse JSON string</a>
                 </div>
                 <!-- af> os -->
-                <div id="af30" class="panel" title=".os">$.os - holds information about the OS of the device, and if it is a webkit browser
+                <div id="af30" class="panel" title=".os">
+                    <p>$.os - holds information about the OS of the device, and if it is a webkit browser</p>
                     <br>
-                    <br>	<div class="samplecode" >
-									$.os.webkit  = <script>document.write($.os.webkit);</script><br>
-									$.os.android = <script>document.write($.os.android);</script><br>
-									$.os.ipad = <script>document.write($.os.ipad);</script><br>
-									$.os.iphone = <script>document.write($.os.iphone);</script><br>
-									$.os.ios = <script>document.write($.os.ios);</script><br>
-									$.os.webos = <script>document.write($.os.webos);</script><br>
-									$.os.touchpad = <script>document.write($.os.touchpad);</script><br>
-									$.os.blackberry = <script>document.write($.os.blackberry);</script><br>
-									$.os.opera = <script>document.write($.os.opera);</script><br>
-									$.os.fennec = <script>document.write($.os.fennec);</script><br>
-								</div>
-
+                    <div class="samplecode" >
+                        $.os.webkit  = <script>document.write($.os.webkit);</script><br>
+                        $.os.android = <script>document.write($.os.android);</script><br>
+                        $.os.ipad = <script>document.write($.os.ipad);</script><br>
+                        $.os.iphone = <script>document.write($.os.iphone);</script><br>
+                        $.os.ios = <script>document.write($.os.ios);</script><br>
+                        $.os.webos = <script>document.write($.os.webos);</script><br>
+                        $.os.touchpad = <script>document.write($.os.touchpad);</script><br>
+                        $.os.blackberry = <script>document.write($.os.blackberry);</script><br>
+                        $.os.opera = <script>document.write($.os.opera);</script><br>
+                        $.os.fennec = <script>document.write($.os.fennec);</script><br>
+                    </div>
                 </div>
                 <!-- af> isArray -->
-                <div id="af33" class="panel" title=".isArray()">$.isArray(param) - returns a boolean if the parameter is an array.
+                <div id="af33" class="panel" title=".isArray()">
+                    <p>$.isArray(param) - returns a boolean if the parameter is an array.</p>
                     <br>
-                    <br>	<div class="samplecode">var notArrayTest="foo";<br>
-									var isArrayTest=[];
-
-								</div>
-
+                    <div class="samplecode">
+                        var notArrayTest="foo";<br>
+                        var isArrayTest=[];
+                    </div>
                     <script>
                         var notArrayTest = "foo";
                         var isArrayTest = [];
-
                         function isNotAnArray() {
                             alert($.isArray(notArrayTest));
                         }
-
                         function isAnArray() {
                             alert($.isArray(isArrayTest));
                         }
@@ -797,22 +796,19 @@
                     <br>
                 </div>
                 <!-- af> isFunction -->
-                <div id="af34" class="panel" title=".isFunction()">$.isFunction(param) - returns a boolean if the parameter is a function.
+                <div id="af34" class="panel" title=".isFunction()">
+                    <p>$.isFunction(param) - returns a boolean if the parameter is a function.</p>
                     <br>
-                    <br>	<div class="samplecode">
-									var notFunctionTest="foo";<br>
-									var isFunctionTest=function(){};
-
-								</div>
-
+                    <div class="samplecode">
+                        var notFunctionTest="foo";<br>
+                        var isFunctionTest=function(){};
+                    </div>
                     <script>
                         var notFunctionTest = "foo";
                         var isFunctionTest = [];
-
                         function notAFunction() {
                             alert($.isArray(notFunctionTest));
                         }
-
                         function isAFunction() {
                             alert($.isArray(isFunctionTest));
                         }
@@ -823,72 +819,41 @@
                     <a class="button"  onclick="isAFunction()">test isFunctionTest</a>
                     <br>
                 </div>
-                <div id="afparent" class="panel" title=".parent()">This returns the parent elements for the previously found elements in the container	<div class="samplecode">
-									$("#afparent").parent();
-								</div>
-The parent id for this div is "content". Let's verify it.
+                <div id="afparent" class="panel" title=".parent()">
+                    <p>This returns the parent elements for the previously found elements in the container</p>	
+                    <div class="samplecode">
+                        $("#afparent").parent();
+                    </div>
+                    <p>The parent id for this div is "content". Let's verify it.</p>
                     <br>
                     <a  onclick="alert($('#afparent').parent().get(0).id);" class="button">Get Parent ID</a>
                 </div>
-                <!-- ------------------------------------------ -->
-                <!-- ------------------------------------------ -->
+
                 <!-- App Framework UI -->
-                <div title="App Framework UI" id="afuidemo" class="panel" data-tab="navbar_ui">
+                <div title="AppFramework UI" id="afuidemo" class="panel" data-tab="navbar_ui">
                     <header>
                         <h1>AppFramework UI</h1>
                     </header>
-                    <h2 class='expanded' onclick='showHide(this,"AFUI_info");'>App Framework UI</h2>
-                    <p id='AFUI_info'>AppFramework UI is the User Interface/User Experience library for mobile applications. It uses HTML5 and CSS3 for animations and transitions. We built the kitchen sink using AppFramework UI. It is comprised of components from the Plugins library
-                        and additional features.
-                        <br>* Fixed navigation bar
-                        <br>* Auto scrolling content panels
-                        <br>* Optional footer to segment your application
-                        <br>
+                    <h2 class='expanded' onclick='showHide(this,"AFUI_info");'>Mobile App UI framework</h2>
+                    <p id='AFUI_info'>AppFramework UI is the User Interface/User Experience library for mobile applications. It uses HTML5 and CSS3 for animations and transitions. It provides javascript APIs to control the UI elements. It also provides vector icons and native looking UI themes for iOS, Android, Windows Phone and Blackberry.
                     </p>
                     <ul class="list">
-                        <li>
-                            <a href="#aftransitions">Transitions</a>
-                        </li>
-                        <li>
-                            <a href="#afforms">Form Styles</a>
-                        </li>
-                        <li>
-                            <a href="#afgrid">Grid System</a>
-                        </li>
-                         <li>
-                            <a href="#uiinsetlist">Inset List</a>
-                        </li>
-                         <li>
-                            <a href="#uibuttons">Buttons</a>
-                        </li>
-                        <li>
-                            <a href="#uiheader">Header Controls</a>
-                        </li>
-                        <li>
-                            <a href="#uifooter">Footer Controls</a>
-                        </li>
-                        <li>
-                            <a href="#uiside">Side Menu Controls</a>
-                        </li>
-                        <li>
-                            <a href="#uiicons">Vector Icons</a>
-                        </li>
-                        <li>
-                            <a href="ajax.html" data-persist-ajax="true" data-refresh-ajax="true" title="Remote Page" data-pull-scroller="true">Load External Content</a>
-                        </li>
-                        <li>
-                            <a href="http://www.intel.com" target="_blank">Open a new page</a>
-                        </li>
-                        <li>
-                            <a href="#uidefer">Defer loading</a>
-                        </li>
-                        <li>
-                            <a href="#uiapi" class="icon js" id="uiapilink">AppFramework UI APIs</a>
-                        </li>  
-                        <li>
-                            <a href="#uiprop" class="icon js" id="uiproplink">AppFramework UI Properties</a>
-                        </li> 
+                        <li><a href="#aftransitions">Transitions</a></li>
+                        <li><a href="#afforms">Form Styles</a></li>
+                        <li><a href="#afgrid">Grid System</a></li>
+                        <li><a href="#uiinsetlist">Inset List</a></li>
+                        <li><a href="#uibuttons">Buttons</a></li>
+                        <li><a href="#uiheader">Header Controls</a></li>
+                        <li><a href="#uifooter">Footer Controls</a></li>
+                        <li><a href="#uiside">Side Menu Controls</a></li>
+                        <li><a href="#uiicons">Vector Icons</a></li>
+                        <li><a href="ajax.html" data-persist-ajax="true" data-refresh-ajax="true" title="Remote Page" data-pull-scroller="true">Load External Content</a></li>
+                        <li><a href="http://www.intel.com" target="_blank">Open a new page</a></li>
+                        <li><a href="#uidefer">Defer loading</a></li>
+                        <li><a href="#uiapi" class="icon js" id="uiapilink">AppFramework UI APIs</a></li>  
+                        <li><a href="#uiprop" class="icon js" id="uiproplink">AppFramework UI Properties</a></li> 
                     </ul>
+                    <a class="button icon folder" onclick="window.open('http://app-framework-software.intel.com/api2/#af_ui', '_blank', 'location=yes');">Full Documentation</a>
                 </div>
                 <div id="uiicons" title="Vector Icons" class="panel">
                     	<h2 class='expanded' onclick='showHide(this,"icons_info");'>Vector Icons</h2>
@@ -959,20 +924,28 @@ The parent id for this div is "content". Let's verify it.
                         <li><a  class="icon lamp big">Lamp</a></li>
                     </ul>
                 </div>
-                <div id="uidefer" title="Defer Loading" class="panel" data-defer="defer.html">Deferred loading requires a web browser for Ajax to work. What we do is load the html after $.ui.ready is called, so you can speed up the initial loading time of your app.</div>
+                
+                <div id="uidefer" title="Defer Loading" class="panel" data-defer="defer.html">
+                    <p>Deferred loading requires a web browser for Ajax to work. What we do is load the html after $.ui.ready is called, so you can speed up the initial loading time of your app.</p>
+                </div>
+                
                 <div id="uiside" title="Side Menu Controls" class="panel" data-nav="custom_sidemenu">	
                     <p><b>Toggle Side Menu</b>
                     <br>If you are on a tablet, you'll already see the side menu. If you are on a phone, click the button to expand it.</p>
                     <br><a class="button" onclick="$.ui.toggleSideMenu()">Toggle Side Menu</a>
-                    <p><b>Custom Side Menu</b><br>Side menu's are created using the &lt;nav&gt; tags. You can set the id and then refer to them on each panel by setting the data-nav='id' property. The side menu's will only show if you have &lt;nav&gt; defined.</p></div>
+                    <p><b>Custom Side Menu</b><br>Side menu's are created using the &lt;nav&gt; tags. You can set the id and then refer to them on each panel by setting the data-nav='id' property. The side menu's will only show if you have &lt;nav&gt; defined.</p>
+                </div>
+                
                 <div id="uifooter" title="Footer Control" data-footer="custom_footer" class="panel">
                     <p><b>Custom Footer</b><br>You should notice that the footer is no longer the default. You can create custom footers using the &lt;footer&gt; tag. You then set the id on each panel to change them using the data-footer='id' property.</p><br>
                     <p><b>Toggle Footer</b><br>You can toggle footer using $.ui.toggleNavMenu()<br><a class="button" onclick="$.ui.toggleNavMenu()">Toggle Footer</a></p>
                 </div>
+                
                 <div id="uiheader" title="Header Control" data-header="custom_header" class="panel">
                     <p><b>Custom Header</b><br>You should notice that the header is no longer the default. You can create custom header using the &lt;header&gt; tag. You then set the id on each panel to change them using the data-header='id' property.</p><br>
                     <p><b>Toggle Header</b><br>You can toggle header using $.ui.toggleHeaderMenu()<br><a class="button" onclick="$.ui.toggleHeaderMenu()">Toggle Header</a></p>
                 </div>
+                
                 <div id="afgrid" title="Grid System" class="panel">
                     <p>You can specify the following types of grids</p>
                     <ul class="list inset">
@@ -1012,75 +985,73 @@ The parent id for this div is "content". Let's verify it.
 
                         <div class="col1-3">This is the right column</div>
                     </div>
-
-
                 </div>
+                
                 <div id="afforms" title="Form Styles" class="panel">
-                <div class="formGroupHead">Standard</div>
-                <form>
-                    <input type="text" placeholder="test">
-                    <input type="search" placeholder="search">
-                    <textarea rows="6" placeholder="Enter your address"></textarea>
-                </form>
-
-                <div class="formGroupHead">Grouping</div>
-                <form>
-                    <div class="input-group">
+                    <div class="formGroupHead">Standard</div>
+                    <form>
                         <input type="text" placeholder="test">
                         <input type="search" placeholder="search">
                         <textarea rows="6" placeholder="Enter your address"></textarea>
-                    </div>
-                </form>
-                <div class="formGroupHead">Labeled</div>
-                <form>
-                    <label for="test1">First Name</label><input id="test1" type="text" placeholder="test">
-                    <label for="test2">Search</label><input  id="test2" type="search" placeholder="search">
-                    <label for="test3">Info Name</label><textarea  id="test3" rows="6" placeholder="Enter your address"></textarea>
-                </form>
-        <form>
-            <div class="input-group">
-                <label for="test1">First Name</label><input id="test1" type="text" placeholder="test">
-                <label for="test2">Search</label><input  id="test2" type="search" placeholder="search">
-                <label for="test3">Info Name</label><textarea  id="test3" rows="6" placeholder="Enter your address"></textarea>
+                    </form>
+    
+                    <div class="formGroupHead">Grouping</div>
+                    <form>
+                        <div class="input-group">
+                            <input type="text" placeholder="test">
+                            <input type="search" placeholder="search">
+                            <textarea rows="6" placeholder="Enter your address"></textarea>
+                        </div>
+                    </form>
+                    <div class="formGroupHead">Labeled</div>
+                    <form>
+                        <label for="test1">First Name</label><input id="test1" type="text" placeholder="test">
+                        <label for="test2">Search</label><input  id="test2" type="search" placeholder="search">
+                        <label for="test3">Info Name</label><textarea  id="test3" rows="6" placeholder="Enter your address"></textarea>
+                    </form>
+                    <form>
+                        <div class="input-group">
+                            <label for="test1">First Name</label><input id="test1" type="text" placeholder="test">
+                            <label for="test2">Search</label><input  id="test2" type="search" placeholder="search">
+                            <label for="test3">Info Name</label><textarea  id="test3" rows="6" placeholder="Enter your address"></textarea>
+            
+                            <input type="submit" class="button" value="Submit" style='float:right;'>
+                        </div>
+                    </form>
 
-                <input type="submit" class="button" value="Submit" style='float:right;'>
-            </div>
-        </form>
-
-        <div class="formGroupHead">Radios</div>
-        <form>
-            <div class="input-group">
-                <label>Gender</label><input id="aaaa" type="radio" name="test" value="1"><label for="aaaa">Male</label>
-                <input id="bbbb" type="radio" name="test" value="2"><label for="bbbb">Female</label>
-                <input id="cccc" type="radio" name="test" value="3"><label for="cccc">N/A </label>
-                <br style="clear:both">
-                <input type="submit" class="button" value="Submit" style='float:right;'>
-            </div>
-        </form>
-        <div class="formGroupHead">Checkbox and Button</div>
-        <form>
-            <div class="input-group">
-                <label>Gender</label><input id="aaaaa" type="checkbox" name="test2" value="1"><label for="aaaaa">Male</label>
-                <input id="bbbbb" type="checkbox" name="test2" value="2"><label for="bbbbb">Female</label>
-                <input id="ccccc" type="checkbox" name="test2" value="3"><label for="ccccc">N/A </label>
-                <br style="clear:both">
-                <input type="submit" class="button" value="Submit" style='float:right;'>
-            </div>
-        </form>
-
-        <div class="formGroupHead">Toggle Switches</div>
-        <form>
-            <div class="input-group">
-                <label>Gender</label><input id="toggle1" type="checkbox" name="toggle1" value="1" class="toggle"><label for="toggle1" data-on="On" data-off="Off"><span></span></label>
-                <input id="toggle2" type="radio" name="toggle2" value="1" class="toggle"><label for="toggle2" data-on="Yes" data-off="No"><span></span></label>
-                <input id="toggle3" type="radio" name="toggle2" value="1" class="toggle"><label for="toggle3" data-on="Yes" data-off="No"><span></span></label>
-
-            </div>
-        </form>
-
+                    <div class="formGroupHead">Radios</div>
+                    <form>
+                        <div class="input-group">
+                            <label>Gender</label><input id="aaaa" type="radio" name="test" value="1"><label for="aaaa">Male</label>
+                            <input id="bbbb" type="radio" name="test" value="2"><label for="bbbb">Female</label>
+                            <input id="cccc" type="radio" name="test" value="3"><label for="cccc">N/A </label>
+                            <br style="clear:both">
+                            <input type="submit" class="button" value="Submit" style='float:right;'>
+                        </div>
+                    </form>
+                    <div class="formGroupHead">Checkbox and Button</div>
+                    <form>
+                        <div class="input-group">
+                            <label>Gender</label><input id="aaaaa" type="checkbox" name="test2" value="1"><label for="aaaaa">Male</label>
+                            <input id="bbbbb" type="checkbox" name="test2" value="2"><label for="bbbbb">Female</label>
+                            <input id="ccccc" type="checkbox" name="test2" value="3"><label for="ccccc">N/A </label>
+                            <br style="clear:both">
+                            <input type="submit" class="button" value="Submit" style='float:right;'>
+                        </div>
+                    </form>
+                    <div class="formGroupHead">Toggle Switches</div>
+                    <form>
+                        <div class="input-group">
+                            <label>Gender</label><input id="toggle1" type="checkbox" name="toggle1" value="1" class="toggle"><label for="toggle1" data-on="On" data-off="Off"><span></span></label>
+                            <input id="toggle2" type="radio" name="toggle2" value="1" class="toggle"><label for="toggle2" data-on="Yes" data-off="No"><span></span></label>
+                            <input id="toggle3" type="radio" name="toggle2" value="1" class="toggle"><label for="toggle3" data-on="Yes" data-off="No"><span></span></label>
+            
+                        </div>
+                    </form>
                 </div>
+                
                 <div title="Transitions" id="aftransitions" class="panel">
-                    	<h2 class='expanded' onclick='showHide(this,"AFUI_transitions");'>App Framework UI</h2>
+                    <h2 class='expanded' onclick='showHide(this,"AFUI_transitions");'>App Framework UI</h2>
                     <p id='AFUI_transitions'>	<strong>af.ui transitions</strong> the following are transitions built in. You can easily add/extend with your own. Set the data-transition attribute on an anchor to change the transition.</p>
                     <ul class="list">
                         <li>
@@ -1105,11 +1076,10 @@ The parent id for this div is "content". Let's verify it.
                             <a href="#transition7">Modal</a>
                         </li>
                     </ul>
-                    <br/>
-                    <br/>
                 </div>
+                
                 <div id="uiinsetlist" title="App Framework UI Inset list" class="panel">
-                    Inset lists have a margin and rounded corners
+                    <p>Inset lists have a margin and rounded corners</p>
                     <ul class="list inset">
                         <li>
                             <a href="#uigoback">.goBack()</a>
@@ -1128,8 +1098,9 @@ The parent id for this div is "content". Let's verify it.
                         </li>
                     </ul>
                 </div>
+                
                 <div id="uibuttons" title="App Framework UI Buttons" class="panel">
-                    Below are different types of buttons<br><br>
+                    <p>Below are different types of buttons</p><br>
                     <a class="button">Test</a><br><br>
                     <a class="button red previous">Test red</a><br><br>
                     <a class="button red next">Test red</a><br><br>
@@ -1692,8 +1663,7 @@ The parent id for this div is "content". Let's verify it.
                     <br>
                     <input type="text" class="af-ui-forms" id="modal_test">
                 </div>
-                <!-- ------------------------------------------ -->
-                <!-- ------------------------------------------ -->
+
                 <!-- Plugins -->
                 <div title="Plugins" id="afweb" class="panel" data-tab="navbar_plugins">
                     <header>
@@ -1727,8 +1697,6 @@ The parent id for this div is "content". Let's verify it.
                             <a href="#slidemenu">af.slidemenu</a>
                         </li>
                     </ul>
-                    <br/>
-                    <br/>
                 </div>
                 <!-- Plugins> af.scroller -->
                 <div title="Scroller" class="panel" id="webslider">
@@ -1786,94 +1754,17 @@ The parent id for this div is "content". Let's verify it.
                             $("#webslider").css("overflow", "auto");
                         });
                     </script>
-                    <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis porta, lorem sit amet feugiat lacinia, mi dui sodales eros, id lacinia mauris urna eu est. Proin pulvinar, augue sed convallis elementum, magna diam pharetra magna, id vestibulum est eros
-                        vitae ante. Ut auctor erat a tellus venenatis eu fermentum lorem scelerisque. Cras dignissim leo ornare massa sollicitudin sit amet pulvinar turpis hendrerit. Morbi hendrerit nunc eget turpis luctus id ultricies lorem consequat. Donec eu lacus sed mauris
-                        sollicitudin laoreet. Cras vitae sodales diam. Donec mollis, libero ut pellentesque dignissim, risus orci ornare nisi, sed eleifend enim purus malesuada neque. Nulla tellus sem, scelerisque sed sagittis id, eleifend venenatis ligula. Vivamus placerat
-                        neque sit amet metus ultricies facilisis. Nulla a odio magna. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Sed commodo quam eu enim lacinia vitae ultrices nulla mollis. Aenean eget lectus turpis, at ultrices
-                        leo. Nulla vehicula magna in risus ornare vestibulum. Integer gravida magna quam. Donec augue ante, fringilla non congue eu, aliquam lacinia nisi. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Maecenas nisl
-                        ante, suscipit ut suscipit nec, dictum sit amet orci. Maecenas fermentum sapien turpis, sit amet eleifend justo. Aenean auctor interdum sem sed tincidunt. Aliquam ullamcorper malesuada fermentum. Nunc consectetur, ipsum et pulvinar ultrices, lorem nibh
-                        egestas sapien, at egestas lorem metus sit amet lacus. Maecenas non feugiat orci. Curabitur imperdiet tempus lacus, volutpat fermentum diam convallis a. In hac habitasse platea dictumst. Pellentesque nec ipsum diam, at consectetur elit. Duis feugiat ullamcorper
-                        libero tincidunt aliquet. Sed leo nisl, iaculis non pellentesque nec, scelerisque vel felis</div>
-                    <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis porta, lorem sit amet feugiat lacinia, mi dui sodales eros, id lacinia mauris urna eu est. Proin pulvinar, augue sed convallis elementum, magna diam pharetra magna, id vestibulum est eros
-                        vitae ante. Ut auctor erat a tellus venenatis eu fermentum lorem scelerisque. Cras dignissim leo ornare massa sollicitudin sit amet pulvinar turpis hendrerit. Morbi hendrerit nunc eget turpis luctus id ultricies lorem consequat. Donec eu lacus sed mauris
-                        sollicitudin laoreet. Cras vitae sodales diam. Donec mollis, libero ut pellentesque dignissim, risus orci ornare nisi, sed eleifend enim purus malesuada neque. Nulla tellus sem, scelerisque sed sagittis id, eleifend venenatis ligula. Vivamus placerat
-                        neque sit amet metus ultricies facilisis. Nulla a odio magna. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Sed commodo quam eu enim lacinia vitae ultrices nulla mollis. Aenean eget lectus turpis, at ultrices
-                        leo. Nulla vehicula magna in risus ornare vestibulum. Integer gravida magna quam. Donec augue ante, fringilla non congue eu, aliquam lacinia nisi. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Maecenas nisl
-                        ante, suscipit ut suscipit nec, dictum sit amet orci. Maecenas fermentum sapien turpis, sit amet eleifend justo. Aenean auctor interdum sem sed tincidunt. Aliquam ullamcorper malesuada fermentum. Nunc consectetur, ipsum et pulvinar ultrices, lorem nibh
-                        egestas sapien, at egestas lorem metus sit amet lacus. Maecenas non feugiat orci. Curabitur imperdiet tempus lacus, volutpat fermentum diam convallis a. In hac habitasse platea dictumst. Pellentesque nec ipsum diam, at consectetur elit. Duis feugiat ullamcorper
-                        libero tincidunt aliquet. Sed leo nisl, iaculis non pellentesque nec, scelerisque vel felis</div>
-                    <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis porta, lorem sit amet feugiat lacinia, mi dui sodales eros, id lacinia mauris urna eu est. Proin pulvinar, augue sed convallis elementum, magna diam pharetra magna, id vestibulum est eros
-                        vitae ante. Ut auctor erat a tellus venenatis eu fermentum lorem scelerisque. Cras dignissim leo ornare massa sollicitudin sit amet pulvinar turpis hendrerit. Morbi hendrerit nunc eget turpis luctus id ultricies lorem consequat. Donec eu lacus sed mauris
-                        sollicitudin laoreet. Cras vitae sodales diam. Donec mollis, libero ut pellentesque dignissim, risus orci ornare nisi, sed eleifend enim purus malesuada neque. Nulla tellus sem, scelerisque sed sagittis id, eleifend venenatis ligula. Vivamus placerat
-                        neque sit amet metus ultricies facilisis. Nulla a odio magna. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Sed commodo quam eu enim lacinia vitae ultrices nulla mollis. Aenean eget lectus turpis, at ultrices
-                        leo. Nulla vehicula magna in risus ornare vestibulum. Integer gravida magna quam. Donec augue ante, fringilla non congue eu, aliquam lacinia nisi. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Maecenas nisl
-                        ante, suscipit ut suscipit nec, dictum sit amet orci. Maecenas fermentum sapien turpis, sit amet eleifend justo. Aenean auctor interdum sem sed tincidunt. Aliquam ullamcorper malesuada fermentum. Nunc consectetur, ipsum et pulvinar ultrices, lorem nibh
-                        egestas sapien, at egestas lorem metus sit amet lacus. Maecenas non feugiat orci. Curabitur imperdiet tempus lacus, volutpat fermentum diam convallis a. In hac habitasse platea dictumst. Pellentesque nec ipsum diam, at consectetur elit. Duis feugiat ullamcorper
-                        libero tincidunt aliquet. Sed leo nisl, iaculis non pellentesque nec, scelerisque vel felis</div>
-                    <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis porta, lorem sit amet feugiat lacinia, mi dui sodales eros, id lacinia mauris urna eu est. Proin pulvinar, augue sed convallis elementum, magna diam pharetra magna, id vestibulum est eros
-                        vitae ante. Ut auctor erat a tellus venenatis eu fermentum lorem scelerisque. Cras dignissim leo ornare massa sollicitudin sit amet pulvinar turpis hendrerit. Morbi hendrerit nunc eget turpis luctus id ultricies lorem consequat. Donec eu lacus sed mauris
-                        sollicitudin laoreet. Cras vitae sodales diam. Donec mollis, libero ut pellentesque dignissim, risus orci ornare nisi, sed eleifend enim purus malesuada neque. Nulla tellus sem, scelerisque sed sagittis id, eleifend venenatis ligula. Vivamus placerat
-                        neque sit amet metus ultricies facilisis. Nulla a odio magna. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Sed commodo quam eu enim lacinia vitae ultrices nulla mollis. Aenean eget lectus turpis, at ultrices
-                        leo. Nulla vehicula magna in risus ornare vestibulum. Integer gravida magna quam. Donec augue ante, fringilla non congue eu, aliquam lacinia nisi. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Maecenas nisl
-                        ante, suscipit ut suscipit nec, dictum sit amet orci. Maecenas fermentum sapien turpis, sit amet eleifend justo. Aenean auctor interdum sem sed tincidunt. Aliquam ullamcorper malesuada fermentum. Nunc consectetur, ipsum et pulvinar ultrices, lorem nibh
-                        egestas sapien, at egestas lorem metus sit amet lacus. Maecenas non feugiat orci. Curabitur imperdiet tempus lacus, volutpat fermentum diam convallis a. In hac habitasse platea dictumst. Pellentesque nec ipsum diam, at consectetur elit. Duis feugiat ullamcorper
-                        libero tincidunt aliquet. Sed leo nisl, iaculis non pellentesque nec, scelerisque vel felis</div>
-                    <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis porta, lorem sit amet feugiat lacinia, mi dui sodales eros, id lacinia mauris urna eu est. Proin pulvinar, augue sed convallis elementum, magna diam pharetra magna, id vestibulum est eros
-                        vitae ante. Ut auctor erat a tellus venenatis eu fermentum lorem scelerisque. Cras dignissim leo ornare massa sollicitudin sit amet pulvinar turpis hendrerit. Morbi hendrerit nunc eget turpis luctus id ultricies lorem consequat. Donec eu lacus sed mauris
-                        sollicitudin laoreet. Cras vitae sodales diam. Donec mollis, libero ut pellentesque dignissim, risus orci ornare nisi, sed eleifend enim purus malesuada neque. Nulla tellus sem, scelerisque sed sagittis id, eleifend venenatis ligula. Vivamus placerat
-                        neque sit amet metus ultricies facilisis. Nulla a odio magna. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Sed commodo quam eu enim lacinia vitae ultrices nulla mollis. Aenean eget lectus turpis, at ultrices
-                        leo. Nulla vehicula magna in risus ornare vestibulum. Integer gravida magna quam. Donec augue ante, fringilla non congue eu, aliquam lacinia nisi. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Maecenas nisl
-                        ante, suscipit ut suscipit nec, dictum sit amet orci. Maecenas fermentum sapien turpis, sit amet eleifend justo. Aenean auctor interdum sem sed tincidunt. Aliquam ullamcorper malesuada fermentum. Nunc consectetur, ipsum et pulvinar ultrices, lorem nibh
-                        egestas sapien, at egestas lorem metus sit amet lacus. Maecenas non feugiat orci. Curabitur imperdiet tempus lacus, volutpat fermentum diam convallis a. In hac habitasse platea dictumst. Pellentesque nec ipsum diam, at consectetur elit. Duis feugiat ullamcorper
-                        libero tincidunt aliquet. Sed leo nisl, iaculis non pellentesque nec, scelerisque vel felis</div>
-                    <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis porta, lorem sit amet feugiat lacinia, mi dui sodales eros, id lacinia mauris urna eu est. Proin pulvinar, augue sed convallis elementum, magna diam pharetra magna, id vestibulum est eros
-                        vitae ante. Ut auctor erat a tellus venenatis eu fermentum lorem scelerisque. Cras dignissim leo ornare massa sollicitudin sit amet pulvinar turpis hendrerit. Morbi hendrerit nunc eget turpis luctus id ultricies lorem consequat. Donec eu lacus sed mauris
-                        sollicitudin laoreet. Cras vitae sodales diam. Donec mollis, libero ut pellentesque dignissim, risus orci ornare nisi, sed eleifend enim purus malesuada neque. Nulla tellus sem, scelerisque sed sagittis id, eleifend venenatis ligula. Vivamus placerat
-                        neque sit amet metus ultricies facilisis. Nulla a odio magna. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Sed commodo quam eu enim lacinia vitae ultrices nulla mollis. Aenean eget lectus turpis, at ultrices
-                        leo. Nulla vehicula magna in risus ornare vestibulum. Integer gravida magna quam. Donec augue ante, fringilla non congue eu, aliquam lacinia nisi. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Maecenas nisl
-                        ante, suscipit ut suscipit nec, dictum sit amet orci. Maecenas fermentum sapien turpis, sit amet eleifend justo. Aenean auctor interdum sem sed tincidunt. Aliquam ullamcorper malesuada fermentum. Nunc consectetur, ipsum et pulvinar ultrices, lorem nibh
-                        egestas sapien, at egestas lorem metus sit amet lacus. Maecenas non feugiat orci. Curabitur imperdiet tempus lacus, volutpat fermentum diam convallis a. In hac habitasse platea dictumst. Pellentesque nec ipsum diam, at consectetur elit. Duis feugiat ullamcorper
-                        libero tincidunt aliquet. Sed leo nisl, iaculis non pellentesque nec, scelerisque vel felis</div>
-                    <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis porta, lorem sit amet feugiat lacinia, mi dui sodales eros, id lacinia mauris urna eu est. Proin pulvinar, augue sed convallis elementum, magna diam pharetra magna, id vestibulum est eros
-                        vitae ante. Ut auctor erat a tellus venenatis eu fermentum lorem scelerisque. Cras dignissim leo ornare massa sollicitudin sit amet pulvinar turpis hendrerit. Morbi hendrerit nunc eget turpis luctus id ultricies lorem consequat. Donec eu lacus sed mauris
-                        sollicitudin laoreet. Cras vitae sodales diam. Donec mollis, libero ut pellentesque dignissim, risus orci ornare nisi, sed eleifend enim purus malesuada neque. Nulla tellus sem, scelerisque sed sagittis id, eleifend venenatis ligula. Vivamus placerat
-                        neque sit amet metus ultricies facilisis. Nulla a odio magna. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Sed commodo quam eu enim lacinia vitae ultrices nulla mollis. Aenean eget lectus turpis, at ultrices
-                        leo. Nulla vehicula magna in risus ornare vestibulum. Integer gravida magna quam. Donec augue ante, fringilla non congue eu, aliquam lacinia nisi. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Maecenas nisl
-                        ante, suscipit ut suscipit nec, dictum sit amet orci. Maecenas fermentum sapien turpis, sit amet eleifend justo. Aenean auctor interdum sem sed tincidunt. Aliquam ullamcorper malesuada fermentum. Nunc consectetur, ipsum et pulvinar ultrices, lorem nibh
-                        egestas sapien, at egestas lorem metus sit amet lacus. Maecenas non feugiat orci. Curabitur imperdiet tempus lacus, volutpat fermentum diam convallis a. In hac habitasse platea dictumst. Pellentesque nec ipsum diam, at consectetur elit. Duis feugiat ullamcorper
-                        libero tincidunt aliquet. Sed leo nisl, iaculis non pellentesque nec, scelerisque vel felis</div>
-                    <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis porta, lorem sit amet feugiat lacinia, mi dui sodales eros, id lacinia mauris urna eu est. Proin pulvinar, augue sed convallis elementum, magna diam pharetra magna, id vestibulum est eros
-                        vitae ante. Ut auctor erat a tellus venenatis eu fermentum lorem scelerisque. Cras dignissim leo ornare massa sollicitudin sit amet pulvinar turpis hendrerit. Morbi hendrerit nunc eget turpis luctus id ultricies lorem consequat. Donec eu lacus sed mauris
-                        sollicitudin laoreet. Cras vitae sodales diam. Donec mollis, libero ut pellentesque dignissim, risus orci ornare nisi, sed eleifend enim purus malesuada neque. Nulla tellus sem, scelerisque sed sagittis id, eleifend venenatis ligula. Vivamus placerat
-                        neque sit amet metus ultricies facilisis. Nulla a odio magna. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Sed commodo quam eu enim lacinia vitae ultrices nulla mollis. Aenean eget lectus turpis, at ultrices
-                        leo. Nulla vehicula magna in risus ornare vestibulum. Integer gravida magna quam. Donec augue ante, fringilla non congue eu, aliquam lacinia nisi. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Maecenas nisl
-                        ante, suscipit ut suscipit nec, dictum sit amet orci. Maecenas fermentum sapien turpis, sit amet eleifend justo. Aenean auctor interdum sem sed tincidunt. Aliquam ullamcorper malesuada fermentum. Nunc consectetur, ipsum et pulvinar ultrices, lorem nibh
-                        egestas sapien, at egestas lorem metus sit amet lacus. Maecenas non feugiat orci. Curabitur imperdiet tempus lacus, volutpat fermentum diam convallis a. In hac habitasse platea dictumst. Pellentesque nec ipsum diam, at consectetur elit. Duis feugiat ullamcorper
-                        libero tincidunt aliquet. Sed leo nisl, iaculis non pellentesque nec, scelerisque vel felis</div>
-                    <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis porta, lorem sit amet feugiat lacinia, mi dui sodales eros, id lacinia mauris urna eu est. Proin pulvinar, augue sed convallis elementum, magna diam pharetra magna, id vestibulum est eros
-                        vitae ante. Ut auctor erat a tellus venenatis eu fermentum lorem scelerisque. Cras dignissim leo ornare massa sollicitudin sit amet pulvinar turpis hendrerit. Morbi hendrerit nunc eget turpis luctus id ultricies lorem consequat. Donec eu lacus sed mauris
-                        sollicitudin laoreet. Cras vitae sodales diam. Donec mollis, libero ut pellentesque dignissim, risus orci ornare nisi, sed eleifend enim purus malesuada neque. Nulla tellus sem, scelerisque sed sagittis id, eleifend venenatis ligula. Vivamus placerat
-                        neque sit amet metus ultricies facilisis. Nulla a odio magna. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Sed commodo quam eu enim lacinia vitae ultrices nulla mollis. Aenean eget lectus turpis, at ultrices
-                        leo. Nulla vehicula magna in risus ornare vestibulum. Integer gravida magna quam. Donec augue ante, fringilla non congue eu, aliquam lacinia nisi. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Maecenas nisl
-                        ante, suscipit ut suscipit nec, dictum sit amet orci. Maecenas fermentum sapien turpis, sit amet eleifend justo. Aenean auctor interdum sem sed tincidunt. Aliquam ullamcorper malesuada fermentum. Nunc consectetur, ipsum et pulvinar ultrices, lorem nibh
-                        egestas sapien, at egestas lorem metus sit amet lacus. Maecenas non feugiat orci. Curabitur imperdiet tempus lacus, volutpat fermentum diam convallis a. In hac habitasse platea dictumst. Pellentesque nec ipsum diam, at consectetur elit. Duis feugiat ullamcorper
-                        libero tincidunt aliquet. Sed leo nisl, iaculis non pellentesque nec, scelerisque vel felis</div>
-                    <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis porta, lorem sit amet feugiat lacinia, mi dui sodales eros, id lacinia mauris urna eu est. Proin pulvinar, augue sed convallis elementum, magna diam pharetra magna, id vestibulum est eros
-                        vitae ante. Ut auctor erat a tellus venenatis eu fermentum lorem scelerisque. Cras dignissim leo ornare massa sollicitudin sit amet pulvinar turpis hendrerit. Morbi hendrerit nunc eget turpis luctus id ultricies lorem consequat. Donec eu lacus sed mauris
-                        sollicitudin laoreet. Cras vitae sodales diam. Donec mollis, libero ut pellentesque dignissim, risus orci ornare nisi, sed eleifend enim purus malesuada neque. Nulla tellus sem, scelerisque sed sagittis id, eleifend venenatis ligula. Vivamus placerat
-                        neque sit amet metus ultricies facilisis. Nulla a odio magna. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Sed commodo quam eu enim lacinia vitae ultrices nulla mollis. Aenean eget lectus turpis, at ultrices
-                        leo. Nulla vehicula magna in risus ornare vestibulum. Integer gravida magna quam. Donec augue ante, fringilla non congue eu, aliquam lacinia nisi. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Maecenas nisl
-                        ante, suscipit ut suscipit nec, dictum sit amet orci. Maecenas fermentum sapien turpis, sit amet eleifend justo. Aenean auctor interdum sem sed tincidunt. Aliquam ullamcorper malesuada fermentum. Nunc consectetur, ipsum et pulvinar ultrices, lorem nibh
-                        egestas sapien, at egestas lorem metus sit amet lacus. Maecenas non feugiat orci. Curabitur imperdiet tempus lacus, volutpat fermentum diam convallis a. In hac habitasse platea dictumst. Pellentesque nec ipsum diam, at consectetur elit. Duis feugiat ullamcorper
-                        libero tincidunt aliquet. Sed leo nisl, iaculis non pellentesque nec, scelerisque vel felis</div>
-                    <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis porta, lorem sit amet feugiat lacinia, mi dui sodales eros, id lacinia mauris urna eu est. Proin pulvinar, augue sed convallis elementum, magna diam pharetra magna, id vestibulum est eros
-                        vitae ante. Ut auctor erat a tellus venenatis eu fermentum lorem scelerisque. Cras dignissim leo ornare massa sollicitudin sit amet pulvinar turpis hendrerit. Morbi hendrerit nunc eget turpis luctus id ultricies lorem consequat. Donec eu lacus sed mauris
-                        sollicitudin laoreet. Cras vitae sodales diam. Donec mollis, libero ut pellentesque dignissim, risus orci ornare nisi, sed eleifend enim purus malesuada neque. Nulla tellus sem, scelerisque sed sagittis id, eleifend venenatis ligula. Vivamus placerat
-                        neque sit amet metus ultricies facilisis. Nulla a odio magna. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Sed commodo quam eu enim lacinia vitae ultrices nulla mollis. Aenean eget lectus turpis, at ultrices
-                        leo. Nulla vehicula magna in risus ornare vestibulum. Integer gravida magna quam. Donec augue ante, fringilla non congue eu, aliquam lacinia nisi. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Maecenas nisl
-                        ante, suscipit ut suscipit nec, dictum sit amet orci. Maecenas fermentum sapien turpis, sit amet eleifend justo. Aenean auctor interdum sem sed tincidunt. Aliquam ullamcorper malesuada fermentum. Nunc consectetur, ipsum et pulvinar ultrices, lorem nibh
-                        egestas sapien, at egestas lorem metus sit amet lacus. Maecenas non feugiat orci. Curabitur imperdiet tempus lacus, volutpat fermentum diam convallis a. In hac habitasse platea dictumst. Pellentesque nec ipsum diam, at consectetur elit. Duis feugiat ullamcorper
-                        libero tincidunt aliquet. Sed leo nisl, iaculis non pellentesque nec, scelerisque vel felis</div>
+                    <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis porta, lorem sit amet feugiat lacinia, mi dui sodales eros, id lacinia mauris urna eu est. Proin pulvinar, augue sed convallis elementum, magna diam pharetra magna, id vestibulum est eros vitae ante. Ut auctor erat a tellus venenatis eu fermentum lorem scelerisque. Cras dignissim leo ornare massa sollicitudin sit amet pulvinar turpis hendrerit. Morbi hendrerit nunc eget turpis luctus id ultricies lorem consequat. Donec eu lacus sed mauris sollicitudin laoreet. Cras vitae sodales diam. Donec mollis, libero ut pellentesque dignissim, risus orci ornare nisi, sed eleifend enim purus malesuada neque. Nulla tellus sem, scelerisque sed sagittis id, eleifend venenatis ligula. Vivamus placerat neque sit amet metus ultricies facilisis. Nulla a odio magna. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Sed commodo quam eu enim lacinia vitae ultrices nulla mollis. Aenean eget lectus turpis, at ultrices leo. Nulla vehicula magna in risus ornare vestibulum. Integer gravida magna quam. Donec augue ante, fringilla non congue eu, aliquam lacinia nisi. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Maecenas nisl ante, suscipit ut suscipit nec, dictum sit amet orci. Maecenas fermentum sapien turpis, sit amet eleifend justo. Aenean auctor interdum sem sed tincidunt. Aliquam ullamcorper malesuada fermentum. Nunc consectetur, ipsum et pulvinar ultrices, lorem nibh egestas sapien, at egestas lorem metus sit amet lacus. Maecenas non feugiat orci. Curabitur imperdiet tempus lacus, volutpat fermentum diam convallis a. In hac habitasse platea dictumst. Pellentesque nec ipsum diam, at consectetur elit. Duis feugiat ullamcorper libero tincidunt aliquet. Sed leo nisl, iaculis non pellentesque nec, scelerisque vel felis</div>
+                    <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis porta, lorem sit amet feugiat lacinia, mi dui sodales eros, id lacinia mauris urna eu est. Proin pulvinar, augue sed convallis elementum, magna diam pharetra magna, id vestibulum est eros vitae ante. Ut auctor erat a tellus venenatis eu fermentum lorem scelerisque. Cras dignissim leo ornare massa sollicitudin sit amet pulvinar turpis hendrerit. Morbi hendrerit nunc eget turpis luctus id ultricies lorem consequat. Donec eu lacus sed mauris sollicitudin laoreet. Cras vitae sodales diam. Donec mollis, libero ut pellentesque dignissim, risus orci ornare nisi, sed eleifend enim purus malesuada neque. Nulla tellus sem, scelerisque sed sagittis id, eleifend venenatis ligula. Vivamus placerat neque sit amet metus ultricies facilisis. Nulla a odio magna. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Sed commodo quam eu enim lacinia vitae ultrices nulla mollis. Aenean eget lectus turpis, at ultrices leo. Nulla vehicula magna in risus ornare vestibulum. Integer gravida magna quam. Donec augue ante, fringilla non congue eu, aliquam lacinia nisi. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Maecenas nisl ante, suscipit ut suscipit nec, dictum sit amet orci. Maecenas fermentum sapien turpis, sit amet eleifend justo. Aenean auctor interdum sem sed tincidunt. Aliquam ullamcorper malesuada fermentum. Nunc consectetur, ipsum et pulvinar ultrices, lorem nibh egestas sapien, at egestas lorem metus sit amet lacus. Maecenas non feugiat orci. Curabitur imperdiet tempus lacus, volutpat fermentum diam convallis a. In hac habitasse platea dictumst. Pellentesque nec ipsum diam, at consectetur elit. Duis feugiat ullamcorper libero tincidunt aliquet. Sed leo nisl, iaculis non pellentesque nec, scelerisque vel felis</div>
+                    <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis porta, lorem sit amet feugiat lacinia, mi dui sodales eros, id lacinia mauris urna eu est. Proin pulvinar, augue sed convallis elementum, magna diam pharetra magna, id vestibulum est eros vitae ante. Ut auctor erat a tellus venenatis eu fermentum lorem scelerisque. Cras dignissim leo ornare massa sollicitudin sit amet pulvinar turpis hendrerit. Morbi hendrerit nunc eget turpis luctus id ultricies lorem consequat. Donec eu lacus sed mauris sollicitudin laoreet. Cras vitae sodales diam. Donec mollis, libero ut pellentesque dignissim, risus orci ornare nisi, sed eleifend enim purus malesuada neque. Nulla tellus sem, scelerisque sed sagittis id, eleifend venenatis ligula. Vivamus placerat neque sit amet metus ultricies facilisis. Nulla a odio magna. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Sed commodo quam eu enim lacinia vitae ultrices nulla mollis. Aenean eget lectus turpis, at ultrices leo. Nulla vehicula magna in risus ornare vestibulum. Integer gravida magna quam. Donec augue ante, fringilla non congue eu, aliquam lacinia nisi. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Maecenas nisl ante, suscipit ut suscipit nec, dictum sit amet orci. Maecenas fermentum sapien turpis, sit amet eleifend justo. Aenean auctor interdum sem sed tincidunt. Aliquam ullamcorper malesuada fermentum. Nunc consectetur, ipsum et pulvinar ultrices, lorem nibh egestas sapien, at egestas lorem metus sit amet lacus. Maecenas non feugiat orci. Curabitur imperdiet tempus lacus, volutpat fermentum diam convallis a. In hac habitasse platea dictumst. Pellentesque nec ipsum diam, at consectetur elit. Duis feugiat ullamcorper libero tincidunt aliquet. Sed leo nisl, iaculis non pellentesque nec, scelerisque vel felis</div>
+                    <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis porta, lorem sit amet feugiat lacinia, mi dui sodales eros, id lacinia mauris urna eu est. Proin pulvinar, augue sed convallis elementum, magna diam pharetra magna, id vestibulum est eros vitae ante. Ut auctor erat a tellus venenatis eu fermentum lorem scelerisque. Cras dignissim leo ornare massa sollicitudin sit amet pulvinar turpis hendrerit. Morbi hendrerit nunc eget turpis luctus id ultricies lorem consequat. Donec eu lacus sed mauris sollicitudin laoreet. Cras vitae sodales diam. Donec mollis, libero ut pellentesque dignissim, risus orci ornare nisi, sed eleifend enim purus malesuada neque. Nulla tellus sem, scelerisque sed sagittis id, eleifend venenatis ligula. Vivamus placerat neque sit amet metus ultricies facilisis. Nulla a odio magna. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Sed commodo quam eu enim lacinia vitae ultrices nulla mollis. Aenean eget lectus turpis, at ultrices leo. Nulla vehicula magna in risus ornare vestibulum. Integer gravida magna quam. Donec augue ante, fringilla non congue eu, aliquam lacinia nisi. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Maecenas nisl ante, suscipit ut suscipit nec, dictum sit amet orci. Maecenas fermentum sapien turpis, sit amet eleifend justo. Aenean auctor interdum sem sed tincidunt. Aliquam ullamcorper malesuada fermentum. Nunc consectetur, ipsum et pulvinar ultrices, lorem nibh egestas sapien, at egestas lorem metus sit amet lacus. Maecenas non feugiat orci. Curabitur imperdiet tempus lacus, volutpat fermentum diam convallis a. In hac habitasse platea dictumst. Pellentesque nec ipsum diam, at consectetur elit. Duis feugiat ullamcorper libero tincidunt aliquet. Sed leo nisl, iaculis non pellentesque nec, scelerisque vel felis</div>
+                    <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis porta, lorem sit amet feugiat lacinia, mi dui sodales eros, id lacinia mauris urna eu est. Proin pulvinar, augue sed convallis elementum, magna diam pharetra magna, id vestibulum est eros vitae ante. Ut auctor erat a tellus venenatis eu fermentum lorem scelerisque. Cras dignissim leo ornare massa sollicitudin sit amet pulvinar turpis hendrerit. Morbi hendrerit nunc eget turpis luctus id ultricies lorem consequat. Donec eu lacus sed mauris sollicitudin laoreet. Cras vitae sodales diam. Donec mollis, libero ut pellentesque dignissim, risus orci ornare nisi, sed eleifend enim purus malesuada neque. Nulla tellus sem, scelerisque sed sagittis id, eleifend venenatis ligula. Vivamus placerat neque sit amet metus ultricies facilisis. Nulla a odio magna. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Sed commodo quam eu enim lacinia vitae ultrices nulla mollis. Aenean eget lectus turpis, at ultrices leo. Nulla vehicula magna in risus ornare vestibulum. Integer gravida magna quam. Donec augue ante, fringilla non congue eu, aliquam lacinia nisi. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Maecenas nisl ante, suscipit ut suscipit nec, dictum sit amet orci. Maecenas fermentum sapien turpis, sit amet eleifend justo. Aenean auctor interdum sem sed tincidunt. Aliquam ullamcorper malesuada fermentum. Nunc consectetur, ipsum et pulvinar ultrices, lorem nibh egestas sapien, at egestas lorem metus sit amet lacus. Maecenas non feugiat orci. Curabitur imperdiet tempus lacus, volutpat fermentum diam convallis a. In hac habitasse platea dictumst. Pellentesque nec ipsum diam, at consectetur elit. Duis feugiat ullamcorper libero tincidunt aliquet. Sed leo nisl, iaculis non pellentesque nec, scelerisque vel felis</div>
+                    <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis porta, lorem sit amet feugiat lacinia, mi dui sodales eros, id lacinia mauris urna eu est. Proin pulvinar, augue sed convallis elementum, magna diam pharetra magna, id vestibulum est eros vitae ante. Ut auctor erat a tellus venenatis eu fermentum lorem scelerisque. Cras dignissim leo ornare massa sollicitudin sit amet pulvinar turpis hendrerit. Morbi hendrerit nunc eget turpis luctus id ultricies lorem consequat. Donec eu lacus sed mauris sollicitudin laoreet. Cras vitae sodales diam. Donec mollis, libero ut pellentesque dignissim, risus orci ornare nisi, sed eleifend enim purus malesuada neque. Nulla tellus sem, scelerisque sed sagittis id, eleifend venenatis ligula. Vivamus placerat neque sit amet metus ultricies facilisis. Nulla a odio magna. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Sed commodo quam eu enim lacinia vitae ultrices nulla mollis. Aenean eget lectus turpis, at ultrices leo. Nulla vehicula magna in risus ornare vestibulum. Integer gravida magna quam. Donec augue ante, fringilla non congue eu, aliquam lacinia nisi. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Maecenas nisl ante, suscipit ut suscipit nec, dictum sit amet orci. Maecenas fermentum sapien turpis, sit amet eleifend justo. Aenean auctor interdum sem sed tincidunt. Aliquam ullamcorper malesuada fermentum. Nunc consectetur, ipsum et pulvinar ultrices, lorem nibh egestas sapien, at egestas lorem metus sit amet lacus. Maecenas non feugiat orci. Curabitur imperdiet tempus lacus, volutpat fermentum diam convallis a. In hac habitasse platea dictumst. Pellentesque nec ipsum diam, at consectetur elit. Duis feugiat ullamcorper libero tincidunt aliquet. Sed leo nisl, iaculis non pellentesque nec, scelerisque vel felis</div>
+                    <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis porta, lorem sit amet feugiat lacinia, mi dui sodales eros, id lacinia mauris urna eu est. Proin pulvinar, augue sed convallis elementum, magna diam pharetra magna, id vestibulum est eros vitae ante. Ut auctor erat a tellus venenatis eu fermentum lorem scelerisque. Cras dignissim leo ornare massa sollicitudin sit amet pulvinar turpis hendrerit. Morbi hendrerit nunc eget turpis luctus id ultricies lorem consequat. Donec eu lacus sed mauris sollicitudin laoreet. Cras vitae sodales diam. Donec mollis, libero ut pellentesque dignissim, risus orci ornare nisi, sed eleifend enim purus malesuada neque. Nulla tellus sem, scelerisque sed sagittis id, eleifend venenatis ligula. Vivamus placerat neque sit amet metus ultricies facilisis. Nulla a odio magna. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Sed commodo quam eu enim lacinia vitae ultrices nulla mollis. Aenean eget lectus turpis, at ultrices leo. Nulla vehicula magna in risus ornare vestibulum. Integer gravida magna quam. Donec augue ante, fringilla non congue eu, aliquam lacinia nisi. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Maecenas nisl ante, suscipit ut suscipit nec, dictum sit amet orci. Maecenas fermentum sapien turpis, sit amet eleifend justo. Aenean auctor interdum sem sed tincidunt. Aliquam ullamcorper malesuada fermentum. Nunc consectetur, ipsum et pulvinar ultrices, lorem nibh egestas sapien, at egestas lorem metus sit amet lacus. Maecenas non feugiat orci. Curabitur imperdiet tempus lacus, volutpat fermentum diam convallis a. In hac habitasse platea dictumst. Pellentesque nec ipsum diam, at consectetur elit. Duis feugiat ullamcorper libero tincidunt aliquet. Sed leo nisl, iaculis non pellentesque nec, scelerisque vel felis</div>
+                    <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis porta, lorem sit amet feugiat lacinia, mi dui sodales eros, id lacinia mauris urna eu est. Proin pulvinar, augue sed convallis elementum, magna diam pharetra magna, id vestibulum est eros vitae ante. Ut auctor erat a tellus venenatis eu fermentum lorem scelerisque. Cras dignissim leo ornare massa sollicitudin sit amet pulvinar turpis hendrerit. Morbi hendrerit nunc eget turpis luctus id ultricies lorem consequat. Donec eu lacus sed mauris sollicitudin laoreet. Cras vitae sodales diam. Donec mollis, libero ut pellentesque dignissim, risus orci ornare nisi, sed eleifend enim purus malesuada neque. Nulla tellus sem, scelerisque sed sagittis id, eleifend venenatis ligula. Vivamus placerat neque sit amet metus ultricies facilisis. Nulla a odio magna. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Sed commodo quam eu enim lacinia vitae ultrices nulla mollis. Aenean eget lectus turpis, at ultrices leo. Nulla vehicula magna in risus ornare vestibulum. Integer gravida magna quam. Donec augue ante, fringilla non congue eu, aliquam lacinia nisi. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Maecenas nisl ante, suscipit ut suscipit nec, dictum sit amet orci. Maecenas fermentum sapien turpis, sit amet eleifend justo. Aenean auctor interdum sem sed tincidunt. Aliquam ullamcorper malesuada fermentum. Nunc consectetur, ipsum et pulvinar ultrices, lorem nibh egestas sapien, at egestas lorem metus sit amet lacus. Maecenas non feugiat orci. Curabitur imperdiet tempus lacus, volutpat fermentum diam convallis a. In hac habitasse platea dictumst. Pellentesque nec ipsum diam, at consectetur elit. Duis feugiat ullamcorper libero tincidunt aliquet. Sed leo nisl, iaculis non pellentesque nec, scelerisque vel felis</div>
+                    <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis porta, lorem sit amet feugiat lacinia, mi dui sodales eros, id lacinia mauris urna eu est. Proin pulvinar, augue sed convallis elementum, magna diam pharetra magna, id vestibulum est eros vitae ante. Ut auctor erat a tellus venenatis eu fermentum lorem scelerisque. Cras dignissim leo ornare massa sollicitudin sit amet pulvinar turpis hendrerit. Morbi hendrerit nunc eget turpis luctus id ultricies lorem consequat. Donec eu lacus sed mauris sollicitudin laoreet. Cras vitae sodales diam. Donec mollis, libero ut pellentesque dignissim, risus orci ornare nisi, sed eleifend enim purus malesuada neque. Nulla tellus sem, scelerisque sed sagittis id, eleifend venenatis ligula. Vivamus placerat neque sit amet metus ultricies facilisis. Nulla a odio magna. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Sed commodo quam eu enim lacinia vitae ultrices nulla mollis. Aenean eget lectus turpis, at ultrices leo. Nulla vehicula magna in risus ornare vestibulum. Integer gravida magna quam. Donec augue ante, fringilla non congue eu, aliquam lacinia nisi. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Maecenas nisl ante, suscipit ut suscipit nec, dictum sit amet orci. Maecenas fermentum sapien turpis, sit amet eleifend justo. Aenean auctor interdum sem sed tincidunt. Aliquam ullamcorper malesuada fermentum. Nunc consectetur, ipsum et pulvinar ultrices, lorem nibh egestas sapien, at egestas lorem metus sit amet lacus. Maecenas non feugiat orci. Curabitur imperdiet tempus lacus, volutpat fermentum diam convallis a. In hac habitasse platea dictumst. Pellentesque nec ipsum diam, at consectetur elit. Duis feugiat ullamcorper libero tincidunt aliquet. Sed leo nisl, iaculis non pellentesque nec, scelerisque vel felis</div>
+                    <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis porta, lorem sit amet feugiat lacinia, mi dui sodales eros, id lacinia mauris urna eu est. Proin pulvinar, augue sed convallis elementum, magna diam pharetra magna, id vestibulum est eros vitae ante. Ut auctor erat a tellus venenatis eu fermentum lorem scelerisque. Cras dignissim leo ornare massa sollicitudin sit amet pulvinar turpis hendrerit. Morbi hendrerit nunc eget turpis luctus id ultricies lorem consequat. Donec eu lacus sed mauris sollicitudin laoreet. Cras vitae sodales diam. Donec mollis, libero ut pellentesque dignissim, risus orci ornare nisi, sed eleifend enim purus malesuada neque. Nulla tellus sem, scelerisque sed sagittis id, eleifend venenatis ligula. Vivamus placerat neque sit amet metus ultricies facilisis. Nulla a odio magna. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Sed commodo quam eu enim lacinia vitae ultrices nulla mollis. Aenean eget lectus turpis, at ultrices leo. Nulla vehicula magna in risus ornare vestibulum. Integer gravida magna quam. Donec augue ante, fringilla non congue eu, aliquam lacinia nisi. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Maecenas nisl ante, suscipit ut suscipit nec, dictum sit amet orci. Maecenas fermentum sapien turpis, sit amet eleifend justo. Aenean auctor interdum sem sed tincidunt. Aliquam ullamcorper malesuada fermentum. Nunc consectetur, ipsum et pulvinar ultrices, lorem nibh egestas sapien, at egestas lorem metus sit amet lacus. Maecenas non feugiat orci. Curabitur imperdiet tempus lacus, volutpat fermentum diam convallis a. In hac habitasse platea dictumst. Pellentesque nec ipsum diam, at consectetur elit. Duis feugiat ullamcorper libero tincidunt aliquet. Sed leo nisl, iaculis non pellentesque nec, scelerisque vel felis</div>
+                    <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis porta, lorem sit amet feugiat lacinia, mi dui sodales eros, id lacinia mauris urna eu est. Proin pulvinar, augue sed convallis elementum, magna diam pharetra magna, id vestibulum est eros vitae ante. Ut auctor erat a tellus venenatis eu fermentum lorem scelerisque. Cras dignissim leo ornare massa sollicitudin sit amet pulvinar turpis hendrerit. Morbi hendrerit nunc eget turpis luctus id ultricies lorem consequat. Donec eu lacus sed mauris sollicitudin laoreet. Cras vitae sodales diam. Donec mollis, libero ut pellentesque dignissim, risus orci ornare nisi, sed eleifend enim purus malesuada neque. Nulla tellus sem, scelerisque sed sagittis id, eleifend venenatis ligula. Vivamus placerat neque sit amet metus ultricies facilisis. Nulla a odio magna. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Sed commodo quam eu enim lacinia vitae ultrices nulla mollis. Aenean eget lectus turpis, at ultrices leo. Nulla vehicula magna in risus ornare vestibulum. Integer gravida magna quam. Donec augue ante, fringilla non congue eu, aliquam lacinia nisi. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Maecenas nisl ante, suscipit ut suscipit nec, dictum sit amet orci. Maecenas fermentum sapien turpis, sit amet eleifend justo. Aenean auctor interdum sem sed tincidunt. Aliquam ullamcorper malesuada fermentum. Nunc consectetur, ipsum et pulvinar ultrices, lorem nibh egestas sapien, at egestas lorem metus sit amet lacus. Maecenas non feugiat orci. Curabitur imperdiet tempus lacus, volutpat fermentum diam convallis a. In hac habitasse platea dictumst. Pellentesque nec ipsum diam, at consectetur elit. Duis feugiat ullamcorper libero tincidunt aliquet. Sed leo nisl, iaculis non pellentesque nec, scelerisque vel felis</div>
                 </div>
 
                 <!-- Plugins> af.selectBox -->
@@ -1884,74 +1775,72 @@ The parent id for this div is "content". Let's verify it.
                            // $.selectBox.getOldSelects("selectTest2");
                         };
                         window.addEventListener("load", init_select, false);
-                    </script>On android devices, this will change select boxes to a custom control to fix a bug in Webkit with css3 transform3d.
-                    <br />
+                    </script>
+                    <p>On android devices, this will change select boxes to a custom control to fix a bug in Webkit with css3 transform3d.</p>
                     <br />
                     <div id="selectTest" style="-webkit-transform: translate3d(0, 0, 0)">
                         <!-- content goes here-->
-                        <br>	<span>
-													<select id="test" style="-webkit-appearance: listbox;">
-														<option value="1">One</option>
-														<option value="2">Two</option>
-														<option value="3">Three</option>
-													</select>
-												</span>
-                        <br />
-                        <br />
-                        <br />
-                        <br />
+                        <br>	
+                        <span>
+                            <select id="test" style="-webkit-appearance: listbox;">
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                        </span>
                     </div>
-                    <div id="selectTest2" style="position:relative;top:10;">	<span>
-													<select id="test2">
-														<option value="1">One</option>
-														<option value="2">Two</option>
-														<option value="3">Three</option>
-														<option value="11">1One</option>
-														<option value="22">2Two</option>
-														<option value="33">3Three</option>
-														<option value="43">4Three</option>
-														<option value="53">5Three</option>
-														<option value="63">6Three</option>
-														<option value="73">7Three</option>
-													</select>
-												</span>
-
+                    
+                    <div id="selectTest2" style="position:relative;top:10;">
+                        <span>
+                            <select id="test2">
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                                <option value="11">1One</option>
+                                <option value="22">2Two</option>
+                                <option value="33">3Three</option>
+                                <option value="43">4Three</option>
+                                <option value="53">5Three</option>
+                                <option value="63">6Three</option>
+                                <option value="73">7Three</option>
+                            </select>
+                        </span>
                         <br>
                         <br>
                         <br>This is disabled
-                        <br>	<span>
-													<select id="test3" disabled>
-														<option value="1">One</option>
-														<option value="2">Two</option>
-														<option value="3">Three</option>
-														<option value="11">1One</option>
-														<option value="22">2Two</option>
-														<option value="33">3Three</option>
-														<option value="43">4Three</option>
-														<option value="53">5Three</option>
-														<option value="63">6Three</option>
-														<option value="73">7Three</option>
-													</select>
-												</span>
-
+                        <br>	
+                        <span>
+                            <select id="test3" disabled>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                                <option value="11">1One</option>
+                                <option value="22">2Two</option>
+                                <option value="33">3Three</option>
+                                <option value="43">4Three</option>
+                                <option value="53">5Three</option>
+                                <option value="63">6Three</option>
+                                <option value="73">7Three</option>
+                            </select>
+                        </span>
                         <br>
                         <br>
                         <br>This is a multi select box test
-                        <br>	<span>
-													<select id="test4" multiple="multiple">
-														<option value="1">One</option>
-														<option value="2">Two</option>
-														<option value="3">Three</option>
-														<option value="11">1One</option>
-														<option value="22">2Two</option>
-														<option value="33">3Three</option>
-														<option value="43">4Three</option>
-														<option value="53">5Three</option>
-														<option value="63">6Three</option>
-														<option value="73">7Three</option>
-													</select>
-												</span>
-
+                        <br>	
+                        <span>
+                            <select id="test4" multiple="multiple">
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                                <option value="11">1One</option>
+                                <option value="22">2Two</option>
+                                <option value="33">3Three</option>
+                                <option value="43">4Three</option>
+                                <option value="53">5Three</option>
+                                <option value="63">6Three</option>
+                                <option value="73">7Three</option>
+                            </select>
+                        </span>
                     </div>
                     <br/>
                     <br/>This is just some filler content
@@ -1968,15 +1857,11 @@ The parent id for this div is "content". Let's verify it.
                         var pwFixer = new $.passwordBox();
                         var init_password = function () {
                             var succ = pwFixer.getOldPasswords("selectPassword");
-
                             $("#showPassword").show();
                         };
                         window.addEventListener("load", init_password, false);
-
                         var pwState = false;
-
                         function ShowHidePW() {
-
                             if (!pwState) {
                                 pwFixer.changePasswordVisiblity(1, "one");
                                 pwState = true;
@@ -1985,18 +1870,16 @@ The parent id for this div is "content". Let's verify it.
                                 pwState = false;
                             }
                         }
-                    </script>On android devices, this replaces password boxes with a custom control to fix the Webkit css3 transform3d bug. you can also show/hide passwords.
+                    </script>
+                    <p>On android devices, this replaces password boxes with a custom control to fix the Webkit css3 transform3d bug. you can also show/hide passwords.</p>
                     <br />
-                    <br />
-                    <div id="selectPassword" style=" -webkit-transform: translate3d(0, 0, 0)">	<span><input type="password" id="one" name="one" placeholder="Password" style="width:200px;color:black;"></span>
-
-                        <br />	<span id="showPassword" style="display:none"></span>
-                         <div class="input">
+                    <div id="selectPassword" style=" -webkit-transform: translate3d(0, 0, 0)">	
+                        <span><input type="password" id="one" name="one" placeholder="Password" style="width:200px;color:black;"></span>
+                        <br />	
+                        <span id="showPassword" style="display:none"></span>
+                        <div class="input">
                             <label>Toggle:</label><input type="checkbox" id="showpw" onClick="ShowHidePW()"> <label for="showpw" ></label>
                         </div>
-
-                       
-
                     </div>
                 </div>
                 <!-- Plugins> af.css3animate -->
@@ -2044,7 +1927,6 @@ The parent id for this div is "content". Let's verify it.
                                             }
                                         });
                                     }, 300);
-
                                 }
                             });
                         }
@@ -2089,13 +1971,13 @@ The parent id for this div is "content". Let's verify it.
                             tmp.run();
                         }
                     </script>
-                    <a class="button"  onClick="moveOnce()">Move Once</a>|
-                    <a class="button"  onClick="moveTwice()">Move Twice</a>|
+                    <a class="button"  onClick="moveOnce()">Move Once</a><br>
+                    <a class="button"  onClick="moveTwice()">Move Twice</a><br>
                     <a class="button"  onClick="animQueue()">Queue</a>
                     <br />
                     <div id="animate" style="width: 50px; height: 50px; border: 1px solid black; background: red"></div>
                 </div>
-                <!-- ------------------------------------------ -->
+
                 <!-- Plugins> afActionSheet -->
                 <div title="Action Sheet" class="panel" id="webactionsheet">
                     <script>
@@ -2125,12 +2007,13 @@ The parent id for this div is "content". Let's verify it.
                                 }
                             }]);
                         }
-                    </script>This creates a slide in action sheet from the bottom.
-                    <br />
+                    </script>
+                    <p>This creates a slide in action sheet from the bottom.</p>
                     <br />
                     <a class="button"  onClick="showCustomHtmlSheet()">Show Custom Html Sheet</a>
                     <a class="button"  onClick="showCustomJsonSheet()">Show Custom Json Sheet</a>
                 </div>
+                
                 <div title="Popup" class="panel" id="webpopup">
                     <script>
                         function showPopup1() {
@@ -2166,8 +2049,8 @@ The parent id for this div is "content". Let's verify it.
                                 cancelOnly: false
                             });
                         }
-                    </script>This creates a popup dialog to interact with users. You can pass in an HTML string, which acts (and replaces) an alert dialog. You can also pass in an object to get more interaction.
-                    <br>
+                    </script>
+                    <p>This creates a popup dialog to interact with users. You can pass in an HTML string, which acts (and replaces) an alert dialog. You can also pass in an object to get more interaction.</p>
                     <br>
                     <a class="button" onClick="showPopup1()">Alert style diaglog</a>
                     <br>
@@ -2176,26 +2059,27 @@ The parent id for this div is "content". Let's verify it.
                     <a class="button" onClick="showPopup3()">HTML markup</a>
                     <br>
                 </div>
+                
                 <div class="panel" title="Touch Events" id="touchevents">
-                <script>
-                $(document).ready(function(){
-                    $("#taptest").bind("tap",function(){
-                        alert("I was tapped");
-                    })
-                    $("#singletaptest").bind("singleTap",function(){
-                        alert("I was single tapped");
-                    })
-                    $("#longtaptest").bind("longTap",function(){
-                        alert("I was a long tap");
-                    })
-                    $("#doubletaptest").bind("doubleTap",function(){
-                        alert("I was a double tap");
-                    })
-                    $("#swipetest").bind("swipe",function(){
-                        alert("I was a swiped");
-                    })
-                });
-                </script>
+                    <script>
+                    $(document).ready(function(){
+                        $("#taptest").bind("tap",function(){
+                            alert("I was tapped");
+                        })
+                        $("#singletaptest").bind("singleTap",function(){
+                            alert("I was single tapped");
+                        })
+                        $("#longtaptest").bind("longTap",function(){
+                            alert("I was a long tap");
+                        })
+                        $("#doubletaptest").bind("doubleTap",function(){
+                            alert("I was a double tap");
+                        })
+                        $("#swipetest").bind("swipe",function(){
+                            alert("I was a swiped");
+                        })
+                    });
+                    </script>
                     <h2>Touch Demo</h2>
                     <ul class="list inset">
                         <li id='taptest' >Tap Test</li>
@@ -2205,11 +2089,12 @@ The parent id for this div is "content". Let's verify it.
                         <li id='swipetest' ><br><br>Swipe Test<br><br><br></li>
                     </ul>
                 </div> 
+                
                 <div class="panel" title="Slide Menu" id="slidemenu">
                     <p>This plugin enables app to reveal side menu by swiping on panel.</p>
                     <p>Swipe right-left on this page to reveal or close the side menu, on iOS or Android.<br>Slide menu is only possible on smaller device which does not have side menu alway open.</p>
                 </div> 
-                <!-- ------------------------------------------ -->
+
                 <!-- Device API -->
                 <div title="Device APIs" id="deviceapi" class="panel" data-tab="navbar_deviceapi">
                     <header>
@@ -3723,8 +3608,7 @@ The parent id for this div is "content". Let's verify it.
                     var db = window.openDatabase("test", "1.0", "Test DB", 1000000);
                     db.transaction(populateDB, errorCB, successCB);
                     db.transaction(queryDB, errorCB);
-                }
-                
+                }         
             </script>
         </div>
     </body>
