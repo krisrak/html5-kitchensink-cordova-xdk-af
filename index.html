@@ -86,6 +86,7 @@
                 $.ui.updateBadge("#pluginlink", $("#afweb").find("li").length);
                 $.ui.updateBadge("#devicelink", $("#deviceapi").find("li").length);
                 $.ui.updateBadge("#uiapilink", $("#uiapi").find("li").length);
+                $.ui.updateBadge("#uiproplink", $("#uiprop").find("li").length);
                 $.ui.launch();
             });
             
@@ -247,9 +248,9 @@
             </nav>
             <!-- content with panels -->
             <div id="content">
+                
                 <div title='Welcome' id="main" class="panel" data-tab="navbar_home" selected="true" data-load="loadedPanel">
                     <h2 class='expanded' onclick='showHide(this,"main_info");'>Kitchen Sink</h2>
-
                     <p id='main_info'>Welcome to the kitchen sink demo for App Framework, intel.xdk APIs and Cordova APIs. Here you will find sample code, demo and some documentation. Please select an option from below.</p>
                     <ul class="list inset">
                         <li class="divider">
@@ -288,10 +289,9 @@
                         <li>
                             <a href="index.html?ios7" data-ignore="true">iOS7 theme</a>
                         </li>
-
                     </ul>
                 </div>
-                <!---------------------------------------------->
+
                 <div title="AppFramework" id="af" class="panel" data-tab="navbar_af">   
                     <header>
                         <h1>AppFramework</h1>
@@ -337,6 +337,7 @@
                         <li><a href="#af30">$.os</a></li>
                     </ul>
                 </div>
+                <!-- af> af serialize() -->
                 <div id="afserialize" class="panel" title="$().serialize">
                     <script>
                         function serializeForm() {
@@ -882,8 +883,11 @@ The parent id for this div is "content". Let's verify it.
                             <a href="#uidefer">Defer loading</a>
                         </li>
                         <li>
-                            <a href="#uiapi" class="icon js" id="uiapilink">AppFramework UI APIs $.ui</a>
-                        </li>                        
+                            <a href="#uiapi" class="icon js" id="uiapilink">AppFramework UI APIs</a>
+                        </li>  
+                        <li>
+                            <a href="#uiprop" class="icon js" id="uiproplink">AppFramework UI Properties</a>
+                        </li> 
                     </ul>
                 </div>
                 <div id="uiicons" title="Vector Icons" class="panel">
@@ -1161,155 +1165,182 @@ The parent id for this div is "content". Let's verify it.
                     <a class="button slate">Slate</a><br><br>
                     <a class="button black">Black</a><br><br>
                     <a class="button gray">Gray</a><br><br>
-
                 </div>
+                
                 <div id="uiapi" title="AppFramework UI API" class="panel" data-pull-scroller='true'>
-                    <ul class="list">
-                        <li>
-                            <a href="#uigoback">.goBack()</a>
-                        </li>
-                        <li>
-                            <a href="#uiclearhistory">.clearHistory()</a>
-                        </li>
-                        <li>
-                            <a href="#uiaddcontentdiv">.addContentDiv()</a>
-                        </li>
-                        <li>
-                            <a href="#uisettitle">.setTitle()</a>
-                        </li>
-                        <li>
-                            <a href="#uisetbackbutton">.setBackButtonText()</a>
-                        </li>
-                        <li>
-                            <a href="#uishowmask">.showMask()</a>
-                        </li>
-                        <li>
-                            <a href="#uihidemask">.hideMask()</a>
-                        </li>
-                        <li>
-                            <a href="#uiloadcontent">.loadContent()</a>
-                        </li>
-                        <li>
-                            <a href="#uilaunch">.launch()</a>
-                        </li>
-                        <li>
-                            <a href="#uiready">.ready()</a>
-                        </li>
-                        <li>
-                            <a href="#uibadge">.updateBadge()</a>
-                        </li>
-                        <li>
-                            <a href="#uiremovebadge">.removeBadge()</a>
-                        </li>
-                        <li>
-                            <a href="#uitoggleheader">.toggleHeaderMenu()</a>
-                        </li>
-                        <li>
-                            <a href="#uitoggleside">.toggleSideMenu()</a>
-                        </li>
-                        <li>
-                            <a href="#uitogglenav">.toggleNavMenu()</a>
-                        </li>
-                        <li>
-                            <a href="#uiactionsheet">.actionsheet()</a>
-                        </li>
-                        <li>
-                            <a href="#uiscrolltotop">.scrollToTop()</a>
-                        </li>
-                        <li>
-                            <a href="#uiscrolltobottom">.scrollToBottom()</a>
-                        </li>
+                    <ul class="list">    
+                        <li><a href="#uiready">.ready()</a></li>
+                        <li><a href="#uilaunch">.launch()</a></li>
+                        <li><a href="#uiloadcontent">.loadContent()</a></li>
+                        <li><a href="#uiaddcontentdiv">.addContentDiv()</a></li>
+                        <li><a href="#uiupdatePanel">.updatePanel()</a></li>
+                        <li><a href="#uisettitle">.setTitle()</a></li>
+                        <li><a href="#uisetbackbutton">.setBackButtonText()</a></li>
+                        <li><a href="#uisetBackButtonStyle">.setBackButtonStyle()</a></li>
+                        <li><a href="#uisetBackButtonVisibility">.setBackButtonVisibility()</a></li>
+                        <li><a href="#uigoback">.goBack()</a></li>
+                        <li><a href="#uiclearhistory">.clearHistory()</a></li>
+                        <li><a href="#uitoggleheader">.toggleHeaderMenu()</a></li>
+                        <li><a href="#uiupdateHeaderElements">.updateHeaderElements()</a></li> 
+                        <li><a href="#uitogglenav">.toggleNavMenu()</a></li>
+                        <li><a href="#uiupdateNavbarElements">.updateNavbarElements()</a></li>
+                        <li><a href="#uiremoveFooterMenu">.removeFooterMenu()</a></li>
+                        <li><a href="#uitoggleside">.toggleSideMenu()</a></li>
+                        <li><a href="#uisetSideMenuWidth">.setSideMenuWidth()</a></li>
+                        <li><a href="#uidisableSideMenu">.disableSideMenu()</a></li>
+                        <li><a href="#uienableSideMenu">.enableSideMenu()</a></li>
+                        <li><a href="#uiupdateSideMenuElements">.updateSideMenuElements()</a></li>
+                        <li><a href="#uiactionsheet">.actionsheet()</a></li>
+                        <li><a href="#uipopup">.popup()</a></li>             
+                        <li><a href="#uishowmask">.showMask()</a></li>
+                        <li><a href="#uihidemask">.hideMask()</a></li>
+                        <li><a href="#uishowModal">.showModal()</a></li>
+                        <li><a href="#uihideModal">.hideModal()</a></li>
+                        <li><a href="#uiblockUI">.blockUI()</a></li>
+                        <li><a href="#uiunblockUI">.unblockUI()</a></li>
+                        <li><a href="#uibadge">.updateBadge()</a></li>
+                        <li><a href="#uiremovebadge">.removeBadge()</a></li>                         
+                        <li><a href="#uiscrolltotop">.scrollToTop()</a></li>
+                        <li><a href="#uiscrolltobottom">.scrollToBottom()</a></li>
+                        <li><a href="#uidisablenativescrolling">.disableNativeScrolling()</a></li>
                     </ul>
                 </div>
-                <div id="uibadge" title="updateBadge" class="panel">Updates a badge with the given value or creates one.
-                    <br>Position can be	<div class="samplecode">
+                
+                <div id="uiprop" title="AF UI Properties" class="panel" data-pull-scroller='true'>
+                    <p>These properties can be used to setup AppFramework UI before $.ui.launch()</p>
+                    <ul class="list inset">
+                        <li><a href="#uiprop">.manageHistory</a></li>
+                        <li><a href="#uiprop">.loadDefaultHash </a></li>
+                        <li><a href="#uiprop">.useAjaxCacheBuster</a></li>
+                        <li><a href="#uiprop">.autoLaunch</a></li>
+                        <li><a href="#uiprop">.showNavMenu</a></li>
+                        <li><a href="#uiprop">.showBackbutton</a></li>
+                        <li><a href="#uiprop">.resetScrollers</a></li>
+                        <li><a href="#uiprop">.backButtonText</a></li>
+                    </ul>
+                </div>
+                
+                <div id="uibadge" title="updateBadge" class="panel">
+                    <p>Updates a badge with the given value or creates one.</p>
+                    <br>Position can be	
+                    <div class="samplecode">
 							bl - bottom left<br>
 							tl - top left<br>
 							br - bottom right<br>
 							tr - top right (default)<br>
-						</div>
-
+				    </div>
                     <ul class="list">
                         <li id='libadge'>
                             <a >Badge</a>
                         </li>
-                    </ul>	<div class="samplecode">
-							$.ui.updateBadge("#libadge","Badge Created","bl");
-						</div>
-
+                    </ul>	
+                    <div class="samplecode">
+				        $.ui.updateBadge("#libadge","Badge Created","bl");
+				    </div>
                     <a  onclick="$.ui.updateBadge('#libadge','Badge Created','tl');" class="button">Create Badge</a>
-                    <br>
                 </div>
-                <div id="uiremovebadge" title="removeBadge" class="panel">Removes a badge.
+                
+                <div id="uiremovebadge" title="removeBadge" class="panel">
+                    <p>Removes a badge.</p>
                     <ul class="list">
                         <li id='libadge2'>
                             <a >Badge</a>
                         </li>
-                    </ul>	<div class="samplecode">
-							$.ui.removeBadge("#target");
-						</div>
-
-                    <a  onclick="$.ui.updateBadge('#libadge2','2','tl');" class="button">Create Badge</a>
-                    <br>
+                    </ul>	
+                    <div class="samplecode">
+				        $.ui.removeBadge("#target");
+				    </div>
+                    <a  onclick="$.ui.updateBadge('#libadge2','2','tl');" class="button">Create Badge</a><br>
                     <a  onclick="$.ui.removeBadge('#libadge2');" class="button">Remove Badge</a>
                 </div>
-                <div id="uiready" title="Ready" class="panel">Execute a function when $.ui.launch has completed	<div class="samplecode">
-							$.ui.ready(function(){});
-						</div>
-
+                
+                <div id="uiready" title="Ready" class="panel">
+                    <p>Execute a function when $.ui.launch has completed	</p>
+                    <div class="samplecode">
+				        $.ui.ready(function(){});
+				    </div>
                 </div>
-                <div id="uigoback" title="Go Back" class="panel">You can use this command to go back in history.	<div class="samplecode">
-							$.ui.goBack()
-						</div>
-
+                
+                <div id="uigoback" title="Go Back" class="panel">
+                    <p>You can use this command to go back in history.	</p>
+                    <div class="samplecode">
+				        $.ui.goBack()
+				    </div>
                     <a  onclick="$.ui.goBack()" class="button">Go Back</a>
                 </div>
-                <div id="uilaunch" title="Launch" class="panel">You can use this command to launch your App Framework UI app if you set autoLaunch=false;	<div class="samplecode">
-							$.ui.autoLaunch=false;<br>
-							$.ui.golaunch()
-						</div>
-
+                
+                <div id="uilaunch" title="Launch" class="panel">
+                    <p>You can use this command to launch your App Framework UI app if you have set autoLaunch=false;	</p>
+                    <div class="samplecode">
+				        $.ui.autoLaunch=false;<br>
+				        $.ui.launch()
+				    </div>
                 </div>
-                <div id="uiclearhistory" title="Clear History" class="panel">You can use this command to clear the history stack manually	<div class="samplecode">
-							$.ui.clearHistory()
-						</div>
-
+                
+                <div id="uiclearhistory" title="Clear History" class="panel">
+                    <p>You can use this command to clear the history stack manually</p>
+                    <div class="samplecode">
+				        $.ui.clearHistory()
+				    </div>
                     <a  onclick="$.ui.clearHistory()" class="button">Clear History Stack</a>
                 </div>
-                <div id="uiaddcontentdiv" title="Add Content Div" class="panel">You can use this command to add a new div programatically. This will setup scrolling, etc.	<div class="samplecode">
-							$.ui.addContentDiv(id, content,title, pullToRefresh, refreshFunc)
-						</div>
-
+                
+                <div id="uiaddcontentdiv" title="Add Content Div" class="panel">
+                    <p>You can use this command to add a new div programatically. This will setup scrolling, etc.</p>	
+                    <div class="samplecode">
+                        $.ui.addContentDiv(id, content,title, pullToRefresh, refreshFunc)
+				    </div>
                     <script>
                         function addDiv() {
                             $.ui.addContentDiv("myAddedDiv", "I was added dynamically", "Added Div");
                             $("#addContent").show();
                             $("#addContentButton").hide();
                         }
-                    </script>	<span id="addContent" style='display:none'>
-							<a href="#myAddedDiv" class="button">View new div</a>
-							<br/>
-						</span>
-
+                    </script>	
+                    <span id="addContent" style='display:none'>
+				        <a href="#myAddedDiv" class="button">View new div</a>
+				    </span>
                     <a id='addContentButton'  onclick="addDiv();" class="button">Add Content Div</a>
                 </div>
-                <div id="uisettitle" title="Set Title" class="panel">This will set the page title of the current page programatically. It will not be retained.	<div class="samplecode">
-							$.ui.setTitle('Title Change');
-						</div>
-
+                
+                <div id="uisettitle" title="Set Title" class="panel">
+                    <p>This will set the page title of the current page programatically. It will not be retained.	</p>
+                    <div class="samplecode">
+				        $.ui.setTitle('Title Change');
+				    </div>
                     <a  onclick="$.ui.setTitle('Title Change');" class="button">Change Title</a>
                 </div>
-                <div id="uisetbackbutton" title="Change Back Button Text" class="panel">This will set the back button text. You can also override this at the start, which we have done.	<div class="samplecode">
-							$.ui.setBackButtonText('GO BACK');<br><br>
-
-							$.ui.backButtonText="Back" //override
-						</div>
-
+                
+                <div id="uisetbackbutton" title="Change Back Button Text" class="panel">
+                    <p>This will set the back button text. You can also override this at the start, which we have done, so demo will not work.	</p>
+                    <div class="samplecode">
+				        $.ui.setBackButtonText('GO BACK');<br><br>
+				        $.ui.backButtonText="Back" //override
+				    </div>
                 </div>
-                <div id="uishowmask" title="Show Mask" class="panel">This will show the loading mask. You can trigger this manually for long operations.	<div class="samplecode">
-							$.ui.showMask();
-						</div>
-
+                
+                <div id="uisetBackButtonVisibility" title="Back Button Visibility" class="panel">
+                    <p>This will set the visibility of back button.	</p>
+                    <div class="samplecode">
+				        $.ui.setBackButtonVisibility(BOOL);
+				    </div>
+                    <br>
+                    <a  onclick="$.ui.setBackButtonVisibility(false);" class="button">Hide Back Button</a><br>
+                    <a  onclick="$.ui.setBackButtonVisibility(true);" class="button">Show Back Button</a>
+                </div>
+                
+                <div id="uisetBackButtonStyle" title="Change Back Button Style" class="panel">
+                    <p>This will override the back button style.	</p>
+                    <div class="samplecode">
+				        $.ui.uisetBackButtonStyle("className");
+				    </div>
+                </div>
+                
+                <div id="uishowmask" title="Show Mask" class="panel">
+                    <p>This will show the loading mask. You can trigger this manually for long operations.	</p>
+                    <div class="samplecode">
+				        $.ui.showMask();
+				    </div>
                     <script>
                         function showMask(text) {
 
@@ -1321,52 +1352,175 @@ The parent id for this div is "content". Let's verify it.
                     </script>
                     <a  onclick="showMask('Mask will hide in 2 seconds')" class="button">Show Mask</a>
                 </div>
-                <div id="uihidemask" title="Hide Mask" class="panel">This will hide the loading mask. You can trigger this manually for long operations.	<div class="samplecode">
-							$.ui.hideMask();
-						</div>
-
-                    <a  onclick="$.ui.showMask()" class="button">Show Mask</a>|
+                
+                <div id="uihidemask" title="Hide Mask" class="panel">
+                    <p>This will hide the loading mask. You can trigger this manually for long operations.</p>	
+                    <div class="samplecode">
+                        $.ui.hideMask();
+				    </div>
+                    <a  onclick="$.ui.showMask()" class="button">Show Mask</a><br>
                     <a  onclick="$.ui.hideMask()" class="button">Hide Mask</a>
                 </div>
-                <div id="uiloadcontent" title="Load Div" class="panel">This allows you to programatically trigger a page transition/navigation event.	<div class="samplecode">
-							$.ui.loadContent()
-						</div>
-
+                
+                <div id="uishowModal" title="Show Modal" class="panel">
+                    <p>This will show a modal view manually.</p>	
+                    <div class="samplecode">
+                        $.ui.showModal(id, transition);
+				    </div>
+                    <a  onclick="$.ui.showModal('modalDemo', 'up')" class="button">Show Modal</a><br>
+                </div>
+                
+                <div id="uihideModal" title="Hide Modal" class="panel">
+                    <p>This will show a modal view manually.</p>	
+                    <div class="samplecode">
+                        $.ui.hideModal(id, transition);
+				    </div>
+                </div>
+                
+                <div id="modalDemo" class="panel">
+                    <p>This is a Modal</p>
+                    <a onclick="$.ui.hideModal('modalDemo', 'down')" class="button">Hide This Modal</a>
+                </div>
+                
+                <div id="uiblockUI" title="Block UI" class="panel">
+                    <p>This will throw up a mask and block the UI with a opacity specified.</p>	
+                    <div class="samplecode">
+                        $.ui.blockUI(opacity);
+				    </div>
+                    <a  onclick="blockuiDemo()" class="button">Block UI for 3 seconds</a>
+                    <script>
+                        function blockuiDemo(){
+                            $.ui.blockUI(0.5);
+                            setTimeout(function(){
+                                $.ui.unblockUI();       
+                            }, 3000);
+                        }
+                    </script>
+                </div>
+                
+                <div id="uiunblockUI" title="UnBlock UI" class="panel">
+                    <p>This will hide a mask from blocking the UI. See the .blockUI() demo</p>	
+                    <div class="samplecode">
+                        $.ui.unblockUI();
+				    </div>
+                </div>
+                
+                <div id="uiloadcontent" title="Load Content" class="panel">
+                    <p>This allows you to programatically trigger a page transition/navigation event.	</p>
+                    <div class="samplecode">
+				        $.ui.loadContent(target, newTab, goBack, transition)
+				    </div>
                     <a  onclick="$.ui.loadContent('uiapi',false,false,'flip')" class="button">Load $.ui API page with a flip</a>
                 </div>
-                <div id="uitoggleheader" title="Toggle Header" class="panel">This allows you to hide/show the header bar if you have one. When you do this, the content area will expand up for you.	<div class="samplecode">
-							$.ui.toggleHeaderMenu();
-						</div>
-
+                
+                <div id="uiupdatePanel" title="Update Panel" class="panel">
+                    <p>This allows you to programatically update the HTML in a content panel.</p>	
+                    <div class="samplecode">
+				        $.ui.updatePanel(id,content)
+				    </div>
+                    <a  onclick="$.ui.updatePanel('uiupdatePanel','Updated with $.ui.updatePanel()')" class="button">update panel "uiapi"</a>
+                </div>
+                
+                <div id="uitoggleheader" title="Toggle Header" class="panel">
+                    <p>This allows you to hide/show the header bar if you have one. When you do this, the content area will expand up for you.</p>
+                    <div class="samplecode">
+				        $.ui.toggleHeaderMenu();
+				    </div>
                     <a  onclick="$.ui.toggleHeaderMenu()" class="button">Toggle Header Menu</a>
                 </div>
-                <div id="uitogglenav" title="Toggle Footer Nav" class="panel">This lets you toggle the footer navigation menu if you have one. when you do this, the content area will expand down for you.
-                    <br>You can also do this by setting data-footer="none" on the panel	<div class="samplecode">
-							$.ui.toggleNavMenu();
-						</div>
-
+                
+                <div id="uiupdateHeaderElements" title="Update Header Elements" class="panel">
+                    <p>This allows you to updates the elements in the header.</p>
+                    <div class="samplecode">
+				        $.ui.updateHeaderElements();
+				    </div>
+                    <a  onclick="$.ui.updateHeaderElements()" class="button">Update Header Elements</a>
+                </div>
+                
+                <div id="uitogglenav" title="Toggle Footer Nav" class="panel">
+                    <p>This lets you toggle the footer navigation menu if you have one. when you do this, the content area will expand down for you.
+                    <br>You can also do this by setting data-footer="none" on the panel	</p>
+                    <div class="samplecode">
+                        $.ui.toggleNavMenu();
+				    </div>
                     <a  onclick="$.ui.toggleNavMenu()" class="button">Toggle Nav Menu</a>
                 </div>
-                <div id="uitoggleside" title="Toggle Side Nav" class="panel">This lets you toggle the side navigation menu if you have one. On a tablet, this will be persistent by default.	<div class="samplecode">
-							$.ui.toggleSideMenu();
-						</div>
-
+                
+                <div id="uiupdateNavbarElements" title="Update Footer Elements" class="panel">
+                    <p>This allows you to updates the elements in the footer.</p>
+                    <div class="samplecode">
+				        $.ui.updateNavbarElements();
+				    </div>
+                    <a  onclick="$.ui.updateNavbarElements()" class="button">Update Footer Elements</a>
+                </div>
+                
+                <div id="uiremoveFooterMenu" title="Remove Footer Menu" class="panel">
+                    <p>This allows you to remove footer.</p>
+                    <div class="samplecode">
+				        $.ui.removeFooterMenu();
+				    </div>
+                    <a  onclick="$.ui.removeFooterMenu()" class="button">Remove Footer</a>
+                </div>
+                
+                <div id="uitoggleside" title="Toggle Side Menu" class="panel">
+                    <p>This lets you toggle the side navigation menu if you have one. On a tablet, this will be persistent by default.	</p>
+                    <div class="samplecode">
+                        $.ui.toggleSideMenu();
+				    </div>
                     <a  onclick="$.ui.toggleSideMenu();" class="button">Toggle Side Menu</a>
                 </div>
-                <div id="uiactionsheet" title="Actionsheet" class="panel">This is a shortcut to the actionsheet plugin. This will wire it correctly to App Framework UI div	<div class="samplecode">
-							$.ui.actionsheet()
-						</div>
-
+                
+                <div id="uisetSideMenuWidth" title="Side Menu Width" class="panel">
+                    <p>This lets you set width of side menu	</p>
+                    <div class="samplecode">
+                        $.ui.setSideMenuWidth();
+				    </div>
+                    <a  onclick="$.ui.setSideMenuWidth('100px');" class="button">Set SideMenu Width = 100px</a><br>
+                    <a  onclick="$.ui.setSideMenuWidth('200px');" class="button">Set SideMenu Width = 200px</a><br>
+                    <a  onclick="$.ui.setSideMenuWidth('300px');" class="button">Set SideMenu Width = 300px</a>
+                </div>
+                
+                <div id="uidisableSideMenu" title="Disable Side Menu" class="panel">
+                    <p>This lets you disable the side navigation menu.</p>
+                    <div class="samplecode">
+                        $.ui.disableSideMenu();
+				    </div>
+                    <a  onclick="$.ui.disableSideMenu();" class="button">Disable Side Menu</a>
+                </div>
+                
+                <div id="uienableSideMenu" title="Enable Side Menu" class="panel">
+                    <p>This lets you enable the side navigation menu.</p>
+                    <div class="samplecode">
+                        $.ui.enableSideMenu();
+				    </div>
+                    <a  onclick="$.ui.enableSideMenu();" class="button">Enable Side Menu</a>
+                </div>
+                
+                <div id="uiactionsheet" title="Actionsheet" class="panel">
+                    <p>This is a shortcut to the actionsheet plugin. This will wire it correctly to App Framework UI div</p>	
+                    <div class="samplecode">
+                        $.ui.actionsheet()
+				    </div>
                     <br>
                     <br>
                     <a  onclick="$.ui.actionsheet('<a href=\'javascript:;\' class=\'button\'>Test</a>')" class="button">Show a custom sheet</a>
                     <br/>
                     <br/>
                 </div>
-                <div id="uiscrolltotop" title="Scroll to Top" class="panel">This allows you to scroll to the top of a page. Scroll to the bottom for the link.	<div class="samplecode">
-							$.ui.scrollToTop(div_id)
-						</div>
-
+                
+                <div id="uidisableNaviteScrolling" title="Disable Native Scrolling" class="panel">
+                    <p>This will disable native scrolling on iOS.</p>
+                    <div class="samplecode">
+                        $.ui.disableNativeScrolling();
+				    </div>
+                    <a  onclick="$.ui.disableNativeScrolling();" class="button">Disable native Scrolling</a>
+                </div>
+                
+                <div id="uiscrolltotop" title="Scroll to Top" class="panel">
+                    <p>This allows you to scroll to the top of a page. Scroll to the bottom for the link.	</p>
+                    <div class="samplecode">
+				        $.ui.scrollToTop(div_id)
+				    </div>
                     <br>
                     <br>Keep scrolling down.
                     <br>
@@ -1417,10 +1571,11 @@ The parent id for this div is "content". Let's verify it.
                     <br/>
                     <br/>
                 </div>
-                <div id="uiscrolltobottom" title="Scroll to Bottom" class="panel">This allows you to scroll to the top of a page. Scroll to the bottom for the link.	<div class="samplecode">
-							$.ui.scrollToTop(div_id)
-						</div>
-
+                <div id="uiscrolltobottom" title="Scroll to Bottom" class="panel">
+                    <p>This allows you to scroll to the top of a page. Scroll to the bottom for the link.	</p>
+                    <div class="samplecode">
+                        $.ui.scrollToTop(div_id)
+				    </div>
                     <a  onclick="$.ui.scrollToBottom('uiscrolltobottom')" class="button">Scroll to Bottom</a>
                     <br>
                     <br>Keep scrolling down.
