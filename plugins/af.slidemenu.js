@@ -21,6 +21,7 @@
         var slideOver = max/3;
         var menuState;
         var transTime = $.ui.transitionTime;
+        $.ui.toggleSideMenu(false, null, 0);
 
         window.addEventListener("resize", function(e) {
             max = $("#menu").width();
@@ -57,12 +58,8 @@
             dy = e.touches[0].pageY;
             if (!menuState && dx < startX) return;
             else if (menuState && dx > startX) return;
-            if (Math.abs(dy - startY) > Math.abs(dx - startX)) {
-     //           doMenu = false;
-                return true;
-            }            
+            if (Math.abs(dy - startY) > Math.abs(dx - startX)) return true;
             
-     //       if (dx > max) return true;
             if (dx-startX > max) return true;
             if (startX-dx > max) return true;
             

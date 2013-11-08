@@ -21,12 +21,25 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <link rel="stylesheet" type="text/css" href="css/icons.css" />    
         <link rel="stylesheet" type="text/css" href="css/af.ui.css" />
-
+        
         <script src="intelxdk.js"></script>
         <script src="cordova.js"></script>
         <script src="xhr.js"></script>
         
-        <script type="text/javascript" charset="utf-8" src="appframework.ui.min.js"></script>
+        <script type="text/javascript" charset="utf-8" src="js/appframework.ui.min.js"></script>
+
+<!--    files included in appframework.ui.min.js     
+        <script type="text/javascript" charset="utf-8" src="js/appframework.js"></script>
+        <script type="text/javascript" charset="utf-8" src="js/appframework.ui.js"></script>
+        <script type="text/javascript" charset="utf-8" src="./plugins/af.actionsheet.js"></script>
+        <script type="text/javascript" charset="utf-8" src="./plugins/af.css3animate.js"></script>
+        <script type="text/javascript" charset="utf-8" src="./plugins/af.passwordBox.js"></script>
+        <script type="text/javascript" charset="utf-8" src="./plugins/af.scroller.js"></script>
+        <script type="text/javascript" charset="utf-8" src="./plugins/af.selectBox.js"></script>
+        <script type="text/javascript" charset="utf-8" src="./plugins/af.touchEvents.js"></script>
+        <script type="text/javascript" charset="utf-8" src="./plugins/af.touchLayer.js"></script>
+        <script type="text/javascript" charset="utf-8" src="./plugins/af.popup.js"></script>        
+-->    
         <!-- include afplugins  -->
         <script type="text/javascript" charset="utf-8" src="plugins/af.8tiles.js"></script>
         <script type="text/javascript" charset="utf-8" src="plugins/af.slidemenu.js"></script>
@@ -1149,10 +1162,10 @@
                         <li><a href="#uiupdateNavbarElements">.updateNavbarElements()</a></li>
                         <li><a href="#uiremoveFooterMenu">.removeFooterMenu()</a></li>
                         <li><a href="#uitoggleside">.toggleSideMenu()</a></li>
-                        <li><a href="#uisetSideMenuWidth">.setSideMenuWidth()</a></li>
-                        <li><a href="#uidisableSideMenu">.disableSideMenu()</a></li>
-                        <li><a href="#uienableSideMenu">.enableSideMenu()</a></li>
                         <li><a href="#uiupdateSideMenuElements">.updateSideMenuElements()</a></li>
+                        <li><a href="#uisetSideMenuWidth">.setSideMenuWidth()</a></li>
+                        <li><a href="#uienableSideMenu">.enableSideMenu()</a></li>
+                        <li><a href="#uidisableSideMenu">.disableSideMenu()</a></li>
                         <li><a href="#uiactionsheet">.actionsheet()</a></li>
                         <li><a href="#uipopup">.popup()</a></li>             
                         <li><a href="#uishowmask">.showMask()</a></li>
@@ -1174,6 +1187,7 @@
                     <p>These properties can be used to setup AppFramework UI, these must be set before calling $.ui.launch()</p>
                     <ul class="list inset">
                         <li>$.ui.autoLaunch</li>
+                        <li>$.ui.useOSThemes</li>
                         <li>$.ui.loadDefaultHash</li>
                         <li>$.ui.manageHistory</li>
                         <li>$.ui.backButtonText</li>
@@ -1708,12 +1722,12 @@
                                 console.log("scroll start");
                             });
                             $.bind(myScroller, "refresh-trigger", function () {
-                                this.setRefreshContent("New content");
+                                this.setRefreshContent("&uarr; Pull to refresh");
                             });
                             var hideClose;
                             $.bind(myScroller, "refresh-release", function () {
                                 var that = this;
-                                this.setRefreshContent("New content...");
+                                this.setRefreshContent("loading...");
                                 clearTimeout(hideClose);
                                 hideClose = setTimeout(function () {
                                     console.log("hiding manually refresh");
@@ -1731,7 +1745,7 @@
                             $.bind(myScroller, "infinite-scroll", function () {
                                 var self = this;
                                 console.log("infinite triggered");
-                                $(this.el).append("<div id='infinite' style='border:2px solid black;margin-top:10px;width:100%;height:20px'>Fetching content...</div>");
+                                $(this.el).append("<div id='infinite' style='padding:30px 0;width:100%'>Loading...</div>");
                                 $.bind(myScroller, "infinite-scroll-end", function () {
                                     $.unbind(myScroller, "infinite-scroll-end");
                                     self.scrollToBottom();
@@ -2280,6 +2294,7 @@
                     <h2>Upload File Demo</h2>
                     <p></p>
                     <a class="button" onclick="xdkFileUpload()">Upload File</a><br>
+                    <a class="button" onclick="xdkFileUpload()">Upload Cancel</a><br>
                     <br><br>
                     <h3>Methods</h3>
                     <p>You can use this method for uploading files to remote data.</p>
@@ -2292,6 +2307,33 @@
                         function xdkFileUpload(){
                             intel.xdk.notification.alert("No Demo", "Demo", "OK");
                         }
+                        /*
+                        function xdkFileUpload(){
+                            var localURL = "defer.html";
+                            var uploadURL = "http://encodable.com/cgi-bin/filechucker.cgi?action=incoming&amp;serial=09649f863ddb68e8e0978b8fa73db627";
+                            var folderName = "";
+                            var mimeType = "";
+                            var uploadProgressCallback = function(){
+                                console.log("uploadProgressCallback");
+                            }
+                            var fileUpload = function(){
+                                console.log("fileUpload");
+                            }
+                            var fileUploadBusy = function(){
+                                console.log("fileUploadBusy");
+                            }
+                            document.addEventListener("intel.xdk.file.upload", fileUpload, false);
+                            document.addEventListener("intel.xdk.file.upload.busy", fileUploadBusy, false);
+                            intel.xdk.file.uploadToServer(localURL, uploadURL, folderName, mimeType, uploadProgressCallback);
+                        }
+                        function xdkFileUploadCancel(){
+                            var fileUploadCancel = function(){
+                                console.log("fileUploadCancel");
+                            }
+                            document.addEventListener("intel.xdk.file.upload.cancel", fileUploadCancel, false);
+                            intel.xdk.file.cancelUpload();
+                        }
+                        */
                     </script>    
                 </div> 
                 
