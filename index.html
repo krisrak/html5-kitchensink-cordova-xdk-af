@@ -31,18 +31,19 @@
 <!--    files included in appframework.ui.min.js     
         <script type="text/javascript" charset="utf-8" src="js/appframework.js"></script>
         <script type="text/javascript" charset="utf-8" src="js/appframework.ui.js"></script>
-        <script type="text/javascript" charset="utf-8" src="./plugins/af.actionsheet.js"></script>
-        <script type="text/javascript" charset="utf-8" src="./plugins/af.css3animate.js"></script>
-        <script type="text/javascript" charset="utf-8" src="./plugins/af.passwordBox.js"></script>
-        <script type="text/javascript" charset="utf-8" src="./plugins/af.scroller.js"></script>
-        <script type="text/javascript" charset="utf-8" src="./plugins/af.selectBox.js"></script>
-        <script type="text/javascript" charset="utf-8" src="./plugins/af.touchEvents.js"></script>
-        <script type="text/javascript" charset="utf-8" src="./plugins/af.touchLayer.js"></script>
-        <script type="text/javascript" charset="utf-8" src="./plugins/af.popup.js"></script>        
+        <script type="text/javascript" charset="utf-8" src="plugins/af.actionsheet.js"></script>
+        <script type="text/javascript" charset="utf-8" src="plugins/af.css3animate.js"></script>
+        <script type="text/javascript" charset="utf-8" src="plugins/af.passwordBox.js"></script>
+        <script type="text/javascript" charset="utf-8" src="plugins/af.scroller.js"></script>
+        <script type="text/javascript" charset="utf-8" src="plugins/af.selectBox.js"></script>
+        <script type="text/javascript" charset="utf-8" src="plugins/af.touchEvents.js"></script>
+        <script type="text/javascript" charset="utf-8" src="plugins/af.touchLayer.js"></script>
+        <script type="text/javascript" charset="utf-8" src="plugins/af.popup.js"></script>        
 -->    
         <!-- include afplugins  -->
         <script type="text/javascript" charset="utf-8" src="plugins/af.8tiles.js"></script>
         <script type="text/javascript" charset="utf-8" src="plugins/af.slidemenu.js"></script>
+        <script type="text/javascript" charset="utf-8" src="plugins/af.scroller.js"></script>
         <!-- include af.desktopBrowsers.js on desktop browsers only -->
         <script>
             if (!((window.DocumentTouch && document instanceof DocumentTouch) || 'ontouchstart' in window)) {
@@ -304,52 +305,324 @@
                     <h2 class='expanded' onclick='showHide(this,"AppFramework_info");'>Query Selector Library</h2>
                     <p id='AppFramework_info'>AppFramework is a blazingly fast query selector tool that is optmimized for HTML5 browsers. Below are some demos.</p>
                     <ul class="list">
-                        <li><a href="#af1">$ Selector</a></li>
-                        <li><a href="#af2">$().length()</a></li>
-                        <li><a href="#af3">$().find()</a></li>
+                        <li><a href="#af1">$()</a></li>
+                        <li><a href="#af_ready">$().ready()</a></li>
                         <li><a href="#af4">$().html()</a></li>
                         <li><a href="#af5">$().text()</a></li>
                         <li><a href="#af6">$().css()</a></li>
+                        <li><a href="#af14">$().remove()</a></li>
                         <li><a href="#af7">$().empty()</a></li>
+                        <li><a href="#af21">$().append()</a></li>
+                        <li><a href="#af22">$().prepend()</a></li>
+                        <li><a href="#af3">$().find()</a></li>
+                        <li><a href="#afparent">$().parent()</a></li>
+                        <li><a href="#af2">$().length()</a></li>
+                        <li><a href="#af32">$().get()</a></li>
                         <li><a href="#af8">$().hide()</a></li>
                         <li><a href="#af9">$().show()</a></li>
                         <li><a href="#af10">$().toggle()</a></li>
                         <li><a href="#af11">$().val()</a></li>
                         <li><a href="#af12">$().attr()</a></li>
                         <li><a href="#af13">$().removeAttr()</a></li>
-                        <li><a href="#af14">$().remove()</a></li>
                         <li><a href="#af15">$().addClass()</a></li>
                         <li><a href="#af16">$().removeClass()</a></li>
                         <li><a href="#af17">$().hasClass()</a></li>
                         <li><a href="#af18">$().bind()</a></li>
                         <li><a href="#af19">$().unbind()</a></li>
                         <li><a href="#af20">$().trigger()</a></li>
-                        <li><a href="#af21">$().append()</a></li>
-                        <li><a href="#af22">$().prepend()</a></li>
-                        <li><a href="#af32">$().get(0)</a></li>
                         <li><a href="#af31">$().offset()</a></li>
-                        <li><a href="#afparent">$().parent()</a></li>
                         <li><a href="#afserialize">$().serialize()</a></li>
-                        <li><a href="#af33">$.isArray()</a></li>
-                        <li><a href="#af34">$.isFunction()</a></li>
+                        <li><a href="#afquery">$.query()</a></li>
+                        <li><a href="#afeach">$.each()</a></li>
+                        <li><a href="#afmap">$.map()</a></li>
+                        <li><a href="#afproxy">$.proxy()</a></li>
+                        <li><a href="#afisArray">$.isArray()</a></li>
+                        <li><a href="#afisObject">$.isObject()</a></li>
+                        <li><a href="#afisFunction">$.isFunction()</a></li>
                         <li><a href="#af24">$.ajax()</a></li>
                         <li><a href="#af25">$.get()</a></li>
                         <li><a href="#af26">$.post()</a></li>
                         <li><a href="#af27">$.getJSON()</a></li>
                         <li><a href="#af23">$.jsonP()</a></li>
-                        <li><a href="#af28">$.param()</a></li>
                         <li><a href="#af29">$.parseJSON()</a></li>
+                        <li><a href="#afparseXML">$.parseXML()</a></li>
+                        <li><a href="#afparseJS">$.parseJS()</a></li>
+                        <li><a href="#afparam">$.param()</a></li>
+                        <li><a href="#afextend">$.extend()</a></li>
                         <li><a href="#af30">$.os</a></li>
                     </ul>
                     <a class="button icon folder block" onclick="window.open('http://app-framework-software.intel.com/api2/#appframework', '_blank', 'location=yes');">Full Documentation</a>
                 </div>
-                <!-- af> af serialize() -->
-                <div id="afserialize" class="panel" title="$().serialize">
+                
+                <!-- af> af Selector -->
+                <div id="af1" class="panel" title="$()">
+                    <p>Selectors</p>
+                    <div id="aftest2" style="padding:20px;border:1px solid #555">This is some html</div>
+                    <br />
+                    <br />
+                    <a class="button"  onclick="alert($('#aftest2')[0])">Click to get Object</a>
+                    <br />
+                    <br />
+                    <a class="button"  onclick="alert($('#aftest2').html())">Click to get Content</a>
+                </div>
+                <!-- af> af Selector -->
+                <div id="af_ready" class="panel" title="$().ready()">
+                    <p>$().ready(callback) - This is executed when DOMContentLoaded happens, or after if you've registered for it.</p>
+                    <br />
+                    <br />
+                    <code>
+                        $(document).ready(function(){ alert("document is ready") })
+                    </code>    
+                </div>
+                <!-- af> af length() -->
+                <div id="af2" class="panel" title=".length()">
+                    <div class='af2'>Div 1 (class="af2")</div>
+                    <div class='af2'>Div 2 (class="af2")</div>
+                    <div class='af2'>Div 3 (class="af2")</div>
+                    <div class='af4'>Div 4 (class="af4")</div>
+                    <br />
+                    <a class="button"  onclick="alert($('.af2').length)">Click to get the Length by classname</a>
+                </div>
+                <!-- af> af find() -->
+                <div id="af3" class="panel" title=".find()">
+                    <p>$("#div").find("li") find all element(s) inside a container</p>
+                    <br />
+                    <br />
+                    <ul class="list inset">
+                        <li>Item 1</li>
+                        <li>Item 2</li>
+                    </ul>
+                    <a class="button"  onclick="alert($('#af3').find('li').length)">Click to get the count of li's in this div</a>
+                    <br />
+                    <br />
+                </div>
+                <!-- af> af html() -->
+                <div id="af4" class="panel" title=".html()">
+                    <p>$().html() allows you to get or set a element's HTML.</p>
+                    <br />
+                    <br />
+                    <div id="af4_content" style='border:1px solid black'>This is some content</div>
+                    <br />
+                    <br />
+                    <a class="button"  onclick='alert($("#af4_content").html())'>Get Content</a><br>
+                    <a  class="button" onclick='$("#af4_content").html("New Content")'>Set Content</a>
+                </div>
+                <!-- af> af text() -->
+                <div id="af5" class="panel" title=".text()">
+                    <p>$().text() allows you to get or set a element's text.</p>
+                    <br />
+                    <br />
+                    <div id="af5_content" style='border:1px solid black'><span>This is some text</span> other text</div>
+                    <br />
+                    <br />
+                    <a class="button"  onclick='alert($("#af5_content").text())'>Get Text</a><br>
+                    <a class="button"  onclick='$("#af5_content").text("New Text")'>Set Text</a>
+                </div>
+                <!-- af> af css() -->
+                <div id="af6" class="panel" title=".css()">
+                    <p>$().css() - allows you to get or set a element's CSS property.</p>
+                    <br />
+                    <br />
+                    <div style="background:red;color:white;border:1px solid black" id="af6_content">This is some content</div>
+                    <br />
+                    <br />
+                    <a class="button"  onclick='alert($("#af6_content").css("background"))'>Get background color</a>
+                    <br />
+                    <a class="button"  onclick='$("#af6_content").css("background","green")'>Set background color</a>
+                </div>
+                <!-- af> af empty() -->
+                <div id="af7" class="panel" title=".empty()">
+                    <p>$().empty() - will empty out the contents of the element.</p>
+                    <br />
+                    <br />
+                    <div id="af7_content" style="border:1px solid black">This is some content</div>
+                    <br/>
+                    <br/>
+                    <a class="button"  onclick='$("#af7_content").empty()'>$().empty()</a>
+                </div>
+                <!-- af> af hide() -->
+                <div id="af8" class="panel" title=".hide()">
+                    <p>$().hide() - will set the elements display property to "none".</p>
+                    <br />
+                    <br />
+                    <div id="af8_content" style="border:1px solid black">This is some content</div>
+                    <br/>
+                    <a class="button"  onclick='$("#af8_content").hide()'>Hide the div</a>
+                </div>
+                <!-- af> af show() -->
+                <div id="af9" class="panel" title=".show()">
+                    <p>$().show() - will set the elements display property to "block".</p>
+                    <br />
+                    <br />
+                    <div id="af9_content" style="border:1px solid black;display:none;">This is some content</div>
+                    <br/>
+                    <a class="button"  onclick='$("#af9_content").show()'>Show the div</a>
+                </div>
+                <!-- af> af toggle() -->
+                <div id="af10" class="panel" title=".toggle()">
+                    <p>$().toggle() - will toggle the elements display property.</p>
+                    <br />
+                    <br />
+                    <div id="af10_content" style="border:1px solid black;display:block;">This is some content</div>
+                    <br/>
+                    <br />
+                    <a class="button"  onclick='$("#af10_content").toggle()'>Toggle a div</a>
+                </div>
+                <!-- af> af val() -->
+                <div id="af11" class="panel" title=".val()">
+                    <p>$().val() - will get or set the value of an HTML form element.</p>
+                    <br />
+                    <br />
+                    <input type="text" id="af11_input" size=15>
+                    <br />
+                    <br />
+                    <a class="button"  onclick='alert($("#af11_input").val())'>Get Value</a>
+                    <br />
+                    <a class="button"  onclick='($("#af11_input").val("set value"))'>Set Value</a>
+                </div>
+                <!-- af> af attr() -->
+                <div id="af12" class="panel" title=".attr()">
+                    <p>$().attr() - will get or set an attribute of an HTML element.</p>
+                    <br />
+                    <br />
+                    <div id="af12_content" data-test="foo">The data-test attribute is set to "foo" - data-test="foo"</div>
+                    <br />
+                    <br />
+                    <a class="button"  onclick='alert($("#af12_content").attr("data-test"))'>Get Attribute Value</a>
+                    <br />
+                    <a class="button"  onclick='($("#af12_content").attr("data-test","bar"))'>Set Attribute Value</a>
+                </div>
+                <!-- af> af removeAttr() -->
+                <div id="af13" class="panel" title=".removeAttr()">
+                    <p>$().removeAttr() - will remove an attribute of an HTML element.</p>
+                    <br />
+                    <br />
+                    <div id="af13_content" data-test="foo">The data-test attribute is set to "foo" - data-test="foo"</div>
+                    <br />
+                    <a class="button"  onclick='alert($("#af13_content").attr("data-test"))'>Get Attribute Value</a>
+                    <br />
+                    <a class="button"  onclick='($("#af13_content").removeAttr("data-test"))'>Remove Attribute Value</a>
+                </div>
+                <!-- af> af remove() -->
+                <div id="af14" class="panel" title=".remove()">
+                    <p>$().remove() - will remove an element from the parent container.</p>
+                    <br />
+                    <br />
+                    <div id="af14_content" style="border:1px solid black">This is content that will be removed from the DOM.</div>
+                    <br />
+                    <a class="button"  onclick='$("#af14_content").remove()'>Remove the Element</a>
+                </div>
+                <!-- af> af addClass() -->
+                <div id="af15" class="panel" title=".addClass()">
+                    <p>$().addClass() - adds a css class to the element.</p>
+                    <br />
+                    <br />
+                    <div style='border:1px solid black' id="af15_content">This is some content</div>
+                    <br />
+                    <br />
+                    <a class="button"  onclick='($("#af15_content").addClass("class16"))'>Add a Class</a>
+                </div>
+                <!-- af> af removeClass() -->
+                <div id="af16" class="panel" title=".removeClass()">
+                    <p>$().removeClass() - removes a css class to the element.</p>
+                    <br />
+                    <br />
+                    <div style='border:1px solid black' id="af16_content" class="class16">This is some content</div>
+                    <br />
+                    <a class="button"  onclick='($("#af16_content").removeClass("class16"))'>Remove the Class</a>
+                </div>
+                <!-- af> af hassClass() -->
+                <div id="af17" class="panel" title=".hasClass()">
+                    <p>$().hassClass() - returns a boolean if an element has a class.</p>
+                    <br />
+                    <br />
+                    <div style='border:1px solid black' id="af17_content" class="class16">This is some content</div>
+                    <br />
+                    <a class="button"  onclick='alert($("#af17_content").hasClass("class16"))'>Check if it has the class</a>
+                </div>
+                <!-- af> af bind() -->
+                <div id="af18" class="panel" title=".bind()">
+                    <p>$().bind() - binds an event to an element.</p>
+                    <br />
+                    <br />
+                    <a class="button"  id="af18_content">Test Link to bind event to</a>
+                    <br />
+                    <br />
+                    <a class="button"  onclick='$("#af18_content").bind("click",function(evt){alert("I was clicked");});alert("click event is bound");'>Bind Event</a>
+                    <br />
+                </div>
+                <!-- af> af unbind() -->
+                <div id="af19" class="panel" title=".unbind()">
+                    <p>$().unbind() - unbinds an event from an element.</p>
+                    <br />
+                    <br />
+                    <a class="button"  id="af19_content">This is a test link</a>
+                    <br />
+                    <br />
+                    <a class="button"  onclick='$("#af19_content").bind("click",function(){alert("I was clicked");});alert("click event is bound");'>Bind Event</a>
+                    <br />
+                    <a class="button"  onclick='$("#af19_content").unbind("click")'>Unbind Event</a>
+                </div>
+                <!-- af> af trigger() -->
+                <div id="af20" class="panel" title=".trigger()">
+                    <p>$().trigger() - triggers an event on an element.</p>
+                    <br />
+                    <br />
+                    <a id="af20_content"  onclick="alert('I was clicked')">Click to test me</a>
+                    <br />
+                    <br />
+                    <a class="button"  onclick='$("#af20_content").trigger("click")'>Trigger Event</a>
+                </div>
+                <!-- af> af append() -->
+                <div id="af21" class="panel" title=".append()">
+                    <p>$().append() - appends an element or content.</p>
+                    <br />
+                    <br />
+                    <div id="af21_content">I'll append content after the &lt;hr>
+                        <hr>
+                    </div>
+                    <br />
+                    <br />
+                    <a class="button"  onclick='$("#af21_content").append("<span>Some more content<br /></span>");'>Append Content</a>
+                </div>
+                <!-- af> af prepend() -->
+                <div id="af22" class="panel" title=".prepend()">
+                    <p>$().prepend() - prepends an element or content.</p>
+                    <br />
+                    <br />
+                    <div id="af22_content">
+                        <hr>I'll prepend content before the &lt;hr></div>
+                    <br />
+                    <br />
+                    <a class="button"  onclick='$("#af22_content").prepend("<span>Some more content<br /></span>");'>Prepend Content</a>
+                </div>
+                <!-- af> af offset() -->
+                <div id="af31" class="panel" title=".offset()">
+                    <p>$().offset() - Gets the left and top offset of an element.</p>
+                    <br />
+                    <br />
+                    <a class="button"  onclick='getElementOffset()'>Get Offsett</a>
                     <script>
-                        function serializeForm() {
-                            alert($("#form").serialize());
+                        function getElementOffset() {
+                            var data = $("#af31").offset();
+                            alert("Top: " + data.top + " - Left: " + data.left);
                         }
                     </script>
+                </div>
+                <!-- af> af get(0) -->
+                <div id="af32" class="panel" title=".get()">
+                    <p>$().get(index) - Get's an individual element by index.</p>
+                    <br />
+                    <br />
+                    <script>
+                        function doGet() {
+                            alert($(".panel").get(0));
+                        }
+                    </script>
+                    <a class="button"  onclick='doGet()'>$(".panel").get(0)</a>
+                </div>
+                <!-- af> af serialize() -->
+                <div id="afserialize" class="panel" title="$().serialize">
                     <p>$("#form").serialize() - will return a key/value pair string of the form elements</p>
                     <Br>
                     <form id="form" onsubmit="return false">Name:
@@ -364,245 +637,99 @@
                         <br>
                         <input type="button" onclick="serializeForm()" value="Serialize">
                     </form>
-                </div>
-                <!-- af> af Selector -->
-                <div id="af1" class="panel" title="$()">
-                    <span id="aftest2">This is some html</span>
-                    <br />
-                    <br />
-                    <a class="button"  onclick="alert($('#aftest2')[0])">Click to get Object</a>
-                    <br />
-                    <br />
-                    <a class="button"  onclick="alert($('#aftest2').html())">Click to get Content</a>
-                </div>
-                <!-- af> af length() -->
-                <div id="af2" class="panel" title=".length()">
-                    <div class='af2'>Div 1 (class="af2")</div>
-                    <div class='af2'>Div 2 (class="af2")</div>
-                    <div class='af2'>Div 3 (class="af2")</div>
-                    <div class='af4'>Div 4 (class="af4")</div>
-                    <br />
-                    <a class="button"  onclick="alert($('.af2').length)">Click to get the Length by classname</a>
-                </div>
-                <!-- af> af find() -->
-                <div id="af3" class="panel" title=".find()">$("#div").find("li") find all element(s) inside a container
-                    <br />
-                    <br />
-                    <ul class="list">
-                        <li id='find1'>Item 1</li>
-                        <li>Item 2</li>
-                    </ul>
-                    <a class="button"  onclick="alert($('#af3').find('li').length)">Click to get the count of li's in the div</a>
-                    <br />
-                    <br />
-                </div>
-                <!-- af> af html() -->
-                <div id="af4" class="panel" title=".html()">$("#div").html() allows you to get or set a contents HTML.
-                    <br />
-                    <br />
-                    <div id="af4_content" style='border:1px solid black'>This is some content</div>
-                    <br />
-                    <br />
-                    <a class="button"  onclick='alert($("#af4_content").html())'>Get Content</a>|
-                    <a  class="button" onclick='$("#af4_content").html("New Content")'>Set Content</a>
-                </div>
-                <!-- af> af text() -->
-                <div id="af5" class="panel" title=".text()">$("#div").text() allows you to get or set a contents text.
-                    <br />
-                    <br />
-                    <div id="af5_content" style='border:1px solid black'><span>This is some text</span> other text</div>
-                    <br />
-                    <br />
-                    <a class="button"  onclick='alert($("#af5_content").text())'>Get Text</a>|
-                    <a class="button"  onclick='$("#af5_content").text("New Text")'>Set Text</a>
-                </div>
-                <!-- af> af css() -->
-                <div id="af6" class="panel" title=".css()">$("#div").css() - allows you to get or set a CSS property.
-                    <br />
-                    <br />
-                    <div style="background:red;color:white;border:1px solid black" id="af6_content">This is some content</div>
-                    <br />
-                    <br />
-                    <a class="button"  onclick='alert($("#af6_content").css("background"))'>Get background color</a>
-                    <br />
-                    <a class="button"  onclick='$("#af6_content").css("background","green")'>Set background color</a>
-                </div>
-                <!-- af> af empty() -->
-                <div id="af7" class="panel" title=".empty()">$("#div").empty() - will empty out the contents of the element.
-                    <br />
-                    <br />
-                    <div id="af7_content" style="border:1px solid black">This is some content</div>
-                    <br/>
-                    <br/>
-                    <a class="button"  onclick='$("#af7_content").empty()'>$().empty()</a>
-                </div>
-                <!-- af> af hide() -->
-                <div id="af8" class="panel" title=".hide()">$("#div").hide() - will set the elements display property to "none".
-                    <br />
-                    <br />
-                    <div id="af8_content" style="border:1px solid black">This is some content</div>
-                    <br/>
-                    <a class="button"  onclick='$("#af8_content").hide()'>Hide the div</a>
-                </div>
-                <!-- af> af show() -->
-                <div id="af9" class="panel" title=".show()">$("#div").show() - will set the elements display property to "block".
-                    <br />
-                    <br />
-                    <div id="af9_content" style="border:1px solid black;display:none;">This is some content</div>
-                    <br/>
-                    <a class="button"  onclick='$("#af9_content").show()'>Show the div</a>
-                </div>
-                <!-- af> af toggle() -->
-                <div id="af10" class="panel" title=".toggle()">$("#div").toggle() - will toggle the elements display property.
-                    <br />
-                    <br />
-                    <div id="af10_content" style="border:1px solid black;display:block;">This is some content</div>
-                    <br/>
-                    <br />
-                    <a class="button"  onclick='$("#af10_content").toggle()'>Toggle a div</a>
-                </div>
-                <!-- af> af val() -->
-                <div id="af11" class="panel" title=".val()">$("#div").val() - will get or set the value of an HTML element.
-                    <br />
-                    <br />
-                    <input type="text" id="af11_input" size=15>
-                    <br />
-                    <br />
-                    <a class="button"  onclick='alert($("#af11_input").val())'>Get Value</a>
-                    <br />
-                    <a class="button"  onclick='($("#af11_input").val("set value"))'>Set Value</a>
-                </div>
-                <!-- af> af attr() -->
-                <div id="af12" class="panel" title=".attr()">$("#div").attr() - will get or set an attribute of an HTML element.
-                    <br />
-                    <br />
-                    <div id="af12_content" data-test="foo">The data-test attribute is set to "foo" - data-test="foo"</div>
-                    <br />
-                    <br />
-                    <a class="button"  onclick='alert($("#af12_content").attr("data-test"))'>Get Attribute Value</a>
-                    <br />
-                    <a class="button"  onclick='($("#af12_content").attr("data-test","bar"))'>Set Attribute Value</a>
-                </div>
-                <!-- af> af removeAttr() -->
-                <div id="af13" class="panel" title=".removeAttr()">$("#div").removeAttr() - will remove an attribute of an HTML element.
-                    <br />
-                    <br />
-                    <div id="af13_content" data-test="foo">The data-test attribute is set to "foo" - data-test="foo"</div>
-                    <br />
-                    <a class="button"  onclick='alert($("#af13_content").attr("data-test"))'>Get Attribute Value</a>
-                    <br />
-                    <a class="button"  onclick='($("#af13_content").removeAttr("data-test"))'>Remove Attribute Value</a>
-                </div>
-                <!-- af> af remove() -->
-                <div id="af14" class="panel" title=".remove()">$("#div").remove() - will remove an element from the parent container.
-                    <br />
-                    <br />
-                    <div id="af14_content" style="border:1px solid black">This is content that will be removed from the DOM.</div>
-                    <br />
-                    <a class="button"  onclick='$("#af14_content").remove()'>Remove the Element</a>
-                </div>
-                <!-- af> af addClass() -->
-                <div id="af15" class="panel" title=".addClass()">$("#div").addClass() - adds a css class to the element.
-                    <br />
-                    <br />
-                    <div style='border:1px solid black' id="af15_content">This is some content</div>
-                    <br />
-                    <br />
-                    <a class="button"  onclick='($("#af15_content").addClass("class16"))'>Add a Class</a>
-                </div>
-                <!-- af> af removeClass() -->
-                <div id="af16" class="panel" title=".removeClass()">$("#div").removeClass() - removes a css class to the element.
-                    <br />
-                    <br />
-                    <div style='border:1px solid black' id="af16_content" class="class16">This is some content</div>
-                    <br />
-                    <a class="button"  onclick='($("#af16_content").removeClass("class16"))'>Remove the Class</a>
-                </div>
-                <!-- af> af hassClass() -->
-                <div id="af17" class="panel" title=".hasClass()">$("#div").hassClass() - returns a boolean if an element has a class.
-                    <br />
-                    <br />
-                    <div style='border:1px solid black' id="af17_content" class="class16">This is some content</div>
-                    <br />
-                    <a class="button"  onclick='alert($("#af17_content").hasClass("class16"))'>Check if it has the class</a>
-                </div>
-                <!-- af> af bind() -->
-                <div id="af18" class="panel" title=".bind()">$("#div").bind() - binds an event to an element.
-                    <br />
-                    <br />
-                    <a class="button"  id="af18_content">Test Link to bind event to</a>
-                    <br />
-                    <br />
-                    <a class="button"  onclick='$("#af18_content").bind("click",function(evt){alert("I was clicked");});alert("click event is bound");'>Bind Event</a>
-                    <br />
-                </div>
-                <!-- af> af unbind() -->
-                <div id="af19" class="panel" title=".unbind()">$("#div").unbind() - unbinds an event from an element.
-                    <br />
-                    <br />
-                    <a class="button"  id="af19_content">This is a test link</a>
-                    <br />
-                    <br />
-                    <a class="button"  onclick='$("#af19_content").bind("click",function(){alert("I was clicked");});alert("click event is bound");'>Bind Event</a>
-                    <br />
-                    <a class="button"  onclick='$("#af19_content").unbind("click")'>Unbind Event</a>
-                </div>
-                <!-- af> af trigger() -->
-                <div id="af20" class="panel" title=".trigger()">$("#div").trigger() - triggers an event on an element.
-                    <br />
-                    <br />
-                    <a id="af20_content"  onclick="alert('I was clicked')">Click to test me</a>
-                    <br />
-                    <br />
-                    <a class="button"  onclick='$("#af20_content").trigger("click")'>Trigger Event</a>
-                </div>
-                <!-- af> af append() -->
-                <div id="af21" class="panel" title=".append()">$("#div").append() - appends an element or content.
-                    <br />
-                    <br />
-                    <div id="af21_content">I'll append content after the &lt;hr>
-                        <hr>
-                    </div>
-                    <br />
-                    <br />
-                    <a class="button"  onclick='$("#af21_content").append("<span>Some more content<br /></span>");'>Append Content</a>
-                </div>
-                <!-- af> af prepend() -->
-                <div id="af22" class="panel" title=".prepend()">$("#div").prepend() - prepends an element or content.
-                    <br />
-                    <br />
-                    <div id="af22_content">
-                        <hr>I'll prepend content before the &lt;hr></div>
-                    <br />
-                    <br />
-                    <a class="button"  onclick='$("#af22_content").prepend("<span>Some more content<br /></span>");'>Prepend Content</a>
-                </div>
-                <!-- af> af offset() -->
-                <div id="af31" class="panel" title=".offset()">
                     <script>
-                        function getElementOffset() {
-                            var data = $("#af31").offset();
-                            alert("Top: " + data.top + " - Left: " + data.left);
-                        }
-                    </script>$("#div").offset() - Gets the left and top offset of an element.
-                    <br />
-                    <br />
-                    <a class="button"  onclick='getElementOffset()'>Get Offsett</a>
-                </div>
-                <!-- af> af get(0) -->
-                <div id="af32" class="panel" title=".get(0)">$("#div").get(0) - Get's an individual element by index.
-                    <br />
-                    <br />
-                    <script>
-                        function getElementByIndex() {
-                            var obj = $(".panel").get(0);
-                            alert("This is the first panel = " + obj.id);
+                        function serializeForm() {
+                            alert($("#form").serialize());
                         }
                     </script>
-                    <a class="button"  onclick='getElementByIndex();'>Get first panel</a>
+                </div>
+                
+                <!-- af> af query() -->
+                <div id="afquery" class="panel" title=".query()">
+                    <p>$.query(selector,[context]) - a faster alertnative to $(selector), $.query(selector,[context]) is faster then using $() to find an element using a query selector. $() has a lot of logic to handle finding elements, turning arrays/objects into a collection, etc</p>
+                    <br>
+                    <br>
+                    <code>
+				        &lt;div id=&quot;queryTest&quot;&gt;foo&lt;/div&gt;
+                    </code>
+                    <div id="queryTest" style="display:none">foo</div>
+                    <br>
+                    <br>
+                    <a class="button" onclick="doQuery()">$.query('queryTest').html()</a>
+                    <script>
+                        function doQuery(){
+                            alert($.query('#queryTest').html());
+                        }
+                    </script>
+                </div>
+                <!-- af> af each() -->
+                <div id="afeach" class="panel" title=".each()">
+                    <p>$.each(elements, callback) - Iterates through elements and executes a callback. Returns if false.</p>
+                    <br>
+                    <br>
+                    <code>
+				        var array = [1, 2, 3, 4];<br>
+                        var sum = 0;<br>
+                        $.each(array ,function(index, value){ sum += value; });<br>
+                        alert(sum);
+                    </code>
+                    <script>
+                        function doEach() {
+                            var array = [1, 2, 3, 4];
+                            var sum = 0;
+                            $.each(array ,function(index, value){
+                                sum += value;  
+                            });
+                            alert(sum);
+                        }
+                    </script>
+                    <br>
+                    <a class="button"  onclick="doEach()">Run</a>
+                </div>
+                <!-- af> af map() -->
+                <div id="afmap" class="panel" title=".map()">
+                    <p>$.map(elements, callback) - Iterates through elements and executes a callback. Returns an AF object with the values in the collection.</p>
+                    <br>
+                    <br>
+                    <code>
+				        var array = [1, 2, 3, 4];<br>
+                        var sum = 0;<br>
+                        var map = $.map(array ,function(index, value){ return (value * value); });<br>
+                        alert(JSON.stringify(map));
+                    </code>
+                    <script>
+                        function doMap() {
+                            var array = [1, 2, 3, 4];
+                            var sum = 0;
+                            var map = $.map(array ,function(index, value){
+                                return (value * value);  
+                            });
+                            alert(JSON.stringify(map));
+                        }
+                    </script>
+                    <br>
+                    <a class="button"  onclick="doMap()">Run</a>
+                </div>
+                <!-- af> af proxy() -->
+                <div id="afproxy" class="panel" title=".proxy()">
+                    <p>$.proxy(callback, context) - Creates a proxy function so you can change the 'this' context in the function. There are times where you want "this" to be something other then the object that the event or function is dispatched on.</p>
+                    <br>
+                    <br>
+                    <code>
+				        var obj = {foo:"bar"};<br>
+                        $("#proxyButton").bind("click", $.proxy(function(){alert(this.foo);}, obj));
+                    </code>
+                    <br>
+                    <br>
+                    <a class="button" id="proxyButton">proxyButton</a>
+                    <script>
+                        var proxyObj = {foo:"bar"};
+                        $("#proxyButton").bind("click", $.proxy(function(){alert(this.foo);}, proxyObj));
+                    </script>
                 </div>
                 <!-- af> af jsonP() -->
-                <div id="af23" class="panel" title=".jsonP()">$.jsonP(url:"URL", success:function(){}, timeout:"1000", error:function(){} ) - makes a jsonP call for cross domain scripting
+                <div id="af23" class="panel" title=".jsonP()">
+                    <p>$.jsonP(url:"URL", success:function(){}, timeout:"1000", error:function(){} ) - makes a jsonP call for cross domain scripting</p>
                     <br />
                     <br />
                     <div id="af23_content" style="border:1px solid black;">This will get updated with content from the jsonP call</div>
@@ -611,7 +738,8 @@
                     <a class="button"  onclick="$.jsonP({url:'http://jsfiddle.net/echo/jsonp/?foo=bar&callback=?',success:function(data){$('#af23_content').html(JSON.stringify(data))}});">Make jsonP call</a>
                 </div>
                 <!-- af> af ajax() -->
-                <div id="af24" class="panel" title=".ajax()">$.ajax(url:"URL", success:function(){}, timeout:"1000", error:function(){} ) - makes an Ajax call
+                <div id="af24" class="panel" title=".ajax()">
+                    <p>$.ajax(url:"URL", success:function(){}, timeout:"1000", error:function(){} ) - makes an Ajax call</p>
                     <br />
                     <br />
                     <script type="text/javascript">
@@ -651,7 +779,8 @@
                     <a class="button"  onclick="doAjax3()">Make AJAX Call POST</a>
                 </div>
                 <!-- af> af get() -->
-                <div id="af25" class="panel" title=".get()">$.get(url:"URL", success:function(){}, timeout:"1000", error:function(){} ) - makes an Ajax call
+                <div id="af25" class="panel" title=".get()">
+                    <p>$.get(url:"URL", success:function(){}, timeout:"1000", error:function(){} ) - makes an Ajax call</p>
                     <br />
                     <br />
                     <script type="text/javascript">
@@ -667,7 +796,8 @@
                     <a class="button"  onclick="doget()">Make Get Call</a>
                 </div>
                 <!-- af> af post() -->
-                <div id="af26" class="panel" title=".post()">$.post(url,data:{foo:"bar"}, success:function(){}, timeout:"1000",error: function(){} ) - makes an Ajax call
+                <div id="af26" class="panel" title=".post()">
+                    <p>$.post(url,data:{foo:"bar"}, success:function(){}, timeout:"1000",error: function(){} ) - makes an Ajax call</p>
                     <br />
                     <br />
                     <script type="text/javascript">
@@ -685,7 +815,8 @@
                     <a class="button"  onclick="doPost()">Make Post Call</a>
                 </div>
                 <!-- af> af getJSON() -->
-                <div id="af27" class="panel" title=".getJSON()">$.getJSON(url,data,success); - Makes a XMLHpttRequest GET request and returns a JSON object.
+                <div id="af27" class="panel" title=".getJSON()">
+                    <p>$.getJSON(url,data,success); - Makes a XMLHpttRequest GET request and returns a JSON object.</p>
                     <br />
                     <br />
                     <script>
@@ -720,8 +851,9 @@
                     <br />
                     <a class="button"  onclick="doJSON4()">Get JSONP without Access-Control-Allow-Origin header</a>
                 </div>
-                <!-- af> af serialize() -->
-                <div id="af28" class="panel" title=".param()">$.param() - serializes an object into key/value pairs for a querystring.
+                <!-- af> af param() -->
+                <div id="afparam" class="panel" title=".param()">
+                    <p>$.param(object) - Converts an object into a key/value pair with an optional prefix. Used for converting objects to a query string.</p>
                     <br />
                     <br />
                     <code>
@@ -729,22 +861,41 @@
                     </code>
                     <br />
                     <br />
+                    <a class="button"  onclick="doParam()">$.param( obj )</a>
                     <script>
-                        function doSerialize() {
+                        function doParam() {
                             var obj = {
                                 foo: "foo",
                                 bar: "bar"
                             };
-                            $("#af28_content").html($.param(obj));
+                            alert($.param(obj));
                         }
                     </script>
-                    <div id="af28_content" style="border:1px solid black">Serialized parameters will show here.</div>
+                </div>
+                <!-- af> af extend() -->
+                <div id="afextend" class="panel" title=".extend()">
+                    <p>$.extend(target, {params}) - Extends an object with additional arguments.</p>
                     <br />
                     <br />
-                    <a class="button"  onclick="doSerialize()">Make param Call</a>
+                    <code>
+				        var obj1 = {foo:"foo"};<br>
+                        var obj2 = {bar:"bar"};
+                    </code>
+                    <br />
+                    <br />
+                    <a class="button"  onclick="doExtend();">$.extend( obj1, obj2 )<br>JSON.stringify( obj1 )</a>
+                    <script>
+                        function doExtend() {
+				            var obj1 = {foo:"foo"};
+                            var obj2 = {bar:"bar"};
+                            $.extend(obj1, obj2);
+                            alert(JSON.stringify(obj1));
+                        }
+                    </script>
                 </div>
                 <!-- af> af parseJSON() -->
-                <div id="af29" class="panel" title=".parseJSON()">$.parseJSON() - parses a string and converts it into a JSON object. Uses the native JSON parser, but is added for backwards compatibility.
+                <div id="af29" class="panel" title=".parseJSON()">
+                    <p>$.parseJSON() - parses a string and converts it into a JSON object. Uses the native JSON parser, but is added for backwards compatibility.</p>
                     <br>
                     <br>
                     <code>
@@ -757,7 +908,41 @@
                         }
                     </script>
                     <br>
-                    <a class="button"  onclick="doParseJson()">Parse JSON string</a>
+                    <a class="button"  onclick="doParseJson()">$.parseJSON( obj )</a>
+                </div>
+                <!-- af> af parseXML() -->
+                <div id="afparseXML" class="panel" title=".parseXML()">
+                    <p>$.parseXML() - parses a string and converts it into a XML object.</p>
+                    <br>
+                    <br>
+                    <code>
+				        var obj='&lt;xml&gt;&lt;foo&gt;bar&lt;/foo&gt;&lt;/xml&gt;';
+                    </code>
+                    <script>
+                        function doParseXML() {
+                            var obj = '<xml><foo>bar</foo></xml>';
+                            alert($.parseXML(obj));
+                        }
+                    </script>
+                    <br>
+                    <a class="button"  onclick="doParseXML()">Parse XML string</a>
+                </div>
+                <!-- af> af parseJS() -->
+                <div id="afparseJS" class="panel" title=".parseJS()">
+                    <p>$.parseJS() - this function executes javascript in HTML.</p>
+                    <br>
+                    <br>
+                    <code>
+				        var str = "&lt;script&gt;alert('hi')&lt;"+"/script&gt;";
+                    </code>
+                    <script>
+                        function doParseJS() {
+                            var str = "<script>alert('hi')<"+"/script>";
+                            $.parseJS(str);
+                        }
+                    </script>
+                    <br>
+                    <a class="button"  onclick="doParseJS()">$.parseJS( str )</a>
                 </div>
                 <!-- af> os -->
                 <div id="af30" class="panel" title=".os">
@@ -777,53 +962,45 @@
                     </div>
                 </div>
                 <!-- af> isArray -->
-                <div id="af33" class="panel" title=".isArray()">
+                <div id="afisArray" class="panel" title=".isArray()">
                     <p>$.isArray(param) - returns a boolean if the parameter is an array.</p>
                     <br>
                     <div class="samplecode">
-                        var notArrayTest="foo";<br>
-                        var isArrayTest=[];
+                        $.isArray(param)
                     </div>
-                    <script>
-                        var notArrayTest = "foo";
-                        var isArrayTest = [];
-                        function isNotAnArray() {
-                            alert($.isArray(notArrayTest));
-                        }
-                        function isAnArray() {
-                            alert($.isArray(isArrayTest));
-                        }
-                    </script>
                     <br>
-                    <a class="button"  onclick="isNotAnArray()">test notArrayTest</a>
+                    <a class="button"  onclick='alert($.isArray("foo"));'>$.isArray( "foo" )</a>
                     <br>
-                    <a class="button"  onclick="isAnArray()">test isArrayTest</a>
+                    <a class="button"  onclick='alert($.isArray(["foo", "bar"]));'>$.isArray( ["foo", "bar"] )</a>
+                    <br>
+                </div>
+                <!-- af> isObject -->
+                <div id="afisObject" class="panel" title=".isObject()">
+                    <p>$.isObject(param) - returns a boolean if the parameter is a object.</p>
+                    <br>
+                    <div class="samplecode">
+                        $.isObject(param)
+                    </div>
+                    <br>
+                    <a class="button"  onclick='alert($.isObject("foo"));'>$.isObject( "foo" )</a>
+                    <br>
+                    <a class="button"  onclick='alert($.isObject({foo:"bar"}));'>$.isObject( {foo:"bar"} )</a>
                     <br>
                 </div>
                 <!-- af> isFunction -->
-                <div id="af34" class="panel" title=".isFunction()">
+                <div id="afisFunction" class="panel" title=".isFunction()">
                     <p>$.isFunction(param) - returns a boolean if the parameter is a function.</p>
                     <br>
                     <div class="samplecode">
-                        var notFunctionTest="foo";<br>
-                        var isFunctionTest=function(){};
+                        $.isFunction(param)
                     </div>
-                    <script>
-                        var notFunctionTest = "foo";
-                        var isFunctionTest = [];
-                        function notAFunction() {
-                            alert($.isArray(notFunctionTest));
-                        }
-                        function isAFunction() {
-                            alert($.isArray(isFunctionTest));
-                        }
-                    </script>
                     <br>
-                    <a class="button"  onclick="notAFunction()">test notFunctionTest</a>
+                    <a class="button"  onclick='alert($.isFunction("foo"));'>$.isFunction( "foo" )</a>
                     <br>
-                    <a class="button"  onclick="isAFunction()">test isFunctionTest</a>
+                    <a class="button"  onclick='alert($.isFunction(function(){}));'>$.isFunction( function(){} )</a>
                     <br>
                 </div>
+                
                 <div id="afparent" class="panel" title=".parent()">
                     <p>This returns the parent elements for the previously found elements in the container</p>	
                     <div class="samplecode">
