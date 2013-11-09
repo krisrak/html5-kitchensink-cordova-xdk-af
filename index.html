@@ -753,7 +753,7 @@
                         }
                         function doAjax2() {
                             $.ajax({
-                                url: 'http://jsfiddle.net/echo/jsonp/?foo=bar',
+                                url: 'http://jsfiddle.net/echo/jsonp/?foo=bar&method=GET',
                                 type: 'GET',
                                 success: function (data) {
                                     $('#af24_content').html(data)
@@ -763,7 +763,7 @@
                         function doAjax3() {
                             $.ajax({
                                 url: 'http://jsfiddle.net/echo/json/',
-                                data: {json: '{"foo": "bar"}'},
+                                data: {json: '{"foo": "bar", "method": "POST"}'},
                                 type: 'POST',
                                 success: function (data) {
                                     $('#af24_content').html(data)
@@ -771,7 +771,7 @@
                             });
                         }
                     </script>
-                    <div id="af24_content" style="border:1px solid black;">This will get updated with content from the ajax call</div>
+                    <div id="af24_content" style="border:1px solid black;padding:10px">This will get updated with content from the ajax call</div>
                     <br />
                     <br />
                     <a class="button"  onclick="doAjax()">Make local AJAX Call</a>
@@ -1020,6 +1020,9 @@
                     <p id='AFUI_info'>AppFramework UI is the User Interface/User Experience library for mobile applications. It uses HTML5 and CSS3 for animations and transitions. It provides javascript APIs to control the UI elements. It also provides vector icons and native looking UI themes for iOS, Android, Windows Phone and Blackberry.
                     </p>
                     <ul class="list">
+                        <li><a href="#uiapi" class="icon js" id="uiapilink">AppFramework UI APIs</a></li>  
+                        <li><a href="#uiprop" class="icon js" id="uiproplink">AppFramework UI Properties</a></li>
+                        <li class="divider">Demos</li>
                         <li><a href="#aftransitions">Transitions</a></li>
                         <li><a href="#afforms">Form Styles</a></li>
                         <li><a href="#afgrid">Grid System</a></li>
@@ -1029,11 +1032,8 @@
                         <li><a href="#uifooter">Footer Controls</a></li>
                         <li><a href="#uiside">Side Menu Controls</a></li>
                         <li><a href="#uiicons">Vector Icons</a></li>
-                        <li><a href="ajax.html" data-persist-ajax="true" data-refresh-ajax="true" title="Remote Page" data-pull-scroller="true">Load External Content</a></li>
-                        <li><a href="http://www.intel.com" target="_blank">Open a new page</a></li>
-                        <li><a href="#uidefer">Defer loading</a></li>
-                        <li><a href="#uiapi" class="icon js" id="uiapilink">AppFramework UI APIs</a></li>  
-                        <li><a href="#uiprop" class="icon js" id="uiproplink">AppFramework UI Properties</a></li> 
+                        <li><a href="ajax.html" data-persist-ajax="true" data-refresh-ajax="true" title="Remote Page">Load External Content</a></li>
+                        <li><a href="#uidefer">Defer loading</a></li> 
                     </ul>
                     <a class="button icon folder block" onclick="window.open('http://app-framework-software.intel.com/api2/#af_ui', '_blank', 'location=yes');">Full Documentation</a>
                 </div>
