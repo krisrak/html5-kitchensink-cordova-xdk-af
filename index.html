@@ -60,7 +60,11 @@
                 if(search=="win8")
                     $.os.ie=true;
                 $.ui.ready(function(){
-                    $("#afui").get(0).className=search;
+                    if(search.indexOf("-light") !== -1){
+                        $("#afui").get(0).className = search.replace("-", " ");
+                    } else {   
+                        $("#afui").get(0).className = search;
+                    }
                 });
             }
             /* add a new 'light' theme for android and windows*/
@@ -202,8 +206,10 @@
                     <li><a href="index.html?default" data-ignore="true">Default theme</a></li>
                     <li><a href="index.html?ios" data-ignore="true">iOS theme (iOS6 and previous)</a></li>
                     <li><a href="index.html?ios7" data-ignore="true">iOS 7 theme</a></li>
-                    <li><a href="index.html?android" data-ignore="true">Android theme</a></li>
-                    <li><a href="index.html?win8" data-ignore="true">Windows Phone 8 theme</a></li>
+                    <li><a href="index.html?android" data-ignore="true">Android dark theme</a></li>
+                    <li><a href="index.html?android-light" data-ignore="true">Android light theme</a></li>
+                    <li><a href="index.html?win8" data-ignore="true">Windows Phone 8 dark theme</a></li>
+                    <li><a href="index.html?win8-light" data-ignore="true">Windows Phone 8 light theme</a></li>
                     <li><a href="index.html?bb" data-ignore="true">BlackBerry 10 theme</a></li> 
                  <li class="divider">Menus</li>
                     <li><a  onclick="$.ui.toggleHeaderMenu();">Toggle Header</a></li>
@@ -253,8 +259,10 @@
                         <li><a href="index.html?default" data-ignore="true">Default theme</a></li>
                         <li><a href="index.html?ios" data-ignore="true">iOS theme (iOS6 and previous)</a></li>
                         <li><a href="index.html?ios7" data-ignore="true">iOS 7 theme</a></li>
-                        <li><a href="index.html?android" data-ignore="true">Android theme</a></li>
-                        <li><a href="index.html?win8" data-ignore="true">Windows Phone 8 theme</a></li>
+                        <li><a href="index.html?android" data-ignore="true">Android dark theme</a></li>
+                        <li><a href="index.html?android-light" data-ignore="true">Android light theme</a></li>
+                        <li><a href="index.html?win8" data-ignore="true">Windows Phone 8 dark theme</a></li>
+                        <li><a href="index.html?win8-light" data-ignore="true">Windows Phone 8 light theme</a></li>
                         <li><a href="index.html?bb" data-ignore="true">BlackBerry 10 theme</a></li> 
                     </ul>
                 </div>
@@ -350,9 +358,9 @@
                     <a class="button icon folder block" onclick="window.open('http://app-framework-software.intel.com/api2/#appframework', '_blank', 'location=yes');">Full Documentation</a>
                     <br>
                     <p>
-                        <b>appframework.js</b> has all of these features, most of them are similar to jquery library, except the ones marked with <span style="background-color:#484;color:#fff;border-radius:10px;padding:0 6px">!</span>
+                        <b>appframework.js</b> has all of these features, most of them are similar to jquery library, except the ones marked with <span style="background-color:#484;color:#fff;border-radius:10px;padding:0 6px">!</span> are unique feature of appframework.
                         <br><br>
-                        If you wish to use the jQuery library, then you can use the <b>jq.appframework.js</b> plugin to get only the uniques features of appframework to work on top of jQuery. 
+                        If you wish to use the <b>jQuery</b> library, then you can use the <b>jq.appframework.js</b> plugin to get only the uniques features of appframework to work on top of jQuery. 
                     </p>
                 </div>
                 
@@ -1467,8 +1475,10 @@
                         <li><a href="index.html?default" data-ignore="true">Default theme</a></li>
                         <li><a href="index.html?ios" data-ignore="true">iOS theme (iOS6 and previous)</a></li>
                         <li><a href="index.html?ios7" data-ignore="true">iOS 7 theme</a></li>
-                        <li><a href="index.html?android" data-ignore="true">Android theme</a></li>
-                        <li><a href="index.html?win8" data-ignore="true">Windows Phone 8 theme</a></li>
+                        <li><a href="index.html?android" data-ignore="true">Android dark theme</a></li>
+                        <li><a href="index.html?android-light" data-ignore="true">Android light theme</a></li>
+                        <li><a href="index.html?win8" data-ignore="true">Windows Phone 8 dark theme</a></li>
+                        <li><a href="index.html?win8-light" data-ignore="true">Windows Phone 8 light theme</a></li>
                         <li><a href="index.html?bb" data-ignore="true">BlackBerry 10 theme</a></li>  
                     </ul>
                 </div>
