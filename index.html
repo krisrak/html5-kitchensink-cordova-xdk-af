@@ -66,9 +66,10 @@
             /* add a new 'light' theme for android and windows*/
             if($.os.android||$.os.ie||search=="android"){
                 $.ui.ready(function(){
-                    $("#main .list").append("<li><a id='toggleAndroidTheme'>Toggle Theme Color</a></li>");
+                    $("#main .list").append("<li><a class='toggleLightDarkTheme' href='#'>Toggle Light/Dark Themes</a></li>");
+                    $("#uithemes .list").append("<li><a class='toggleLightDarkTheme' href='#'>Toggle Light/Dark Themes</a></li>");
                     var $el=$("#afui");
-                    $("#toggleAndroidTheme").bind("click",function(e){
+                    $(".toggleLightDarkTheme").bind("click",function(e){
                         if($el.hasClass("light"))
                             $el.removeClass("light");
                         else
@@ -109,15 +110,15 @@
                 //hide splash screen
                 intel.xdk.device.hideSplashScreen();
                 
-                document.addEventListener("device.pause", function(){incrementBadge("#xdkEvent_pause");}, false);
-                document.addEventListener("device.resume", function(){incrementBadge("#xdkEvent_resume");}, false);
-                document.addEventListener("device.continue", function(){incrementBadge("#xdkEvent_continue");}, false);
-                document.addEventListener("device.suspend", function(){incrementBadge("#xdkEvent_suspend");}, false);
-                document.addEventListener("device.remote.data", function(){incrementBadge("#xdkEvent_remotedata");}, false);
-                document.addEventListener("device.remote.close", function(){incrementBadge("#xdkEvent_remoteclose");}, false);
-                document.addEventListener("device.remote.block", function(){incrementBadge("#xdkEvent_remoteblock");}, false);
-                document.addEventListener("device.hardware.back", function(){incrementBadge("#xdkEvent_hardwareback");}, false);
-                document.addEventListener("device.orientation.change", function(){incrementBadge("#xdkEvent_orientationchange");}, false);
+                document.addEventListener("intel.xdk.device.pause", function(){incrementBadge("#xdkEvent_pause");}, false);
+                document.addEventListener("intel.xdk.device.resume", function(){incrementBadge("#xdkEvent_resume");}, false);
+                document.addEventListener("intel.xdk.device.continue", function(){incrementBadge("#xdkEvent_continue");}, false);
+                document.addEventListener("intel.xdk.device.suspend", function(){incrementBadge("#xdkEvent_suspend");}, false);
+                document.addEventListener("intel.xdk.device.remote.data", function(){incrementBadge("#xdkEvent_remotedata");}, false);
+                document.addEventListener("intel.xdk.device.remote.close", function(){incrementBadge("#xdkEvent_remoteclose");}, false);
+                document.addEventListener("intel.xdk.device.remote.block", function(){incrementBadge("#xdkEvent_remoteblock");}, false);
+                document.addEventListener("intel.xdk.device.hardware.back", function(){incrementBadge("#xdkEvent_hardwareback");}, false);
+                document.addEventListener("intel.xdk.device.orientation.change", function(){incrementBadge("#xdkEvent_orientationchange");}, false);
             };
             
             /* This code is used to run as soon as cordova activates */
@@ -179,6 +180,8 @@
            .grid > div {
                 border:1px dashed black;
            }
+            .redColor{background-color:#d99}
+            .blueColor{background-color:#99d}
         </style>
     </head>
     <body>
@@ -195,38 +198,19 @@
             <nav id="default_sidemenu">
                 <ul class="list">
                  <li class="divider">UI Themes</li>    
-                    <li>
-                        <a href="index.html" data-ignore="true">Default theme</a>
-                    </li>
-                     <li>
-                        <a href="index.html?ios" data-ignore="true">iOS theme</a>
-                    </li>
-                    <li>
-                        <a href="index.html?android" data-ignore="true">Android theme</a>
-                    </li>
-                    <li>
-                        <a href="index.html?win8" data-ignore="true">Win8 theme</a>
-                    </li>
-                    <li>
-                        <a href="index.html?bb" data-ignore="true">BB10 theme</a>
-                    </li>
-                    <li>
-                        <a href="index.html?ios7" data-ignore="true">iOS7 theme</a>
-                    </li>                    
+                    <li><a href="index.html" data-ignore="true">Auto detect theme</a></li>
+                    <li><a href="index.html?default" data-ignore="true">Default theme</a></li>
+                    <li><a href="index.html?ios" data-ignore="true">iOS theme (iOS6 and previous)</a></li>
+                    <li><a href="index.html?ios7" data-ignore="true">iOS 7 theme</a></li>
+                    <li><a href="index.html?android" data-ignore="true">Android theme</a></li>
+                    <li><a href="index.html?win8" data-ignore="true">Windows Phone 8 theme</a></li>
+                    <li><a href="index.html?bb" data-ignore="true">BlackBerry 10 theme</a></li> 
                  <li class="divider">Menus</li>
-                    <li>
-                        <a  onclick="$.ui.toggleHeaderMenu();">Toggle Header</a>
-                    </li>
-                    <li>
-                        <a  onclick="$.ui.toggleSideMenu()">Toggle Sidebar</a>
-                    </li>
-                    <li>
-                        <a  onclick="$.ui.toggleNavMenu()">Toggle Footer</a>
-                    </li>
+                    <li><a  onclick="$.ui.toggleHeaderMenu();">Toggle Header</a></li>
+                    <li><a  onclick="$.ui.toggleSideMenu()">Toggle Sidebar</a></li>
+                    <li><a  onclick="$.ui.toggleNavMenu()">Toggle Footer</a></li>
                  <li class="divider">Kitchen Sink</li>
-                    <li>
-                        <a href="index.html" data-ignore="true">Reset App</a>
-                    </li>                    
+                    <li><a href="index.html" data-ignore="true">Reset App</a></li>                    
                 </ul>
             </nav>
             <!-- custom header -->
@@ -259,42 +243,19 @@
                     <h2 class='expanded' onclick='showHide(this,"main_info");'>Kitchen Sink</h2>
                     <p id='main_info'>Welcome to the kitchen sink demo for App Framework, intel.xdk APIs and Cordova APIs. Here you will find sample code, demo and some documentation. Please select an option from below.</p>
                     <ul class="list inset">
-                        <li class="divider">
-                           Documentation / Demos
-                        </li>
-                        <li class='red'>
-                            <a href="#af" id='aflink' class='icon target big' data-transition="fade">App Framework</a>
-                        </li>
-                        <li class="blue">
-                            <a href="#afuidemo" id='afuilink' class='icon picture big' data-transition="fade">App Framework UI</a>
-                        </li>
-                        <li class="green">
-                            <a href="#afweb" id='pluginlink' class='icon key big' data-transition="fade">App Framework Plugins</a>
-                        </li>
-                        <li class="yellow">
-                            <a href="#deviceapi" id='devicelink' class='icon camera big' data-transition="fade">Device APIs</a>
-                        </li>
-                        <li class="divider">
-                           Switch App Framework UI Themes
-                        </li>
-                        <li>
-                            <a href="index.html" data-ignore="true">Default theme</a>
-                        </li>
-                         <li>
-                            <a href="index.html?ios" data-ignore="true">iOS theme</a>
-                        </li>
-                        <li>
-                            <a href="index.html?android" data-ignore="true">Android theme</a>
-                        </li>
-                        <li>
-                            <a href="index.html?win8" data-ignore="true">Win8 theme</a>
-                        </li>
-                        <li>
-                            <a href="index.html?bb" data-ignore="true">BB10 theme</a>
-                        </li>
-                        <li>
-                            <a href="index.html?ios7" data-ignore="true">iOS7 theme</a>
-                        </li>
+                        <li class="divider">Documentation / Demos</li>
+                        <li class='red'><a href="#af" id='aflink' class='icon target big' data-transition="fade">App Framework</a></li>
+                        <li class="blue"><a href="#afuidemo" id='afuilink' class='icon picture big' data-transition="fade">App Framework UI</a></li>
+                        <li class="green"><a href="#afweb" id='pluginlink' class='icon key big' data-transition="fade">App Framework Plugins</a></li>
+                        <li class="yellow"><a href="#deviceapi" id='devicelink' class='icon camera big' data-transition="fade">Device APIs</a></li>
+                        <li class="divider">Switch App Framework UI Themes</li>
+                        <li><a href="index.html" data-ignore="true">Auto detect theme</a></li>
+                        <li><a href="index.html?default" data-ignore="true">Default theme</a></li>
+                        <li><a href="index.html?ios" data-ignore="true">iOS theme (iOS6 and previous)</a></li>
+                        <li><a href="index.html?ios7" data-ignore="true">iOS 7 theme</a></li>
+                        <li><a href="index.html?android" data-ignore="true">Android theme</a></li>
+                        <li><a href="index.html?win8" data-ignore="true">Windows Phone 8 theme</a></li>
+                        <li><a href="index.html?bb" data-ignore="true">BlackBerry 10 theme</a></li> 
                     </ul>
                 </div>
 
@@ -310,14 +271,21 @@
                         <li><a href="#af4">$().html()</a></li>
                         <li><a href="#af5">$().text()</a></li>
                         <li><a href="#af6">$().css()</a></li>
+                        <li><a href="#af2">$().length()</a></li>
                         <li><a href="#af14">$().remove()</a></li>
                         <li><a href="#af7">$().empty()</a></li>
                         <li><a href="#af21">$().append()</a></li>
                         <li><a href="#af22">$().prepend()</a></li>
+                        <li><a href="#afinsertafter">$().insertAfter()</a></li>
+                        <li><a href="#afinsertbefore">$().insertBefore()</a></li>
                         <li><a href="#af3">$().find()</a></li>
-                        <li><a href="#afparent">$().parent()</a></li>
-                        <li><a href="#af2">$().length()</a></li>
                         <li><a href="#af32">$().get()</a></li>
+                        <li><a href="#afparent">$().parent()</a></li>
+                        <li><a href="#afchildren">$().children()</a></li>
+                        <li><a href="#afsiblings">$().siblings()</a></li>
+                        <li><a href="#afclosest">$().closest()</a></li>
+                        <li><a href="#affilter">$().filter()</a></li>
+                        <li><a href="#afnot">$().not()</a></li>
                         <li><a href="#af8">$().hide()</a></li>
                         <li><a href="#af9">$().show()</a></li>
                         <li><a href="#af10">$().toggle()</a></li>
@@ -326,30 +294,38 @@
                         <li><a href="#af13">$().removeAttr()</a></li>
                         <li><a href="#af15">$().addClass()</a></li>
                         <li><a href="#af16">$().removeClass()</a></li>
+                        <li><a href="#afreplaceClass">$().replaceClass()<span class="af-badge" style="background-color:#4a4">!</span></a></li>
+                        <li><a href="#aftoggleClass">$().toggleClass()</a></li>
                         <li><a href="#af17">$().hasClass()</a></li>
-                        <li><a href="#af18">$().bind()</a></li>
-                        <li><a href="#af19">$().unbind()</a></li>
-                        <li><a href="#af20">$().trigger()</a></li>
-                        <li><a href="#af31">$().offset()</a></li>
+                        <li><a href="#afon">$().on()</a></li>
+                        <li><a href="#afoff">$().off()</a></li>
+                        <li><a href="#afbind">$().bind()</a></li>
+                        <li><a href="#afunbind">$().unbind()</a></li>
+                        <li><a href="#afone">$().one()</a></li>
+                        <li><a href="#aftrigger">$().trigger()</a></li>
+                        <li><a href="#afwidth">$().width()</a></li>
+                        <li><a href="#afheight">$().height()</a></li>
+                        <li><a href="#afoffset">$().offset()</a></li>
                         <li><a href="#afserialize">$().serialize()</a></li>
-                        <li><a href="#afquery">$.query()</a></li>
+                        <li><a href="#afquery">$.query()<span class="af-badge" style="background-color:#4a4">!</span></a></li>
+                        <li><a href="#afcreate">$.create()<span class="af-badge" style="background-color:#4a4">!</span></a></li>
                         <li><a href="#afeach">$.each()</a></li>
                         <li><a href="#afmap">$.map()</a></li>
                         <li><a href="#afproxy">$.proxy()</a></li>
                         <li><a href="#afisArray">$.isArray()</a></li>
-                        <li><a href="#afisObject">$.isObject()</a></li>
+                        <li><a href="#afisObject">$.isObject()<span class="af-badge" style="background-color:#4a4">!</span></a></li>
                         <li><a href="#afisFunction">$.isFunction()</a></li>
                         <li><a href="#af24">$.ajax()</a></li>
                         <li><a href="#af25">$.get()</a></li>
                         <li><a href="#af26">$.post()</a></li>
                         <li><a href="#af27">$.getJSON()</a></li>
-                        <li><a href="#af23">$.jsonP()</a></li>
+                        <li><a href="#af23">$.jsonP()<span class="af-badge" style="background-color:#4a4">!</span></a></li>
                         <li><a href="#af29">$.parseJSON()</a></li>
                         <li><a href="#afparseXML">$.parseXML()</a></li>
-                        <li><a href="#afparseJS">$.parseJS()</a></li>
+                        <li><a href="#afparseJS">$.parseJS()<span class="af-badge" style="background-color:#4a4">!</span></a></li>
                         <li><a href="#afparam">$.param()</a></li>
                         <li><a href="#afextend">$.extend()</a></li>
-                        <li><a href="#af30">$.os</a></li>
+                        <li><a href="#af30">$.os<span class="af-badge" style="background-color:#4a4">!</span></a></li>
                     </ul>
                     <a class="button icon folder block" onclick="window.open('http://app-framework-software.intel.com/api2/#appframework', '_blank', 'location=yes');">Full Documentation</a>
                 </div>
@@ -517,19 +493,37 @@
                     <p>$().addClass() - adds a css class to the element.</p>
                     <br />
                     <br />
-                    <div style='border:1px solid black' id="af15_content">This is some content</div>
+                    <div style='border:1px solid black;padding:5px' id="af15_content">This is some content</div>
                     <br />
                     <br />
-                    <a class="button"  onclick='($("#af15_content").addClass("class16"))'>Add a Class</a>
+                    <a class="button"  onclick='($("#af15_content").addClass("redColor"))'>Add a Class</a>
                 </div>
                 <!-- af> af removeClass() -->
                 <div id="af16" class="panel" title=".removeClass()">
                     <p>$().removeClass() - removes a css class to the element.</p>
                     <br />
                     <br />
-                    <div style='border:1px solid black' id="af16_content" class="class16">This is some content</div>
+                    <div style='border:1px solid black;padding:5px' id="af16_content" class="redColor">This is some content</div>
                     <br />
-                    <a class="button"  onclick='($("#af16_content").removeClass("class16"))'>Remove the Class</a>
+                    <a class="button"  onclick='($("#af16_content").removeClass("redColor"))'>Remove the Class</a>
+                </div>
+                <!-- af> af replaceClass() -->
+                <div id="afreplaceClass" class="panel" title=".replaceClass()">
+                    <p>$().replaceClass() - replaces a css class with another class to the element.</p>
+                    <br />
+                    <br />
+                    <div style='border:1px solid black;padding:5px' id="replaceClass" class="redColor">This is some content</div>
+                    <br />
+                    <a class="button"  onclick='($("#replaceClass").replaceClass("redColor","blueColor"))'>Replace Class</a>
+                </div>
+                <!-- af> af toggleClass() -->
+                <div id="aftoggleClass" class="panel" title=".toggleClass()">
+                    <p>$().toggleClass() - toggles a css class to the element.</p>
+                    <br />
+                    <br />
+                    <div style='border:1px solid black;padding:5px' id="toggleClass" class="redColor">This is some content</div>
+                    <br />
+                    <a class="button"  onclick='($("#toggleClass").toggleClass("redColor"))'>Remove the Class</a>
                 </div>
                 <!-- af> af hassClass() -->
                 <div id="af17" class="panel" title=".hasClass()">
@@ -540,38 +534,78 @@
                     <br />
                     <a class="button"  onclick='alert($("#af17_content").hasClass("class16"))'>Check if it has the class</a>
                 </div>
+                <!-- af> af on() -->
+                <div id="afon" class="panel" title=".on()">
+                    <p>$().on() - attaches an event handler to an element.</p>
+                    <br />
+                    <br />
+                    <p>Below is a button without click handler, attach click handler and then test the button.</p>
+                    <a class="button"  id="afon_content">Test Button</a>
+                    <br />
+                    <br />
+                    <a class="button"  onclick='$("#afon_content").on("click",function(evt){alert("I was clicked");});alert("click event is attached");'>Attach click event</a>
+                    <br />
+                </div>
+                <!-- af> af off() -->
+                <div id="afoff" class="panel" title=".off()">
+                    <p>$().off() - removes an event handler to an element.</p>
+                    <br />
+                    <br />
+                    <p>Below is a button without click handler, attach click handler and then test the button, then remove the click handler and test button.</p>
+                    <a class="button"  id="afoff_content">Test Button</a>
+                    <br />
+                    <br />
+                    <a class="button"  onclick='$("#afoff_content").bind("click",function(){alert("I was clicked");});alert("click event is attached");'>Attach click event</a>
+                    <br />
+                    <a class="button"  onclick='$("#afoff_content").off("click")'>Remove click Event</a>
+                </div>
                 <!-- af> af bind() -->
-                <div id="af18" class="panel" title=".bind()">
-                    <p>$().bind() - binds an event to an element.</p>
+                <div id="afbind" class="panel" title=".bind()">
+                    <p>$().bind() - attaches an event handler to an element that already exist.</p>
                     <br />
                     <br />
-                    <a class="button"  id="af18_content">Test Link to bind event to</a>
+                    <p>Below is a button without click handler, bind click handler and then test the button.</p>
+                    <a class="button"  id="afbind_content">Test Button</a>
                     <br />
                     <br />
-                    <a class="button"  onclick='$("#af18_content").bind("click",function(evt){alert("I was clicked");});alert("click event is bound");'>Bind Event</a>
+                    <a class="button"  onclick='$("#afbind_content").bind("click",function(evt){alert("I was clicked");});alert("click event is bound");'>Bind Event</a>
                     <br />
                 </div>
                 <!-- af> af unbind() -->
-                <div id="af19" class="panel" title=".unbind()">
-                    <p>$().unbind() - unbinds an event from an element.</p>
+                <div id="afunbind" class="panel" title=".unbind()">
+                    <p>$().unbind() - removes an event handler from an element that already exist.</p>
                     <br />
                     <br />
-                    <a class="button"  id="af19_content">This is a test link</a>
+                    <p>Below is a button without click handler, bind click handler and then test the button, then unbind the click handler and test button.</p>
+                    <a class="button"  id="afunbind_content">This Button</a>
                     <br />
                     <br />
-                    <a class="button"  onclick='$("#af19_content").bind("click",function(){alert("I was clicked");});alert("click event is bound");'>Bind Event</a>
+                    <a class="button"  onclick='$("#afunbind_content").bind("click",function(){alert("I was clicked");});alert("click event is bound");'>Bind Event</a>
                     <br />
-                    <a class="button"  onclick='$("#af19_content").unbind("click")'>Unbind Event</a>
+                    <a class="button"  onclick='$("#afunbind_content").unbind("click")'>Unbind Event</a>
+                </div>
+                <!-- af> af one() -->
+                <div id="afone" class="panel" title=".one()">
+                    <p>$().one() - attaches an event handler to an element and removes it after it has been triggered once.</p>
+                    <br />
+                    <br />
+                    <p>Below is a button, it will work only once after attaching click handler.</p>
+                    <a class="button"  id="afone_content">Test Button</a>
+                    <br />
+                    <br />
+                    <a class="button"  onclick='$("#afone_content").one("click",function(evt){alert("I was clicked");});alert("click event is attached");'>Attach click event</a>
+                    <br />
                 </div>
                 <!-- af> af trigger() -->
-                <div id="af20" class="panel" title=".trigger()">
+                <div id="aftrigger" class="panel" title=".trigger()">
                     <p>$().trigger() - triggers an event on an element.</p>
                     <br />
                     <br />
-                    <a id="af20_content"  onclick="alert('I was clicked')">Click to test me</a>
+                    <p>The click handler for the Test Button on be triggered by clicking any the second button:</p>
+                    <a class="button" id="aftrigger_content"  onclick="alert('Test Button was clicked')">Test Button</a>
                     <br />
                     <br />
-                    <a class="button"  onclick='$("#af20_content").trigger("click")'>Trigger Event</a>
+                    <a class="button"  onclick='$("#aftrigger_content").trigger("click")'>Trigger the click for the above button</a>
                 </div>
                 <!-- af> af append() -->
                 <div id="af21" class="panel" title=".append()">
@@ -596,15 +630,54 @@
                     <br />
                     <a class="button"  onclick='$("#af22_content").prepend("<span>Some more content<br /></span>");'>Prepend Content</a>
                 </div>
+                <!-- af> af insertAfter() -->
+                <div id="afinsertafter" class="panel" title=".insertAfter()">
+                    <p>$().insertAfter() - this will insert the collection after the target</p>
+                    <br />
+                    <br />
+                    <div id="id2">this is #id2</div>
+                    <div id="id1">this is #id1</div>
+                    <br />
+                    <br />
+                    <a class="button"  onclick='$("#id2").insertAfter("#id1");'>$("#id2").insertAfter("#id1")</a>
+                </div>
+                <!-- af> af insertBefore() -->
+                <div id="afinsertbefore" class="panel" title=".insertBefore()">
+                    <p>$().insertBefore() - this will insert the collection before the target</p>
+                    <br />
+                    <br />
+                    <div id="id3">this is #id3</div>
+                    <div id="id4">this is #id4</div>
+                    <br />
+                    <br />
+                    <a class="button"  onclick='$("#id4").insertBefore("#id3");'>$("#id4").insertBefore("#id3")</a>
+                </div>
+                <!-- af> af width() -->
+                <div id="afwidth" class="panel" title=".width()">
+                    <p>$().width() - Gets the Sets width of an element.</p>
+                    <br />
+                    <br />
+                    <a class="button"  onclick='alert($(this).width())'>$(this).width()</a><br />
+                    <a class="button"  onclick='$(this).width(200)'>$(this).width(200)</a>
+                </div>
+                <!-- af> af height() -->
+                <div id="afheight" class="panel" title=".height()">
+                    <p>$().height() - Gets or Sets the height of an element.</p>
+                    <br />
+                    <br />
+                    <a class="button"  onclick='alert($(this).height())'>$(this).height()</a><br />
+                    <a class="button"  onclick='$(this).height(100)'>$(this).height(100)</a>
+                </div>
+                
                 <!-- af> af offset() -->
-                <div id="af31" class="panel" title=".offset()">
+                <div id="afoffset" class="panel" title=".offset()">
                     <p>$().offset() - Gets the left and top offset of an element.</p>
                     <br />
                     <br />
                     <a class="button"  onclick='getElementOffset()'>Get Offsett</a>
                     <script>
                         function getElementOffset() {
-                            var data = $("#af31").offset();
+                            var data = $("#afoffset").offset();
                             alert("Top: " + data.top + " - Left: " + data.left);
                         }
                     </script>
@@ -662,6 +735,23 @@
                         }
                     </script>
                 </div>
+                <!-- af> af create() -->
+                <div id="afcreate" class="panel" title=".create()">
+                    <p>$.create(type,[params]) - a faster alertnative to $("Some text"), $.create allows you to bypass logic inside the $() engine and jump right to element creation.
+                        <br><br>$.create works two ways.
+                        <br>- Parse a string and return the DOM elements (slower)
+                        <br>- Create the element using document.createElement and setting properties (faster)
+                    </p>
+                    <div class="samplecode">
+                        $.create("&lt;div id='test'&gt;Test HTML&lt;/div&gt;");<br>
+                        $.create("div",{id:"test",html:"Test HTML"})
+                    </div>
+                    <br><br>
+                    <a class="button" onclick='$("#afcreate_content").html($.create("div",{id:"create",html:"Test"}))'>$.create("div",{id:"create",html:"Test"})</a><br>
+                    <a class="button" onclick='alert($("#create").html())'>$("#create").html()</a>
+                    <br>
+                    <div id="afcreate_content"></div>
+                </div>
                 <!-- af> af each() -->
                 <div id="afeach" class="panel" title=".each()">
                     <p>$.each(elements, callback) - Iterates through elements and executes a callback. Returns if false.</p>
@@ -696,6 +786,7 @@
                         var sum = 0;<br>
                         var map = $.map(array ,function(index, value){ return (value * value); });<br>
                         alert(JSON.stringify(map));
+                        alert(JSON.ajaxstringify(map));
                     </code>
                     <script>
                         function doMap() {
@@ -1002,6 +1093,46 @@
                 </div>
                 
                 <div id="afparent" class="panel" title=".parent()">
+                    <p>This returns the parent elements for the previously found elements in the container.</p>	
+                    <div class="samplecode">
+                        $(this).parent().html();
+                    </div>
+                    <br>
+                    <p>Get the parent .html() for this button:</p>
+                    <a  onclick="alert($(this).parent().html());" class="button">Get Parent ID</a>
+                </div>
+                
+                <div id="afchildren" class="panel" title=".children()">
+                    <p>This returns the child nodes of the elements based off the selector.</p>	
+                    <div class="samplecode">
+                        $("#afchildren").children().html();
+                    </div>
+                    <br>
+                    <p>The .html() for the children of this panel:</p>
+                    <a  onclick="alert($('#afchildren').children().html());" class="button">Get Children</a>
+                </div>
+                
+                <div id="afsiblings" class="panel" title=".siblings()">
+                    <p>This returns the siblings of the element based off the selector.</p>	
+                    <div class="samplecode">
+                        $(this).siblings().length;
+                    </div>
+                    <br>
+                    <p>Get the siblings count for this button:</p>
+                    <a  onclick="alert($(this).siblings().length);" class="button">Get Siblings count</a>
+                </div>
+                
+                <div id="afclosest" class="panel" title=".closest()">
+                    <p>This returns the closest element based off the selector and optional context.</p>	
+                    <div class="samplecode">
+                        $(this).closest('a').html();
+                    </div>
+                    <br>
+                    <p>Get the closest .html() for this button:</p>
+                    <a  onclick="alert($(this).closest('a').html());" class="button">Get Closest</a>
+                </div>
+                
+                <div id="afnot" class="panel" title=".not()">
                     <p>This returns the parent elements for the previously found elements in the container</p>	
                     <div class="samplecode">
                         $("#afparent").parent();
@@ -1023,20 +1154,34 @@
                         <li><a href="#uiapi" class="icon js" id="uiapilink">AppFramework UI APIs</a></li>  
                         <li><a href="#uiprop" class="icon js" id="uiproplink">AppFramework UI Properties</a></li>
                         <li class="divider">Demos</li>
-                        <li><a href="#aftransitions">Transitions</a></li>
                         <li><a href="#afforms">Form Styles</a></li>
+                        <li><a href="#uibuttons">Buttons</a></li>
                         <li><a href="#afgrid">Grid System</a></li>
                         <li><a href="#uiinsetlist">Inset List</a></li>
-                        <li><a href="#uibuttons">Buttons</a></li>
                         <li><a href="#uiheader">Header Controls</a></li>
                         <li><a href="#uifooter">Footer Controls</a></li>
                         <li><a href="#uiside">Side Menu Controls</a></li>
+                        <li><a href="#aftransitions">Panel Transitions</a></li>
+                        <li><a href="panel.html" data-persist-ajax="true" data-refresh-ajax="true" title="Remote Page">Async panel loading</a></li>
+                        <li><a href="#uidefer">Defer panel loading</a></li> 
                         <li><a href="#uiicons">Vector Icons</a></li>
-                        <li><a href="ajax.html" data-persist-ajax="true" data-refresh-ajax="true" title="Remote Page">Load External Content</a></li>
-                        <li><a href="#uidefer">Defer loading</a></li> 
+                        <li><a href="#uithemes">UI Themes</a></li>
                     </ul>
                     <a class="button icon folder block" onclick="window.open('http://app-framework-software.intel.com/api2/#af_ui', '_blank', 'location=yes');">Full Documentation</a>
                 </div>
+                <div id="uithemes" title="UI Themes" class="panel">
+                    <p>App Framework UI provides 8 different themes, the theme is set automatically by detecting the device and OS. This can be overided by setting the appropriate class for the main "afui" DOM element.</p>
+                    <ul class="list">
+                        <li><a href="index.html" data-ignore="true">Auto detect theme</a></li>
+                        <li><a href="index.html?default" data-ignore="true">Default theme</a></li>
+                        <li><a href="index.html?ios" data-ignore="true">iOS theme (iOS6 and previous)</a></li>
+                        <li><a href="index.html?ios7" data-ignore="true">iOS 7 theme</a></li>
+                        <li><a href="index.html?android" data-ignore="true">Android theme</a></li>
+                        <li><a href="index.html?win8" data-ignore="true">Windows Phone 8 theme</a></li>
+                        <li><a href="index.html?bb" data-ignore="true">BlackBerry 10 theme</a></li>  
+                    </ul>
+                </div>
+                        
                 <div id="uiicons" title="Vector Icons" class="panel">
                     	<h2 class='expanded' onclick='showHide(this,"icons_info");'>Vector Icons</h2>
                     <p id='icons_info'>App Framework UI provides Vector icons to use throughout your app. Simply add the icon class, along with the image class name and additional sizes you want.
@@ -1045,7 +1190,7 @@
                         <br>The default is 1em.
                         <br>
                     </p>
-                    <ul class="list">
+                    <ul class="list inset">
                         <li><a  class="icon home">Home</a></li>
                         <li><a  class="icon home mini">Home Mini</a></li>
                         <li><a  class="icon pencil big">Pencil</a></li>
@@ -2419,12 +2564,12 @@
                         <li><a id="xdkEvent_suspend">intel.xdk.device.suspend</a></li>
                         <li class="divider">misc events</li>
                         <li><a id="xdkEvent_backbutton">intel.xdk.device.hardware.back</a></li>
-                        <li><a id="xdkEvent_orientation">intel.xdk.device.orientation.change</a></li>
+                        <li><a id="xdkEvent_orientationchange">intel.xdk.device.orientation.change</a></li>
                         <li><a id="xdkEvent_barcodescan">intel.xdk.device.barcode.scan</a></li>
                         <li class="divider">remote connection events</li>
-                        <li><a id="xdkEvent_remoteData">intel.xdk.device.remote.data</a></li>
-                        <li><a id="xdkEvent_remoteClose">intel.xdk.device.remote.close</a></li>
-                        <li><a id="xdkEvent_remoteBlock">intel.xdk.device.remote.block</a></li>
+                        <li><a id="xdkEvent_remotedata">intel.xdk.device.remote.data</a></li>
+                        <li><a id="xdkEvent_remoteclose">intel.xdk.device.remote.close</a></li>
+                        <li><a id="xdkEvent_remoteblock">intel.xdk.device.remote.block</a></li>
                         <li><a id="xdkEvent_connectionupdate">intel.xdk.device.connection.update</a></li>
                     </ul>                    
                 </div>
