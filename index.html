@@ -77,7 +77,7 @@
                     });
                 });
             }            
-            
+
             /* init app code */
             var webRoot = "./";
             $.ui.autoLaunch = false;
@@ -271,25 +271,41 @@
                         <li><a href="#af4">$().html()</a></li>
                         <li><a href="#af5">$().text()</a></li>
                         <li><a href="#af6">$().css()</a></li>
+                        <li><a href="#afvendorCss">$().vendorCss()<span class="af-badge" style="background-color:#4a4">!</span></a></li>
+                        <li><a href="#afcomputedStyle">$().computedStyle()<span class="af-badge" style="background-color:#4a4">!</span></a></li>
                         <li><a href="#af2">$().length()</a></li>
+                        <li><a href="#afsize">$().size()</a></li>
+                        <li><a href="#afindex">$().index()</a></li>
+                        <li><a href="#afis">$().is()</a></li>
                         <li><a href="#af14">$().remove()</a></li>
                         <li><a href="#af7">$().empty()</a></li>
                         <li><a href="#af21">$().append()</a></li>
                         <li><a href="#af22">$().prepend()</a></li>
+                        <li><a href="#afappendTo">$().appendTo()</a></li>
+                        <li><a href="#afprependTo">$().prependTo()</a></li>
                         <li><a href="#afinsertafter">$().insertAfter()</a></li>
                         <li><a href="#afinsertbefore">$().insertBefore()</a></li>
+                        <li><a href="#afeach">$().each()</a></li>
+                        <li><a href="#afmap">$().map()</a></li>
                         <li><a href="#af3">$().find()</a></li>
                         <li><a href="#af32">$().get()</a></li>
                         <li><a href="#afparent">$().parent()</a></li>
+                        <li><a href="#afparents">$().parents()</a></li>
                         <li><a href="#afchildren">$().children()</a></li>
                         <li><a href="#afsiblings">$().siblings()</a></li>
                         <li><a href="#afclosest">$().closest()</a></li>
                         <li><a href="#affilter">$().filter()</a></li>
                         <li><a href="#afnot">$().not()</a></li>
+                        <li><a href="#afeq">$().eq()</a></li>
+                        <li><a href="#afend">$().end()</a></li>
+                        <li><a href="#afclone">$().clone()</a></li>
                         <li><a href="#af8">$().hide()</a></li>
                         <li><a href="#af9">$().show()</a></li>
                         <li><a href="#af10">$().toggle()</a></li>
                         <li><a href="#af11">$().val()</a></li>
+                        <li><a href="#afdata">$().data()</a></li>
+                        <li><a href="#afprop">$().prop()</a></li>
+                        <li><a href="#afremoveProp">$().removeProp()</a></li>
                         <li><a href="#af12">$().attr()</a></li>
                         <li><a href="#af13">$().removeAttr()</a></li>
                         <li><a href="#af15">$().addClass()</a></li>
@@ -297,10 +313,12 @@
                         <li><a href="#afreplaceClass">$().replaceClass()<span class="af-badge" style="background-color:#4a4">!</span></a></li>
                         <li><a href="#aftoggleClass">$().toggleClass()</a></li>
                         <li><a href="#af17">$().hasClass()</a></li>
-                        <li><a href="#afon">$().on()</a></li>
-                        <li><a href="#afoff">$().off()</a></li>
                         <li><a href="#afbind">$().bind()</a></li>
                         <li><a href="#afunbind">$().unbind()</a></li>
+                        <li><a href="#afdelegate">$().delegate()</a></li>
+                        <li><a href="#afundelegate">$().undelegate()</a></li>
+                        <li><a href="#afon">$().on()</a></li>
+                        <li><a href="#afoff">$().off()</a></li>
                         <li><a href="#afone">$().one()</a></li>
                         <li><a href="#aftrigger">$().trigger()</a></li>
                         <li><a href="#afwidth">$().width()</a></li>
@@ -309,9 +327,10 @@
                         <li><a href="#afserialize">$().serialize()</a></li>
                         <li><a href="#afquery">$.query()<span class="af-badge" style="background-color:#4a4">!</span></a></li>
                         <li><a href="#afcreate">$.create()<span class="af-badge" style="background-color:#4a4">!</span></a></li>
-                        <li><a href="#afeach">$.each()</a></li>
-                        <li><a href="#afmap">$.map()</a></li>
+                        <li><a href="#afeach_">$.each()</a></li>
+                        <li><a href="#afmap_">$.map()</a></li>
                         <li><a href="#afproxy">$.proxy()</a></li>
+                        <li><a href="#afis_">$.is$()<span class="af-badge" style="background-color:#4a4">!</span></a></li>
                         <li><a href="#afisArray">$.isArray()</a></li>
                         <li><a href="#afisObject">$.isObject()<span class="af-badge" style="background-color:#4a4">!</span></a></li>
                         <li><a href="#afisFunction">$.isFunction()</a></li>
@@ -325,9 +344,16 @@
                         <li><a href="#afparseJS">$.parseJS()<span class="af-badge" style="background-color:#4a4">!</span></a></li>
                         <li><a href="#afparam">$.param()</a></li>
                         <li><a href="#afextend">$.extend()</a></li>
+                        <li><a href="#afuuid">$.uuid<span class="af-badge" style="background-color:#4a4">!</span></a></li>
                         <li><a href="#af30">$.os<span class="af-badge" style="background-color:#4a4">!</span></a></li>
                     </ul>
                     <a class="button icon folder block" onclick="window.open('http://app-framework-software.intel.com/api2/#appframework', '_blank', 'location=yes');">Full Documentation</a>
+                    <br>
+                    <p>
+                        <b>appframework.js</b> has all of these features, most of them are similar to jquery library, except the ones marked with <span style="background-color:#484;color:#fff;border-radius:10px;padding:0 6px">!</span>
+                        <br><br>
+                        If you wish to use the jQuery library, then you can use the <b>jq.appframework.js</b> plugin to get only the uniques features of appframework to work on top of jQuery. 
+                    </p>
                 </div>
                 
                 <!-- af> af Selector -->
@@ -357,20 +383,36 @@
                     <div class='af2'>Div 3 (class="af2")</div>
                     <div class='af4'>Div 4 (class="af4")</div>
                     <br />
-                    <a class="button"  onclick="alert($('.af2').length)">Click to get the Length by classname</a>
+                    <a class="button"  onclick="alert($('#af2 .af2').length)">Click to get the Length by classname = af2</a>
                 </div>
-                <!-- af> af find() -->
-                <div id="af3" class="panel" title=".find()">
-                    <p>$("#div").find("li") find all element(s) inside a container</p>
+                <!-- af> af size() -->
+                <div id="afsize" class="panel" title=".size()">
+                    <p>$().size() - Returns the number of elements in the collection, same as $().length() </p>
+                    <div class='af2'>Div 1 (class="af2")</div>
+                    <div class='af2'>Div 2 (class="af2")</div>
+                    <div class='af2'>Div 3 (class="af2")</div>
+                    <div class='af4'>Div 4 (class="af4")</div>
                     <br />
+                    <a class="button"  onclick="alert($('#afsize .af2').size())">Click to get the Size by classname = af2</a>
+                </div>
+                <!-- af> af index() -->
+                <div id="afindex" class="panel" title=".index()">
+                    <p>$().index() - Returns the index of the selected element in the collection. </p>
+                    <div class='af1'>Div 1 (class="af1")</div>
+                    <div class='af2'>Div 2 (class="af2")</div>
+                    <div class='af3'>Div 3 (class="af3")</div>
+                    <div class='af4'>Div 4 (class="af4")</div>
                     <br />
-                    <ul class="list inset">
-                        <li>Item 1</li>
-                        <li>Item 2</li>
-                    </ul>
-                    <a class="button"  onclick="alert($('#af3').find('li').length)">Click to get the count of li's in this div</a>
+                    <a class="button"  onclick="alert($('#afindex .af3').index())">get index() of classname = af3</a>
+                </div>
+                <!-- af> af is() -->
+                <div id="afis" class="panel" title=".is()">
+                    <p>$().is(selector) - Returns boolean if the object is a type of the selector. </p>
+                    <div class='af1'>Div 1 (class="af1")</div>
+                    <div class='af2'>Div 2 (class="af2")</div>
                     <br />
-                    <br />
+                    <a class="button"  onclick='alert($("#afis div").is(".af2"))'>.is(".af2")</a><br>
+                    <a class="button"  onclick='alert($("#afis div").is(".af3"))'>.is(".af3")</a>
                 </div>
                 <!-- af> af html() -->
                 <div id="af4" class="panel" title=".html()">
@@ -406,6 +448,24 @@
                     <br />
                     <a class="button"  onclick='$("#af6_content").css("background","green")'>Set background color</a>
                 </div>
+                
+                <!-- af> af vendorCss() -->
+                <div id="afvendorCss" class="panel" title=".vendorCss()">
+                    <p>$().vendorCss() - will get or set CSS properties on the DOM nodes with vendor specific prefixes.</p>
+                </div>
+                
+                <!-- af> af computedStyle() -->
+                <div id="afcomputedStyle" class="panel" title=".computedStyle()">
+                    <p>$().computedStyle() - returns the computed style of the element.</p>
+                    <br />
+                    <br />
+                    <div id="afcomputedStyle_content" style="padding:10px;background-color:#faa;width:100%">Test DIV with width:100%</div>   
+                    <br />
+                    <br />
+                    <a class="button"  onclick='alert($("#afcomputedStyle_content").css("width"))'>.css("width")</a><br>
+                    <a class="button"  onclick='alert($("#afcomputedStyle_content").computedStyle("width"))'>.computedStyle("width")</a>
+                </div>
+                
                 <!-- af> af empty() -->
                 <div id="af7" class="panel" title=".empty()">
                     <p>$().empty() - will empty out the contents of the element.</p>
@@ -456,29 +516,63 @@
                     <br />
                     <a class="button"  onclick='($("#af11_input").val("set value"))'>Set Value</a>
                 </div>
+                <!-- af> af data() -->
+                <div id="afdata" class="panel" title=".data()">
+                    <p>$().data() - will get or set the value of an data-* parameters of element.</p>
+                    <br />
+                    <br />
+                    <a class="button"  onclick='($("#afdata_content").data("foo", "bar"));alert("data-foo is set")'>Set .data("foo", "bar")</a>
+                    <br />
+                    <a class="button"  onclick='alert($("#afdata_content").data("foo"))'>Get .data("foo")</a>
+                </div>
                 <!-- af> af attr() -->
                 <div id="af12" class="panel" title=".attr()">
                     <p>$().attr() - will get or set an attribute of an HTML element.</p>
                     <br />
                     <br />
-                    <div id="af12_content" data-test="foo">The data-test attribute is set to "foo" - data-test="foo"</div>
+                    <div id="afattr_content" style="padding:10px;background-color:#fdd">Set and get attribute for this DIV</div>
                     <br />
                     <br />
-                    <a class="button"  onclick='alert($("#af12_content").attr("data-test"))'>Get Attribute Value</a>
-                    <br />
-                    <a class="button"  onclick='($("#af12_content").attr("data-test","bar"))'>Set Attribute Value</a>
+                    <a class="button"  onclick='$("#afattr_content").attr("foo","bar");alert("Set attribute foo=bar")'>Set attribute foo=bar</a><br>
+                    <a class="button"  onclick='alert($("#afattr_content").attr("foo"))'>Get attribute foo</a>
                 </div>
                 <!-- af> af removeAttr() -->
                 <div id="af13" class="panel" title=".removeAttr()">
                     <p>$().removeAttr() - will remove an attribute of an HTML element.</p>
                     <br />
                     <br />
-                    <div id="af13_content" data-test="foo">The data-test attribute is set to "foo" - data-test="foo"</div>
+                    <div id="afremoveAttr_content" style="padding:10px;background-color:#fdd">Set and get attribute for this DIV</div>
                     <br />
-                    <a class="button"  onclick='alert($("#af13_content").attr("data-test"))'>Get Attribute Value</a>
                     <br />
-                    <a class="button"  onclick='($("#af13_content").removeAttr("data-test"))'>Remove Attribute Value</a>
+                    <a class="button"  onclick='$("#afremoveAttr_content").attr("foo","bar");alert("Set attribute foo=bar")'>Set attribute foo=bar</a><br>
+                    <a class="button"  onclick='alert($("#afremoveAttr_content").attr("foo"))'>Get attribute foo</a><br>
+                    <a class="button"  onclick='($("#afremoveAttr_content").removeAttr("foo"));alert("Removed attribute foo")'>Remove Attribute foo</a>
                 </div>
+                
+                <!-- af> af prop() -->
+                <div id="afprop" class="panel" title=".prop()">
+                    <p>$().prop() - will get or set an property of an HTML element.</p>
+                    <br />
+                    <br />
+                    <div id="afprop_content" style="padding:10px;background-color:#fdd">Set and get property for this DIV</div>
+                    <br />
+                    <br />
+                    <a class="button"  onclick='$("#afprop_content").prop("foo","bar");alert("Set property foo=bar")'>Set Property foo=bar</a><br>
+                    <a class="button"  onclick='alert($("#afprop_content").prop("foo"))'>Get Property foo</a>
+                </div>
+                <!-- af> af removeProp() -->
+                <div id="afremoveProp" class="panel" title=".removeProp()">
+                    <p>$().removeProp() - will remove an property of an HTML element.</p>
+                    <br />
+                    <br />
+                    <div id="afremoveProp_content" style="padding:10px;background-color:#fdd">Set and get property for this DIV</div>
+                    <br />
+                    <br />
+                    <a class="button"  onclick='$("#afremoveProp_content").prop("foo","bar");alert("Set property foo=bar")'>Set Property foo=bar</a><br>
+                    <a class="button"  onclick='alert($("#afremoveProp_content").prop("foo"))'>Get Property "foo"</a><br>
+                    <a class="button"  onclick='($("#afremoveProp_content").removeProp("foo"));alert("Removed property foo")'>Remove Property "foo"</a>
+                </div>
+                
                 <!-- af> af remove() -->
                 <div id="af14" class="panel" title=".remove()">
                     <p>$().remove() - will remove an element from the parent container.</p>
@@ -523,11 +617,11 @@
                     <br />
                     <div style='border:1px solid black;padding:5px' id="toggleClass" class="redColor">This is some content</div>
                     <br />
-                    <a class="button"  onclick='($("#toggleClass").toggleClass("redColor"))'>Remove the Class</a>
+                    <a class="button"  onclick='($("#toggleClass").toggleClass("redColor"))'>Toggle Class</a>
                 </div>
                 <!-- af> af hassClass() -->
                 <div id="af17" class="panel" title=".hasClass()">
-                    <p>$().hassClass() - returns a boolean if an element has a class.</p>
+                    <p>$().hasClass() - returns a boolean if an element has a class.</p>
                     <br />
                     <br />
                     <div style='border:1px solid black' id="af17_content" class="class16">This is some content</div>
@@ -577,12 +671,24 @@
                     <br />
                     <br />
                     <p>Below is a button without click handler, bind click handler and then test the button, then unbind the click handler and test button.</p>
-                    <a class="button"  id="afunbind_content">This Button</a>
+                    <a class="button"  id="afunbind_content">Test Button</a>
                     <br />
                     <br />
                     <a class="button"  onclick='$("#afunbind_content").bind("click",function(){alert("I was clicked");});alert("click event is bound");'>Bind Event</a>
                     <br />
                     <a class="button"  onclick='$("#afunbind_content").unbind("click")'>Unbind Event</a>
+                </div>
+                <!-- af> af delegate() -->
+                <div id="afdelegate" class="panel" title=".delegate()">
+                    <p>$().delegate() is provided for backwards compatibility only. You should use $().on instead.</p>
+                    <br>
+                    <a class="button"  href="#afon">.on()</a>
+                </div>
+                <!-- af> af undelegate() -->
+                <div id="afundelegate" class="panel" title=".undelegate()">
+                    <p>$().undelegate() is provided for backwards compatibility only. You should use $().off instead.</p>
+                    <br>
+                    <a class="button"  href="#afoff">.off()</a>
                 </div>
                 <!-- af> af one() -->
                 <div id="afone" class="panel" title=".one()">
@@ -629,6 +735,32 @@
                     <br />
                     <br />
                     <a class="button"  onclick='$("#af22_content").prepend("<span>Some more content<br /></span>");'>Prepend Content</a>
+                </div>
+                <!-- af> af appendTo() -->
+                <div id="afappendTo" class="panel" title=".appendTo()">
+                    <p>$().appendTo(element,[insert]) - appends the current collection to the selector.</p>
+                    <br />
+                    <br />
+                    <div id="afappendTo_content">
+                        <div class="test5">This is .test5</div>
+                        <div class="test6">This is .test6</div>
+                    </div>
+                    <br />
+                    <br />
+                    <a class="button"  onclick='$(".test5").appendTo(".test6");'>$(".test5").appendTo(".test6")</a>
+                </div>
+                <!-- af> af prependTo() -->
+                <div id="afprependTo" class="panel" title=".prependTo()">
+                    <p>$().prependTo() - prepends the current collection to the selector.</p>
+                    <br />
+                    <br />
+                    <div id="afappendTo_content">
+                        <div class="test7">This is .test7</div>
+                        <div class="test8">This is .test8</div>
+                    </div>
+                    <br />
+                    <br />
+                    <a class="button"  onclick='$(".test8").prependTo(".test7");'>$(".test8").appendTo(".test7")</a>
                 </div>
                 <!-- af> af insertAfter() -->
                 <div id="afinsertafter" class="panel" title=".insertAfter()">
@@ -753,7 +885,61 @@
                     <div id="afcreate_content"></div>
                 </div>
                 <!-- af> af each() -->
-                <div id="afeach" class="panel" title=".each()">
+                <div id="afeach" class="panel" title="$().each()">
+                    <p>$(elements).each(callback) - Iterates through elements and executes a callback.</p>
+                    <br>
+                    <br>
+                    <ul class="list inset">
+                        <li>Item 1</li>
+                        <li>Item 2</li>
+                        <li>Item 3</li>
+                    </ul>
+                    <br>
+                    <br>
+                    <code>
+                        $("#afeach li").each(function(index, element){<br>
+                            $(element).append(" foo");  <br>
+                        });
+                    </code>
+                    <script>
+                        function runEach() {
+                            $("#afeach li").each(function(index, element){
+                                $(element).append(" foo");  
+                            });
+                        }
+                    </script>
+                    <br>
+                    <a class="button"  onclick="runEach()">Run</a>
+                </div>
+                <!-- af> af map() -->
+                <div id="afmap" class="panel" title="$().map()">
+                    <p>$(elements).map(callback) - Iterates through elements and executes a callback.</p>
+                    <br>
+                    <br>
+                    <ul class="list inset">
+                        <li>Item 1</li>
+                        <li>Item 2</li>
+                        <li>Item 3</li>
+                    </ul>
+                    <br>
+                    <br>
+                    <code>
+                        $("#afmap li").map(function(index, element){<br>
+                            $(element).append(" foo");  <br>
+                        });
+                    </code>
+                    <script>
+                        function runMap() {
+                            $("#afmap li").map(function(index,element){
+                                 $(element).append(" foo");  
+                            });
+                        }
+                    </script>
+                    <br>
+                    <a class="button"  onclick="runMap()">Run</a>
+                </div>
+                <!-- af> af each() -->
+                <div id="afeach_" class="panel" title=".each()">
                     <p>$.each(elements, callback) - Iterates through elements and executes a callback. Returns if false.</p>
                     <br>
                     <br>
@@ -777,7 +963,7 @@
                     <a class="button"  onclick="doEach()">Run</a>
                 </div>
                 <!-- af> af map() -->
-                <div id="afmap" class="panel" title=".map()">
+                <div id="afmap_" class="panel" title=".map()">
                     <p>$.map(elements, callback) - Iterates through elements and executes a callback. Returns an AF object with the values in the collection.</p>
                     <br>
                     <br>
@@ -1035,6 +1221,13 @@
                     <br>
                     <a class="button"  onclick="doParseJS()">$.parseJS( str )</a>
                 </div>
+                <!-- af> af uuid() -->
+                <div id="afuuid" class="panel" title=".uuid()">
+                    <p>$.uuid() - Utility function to create a psuedo GUID.</p>
+                    <br>
+                    <br>
+                    <a class="button"  onclick="alert($.uuid())">$.uuid()</a>
+                </div>
                 <!-- af> os -->
                 <div id="af30" class="panel" title=".os">
                     <p>$.os - holds information about the OS of the device, and if it is a webkit browser</p>
@@ -1051,6 +1244,19 @@
                         $.os.opera = <script>document.write($.os.opera);</script><br>
                         $.os.fennec = <script>document.write($.os.fennec);</script><br>
                     </div>
+                </div>
+                <!-- af> is$ -->
+                <div id="afis_" class="panel" title=".is$()">
+                    <p>$.is$(param) - returns a boolean if the parameter is a type $</p>
+                    <br>
+                    <div class="samplecode">
+                        $.is$(param)
+                    </div>
+                    <br>
+                    <a class="button"  onclick='alert($.is$($("#afui")));'>$.is$( $("#afui") )</a>
+                    <br>
+                    <a class="button"  onclick='alert($.is$("text"));'>$.is$( "text" )</a>
+                    <br>
                 </div>
                 <!-- af> isArray -->
                 <div id="afisArray" class="panel" title=".isArray()">
@@ -1099,7 +1305,17 @@
                     </div>
                     <br>
                     <p>Get the parent .html() for this button:</p>
-                    <a  onclick="alert($(this).parent().html());" class="button">Get Parent ID</a>
+                    <a  onclick="alert($(this).parent().html());" class="button">$(this).parent().html()</a>
+                </div>
+                
+                <div id="afparents" class="panel" title=".parents()">
+                    <p>Returns the parents of the elements based off the selector (traversing up until html document).</p>	
+                    <div class="samplecode">
+                        $(this).parents().html();
+                    </div>
+                    <br>
+                    <p>Get the parents .html() for this button:</p>
+                    <a  onclick="alert($(this).parents().html());" class="button">$(this).parents().html()</a>
                 </div>
                 
                 <div id="afchildren" class="panel" title=".children()">
@@ -1132,14 +1348,79 @@
                     <a  onclick="alert($(this).closest('a').html());" class="button">Get Closest</a>
                 </div>
                 
+                <!-- af> af find() -->
+                <div id="af3" class="panel" title=".find()">
+                    <p>$("#div").find("li") find all element(s) inside a container</p>
+                    <br />
+                    <br />
+                    <ul class="list inset">
+                        <li class="skip">Item 1 (classname = skip)</li>
+                        <li>Item 2</li>
+                        <li>Item 3</li>
+                    </ul>
+                    <a class="button"  onclick="alert($('#af3 ul').find('.skip').length)">.find('.skip').length</a>
+                </div>
+                
+                <div id="affilter" class="panel" title=".filter()">
+                    <p>Filters elements based off the selector</p>	
+                    <br />
+                    <br />
+                    <ul class="list inset">
+                        <li class="skip">Item 1 (classname = skip)</li>
+                        <li>Item 2</li>
+                        <li>Item 3</li>
+                    </ul>
+                    <a class="button"  onclick="alert($('#afnot li').filter('.skip').length)">.filter(".skip").length</a>
+                </div>
+                
                 <div id="afnot" class="panel" title=".not()">
-                    <p>This returns the parent elements for the previously found elements in the container</p>	
-                    <div class="samplecode">
-                        $("#afparent").parent();
-                    </div>
-                    <p>The parent id for this div is "content". Let's verify it.</p>
-                    <br>
-                    <a  onclick="alert($('#afparent').parent().get(0).id);" class="button">Get Parent ID</a>
+                    <p>Return all elements that do NOT match the selector</p>	
+                    <br />
+                    <br />
+                    <ul class="list inset">
+                        <li class="skip">Item 1 (classname = skip)</li>
+                        <li>Item 2</li>
+                        <li>Item 3</li>
+                    </ul>
+                    <a class="button"  onclick="alert($('#afnot li').not('.skip').length)">.not(".skip").length</a>
+                </div>
+                
+                <div id="afeq" class="panel" title=".eq()">
+                    <p>$().eq(index) - Reduce the set of elements based off index.</p>	
+                    <br />
+                    <br />
+                    <ul class="list inset">
+                        <li>Item 1</li>
+                        <li>Item 2</li>
+                        <li>Item 3</li>
+                    </ul>
+                    <a  onclick="alert($('#afeq li').eq(0).html());" class="button">.eq(0)</a><br>
+                    <a  onclick="alert($('#afeq li').eq(1).html());" class="button">.eq(1)</a><br>
+                    <a  onclick="alert($('#afeq li').eq(-1).html());" class="button">.eq(-1)</a><br>
+                </div>
+                
+                <div id="afend" class="panel" title=".end()">
+                    <p>returns the previous object before filter was applied, This can be used after .not(), .filter(), .children(), .parent()</p>	
+                    <br />
+                    <br />
+                    <ul class="list inset">
+                        <li class="skip">Item 1 (classname = skip)</li>
+                        <li>Item 2</li>
+                        <li>Item 3</li>
+                    </ul>
+                    <a  onclick="alert($('#afend li').filter('.skip').end().length);" class="button">.filter('.skip').end().length</a>
+                </div>
+                
+                <div id="afclone" class="panel" title=".clone()">
+                    <p>Clones the nodes in the collection.</p>	
+                    <br />
+                    <br />
+                    <ul class="list inset">
+                        <li class="skip">Item 1 (classname = skip)</li>
+                        <li>Item 2</li>
+                        <li>Item 3</li>
+                    </ul>
+                    <a  onclick="alert($('#afclone li').clone('.skip').html());" class="button">.clone('.skip')</a>
                 </div>
 
                 <!-- App Framework UI -->
@@ -1168,6 +1449,16 @@
                         <li><a href="#uithemes">UI Themes</a></li>
                     </ul>
                     <a class="button icon folder block" onclick="window.open('http://app-framework-software.intel.com/api2/#af_ui', '_blank', 'location=yes');">Full Documentation</a>
+                    <br>
+                    <p>
+                        <b>appframework.ui.js</b> has all of these features. This requires <b>appframework.js</b> selector library to be included. 
+                        <br>
+                        <b>af.ui.css</b> has the styles for appframework UI and <b>icons.css</b> has all the vector icons.
+                        <br><br>
+                        If you wish to use the <b>jQuery</b> library, then you have use the <b>jq.appframework.js</b> plugin with <b>appframework.ui.js</b>
+                        <br><br>
+                        <b>appframework.ui.min.js</b> has appframework.js, appframework.ui.js and most of AF plugins included.
+                    </p>
                 </div>
                 <div id="uithemes" title="UI Themes" class="panel">
                     <p>App Framework UI provides 8 different themes, the theme is set automatically by detecting the device and OS. This can be overided by setting the appropriate class for the main "afui" DOM element.</p>
