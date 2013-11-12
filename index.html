@@ -56,15 +56,19 @@
             /* set the right theme based on url param  */
             var search = document.location.search.toLowerCase().replace("?","");
             if(search){
-               $.os.useOSThemes=true;
-                if(search=="win8")
-                    $.os.ie=true;
+                $.os.useOSThemes=true;
+                if(search=="win8") $.os.ie=true;
                 $.ui.ready(function(){
+                    $(".theme-"+search).addClass("icon").addClass("check");
                     if(search.indexOf("-light") !== -1){
                         $("#afui").get(0).className = search.replace("-", " ");
                     } else {   
                         $("#afui").get(0).className = search;
                     }
+                });
+            } else {
+                $.ui.ready(function(){
+                    $(".theme-none").addClass("icon").addClass("check");
                 });
             }
             /* add a new 'light' theme for android and windows*/
@@ -202,15 +206,15 @@
             <nav id="default_sidemenu">
                 <ul class="list">
                  <li class="divider">UI Themes</li>    
-                    <li><a href="index.html" data-ignore="true">Auto detect theme</a></li>
-                    <li><a href="index.html?default" data-ignore="true">Default theme</a></li>
-                    <li><a href="index.html?ios" data-ignore="true">iOS theme (iOS6 and previous)</a></li>
-                    <li><a href="index.html?ios7" data-ignore="true">iOS 7 theme</a></li>
-                    <li><a href="index.html?android" data-ignore="true">Android dark theme</a></li>
-                    <li><a href="index.html?android-light" data-ignore="true">Android light theme</a></li>
-                    <li><a href="index.html?win8" data-ignore="true">Windows Phone 8 dark theme</a></li>
-                    <li><a href="index.html?win8-light" data-ignore="true">Windows Phone 8 light theme</a></li>
-                    <li><a href="index.html?bb" data-ignore="true">BlackBerry 10 theme</a></li> 
+                    <li><a class="theme theme-none" href="index.html" data-ignore="true">Auto detect theme</a></li>
+                    <li><a class="theme theme-default" href="index.html?default" data-ignore="true">Default theme</a></li>
+                    <li><a class="theme theme-ios" href="index.html?ios" data-ignore="true">iOS theme (iOS6 and previous)</a></li>
+                    <li><a class="theme theme-ios7" href="index.html?ios7" data-ignore="true">iOS 7 theme</a></li>
+                    <li><a class="theme theme-android" href="index.html?android" data-ignore="true">Android dark theme</a></li>
+                    <li><a class="theme theme-android-light" href="index.html?android-light" data-ignore="true">Android light theme</a></li>
+                    <li><a class="theme theme-win8" href="index.html?win8" data-ignore="true">Windows Phone 8 dark theme</a></li>
+                    <li><a class="theme theme-win8-light" href="index.html?win8-light" data-ignore="true">Windows Phone 8 light theme</a></li>
+                    <li><a class="theme theme-bb" href="index.html?bb" data-ignore="true">BlackBerry 10 theme</a></li> 
                  <li class="divider">Menus</li>
                     <li><a  onclick="$.ui.toggleHeaderMenu();">Toggle Header</a></li>
                     <li><a  onclick="$.ui.toggleSideMenu()">Toggle Sidebar</a></li>
@@ -255,15 +259,15 @@
                         <li><a href="#afweb" id='pluginlink' class='icon key big' data-transition="fade">App Framework Plugins</a></li>
                         <li><a href="#deviceapi" id='devicelink' class='icon camera big' data-transition="fade">Device APIs</a></li>
                         <li class="divider">Switch App Framework UI Themes</li>
-                        <li><a href="index.html" data-ignore="true">Auto detect theme</a></li>
-                        <li><a href="index.html?default" data-ignore="true">Default theme</a></li>
-                        <li><a href="index.html?ios" data-ignore="true">iOS theme (iOS6 and previous)</a></li>
-                        <li><a href="index.html?ios7" data-ignore="true">iOS 7 theme</a></li>
-                        <li><a href="index.html?android" data-ignore="true">Android dark theme</a></li>
-                        <li><a href="index.html?android-light" data-ignore="true">Android light theme</a></li>
-                        <li><a href="index.html?win8" data-ignore="true">Windows Phone 8 dark theme</a></li>
-                        <li><a href="index.html?win8-light" data-ignore="true">Windows Phone 8 light theme</a></li>
-                        <li><a href="index.html?bb" data-ignore="true">BlackBerry 10 theme</a></li> 
+                        <li><a class="theme theme-none" href="index.html" data-ignore="true">Auto detect theme</a></li>
+                        <li><a class="theme theme-default" href="index.html?default" data-ignore="true">Default theme</a></li>
+                        <li><a class="theme theme-ios" href="index.html?ios" data-ignore="true">iOS theme (iOS6 and previous)</a></li>
+                        <li><a class="theme theme-ios7" href="index.html?ios7" data-ignore="true">iOS 7 theme</a></li>
+                        <li><a class="theme theme-android" href="index.html?android" data-ignore="true">Android dark theme</a></li>
+                        <li><a class="theme theme-android-light" href="index.html?android-light" data-ignore="true">Android light theme</a></li>
+                        <li><a class="theme theme-win8" href="index.html?win8" data-ignore="true">Windows Phone 8 dark theme</a></li>
+                        <li><a class="theme theme-win8-light" href="index.html?win8-light" data-ignore="true">Windows Phone 8 light theme</a></li>
+                        <li><a class="theme theme-bb" href="index.html?bb" data-ignore="true">BlackBerry 10 theme</a></li>                         
                     </ul>
                 </div>
 
@@ -1521,15 +1525,15 @@
                 <div id="uithemes" title="UI Themes" class="panel">
                     <p>App Framework UI provides 8 different themes, the theme is set automatically by detecting the device and OS. This can be overided by setting the appropriate class for the main "afui" DOM element.</p>
                     <ul class="list">
-                        <li><a href="index.html" data-ignore="true">Auto detect theme</a></li>
-                        <li><a href="index.html?default" data-ignore="true">Default theme</a></li>
-                        <li><a href="index.html?ios" data-ignore="true">iOS theme (iOS6 and previous)</a></li>
-                        <li><a href="index.html?ios7" data-ignore="true">iOS 7 theme</a></li>
-                        <li><a href="index.html?android" data-ignore="true">Android dark theme</a></li>
-                        <li><a href="index.html?android-light" data-ignore="true">Android light theme</a></li>
-                        <li><a href="index.html?win8" data-ignore="true">Windows Phone 8 dark theme</a></li>
-                        <li><a href="index.html?win8-light" data-ignore="true">Windows Phone 8 light theme</a></li>
-                        <li><a href="index.html?bb" data-ignore="true">BlackBerry 10 theme</a></li>  
+                        <li><a class="theme theme-none" href="index.html" data-ignore="true">Auto detect theme</a></li>
+                        <li><a class="theme theme-default" href="index.html?default" data-ignore="true">Default theme</a></li>
+                        <li><a class="theme theme-ios" href="index.html?ios" data-ignore="true">iOS theme (iOS6 and previous)</a></li>
+                        <li><a class="theme theme-ios7" href="index.html?ios7" data-ignore="true">iOS 7 theme</a></li>
+                        <li><a class="theme theme-android" href="index.html?android" data-ignore="true">Android dark theme</a></li>
+                        <li><a class="theme theme-android-light" href="index.html?android-light" data-ignore="true">Android light theme</a></li>
+                        <li><a class="theme theme-win8" href="index.html?win8" data-ignore="true">Windows Phone 8 dark theme</a></li>
+                        <li><a class="theme theme-win8-light" href="index.html?win8-light" data-ignore="true">Windows Phone 8 light theme</a></li>
+                        <li><a class="theme theme-bb" href="index.html?bb" data-ignore="true">BlackBerry 10 theme</a></li> 
                     </ul>
                 </div>
                 
