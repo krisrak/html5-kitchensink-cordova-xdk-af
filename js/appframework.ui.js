@@ -1024,7 +1024,7 @@
                 jsScroll = true;
                 hasScroll = true;
             }
-            var title=tmp.title;
+            var title=tmp.title||tmp.getAttribute("data-title");
             tmp.title="";
             tmp.setAttribute("data-title",title);
 
@@ -1825,8 +1825,12 @@
 
                     that.launchCompleted = true;
                     //trigger ui ready
-                    $(document).trigger("afui:ready");
                     $.query("#afui #splashscreen").remove();
+                    //Fix a bug with android dispatching events in the middle of other code execution
+                    setTimeout(function(){
+                        $(document).trigger("afui:ready");
+                    });
+                    
                 };
                 if (loadingDefer) {
                     $(document).one("defer:loaded", loadFirstDiv);
