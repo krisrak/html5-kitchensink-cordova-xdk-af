@@ -281,6 +281,9 @@
                         <li><a href="#af6">$().css()</a></li>
                         <li><a href="#afvendorCss">$().vendorCss()<span class="af-badge" style="background-color:#4a4">!</span></a></li>
                         <li><a href="#afcomputedStyle">$().computedStyle()<span class="af-badge" style="background-color:#4a4">!</span></a></li>
+                        <li><a href="#afwidth">$().width()</a></li>
+                        <li><a href="#afheight">$().height()</a></li>
+                        <li><a href="#afoffset">$().offset()</a></li>
                         <li><a href="#af2">$().length()</a></li>
                         <li><a href="#afsize">$().size()</a></li>
                         <li><a href="#afindex">$().index()</a></li>
@@ -307,6 +310,7 @@
                         <li><a href="#afeq">$().eq()</a></li>
                         <li><a href="#afend">$().end()</a></li>
                         <li><a href="#afclone">$().clone()</a></li>
+                        <li><a href="#afserialize">$().serialize()</a></li>
                         <li><a href="#af8">$().hide()</a></li>
                         <li><a href="#af9">$().show()</a></li>
                         <li><a href="#af10">$().toggle()</a></li>
@@ -329,10 +333,10 @@
                         <li><a href="#afoff">$().off()</a></li>
                         <li><a href="#afone">$().one()</a></li>
                         <li><a href="#aftrigger">$().trigger()</a></li>
-                        <li><a href="#afwidth">$().width()</a></li>
-                        <li><a href="#afheight">$().height()</a></li>
-                        <li><a href="#afoffset">$().offset()</a></li>
-                        <li><a href="#afserialize">$().serialize()</a></li>
+                        <li><a href="#afbind_">$.bind()<span class="af-badge" style="background-color:#4a4">!</span></a></li>
+                        <li><a href="#afunbind_">$.unbind()<span class="af-badge" style="background-color:#4a4">!</span></a></li>
+                        <li><a href="#aftrigger_">$.trigger()<span class="af-badge" style="background-color:#4a4">!</span></a></li>
+                        <li><a href="#afEvent_">$.Event()<span class="af-badge" style="background-color:#4a4">!</span></a></li>
                         <li><a href="#afquery">$.query()<span class="af-badge" style="background-color:#4a4">!</span></a></li>
                         <li><a href="#afcreate">$.create()<span class="af-badge" style="background-color:#4a4">!</span></a></li>
                         <li><a href="#afeach_">$.each()</a></li>
@@ -721,6 +725,28 @@
                     <br />
                     <a class="button"  onclick='$("#aftrigger_content").trigger("click")'>Trigger the click for the above button</a>
                 </div>
+                
+                <!-- af> af $.bind() -->
+                <div id="afbind_" class="panel" title="$.bind()">
+                    <p>$.bind(object,event,function) - binds an event to an object instead of a DOM Node. 
+                        <br><br>
+                        $.bind() works the same as $().bind, except you are binding events on JavaScript Objects. This is used to bind events in the touchLayer and scrolling libraries.</p>
+                </div>
+                <!-- af> af $.unbind() -->
+                <div id="afunbind_" class="panel" title="$.unbind()">
+                    <p>$.unbind(object, event, function) - unbinds an event to an object instead of a DOM Node. 
+                        <br><br>
+                        $.unbind() works the same as $().unbind, except you are binding events on JavaScript Objects.</p>
+                </div>
+                <!-- af> af $.trigger() -->
+                <div id="aftrigger_" class="panel" title="$.trigger()">
+                    <p>$.trigger(object, event, argments) - Trigger an event to an object instead of a DOM Node.</p>
+                </div>
+                <!-- af> af $.Event() -->
+                <div id="afEvent_" class="panel" title="$.Event()">
+                    <p>$.Event(type, props) - Creates a custom event to be used internally.</p>
+                </div>
+                
                 <!-- af> af append() -->
                 <div id="af21" class="panel" title=".append()">
                     <p>$().append() - appends an element or content.</p>
@@ -1925,9 +1951,11 @@
                             $("#addContent").show();
                             $("#addContentButton").hide();
                         }
-                    </script>	
+                    </script>
+                    <br>
                     <span id="addContent" style='display:none'>
-				        <a href="#myAddedDiv" class="button">View new div</a>
+                        <p>Panel DIV added:</p>
+				        <a href="#myAddedDiv" class="button">View the panel</a>
 				    </span>
                     <a id='addContentButton'  onclick="addDiv();" class="button">Add Content Div</a>
                 </div>
