@@ -250,10 +250,10 @@
                     <p id='main_info'>Welcome to the kitchen sink demo for App Framework, intel.xdk APIs and Cordova APIs. Here you will find sample code, demo and some documentation. Please select an option from below.</p>
                     <ul class="list inset">
                         <li class="divider">Documentation / Demos</li>
-                        <li class='red'><a href="#af" id='aflink' class='icon target big' data-transition="fade">App Framework</a></li>
-                        <li class="blue"><a href="#afuidemo" id='afuilink' class='icon picture big' data-transition="fade">App Framework UI</a></li>
-                        <li class="green"><a href="#afweb" id='pluginlink' class='icon key big' data-transition="fade">App Framework Plugins</a></li>
-                        <li class="yellow"><a href="#deviceapi" id='devicelink' class='icon camera big' data-transition="fade">Device APIs</a></li>
+                        <li><a href="#af" id='aflink' class='icon target big' data-transition="fade">App Framework</a></li>
+                        <li><a href="#afuidemo" id='afuilink' class='icon picture big' data-transition="fade">App Framework UI</a></li>
+                        <li><a href="#afweb" id='pluginlink' class='icon key big' data-transition="fade">App Framework Plugins</a></li>
+                        <li><a href="#deviceapi" id='devicelink' class='icon camera big' data-transition="fade">Device APIs</a></li>
                         <li class="divider">Switch App Framework UI Themes</li>
                         <li><a href="index.html" data-ignore="true">Auto detect theme</a></li>
                         <li><a href="index.html?default" data-ignore="true">Default theme</a></li>
@@ -1440,8 +1440,9 @@
                     <p id='AFUI_info'>AppFramework UI is the User Interface/User Experience library for mobile applications. It uses HTML5 and CSS3 for animations and transitions. It provides javascript APIs to control the UI elements. It also provides vector icons and native looking UI themes for iOS, Android, Windows Phone and Blackberry.
                     </p>
                     <ul class="list">
-                        <li><a href="#uiapi" class="icon js" id="uiapilink">AppFramework UI APIs</a></li>  
-                        <li><a href="#uiprop" class="icon js" id="uiproplink">AppFramework UI Properties</a></li>
+                        <li><a href="#uiapi" class="icon js" id="uiapilink">AppFramework UI Methods</a></li>  
+                        <li><a href="#uiprop" class="icon css" id="uiproplink">AppFramework UI Properties</a></li>
+                        <li><a href="#uievent" class="icon message" id="uieventlink">AppFramework UI Events</a></li>
                         <li class="divider">Demos</li>
                         <li><a href="#afforms">Form Styles</a></li>
                         <li><a href="#uibuttons">Buttons</a></li>
@@ -1451,8 +1452,10 @@
                         <li><a href="#uifooter">Footer Controls</a></li>
                         <li><a href="#uiside">Side Menu Controls</a></li>
                         <li><a href="#aftransitions">Panel Transitions</a></li>
-                        <li><a href="panel.html" data-persist-ajax="true" data-refresh-ajax="true" title="Remote Page">Async panel loading</a></li>
-                        <li><a href="#uidefer">Defer panel loading</a></li> 
+                        <li><a href="panel.html" data-persist-ajax="true" title="data-persist-ajax">Async panel load - Persist</a></li>
+                        <li><a href="panel.html" data-refresh-ajax="true" title="data-refresh-ajax">Async panel load - Refresh</a></li>
+                        <li><a href="#uidefer">Defer panel loading</a></li>
+                        <li><a href="#uimodal">Open Modal Window</a></li>
                         <li><a href="#uiicons">Vector Icons</a></li>
                         <li><a href="#uithemes">UI Themes</a></li>
                     </ul>
@@ -1468,6 +1471,27 @@
                         <b>appframework.ui.min.js</b> has appframework.js, appframework.ui.js and most of AF plugins included.
                     </p>
                 </div>
+                
+                <div id="uievent" title="AF UI Events" class="panel">
+                    <p>Following events are triggered in AppFramework UI.</p>
+                    <a class="button" onclick="addUIEventListeners()">Add Event Listeners</a>
+                    <ul class="list inset">
+                        <li><a id="uiEvent_hashchange">hashchange</a></li>
+                        <li><a id="uiEvent_orientationchange">orientationchange</a></li>
+                        <li><a id="uiEvent_loadpanel">loadpanel</a></li>
+                        <li><a id="uiEvent_unloadpanel">unloadpanel</a></li>
+                    </ul>
+                    <script>
+                        function addUIEventListeners(){
+                            window.addEventListener("hashchange", function(){incrementBadge("#uiEvent_hashchange");}, false);
+                            window.addEventListener("orientationchange", function(){incrementBadge("#uiEvent_orientationchange");}, false);
+                            document.addEventListener("loadpanel", function(){incrementBadge("#uiEvent_loadpanel");}, false);
+                            document.addEventListener("unloadpanel", function(){incrementBadge("#uiEvent_unloadpanel");}, false); 
+                            alert("AppFramework UI event listeners added");
+                        }                        
+                    </script>    
+                </div>
+                
                 <div id="uithemes" title="UI Themes" class="panel">
                     <p>App Framework UI provides 8 different themes, the theme is set automatically by detecting the device and OS. This can be overided by setting the appropriate class for the main "afui" DOM element.</p>
                     <ul class="list">
@@ -1481,6 +1505,10 @@
                         <li><a href="index.html?win8-light" data-ignore="true">Windows Phone 8 light theme</a></li>
                         <li><a href="index.html?bb" data-ignore="true">BlackBerry 10 theme</a></li>  
                     </ul>
+                </div>
+                
+                <div id="uimodal" title="UI Themes" class="panel" modal="true">
+                    <div style="padding:40px 20px;text-align:center"><p>This is modal window.</p></div>
                 </div>
                         
                 <div id="uiicons" title="Vector Icons" class="panel">
@@ -1766,7 +1794,7 @@
                     <a class="button gray">Gray</a>
                 </div>
                 
-                <div id="uiapi" title="AppFramework UI API" class="panel" data-pull-scroller='true'>
+                <div id="uiapi" title="AF UI Methods" class="panel" data-pull-scroller='true'>
                     <ul class="list">    
                         <li><a href="#uiready">.ready()</a></li>
                         <li><a href="#uilaunch">.launch()</a></li>
@@ -3212,7 +3240,7 @@
                             var whitelist = "www.cnn.com|www.apple.com";
                             intel.xdk.device.blockRemotePages(true ,whitelist);
                             var url = $("#xdkWebsiteUrl").val();
-                            intel.xdk.device.showRemoteSite(url,0,50,30,30);       
+                            intel.xdk.device.showRemoteSiteExt(url,0,50,0,50,30,30);       
                         }
                     </script>
                 </div>
