@@ -1270,17 +1270,26 @@
                 <div id="af30" class="panel" title=".os">
                     <p>$.os - holds information about the OS of the device, and if it is a webkit browser</p>
                     <br>
-                    <div class="samplecode" >
+                    <div class="samplecode" > 
                         $.os.webkit  = <script>document.write($.os.webkit);</script><br>
                         $.os.android = <script>document.write($.os.android);</script><br>
+                        $.os.androidICS  = <script>document.write($.os.androidICS);</script><br>
                         $.os.ipad = <script>document.write($.os.ipad);</script><br>
                         $.os.iphone = <script>document.write($.os.iphone);</script><br>
                         $.os.ios = <script>document.write($.os.ios);</script><br>
+                        $.os.ios7 = <script>document.write($.os.ios7);</script><br>
                         $.os.webos = <script>document.write($.os.webos);</script><br>
                         $.os.touchpad = <script>document.write($.os.touchpad);</script><br>
+                        $.os.playbook = <script>document.write($.os.playbook);</script><br>
                         $.os.blackberry = <script>document.write($.os.blackberry);</script><br>
+                        $.os.blackberry10 = <script>document.write($.os.blackberry10);</script><br>
+                        $.os.chrome = <script>document.write($.os.chrome);</script><br>
                         $.os.opera = <script>document.write($.os.opera);</script><br>
                         $.os.fennec = <script>document.write($.os.fennec);</script><br>
+                        $.os.ie = <script>document.write($.os.ie);</script><br>
+                        $.os.ieTouch = <script>document.write($.os.ieTouch);</script><br>
+                        $.os.supportsTouch = <script>document.write($.os.supportsTouch);</script><br>
+                        $.os.tizen  = <script>document.write($.os.tizen);</script><br>
                     </div>
                 </div>
                 <!-- af> is$ -->
@@ -1815,13 +1824,14 @@
                     </div>
                     <br><br>
                     Colors<br><br>
-                    <a class="button blue">Blue</a><br>
-                    <a class="button red">Red</a><br>
-                    <a class="button green">Green</a><br>
-                    <a class="button orange">Orange</a><br>
-                    <a class="button slate">Slate</a><br>
-                    <a class="button black">Black</a><br>
+                    <a class="button">Default</a>
                     <a class="button gray">Gray</a>
+                    <a class="button slate">Slate</a>
+                    <a class="button black">Black</a>
+                    <a class="button yellow">Yellow</a>
+                    <a class="button orange">Orange</a>
+                    <a class="button red">Red</a>
+                    <a class="button green">Green</a>                
                 </div>
                 
                 <div id="uiapi" title="AF UI Methods" class="panel" data-pull-scroller='true'>
@@ -3266,10 +3276,14 @@
                     <script>
                         function xdkOpenBrowser(){
                             var url = $("#xdkWebsiteUrl").val();
-                            intel.xdk.device.showRemoteSite(url,0,0,30,30);       
+                            intel.xdk.device.showRemoteSite(url,0,20,30,30);       
+                        }
+                        function xdkBlocked(){
+                            intel.xdk.notification.alert("This website is blocked", "Blocked", "OK");
                         }
                         function xdkOpenBrowserBlock(){
                             var whitelist = "www.cnn.com|www.apple.com";
+                            document.addEventListener("intel.xdk.device.remote.block", xdkBlocked, false);
                             intel.xdk.device.blockRemotePages(true ,whitelist);
                             var url = $("#xdkWebsiteUrl").val();
                             intel.xdk.device.showRemoteSiteExt(url,0,50,0,50,30,30);       
