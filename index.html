@@ -21,7 +21,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <link rel="stylesheet" type="text/css" href="css/icons.css" />    
         <link rel="stylesheet" type="text/css" href="css/af.ui.css" />
-        
+
         <script src="intelxdk.js"></script>
         <script src="cordova.js"></script>
         <script src="xhr.js"></script>
@@ -1551,8 +1551,7 @@
                 </div>
                         
                 <div id="uiicons" title="Vector Icons" class="panel">
-                    	<h2 class='expanded' onclick='showHide(this,"icons_info");'>Vector Icons</h2>
-                    <p id='icons_info'>App Framework UI provides Vector icons to use throughout your app. Simply add the icon class, along with the image class name and additional sizes you want.
+                    <p>App Framework UI provides Vector icons to use throughout your app. Simply add the icon class, along with the image class name and additional sizes you want.
                         <br>.mini -  .7em high
                         <br>.big - 1.5em hight
                         <br>The default is 1em.
@@ -1746,8 +1745,7 @@
                 </div>
                 
                 <div title="Transitions" id="aftransitions" class="panel">
-                    <h2 class='expanded' onclick='showHide(this,"AFUI_transitions");'>App Framework UI</h2>
-                    <p id='AFUI_transitions'>	<strong>af.ui transitions</strong> the following are transitions built in. You can easily add/extend with your own. Set the data-transition attribute on an anchor to change the transition.</p>
+                    <p>The following are transitions built in. You can easily add/extend with your own. Set the data-transition attribute on an anchor to change the transition.</p>
                     <ul class="list">
                         <li>
                             <a href="#transition1" data-transition="slide">Slide</a>
@@ -2415,37 +2413,37 @@
                                 console.log("scroll start");
                             });
                             $.bind(myScroller, "refresh-trigger", function () {
-                                this.setRefreshContent("&uarr; Pull to refresh");
+                                console.log("refresh-trigger");
                             });
                             var hideClose;
                             $.bind(myScroller, "refresh-release", function () {
+                                console.log("refresh-release");
                                 var that = this;
-                                this.setRefreshContent("loading...");
                                 clearTimeout(hideClose);
                                 hideClose = setTimeout(function () {
                                     console.log("hiding manually refresh");
                                     that.hideRefresh();
-                                }, 5000);
+                                }, 2000);
                                 return false; //tells it to not auto-cancel the refresh
                             });
 
                             $.bind(myScroller, "refresh-cancel", function () {
                                 clearTimeout(hideClose);
-                                console.log("cancelled");
+                                console.log("refresh-cancel");
                             });
                             myScroller.enable();
 
                             $.bind(myScroller, "infinite-scroll", function () {
                                 var self = this;
                                 console.log("infinite triggered");
-                                $(this.el).append("<div id='infinite' style='padding:30px 0;width:100%'>Loading...</div>");
+                                $(this.el).append("<div id='infinite' style='height:60px;line-height:60px;font-weight:bold;text-align:center'>Loading...</div>");
                                 $.bind(myScroller, "infinite-scroll-end", function () {
                                     $.unbind(myScroller, "infinite-scroll-end");
                                     self.scrollToBottom();
                                     setTimeout(function () {
                                         $(self.el).find("#infinite").remove();
                                         self.clearInfinite();
-                                        $(self.el).append("<div>This was loaded via inifinite scroll<br>More Content</div>");
+                                        $(self.el).append("<div>This was loaded via infinite scroll, when page was scrolled to end.</div>");
                                         self.scrollToBottom();
                                     }, 3000);
                                 });
