@@ -125,7 +125,6 @@
                 document.addEventListener("intel.xdk.device.remote.data", function(){incrementBadge("#xdkEvent_remotedata");}, false);
                 document.addEventListener("intel.xdk.device.remote.close", function(){incrementBadge("#xdkEvent_remoteclose");}, false);
                 document.addEventListener("intel.xdk.device.remote.block", function(){incrementBadge("#xdkEvent_remoteblock");}, false);
-                document.addEventListener("intel.xdk.device.hardware.back", function(){incrementBadge("#xdkEvent_hardwareback");}, false);
                 document.addEventListener("intel.xdk.device.orientation.change", function(){incrementBadge("#xdkEvent_orientationchange");}, false);
             };
             
@@ -2426,10 +2425,13 @@
                                 }, 2000);
                                 return false; //tells it to not auto-cancel the refresh
                             });
-
                             $.bind(myScroller, "refresh-cancel", function () {
-                                clearTimeout(hideClose);
                                 console.log("refresh-cancel");
+                                clearTimeout(hideClose);
+                            });
+                            $.bind(myScroller, "refresh-finish", function () {
+                                console.log("refresh-finish");
+                                $("<div>...This content was added after refresh using pullToRefresh scroller plugin feature...</div>").insertAfter($(".afscroll_refresh").parent())
                             });
                             myScroller.enable();
 
@@ -2443,7 +2445,7 @@
                                     setTimeout(function () {
                                         $(self.el).find("#infinite").remove();
                                         self.clearInfinite();
-                                        $(self.el).append("<div>This was loaded via infinite scroll, when page was scrolled to end.</div>");
+                                        $(self.el).append("<div>...This was loaded via infinite scroll, when page was scrolled to end...</div>");
                                         self.scrollToBottom();
                                     }, 3000);
                                 });
@@ -2932,7 +2934,7 @@
                         <li><a id="xdkEvent_continue">intel.xdk.device.continue</a></li>
                         <li><a id="xdkEvent_suspend">intel.xdk.device.suspend</a></li>
                         <li class="divider">misc events</li>
-                        <li><a id="xdkEvent_backbutton">intel.xdk.device.hardware.back</a></li>
+                        <li><a id="xdkEvent_hardwareback">intel.xdk.device.hardware.back</a></li>
                         <li><a id="xdkEvent_orientationchange">intel.xdk.device.orientation.change</a></li>
                         <li><a id="xdkEvent_barcodescan">intel.xdk.device.barcode.scan</a></li>
                         <li class="divider">remote connection events</li>
@@ -3135,7 +3137,7 @@
                     <p></p>
                     <div>
                         <label for="lat">username:</label>
-                        <input type="text" id="xdk-username" style='width:150px' />
+                        <input type="text" id="xdk-username" style='width:150px' value="intel" />
                     </div>
                     <a class="button" onclick="xdkSetCookie()">Set Cookie</a><br>
                     <a class="button" onclick="xdkGetCookie()">Get Cookie</a><br>
@@ -3418,8 +3420,8 @@
                 
                 <div class="panel" id="xdkBackButton" title="Back Button">
                     <h2>Back Button Demo</h2>
-                    <a class="button" onclick="intel.xdk.device.addVirtualPage();">Add Virtual Page</a>
-                    <a class="button" onclick="intel.xdk.device.removeVirtualPage();">Remove Virtual Page</a>
+                    <a class="button" onclick="addVirtualPage();">Add Virtual Page</a>
+                    <a class="button" onclick="removeVirtualPage();">Remove Virtual Page</a>
                     <br><br><br>
                     <h3>Platforms</h3>
                     <p>Android<br></p>
@@ -3430,6 +3432,21 @@
                     <div class="samplecode">intel.xdk.device.removeVirtualPage();</div>
                     <h3>Event</h3>
                     <div class="samplecode">intel.xdk.device.hardware.back</div>
+                    <script>
+                        function addVirtualPage(){
+                            intel.xdk.device.addVirtualPage();
+                            alert("On Android, click the hardware back button.\n\nHardware Back button will be intercepted once.");
+                        }
+                        function removeVirtualPage(){
+                            intel.xdk.device.removeVirtualPage();
+                            alert("Hardware Back button will not be intercepted.");
+                        }
+                        document.addEventListener("intel.xdk.device.hardware.back", function(){
+                            incrementBadge("#xdkEvent_hardwareback");
+                            alert("Hardware Back button was pressed");
+                            
+                        }, false);
+                    </script>    
                 </div>
                 
                 <div class="panel" id="xdkNotification" title="Notifications">
