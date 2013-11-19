@@ -276,6 +276,20 @@
                     </header>    
                     <h2 class='expanded' onclick='showHide(this,"AppFramework_info");'>Query Selector Library</h2>
                     <p id='AppFramework_info'>AppFramework is a blazingly fast query selector tool that is optmimized for HTML5 browsers. Below are some demos.</p>
+                    <input id="afsearch" type="search" placeholder="search" onKeyUp="afSearch(this)">
+                    <script>
+                        function afSearch(el){
+                            $("#af .list li").each(function(i,e){
+                                var sel = $(e).text().toLowerCase();
+                                var query = $(el).val().toLowerCase();
+                                if(sel.indexOf(query) === -1){
+                                    $(e).hide();
+                                } else {
+                                    $(e).show();
+                                }
+                            });
+                        }
+                    </script>    
                     <ul class="list">
                         <li><a href="#af1">$()</a></li>
                         <li><a href="#af_ready">$().ready()</a></li>
@@ -3257,6 +3271,7 @@
                         <input type="text" value="http://intel.com" id="xdkWebsiteUrl" />
                         <a class="button icon folder" onclick="xdkOpenBrowser()">Open Website</a><br>
                         <a class="button icon folder" onclick="xdkOpenBrowserBlock()">Open Some Websites</a><br>
+                        <a class="button icon folder" onclick="intel.xdk.device.showRemoteSite('http://www.html5dev-software.intel.com/amdocs/lib/Article-AppDevCenter.pdf',0,20,30,30);">Open PDF</a><br>    
                     </p>
                     <br><br>
                     <h3>Platforms</h3>
