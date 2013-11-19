@@ -160,18 +160,6 @@
                 }                
                 $.ui.updateBadge(item, String(badgeValue+1));
             }
-            
-            /* toggle an element with content */
-            function showHide(obj, objToHide) {
-                var el = $("#" + objToHide)[0];
-
-                if (obj.className == "expanded") {
-                    obj.className = "collapsed";
-                } else {
-                    obj.className = "expanded";
-                }
-                $(el).toggle();
-            }
         </script>
         <style>
            .samplecode {
@@ -249,8 +237,8 @@
             <div id="content">
                 
                 <div title='Welcome' id="main" class="panel" data-tab="navbar_home" selected="true" data-load="loadedPanel">
-                    <h2 class='expanded' onclick='showHide(this,"main_info");'>Kitchen Sink</h2>
-                    <p id='main_info'>Welcome to the kitchen sink demo for App Framework, intel.xdk APIs and Cordova APIs. Here you will find sample code, demo and some documentation. Please select an option from below.</p>
+                    <h2>Kitchen Sink</h2>
+                    <p>Welcome to the kitchen sink demo for App Framework, intel.xdk APIs and Cordova APIs. Here you will find sample code, demo and some documentation. Please select an option from below.</p>
                     <ul class="list inset">
                         <li class="divider">Documentation / Demos</li>
                         <li><a href="#af" id='aflink' class='icon target big' data-transition="fade">App Framework</a></li>
@@ -274,8 +262,8 @@
                     <header>
                         <h1>AppFramework</h1>
                     </header>    
-                    <h2 class='expanded' onclick='showHide(this,"AppFramework_info");'>Query Selector Library</h2>
-                    <p id='AppFramework_info'>AppFramework is a blazingly fast query selector tool that is optmimized for HTML5 browsers. Below are some demos.</p>
+                    <h2>Query Selector Library</h2>
+                    <p>AppFramework is a blazingly fast query selector tool that is optmimized for HTML5 browsers. Below are some demos.</p>
                     <input id="afsearch" type="search" placeholder="search" onKeyUp="afSearch(this)">
                     <script>
                         function afSearch(el){
@@ -1488,8 +1476,8 @@
                     <header>
                         <h1>AppFramework UI</h1>
                     </header>
-                    <h2 class='expanded' onclick='showHide(this,"AFUI_info");'>Mobile App UI framework</h2>
-                    <p id='AFUI_info'>AppFramework UI is the User Interface/User Experience library for mobile applications. It uses HTML5 and CSS3 for animations and transitions. It provides javascript APIs to control the UI elements. It also provides vector icons and native looking UI themes for iOS, Android, Windows Phone and Blackberry.
+                    <h2>Mobile App UI framework</h2>
+                    <p>AppFramework UI is the User Interface/User Experience library for mobile applications. It uses HTML5 and CSS3 for animations and transitions. It provides javascript APIs to control the UI elements. It also provides vector icons and native looking UI themes for iOS, Android, Windows Phone and Blackberry.
                     </p>
                     <ul class="list">
                         <li><a href="#uiapi" class="icon js" id="uiapilink">AppFramework UI Methods</a></li>  
@@ -2379,8 +2367,8 @@
                     <header>
                         <h1>AppFramework Plugins</h1>
                     </header>
-                    <h2 class='expanded' onclick='showHide(this,"afweb_info");'>Plugins</h2>
-                    <p id='afweb_info'>This is our plugin library of widgets to assist you with developing mobile applications. Some of these are used in App Framework UI.</p>
+                    <h2>Plugins</h2>
+                    <p>This is our plugin library of widgets to assist you with developing mobile applications. Some of these are used in App Framework UI.</p>
                     <ul class="list">
                         <li>
                             <a href="#webslider">af.scroller</a>
@@ -2807,8 +2795,8 @@
                     <header>
                         <h1>Device APIs</h1>
                     </header>
-                    <h2 class='expanded' onclick='showHide(this,"deviceapi_info");'>Hybrid App Development</h2>
-                    <p id='deviceapi_info'>This shows capabilities of cross platform app development with Cordova device APIs and intel.xdk APIs.<br>It enables developing HTML5 app that use device's camera, gps, compass and other capabilities in native OS.</p>
+                    <h2>Hybrid App Development</h2>
+                    <p>This shows capabilities of cross platform app development with Cordova device APIs and intel.xdk APIs.<br>It enables developing HTML5 app that use device's camera, gps, compass and other capabilities in native OS.</p>
                     <ul class="list inset">
                         <li><a href="#cordova" id="cdv">Cordova</a></li>
                         <li><a href="#intelxdk" id="xdk">intel.xdk</a></li>
