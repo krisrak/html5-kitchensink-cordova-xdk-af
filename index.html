@@ -70,21 +70,7 @@
                 $.ui.ready(function(){
                     $(".theme-none").addClass("icon").addClass("check");
                 });
-            }
-            /* add a new 'light' theme for android and windows*/
-            if($.os.android||$.os.ie||search=="android"){
-                $.ui.ready(function(){
-                    $("#main .list").append("<li><a class='toggleLightDarkTheme' href='#'>Toggle Light/Dark Themes</a></li>");
-                    $("#uithemes .list").append("<li><a class='toggleLightDarkTheme' href='#'>Toggle Light/Dark Themes</a></li>");
-                    var $el=$("#afui");
-                    $(".toggleLightDarkTheme").bind("click",function(e){
-                        if($el.hasClass("light"))
-                            $el.removeClass("light");
-                        else
-                            $el.addClass("light");
-                    });
-                });
-            }            
+            }           
 
             /* init app code */
             var webRoot = "./";
@@ -183,11 +169,11 @@
         <div id="afui" class="">
             <!-- default footer -->
             <div id="navbar">
-                <a href="#main" id='navbar_home' class='icon home' data-transition="fade">Home</a>
-                <a href="#af" id='navbar_af' class="icon target" data-transition="fade">Selector</a>
-                <a href="#afuidemo" id='navbar_ui' class="icon picture" data-transition="fade">AF UI</a>
-                <a href="#afweb" id='navbar_plugins' class="icon key" data-transition="fade">Plugins</a>
-                <a href="#deviceapi" id='navbar_deviceapi' class="icon camera" data-transition="fade">Device</a>
+                <a href="#main" id='navbar_home' class='icon home' data-transition="none">Home</a>
+                <a href="#af" id='navbar_af' class="icon target" data-transition="none">Selector</a>
+                <a href="#afuidemo" id='navbar_ui' class="icon picture" data-transition="none">AF UI</a>
+                <a href="#afweb" id='navbar_plugins' class="icon key" data-transition="none">Plugins</a>
+                <a href="#deviceapi" id='navbar_deviceapi' class="icon camera" data-transition="none">Device</a>
             </div>
             <!-- default sidemenu -->
             <nav id="default_sidemenu">
@@ -241,10 +227,10 @@
                     <p>Welcome to the kitchen sink demo for App Framework, intel.xdk APIs and Cordova APIs. Here you will find sample code, demo and some documentation. Please select an option from below.</p>
                     <ul class="list inset">
                         <li class="divider">Documentation / Demos</li>
-                        <li><a href="#af" id='aflink' class='icon target big' data-transition="fade">App Framework</a></li>
-                        <li><a href="#afuidemo" id='afuilink' class='icon picture big' data-transition="fade">App Framework UI</a></li>
-                        <li><a href="#afweb" id='pluginlink' class='icon key big' data-transition="fade">App Framework Plugins</a></li>
-                        <li><a href="#deviceapi" id='devicelink' class='icon camera big' data-transition="fade">Device APIs</a></li>
+                        <li><a href="#af" id='aflink' class='icon target big' data-transition="none">App Framework</a></li>
+                        <li><a href="#afuidemo" id='afuilink' class='icon picture big' data-transition="none">App Framework UI</a></li>
+                        <li><a href="#afweb" id='pluginlink' class='icon key big' data-transition="none">App Framework Plugins</a></li>
+                        <li><a href="#deviceapi" id='devicelink' class='icon camera big' data-transition="none">Device APIs</a></li>
                         <li class="divider">Switch App Framework UI Themes</li>
                         <li><a class="theme theme-none" href="index.html" data-ignore="true">Auto detect theme</a></li>
                         <li><a class="theme theme-default" href="index.html?default" data-ignore="true">Default theme</a></li>
