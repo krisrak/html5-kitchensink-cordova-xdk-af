@@ -11,7 +11,7 @@
                 );
                 document.getElementsByTagName("head")[0].appendChild(msViewportStyle);
             }
-        })();
+        })();            
         </script>
         <title>Intel XDK Kitchen Sink</title>
         <meta http-equiv="Content-type" content="text/html; charset=utf-8">
@@ -2389,6 +2389,7 @@
                         </li>
                     </ul>
                 </div>
+
                 <!-- Plugins> af.scroller -->
                 <div title="Scroller" class="panel" id="webslider">
                     <script>
@@ -3560,7 +3561,8 @@
                 </div>
                 
                 <div class="panel" id="xdkCamera" title="Camera">
-                    <a class="button icon camera" onclick="xdkStartCamera();" >Camera</a>
+                    <a class="button icon camera" onclick="xdkStartCamera(0);" >Camera</a><br/>
+                    <a class="button icon camera" onclick="xdkStartCamera(1);" >Camera + Save</a><br/>
                     <a class="button icon picture" onclick="xdkCameraGallery();">Gallery</a><br/>
                     <div id="xdk-camera-image"></div>
                     <br><br><br>
@@ -3581,7 +3583,7 @@
                     <div class="samplecode">intel.xdk.camera.picture.remove</div>
                     <script>
                         /* Camera */
-                        function xdkStartCamera() {
+                        function xdkStartCamera(savePicture) {
                             var onSuccess = function(event) {
                                 if (event.success == true){
                                     $('#xdk-camera-image').html("<img src="+intel.xdk.camera.getPictureURL(event.filename)+" width='250' />");
@@ -3596,7 +3598,7 @@
                             document.addEventListener("intel.xdk.camera.picture.add", onSuccess); 
                             document.addEventListener("intel.xdk.camera.picture.busy", onSuccess); 
                             document.addEventListener("intel.xdk.camera.picture.cancel", onSuccess);
-                            intel.xdk.camera.takePicture (70, false, "jpg");
+                            intel.xdk.camera.takePicture (70, savePicture, "jpg");
                         }
                         
                         function xdkCameraGallery() {			
