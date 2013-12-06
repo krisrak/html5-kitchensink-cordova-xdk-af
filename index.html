@@ -57,7 +57,7 @@
             var search = document.location.search.toLowerCase().replace("?","");
             if(search){
                 $.os.useOSThemes=true;
-                if(search=="win8") $.os.ie=true;
+                if(search.indexOf("win8") !== -1) $.os.ie=true;
                 $.ui.ready(function(){
                     $(".theme-"+search).addClass("icon").addClass("check");
                     if(search.indexOf("-light") !== -1){
