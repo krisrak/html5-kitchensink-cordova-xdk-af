@@ -2430,6 +2430,9 @@
                                 var that = this;
                                 clearTimeout(hideClose);
                                 hideClose = setTimeout(function () { // get content from your api using ajax and display instead of setTimeout.
+                                    // add new content at top of list
+                                    var item_number = $("#updateList>li").length + 1;
+                                    $("#updateList").prepend("<li>Item "+item_number+" (via Pull Refresh)</li>");                                    
                                     console.log("hiding manually refresh");
                                     that.hideRefresh();
                                 }, 2000);
@@ -2441,9 +2444,6 @@
                             });
                             $.bind(scrollerList, "refresh-finish", function () {
                                 console.log("refresh-finish");
-                                // add new content at top of list
-                                var item_number = $("#updateList>li").length + 1;
-                                $("#updateList").prepend("<li>Item "+item_number+" (via Pull Refresh)</li>");
                             });
                             
                             $.bind(scrollerList, "infinite-scroll", function () {
@@ -2508,6 +2508,8 @@
                                 var that = this;
                                 clearTimeout(hideClose);
                                 hideClose = setTimeout(function () { // get content from your api using ajax and display instead of setTimeout.
+                                    // add new content at top of list
+                                    $("#updateText").prepend("<div>...This text was added after pull to refresh was triggered....</div>");                          
                                     console.log("hiding manually refresh");
                                     that.hideRefresh();
                                 }, 2000);
@@ -2519,8 +2521,6 @@
                             });
                             $.bind(scrollerText, "refresh-finish", function () {
                                 console.log("refresh-finish");
-                                // add new content at top of list
-                                $("#updateText").prepend("<div>...This text was added after pull to refresh was triggered....</div>");
                             });
 
                             $.bind(scrollerText, "infinite-scroll", function () {
