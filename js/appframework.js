@@ -1,5 +1,6 @@
 /**
- * App Framework  query selector class for HTML5 mobile apps on a Webkit or IE 10 browser.
+ * App Framwork  query selector class for HTML5 mobile apps on a WebkitBrowser.
+ * Since most mobile devices (Android, iOS, webOS) use a WebKit browser, you only need to target one browser.
  * We are able to increase the speed greatly by removing support for legacy desktop browsers and taking advantage of browser features, like native JSON parsing and querySelectorAll
 
 
@@ -90,19 +91,18 @@ if (!window.af || typeof(af) !== "function") {
          */
 
         function classRE(name) {
-            return name in classCache ? classCache[name] : (classCache[name] = new RegExp('(^|\\s)' + name + '(\\s|$)'));
+            return name in classCache ? classCache[name] : (classCache[name] = new RegExp("(^|\\s)" + name + "(\\s|$)"));
         }
 
         /**
          * Internal function that returns a array of unique elements
-         * @param {Array} array to compare against
+         * @param {Array} arr array to compare against
          * @return {Array} array of unique elements
          * @api private
          */
-
         function unique(arr) {
             for (var i = 0; i < arr.length; i++) {
-                if (arr.indexOf(arr[i]) != i) {
+                if (arr.indexOf(arr[i]) !== i) {
                     arr.splice(i, 1);
                     i--;
                 }
@@ -125,7 +125,7 @@ if (!window.af || typeof(af) !== "function") {
                 return elems;
 
             for (; nodes; nodes = nodes.nextSibling) {
-                if (nodes.nodeType == 1 && nodes !== element) {
+                if (nodes.nodeType === 1 && nodes !== element) {
                     elems.push(nodes);
                 }
             }
@@ -206,11 +206,11 @@ if (!window.af || typeof(af) !== "function") {
          */
 
         function _selector(selector, what) {
-
+            /*jshint validthis:true*/
 
             selector = selector.trim();
 
-            if (selector[0] === "#" && selector.indexOf(".") == -1 &&selector.indexOf(",") == -1 && selector.indexOf(" ") === -1 && selector.indexOf(">") === -1) {
+            if (selector[0] === "#" && selector.indexOf(".") === -1 &&selector.indexOf(",") === -1 && selector.indexOf(" ") === -1 && selector.indexOf(">") === -1) {
                 if (what == document)
                     _shimNodes(what.getElementById(selector.replace("#", "")), this);
                 else
@@ -245,7 +245,7 @@ if (!window.af || typeof(af) !== "function") {
         /**
         * Checks to see if the parameter is a $afm object
             ```
-            var foo=$('#header');
+            var foo=$("#header");
             $.is$(foo);
             ```
 
@@ -264,26 +264,29 @@ if (!window.af || typeof(af) !== "function") {
 
         * @param {Array|Object} elements
         * @param {Function} callback
-        * @return {Object} appframework object with elements in it
+        * @return {array} array with elements
         * @title $.map(elements,callback)
         */
         $.map = function(elements, callback) {
             var value, values = [],
                 i, key;
-            if ($.isArray(elements))
+            if ($.isArray(elements)){
+
                 for (i = 0; i < elements.length; i++) {
-                    value = callback.apply(elements[i],[i,elements[i]]);
+                    value = callback.apply(elements[i],[elements[i],i]);
                     if (value !== nundefined)
                         values.push(value);
-            } else if ($.isObject(elements))
+                }
+            } else if ($.isObject(elements)){
                 for (key in elements) {
-                    if (!elements.hasOwnProperty(key) || key == "length")
+                    if (!elements.hasOwnProperty(key) || key === "length")
                         continue;
-                    value = callback(elements[key],[key,elements[key]]);
+                    value = callback(elements[key],[elements[key],key]);
                     if (value !== nundefined)
                         values.push(value);
+                }
             }
-            return af(values);
+            return values;
         };
 
         /**
@@ -299,16 +302,18 @@ if (!window.af || typeof(af) !== "function") {
         */
         $.each = function(elements, callback) {
             var i, key;
-            if ($.isArray(elements))
+            if ($.isArray(elements)){
                 for (i = 0; i < elements.length; i++) {
                     if (callback(i, elements[i]) === false)
                         return elements;
-            } else if ($.isObject(elements))
+                }
+            } else if ($.isObject(elements)){
                 for (key in elements) {
-                    if (!elements.hasOwnProperty(key) || key == "length")
+                    if (!elements.hasOwnProperty(key) || key === "length")
                         continue;
                     if (callback(key, elements[key]) === false)
                         return elements;
+                }
             }
             return elements;
         };
@@ -316,8 +321,8 @@ if (!window.af || typeof(af) !== "function") {
         /**
         * Extends an object with additional arguments
             ```
-            $.extend({foo:'bar'});
-            $.extend(element,{foo:'bar'});
+            $.extend({foo:"bar"});
+            $.extend(element,{foo:"bar"});
             ```
 
         * @param {Object} [target] element
@@ -354,7 +359,7 @@ if (!window.af || typeof(af) !== "function") {
         * @title $.isArray(param)
         */
         $.isArray = function(obj) {
-            return obj instanceof Array && obj.push != nundefined; //ios 3.1.3 doesn't have Array.isArray
+            return obj instanceof Array && obj.push != nundefined; //ios 3.1.3 doesn"t have Array.isArray
         };
 
         /**
@@ -374,7 +379,7 @@ if (!window.af || typeof(af) !== "function") {
         /**
         * Checks to see if the parameter is a object
             ```
-            var foo={bar:'bar'};
+            var foo={bar:"bar"};
             $.isObject(foo);
             ```
 
@@ -451,9 +456,9 @@ if (!window.af || typeof(af) !== "function") {
                 return this;
             },
             /**
-            * This is executed when DOMContentLoaded happens, or after if you've registered for it.
+            * This is executed when DOMContentLoaded happens, or after if you"ve registered for it.
                 ```
-                $(document).ready(function(){console.log('I'm ready');});
+                $(document).ready(function(){console.log("I'm ready");});
                 ```
 
             * @param {Function} callback
@@ -471,9 +476,9 @@ if (!window.af || typeof(af) !== "function") {
             /**
             * Searches through the collection and reduces them to elements that match the selector
                 ```
-                $("#foo").find('.bar');
-                $("#foo").find($('.bar'));
-                $("#foo").find($('.bar').get(0));
+                $("#foo").find(".bar");
+                $("#foo").find($(".bar"));
+                $("#foo").find($(".bar").get(0));
                 ```
 
             * @param {String|Object|Array} selector
@@ -500,8 +505,8 @@ if (!window.af || typeof(af) !== "function") {
             * If used as a get, the first elements innerHTML is returned
                 ```
                 $("#foo").html(); //gets the first elements html
-                $("#foo").html('new html');//sets the html
-                $("#foo").html('new html',false); //Do not do memory management cleanup
+                $("#foo").html("new html");//sets the html
+                $("#foo").html("new html",false); //Do not do memory management cleanup
                 ```
 
             * @param {String} html to set
@@ -510,6 +515,9 @@ if (!window.af || typeof(af) !== "function") {
             * @title $().html([html])
             */
             html: function(html, cleanup) {
+                var msFix=function(){
+                    item.innerHTML=html;
+                };
                 if (this.length === 0)
                     return this;
                 if (html === nundefined)
@@ -520,9 +528,7 @@ if (!window.af || typeof(af) !== "function") {
                         $.cleanUpContent(this[i], false, true);
                     if (isWin8) {
                         var item=this[i];
-                        MSApp.execUnsafeLocalFunction(function() {
-                            item.innerHTML = html;
-                        });
+                        MSApp.execUnsafeLocalFunction(msFix);
                     } else
                         this[i].innerHTML = html;
                 }
@@ -535,7 +541,7 @@ if (!window.af || typeof(af) !== "function") {
             * If used as a get, the first elements innerText is returned
                 ```
                 $("#foo").text(); //gets the first elements text;
-                $("#foo").text('new text'); //sets the text
+                $("#foo").text("new text"); //sets the text
                 ```
 
             * @param {String} text to set
@@ -589,14 +595,14 @@ if (!window.af || typeof(af) !== "function") {
              * Gets or sets css vendor specific css properties
             * If used as a get, the first elements css property is returned
                 ```
-                $().css("background"); // Gets the first elements background
-                $().css("background","red")  //Sets the elements background to red
+                $().vendorCss("transform"); // Gets the first elements background
+                $().vendorCss("transform","Translate3d(0,40,0)")  //Sets the elements background to red
                 ```
 
             * @param {String} attribute to get
             * @param {String} value to set as
             * @return {Object} an appframework object
-            * @title $().css(attribute,[value])
+            * @title $().vendorCss(attribute,[value])
             */
             vendorCss: function(attribute, value, obj) {
                 return this.css($.feat.cssPrefix + attribute, value, obj);
@@ -605,11 +611,11 @@ if (!window.af || typeof(af) !== "function") {
              * Performs a css vendor specific transform:translate operation on the collection.
              *
              ```
-                $("#main").cssTranslate('200px,0,0');
+                $("#main").cssTranslate("200px,0,0");
              ```
              * @param {String} Transform values
              * @return {Object} an appframework object
-             * @title $().vendorCss(value)
+             * @title $().cssTranslate(value)
              */
             cssTranslate: function(val) {
                 return this.vendorCss("Transform", "translate" + $.feat.cssTransformStart + val + $.feat.cssTransformEnd);
@@ -618,7 +624,7 @@ if (!window.af || typeof(af) !== "function") {
              * Gets the computed style of CSS values
              *
             ```
-               $("#main").computedStyle('display');
+               $("#main").computedStyle("display");
             ```
              * @param {String} css property
              * @return {Int|String|Float|} css vlaue
@@ -626,7 +632,7 @@ if (!window.af || typeof(af) !== "function") {
              */
             computedStyle: function(val) {
                 if (this.length === 0 || val == nundefined) return;
-                return window.getComputedStyle(this[0], '')[val];
+                return window.getComputedStyle(this[0], "")[val];
             },
             /**
             * Sets the innerHTML of all elements to an empty string
@@ -640,7 +646,7 @@ if (!window.af || typeof(af) !== "function") {
             empty: function() {
                 for (var i = 0; i < this.length; i++) {
                     $.cleanUpContent(this[i], false, true);
-                    this[i].textContent = '';
+                    this[i].textContent = "";
                 }
                 return this;
             },
@@ -658,7 +664,7 @@ if (!window.af || typeof(af) !== "function") {
                 if (this.length === 0)
                     return this;
                 for (var i = 0; i < this.length; i++) {
-                    if (this.css("display", null, this[i]) != "none") {
+                    if (this.css("display", null, this[i]) !== "none") {
                         this[i].setAttribute("afmOldStyle", this.css("display", null, this[i]));
                         this[i].style.display = "none";
                     }
@@ -679,8 +685,8 @@ if (!window.af || typeof(af) !== "function") {
                 if (this.length === 0)
                     return this;
                 for (var i = 0; i < this.length; i++) {
-                    if (this.css("display", null, this[i]) == "none") {
-                        this[i].style.display = this[i].getAttribute("afmOldStyle") ? this[i].getAttribute("afmOldStyle") : 'block';
+                    if (this.css("display", null, this[i]) === "none") {
+                        this[i].style.display = this[i].getAttribute("afmOldStyle") ? this[i].getAttribute("afmOldStyle") : "block";
                         this[i].removeAttribute("afmOldStyle");
                     }
                 }
@@ -700,13 +706,13 @@ if (!window.af || typeof(af) !== "function") {
             toggle: function(show) {
                 if(this.length === 0)
                     return this;
-                var show2 = !!(show === true);
+                var show2 = show===true;
                 for (var i = 0; i < this.length; i++) {
-                    if (this.css("display", null, this[i]) != "none" && (show == nundefined || show2 === false)) {
+                    if (this.css("display", null, this[i]) !== "none" && (show == nundefined || show2 === false)) {
                         this[i].setAttribute("afmOldStyle", this.css("display", null, this[i]));
                         this[i].style.display = "none";
-                    } else if (this.css("display", null, this[i]) == "none" && (show == nundefined || show2 === true)) {
-                        this[i].style.display = this[i].getAttribute("afmOldStyle") ? this[i].getAttribute("afmOldStyle") : 'block';
+                    } else if (this.css("display", null, this[i]) === "none" && (show == nundefined || show2 === true)) {
+                        this[i].style.display = this[i].getAttribute("afmOldStyle") ? this[i].getAttribute("afmOldStyle") : "block";
                         this[i].removeAttribute("afmOldStyle");
                     }
                 }
@@ -738,9 +744,9 @@ if (!window.af || typeof(af) !== "function") {
             * Gets or sets an attribute on an element
             * If used as a getter, we return the first elements value.  If nothing is in the collection, we return undefined
                 ```
-                $().attr("foo"); //Gets the first elements 'foo' attribute
-                $().attr("foo","bar");//Sets the elements 'foo' attribute to 'bar'
-                $().attr("foo",{bar:'bar'}) //Adds the object to an internal cache
+                $().attr("foo"); //Gets the first elements "foo" attribute
+                $().attr("foo","bar");//Sets the elements "foo" attribute to "bar"
+                $().attr("foo",{bar:"bar"}) //Adds the object to an internal cache
                 ```
 
             * @param {String|Object} attribute to act upon.  If it's an object (hashmap), it will set the attributes based off the kvp.
@@ -789,13 +795,14 @@ if (!window.af || typeof(af) !== "function") {
             * @title $().removeAttr(attribute)
             */
             removeAttr: function(attr) {
+                var removeFixer=function(param) {
+                    that[i].removeAttribute(param);
+                    if (that[i].afmCacheId && _attrCache[that[i].afmCacheId][attr])
+                        delete _attrCache[that[i].afmCacheId][attr];
+                };
                 var that = this;
                 for (var i = 0; i < this.length; i++) {
-                    attr.split(/\s+/g).forEach(function(param) {
-                        that[i].removeAttribute(param);
-                        if (that[i].afmCacheId && _attrCache[that[i].afmCacheId][attr])
-                            delete _attrCache[that[i].afmCacheId][attr];
-                    });
+                    attr.split(/\s+/g).forEach(removeFixer);
                 }
                 return this;
             },
@@ -804,9 +811,9 @@ if (!window.af || typeof(af) !== "function") {
             * Gets or sets a property on an element
             * If used as a getter, we return the first elements value.  If nothing is in the collection, we return undefined
                 ```
-                $().prop("foo"); //Gets the first elements 'foo' property
-                $().prop("foo","bar");//Sets the elements 'foo' property to 'bar'
-                $().prop("foo",{bar:'bar'}) //Adds the object to an internal cache
+                $().prop("foo"); //Gets the first elements "foo" property
+                $().prop("foo","bar");//Sets the elements "foo" property to "bar"
+                $().prop("foo",{bar:"bar"}) //Adds the object to an internal cache
                 ```
 
             * @param {String|Object} property to act upon.  If it's an object (hashmap), it will set the attributes based off the kvp.
@@ -854,15 +861,16 @@ if (!window.af || typeof(af) !== "function") {
             * @title $().removeProp(attribute)
             */
             removeProp: function(prop) {
+                var removePropFn=function(param) {
+                    if (that[i][param])
+                        that[i][param] = undefined;
+                    if (that[i].afmCacheId && _propCache[that[i].afmCacheId][prop]) {
+                        delete _propCache[that[i].afmCacheId][prop];
+                    }
+                };
                 var that = this;
                 for (var i = 0; i < this.length; i++) {
-                    prop.split(/\s+/g).forEach(function(param) {
-                        if (that[i][param])
-                            that[i][param] = undefined;
-                        if (that[i].afmCacheId && _propCache[that[i].afmCacheId][prop]) {
-                            delete _propCache[that[i].afmCacheId][prop];
-                        }
-                    });
+                    prop.split(/\s+/g).forEach(removePropFn);
                 }
                 return this;
             },
@@ -905,15 +913,16 @@ if (!window.af || typeof(af) !== "function") {
             * @title $().addClass(name)
             */
             addClass: function(name) {
+                var addClassLoop=function(cname) {
+                    if (!that.hasClass(cname, that[i]))
+                        classList.push(cname);
+                };
                 if (name == nundefined) return this;
                 for (var i = 0; i < this.length; i++) {
                     var cls = this[i].className;
                     var classList = [];
                     var that = this;
-                    name.split(/\s+/g).forEach(function(cname) {
-                        if (!that.hasClass(cname, that[i]))
-                            classList.push(cname);
-                    });
+                    name.split(/\s+/g).forEach(addClassLoop);
 
                     this[i].className += (cls ? " " : "") + classList.join(" ");
                     this[i].className = this[i].className.trim();
@@ -933,19 +942,20 @@ if (!window.af || typeof(af) !== "function") {
             */
             removeClass: function(name) {
                 if (name == nundefined) return this;
+                var removeClassLoop=function(cname) {
+                    classList = classList.replace(classRE(cname), " ");
+                };
                 for (var i = 0; i < this.length; i++) {
                     if (name == nundefined) {
-                        this[i].className = '';
+                        this[i].className = "";
                         return this;
                     }
                     var classList = this[i].className;
-					//SGV LINK EVENT
-					if (typeof this[i].className == "object") {
-						classList = " ";
-					}
-                    name.split(/\s+/g).forEach(function(cname) {
-                        classList = classList.replace(classRE(cname), " ");
-                    });
+                    //SGV LINK EVENT
+                    if (typeof this[i].className === "object") {
+                        classList = " ";
+                    }
+                    name.split(/\s+/g).forEach(removeClassLoop);
                     if (classList.length > 0)
                         this[i].className = classList.trim();
                     else
@@ -967,10 +977,10 @@ if (!window.af || typeof(af) !== "function") {
             toggleClass: function(name, state) {
                 if (name == nundefined) return this;
                 for (var i = 0; i < this.length; i++) {
-                    if (typeof state != "boolean") {
+                    if (typeof state !== "boolean") {
                         state = this.hasClass(name, this[i]);
                     }
-                    $(this[i])[state ? 'removeClass' : 'addClass'](name);
+                    $(this[i])[state ? "removeClass" : "addClass"](name);
                 }
                 return this;
             },
@@ -987,15 +997,16 @@ if (!window.af || typeof(af) !== "function") {
             */
             replaceClass: function(name, newName) {
                 if (name == nundefined || newName == nundefined) return this;
+                var replaceClassFn=function(cname) {
+                    classList = classList.replace(classRE(cname), " ");
+                };
                 for (var i = 0; i < this.length; i++) {
                     if (name == nundefined) {
                         this[i].className = newName;
                         continue;
                     }
                     var classList = this[i].className;
-                    name.split(/\s+/g).concat(newName.split(/\s+/g)).forEach(function(cname) {
-                        classList = classList.replace(classRE(cname), " ");
-                    });
+                    name.split(/\s+/g).concat(newName.split(/\s+/g)).forEach(replaceClassFn);
                     classList = classList.trim();
                     if (classList.length > 0) {
                         this[i].className = (classList + " " + newName).trim();
@@ -1007,8 +1018,8 @@ if (!window.af || typeof(af) !== "function") {
             /**
             * Checks to see if an element has a class.
                 ```
-                $().hasClass('foo');
-                $().hasClass('foo',element);
+                $().hasClass("foo");
+                $().hasClass("foo",element);
                 ```
 
             * @param {String} class name to check against
@@ -1034,36 +1045,37 @@ if (!window.af || typeof(af) !== "function") {
                 ```
 
             * @param {String|Object} Element/string to add
+            * @param {String|Object} Element/string to add
             * @param {Boolean} [insert] insert or append
             * @return {Object} appframework object
-            * @title $().append(element,[insert])
+            * @title $().append(element,[insert],[content])
             */
-            append: function(element, insert) {
+            append: function(element, content,insert) {
                 if (element && element.length != nundefined && element.length === 0)
                     return this;
                 if ($.isArray(element) || $.isObject(element))
                     element = $(element);
                 var i, node;
-
-
+                if(content)
+                    $(this).add(content);
                 for (i = 0; i < this.length; i++) {
-                    if (element.length && typeof element != "string") {
+                    if (element.length && typeof element !== "string") {
                         element = $(element);
                         _insertFragments(element, this[i], insert);
                     } else {
-                        var obj = fragmentRE.test(element) ? $(element) : undefined;                        
+                        var obj = fragmentRE.test(element) ? $(element) : undefined;
                         if (obj == nundefined || obj.length === 0) {
                             obj = document.createTextNode(element);
                         }
                         if (obj instanceof $afm) {
                             for (var k=0,lenk=obj.length; k<lenk; k++) {
-                            	node = obj[k];
-                            	if (node.nodeName != nundefined && node.nodeName.toLowerCase() == "script" && (!node.type || node.type.toLowerCase() === 'text/javascript')) {
-                            	    window['eval'](node.innerHTML);	
-                            	} else {
-                            	    _insertFragments($(node), this[i], insert);
-                            	}
-                            }	
+                                node = obj[k];
+                                if (node.nodeName != nundefined && node.nodeName.toLowerCase() === "script" && (!node.type || node.type.toLowerCase() === "text/javascript")) {
+                                    window["eval"](node.innerHTML);
+                                } else {
+                                    _insertFragments($(node), this[i], insert);
+                                }
+                            }
                         } else {
                             insert != nundefined ? this[i].insertBefore(obj, this[i].firstChild) : this[i].appendChild(obj);
                         }
@@ -1097,7 +1109,7 @@ if (!window.af || typeof(af) !== "function") {
             */
             prependTo: function(selector) {
                 var tmp = $(selector);
-                tmp.append(this, true);
+                tmp.append(this, null,true);
                 return this;
             },
             /**
@@ -1113,7 +1125,7 @@ if (!window.af || typeof(af) !== "function") {
             * @title $().prepend(element)
             */
             prepend: function(element) {
-                return this.append(element, 1);
+                return this.append(element,null, 1);
             },
             /**
              * Inserts collection before the target (adjacent)
@@ -1158,9 +1170,16 @@ if (!window.af || typeof(af) !== "function") {
             * @title $().get([index])
             */
             get: function(index) {
-                index = index == nundefined ? 0 : index;
+                index = index == nundefined ? null : index;
                 if (index < 0)
                     index += this.length;
+                if(index===null){
+                    var elems=[];
+                    for(var i=0;i<this.length;i++){
+                        elems.push(this[i]);
+                    }
+                    return elems;
+                }
                 return (this[index]) ? this[index] : undefined;
             },
             /**
@@ -1184,7 +1203,7 @@ if (!window.af || typeof(af) !== "function") {
                         bottom: 0,
                         width: window.innerWidth,
                         height: window.innerHeight
-                };
+                    };
                 else
                     obj = this[0].getBoundingClientRect();
                 return {
@@ -1210,9 +1229,9 @@ if (!window.af || typeof(af) !== "function") {
                 if (val != nundefined)
                     return this.css("height", val);
                 if (this[0] == this[0].window)
-                    return window.innerHeight;
+                    return window.innerHeight + "";
                 if (this[0].nodeType == this[0].DOCUMENT_NODE)
-                    return this[0].documentElement.offsetHeight;
+                    return this[0].documentElement.offsetheight;
                 else {
                     var tmpVal = this.css("height").replace("px", "");
                     if (tmpVal)
@@ -1237,7 +1256,7 @@ if (!window.af || typeof(af) !== "function") {
                 if (this[0] == this[0].window)
                     return window.innerWidth;
                 if (this[0].nodeType == this[0].DOCUMENT_NODE)
-                    return this[0].documentElement.offsetWidth;
+                    return this[0].documentElement.offsetwidth;
                 else {
                     var tmpVal = this.css("width").replace("px", "");
                     if (tmpVal)
@@ -1249,9 +1268,9 @@ if (!window.af || typeof(af) !== "function") {
             /**
             * Returns the parent nodes of the elements based off the selector
                 ```
-                $("#foo").parent('.bar');
-                $("#foo").parent($('.bar'));
-                $("#foo").parent($('.bar').get(0));
+                $("#foo").parent(".bar");
+                $("#foo").parent($(".bar"));
+                $("#foo").parent($(".bar").get(0));
                 ```
 
             * @param {String|Array|Object} [selector]
@@ -1277,9 +1296,9 @@ if (!window.af || typeof(af) !== "function") {
             /**
             * Returns the parents of the elements based off the selector (traversing up until html document)
                 ```
-                $("#foo").parents('.bar');
-                $("#foo").parents($('.bar'));
-                $("#foo").parents($('.bar').get(0));
+                $("#foo").parents(".bar");
+                $("#foo").parents($(".bar"));
+                $("#foo").parents($(".bar").get(0));
                 ```
 
             * @param {String|Array|Object} [selector]
@@ -1292,9 +1311,9 @@ if (!window.af || typeof(af) !== "function") {
             /**
             * Returns the child nodes of the elements based off the selector
                 ```
-                $("#foo").children('.bar'); //Selector
-                $("#foo").children($('.bar')); //Objects
-                $("#foo").children($('.bar').get(0)); //Single element
+                $("#foo").children(".bar"); //Selector
+                $("#foo").children($(".bar")); //Objects
+                $("#foo").children($(".bar").get(0)); //Single element
                 ```
 
             * @param {String|Array|Object} [selector]
@@ -1315,9 +1334,9 @@ if (!window.af || typeof(af) !== "function") {
             /**
             * Returns the siblings of the element based off the selector
                 ```
-                $("#foo").siblings('.bar'); //Selector
-                $("#foo").siblings($('.bar')); //Objects
-                $("#foo").siblings($('.bar').get(0)); //Single element
+                $("#foo").siblings(".bar"); //Selector
+                $("#foo").siblings($(".bar")); //Objects
+                $("#foo").siblings($(".bar").get(0)); //Single element
                 ```
 
             * @param {String|Array|Object} [selector]
@@ -1337,9 +1356,9 @@ if (!window.af || typeof(af) !== "function") {
             /**
             * Returns the child nodes of the elements based off the selector and includes text nodes
                 ```
-                $("#foo").contents('.bar'); //Selector
-                $("#foo").contents($('.bar')); //Objects
-                $("#foo").contents($('.bar').get(0)); //Single element
+                $("#foo").contents(".bar"); //Selector
+                $("#foo").contents($(".bar")); //Objects
+                $("#foo").contents($(".bar").get(0)); //Single element
                 ```
 
             * @param {String|Array|Object} [selector]
@@ -1358,13 +1377,11 @@ if (!window.af || typeof(af) !== "function") {
                 return this.setupOld($(elems).filter(selector));
             },
             /**
-
-            /**
             * Returns the closest element based off the selector and optional context
                 ```
-                $("#foo").closest('.bar'); //Selector
-                $("#foo").closest($('.bar')); //Objects
-                $("#foo").closest($('.bar').get(0)); //Single element
+                $("#foo").closest(".bar"); //Selector
+                $("#foo").closest($(".bar")); //Objects
+                $("#foo").closest($(".bar").get(0)); //Single element
                 ```
 
             * @param {String|Array|Object} selector
@@ -1381,7 +1398,7 @@ if (!window.af || typeof(af) !== "function") {
                 var start = $(selector, context);
                 if (start.length === 0)
                     return $();
-                while (cur && start.indexOf(cur) == -1) {
+                while (cur && start.indexOf(cur) === -1) {
                     cur = cur !== context && cur !== document && cur.parentNode;
                 }
                 return $(cur);
@@ -1390,9 +1407,9 @@ if (!window.af || typeof(af) !== "function") {
             /**
             * Filters elements based off the selector
                 ```
-                $("#foo").filter('.bar'); //Selector
-                $("#foo").filter($('.bar')); //Objects
-                $("#foo").filter($('.bar').get(0)); //Single element
+                $("#foo").filter(".bar"); //Selector
+                $("#foo").filter($(".bar")); //Objects
+                $("#foo").filter($(".bar").get(0)); //Single element
                 ```
 
             * @param {String|Array|Object} selector
@@ -1416,9 +1433,9 @@ if (!window.af || typeof(af) !== "function") {
             /**
             * Basically the reverse of filter.  Return all elements that do NOT match the selector
                 ```
-                $("#foo").not('.bar'); //Selector
-                $("#foo").not($('.bar')); //Objects
-                $("#foo").not($('.bar').get(0)); //Single element
+                $("#foo").not(".bar"); //Selector
+                $("#foo").not($(".bar")); //Objects
+                $("#foo").not($(".bar").get(0)); //Single element
                 ```
 
             * @param {String|Array|Object} selector
@@ -1431,18 +1448,18 @@ if (!window.af || typeof(af) !== "function") {
                 var elems = [];
                 for (var i = 0; i < this.length; i++) {
                     var val = this[i];
-                    if (val.parentNode && $(selector, val.parentNode).indexOf(val) == -1)
+                    if (val.parentNode && $(selector, val.parentNode).indexOf(val) === -1)
                         elems.push(val);
                 }
                 return this.setupOld($(unique(elems)));
             },
             /**
             * Gets or set data-* attribute parameters on elements (when a string)
-            * When used as a getter, it's only the first element
+            * When used as a getter, it"s only the first element
                 ```
                 $().data("foo"); //Gets the data-foo attribute for the first element
                 $().data("foo","bar"); //Sets the data-foo attribute for all elements
-                $().data("foo",{bar:'bar'});//object as the data
+                $().data("foo",{bar:"bar"});//object as the data
                 ```
 
             * @param {String} key
@@ -1451,7 +1468,7 @@ if (!window.af || typeof(af) !== "function") {
             * @title $().data(key,[value]);
             */
             data: function(key, value) {
-                return this.attr('data-' + key, value);
+                return this.attr("data-" + key, value);
             },
             /**
             * Rolls back the appframework elements when filters were applied
@@ -1511,23 +1528,24 @@ if (!window.af || typeof(af) !== "function") {
             serialize: function() {
                 if (this.length === 0)
                     return "";
+                var serializeFn=function(elem) {
+                    var type = elem.getAttribute("type");
+                    if (elem.nodeName.toLowerCase() !== "fieldset" && !elem.disabled && type !== "submit" && type !== "reset" && type !== "button" && ((type !== "radio" && type !== "checkbox") || elem.checked)) {
+
+                        if (elem.getAttribute("name")) {
+                            if (elem.type === "select-multiple") {
+                                for (var j = 0; j < elem.options.length; j++) {
+                                    if (elem.options[j].selected)
+                                        params.push(elem.getAttribute("name") + "=" + encodeURIComponent(elem.options[j].value));
+                                }
+                            } else
+                                params.push(elem.getAttribute("name") + "=" + encodeURIComponent(elem.value));
+                        }
+                    }
+                };
                 var params = [];
                 for (var i = 0; i < this.length; i++) {
-                    this.slice.call(this[i].elements).forEach(function(elem) {
-                        var type = elem.getAttribute("type");
-                        if (elem.nodeName.toLowerCase() != "fieldset" && !elem.disabled && type != "submit" && type != "reset" && type != "button" && ((type != "radio" && type != "checkbox") || elem.checked)) {
-
-                            if (elem.getAttribute("name")) {
-                                if (elem.type == "select-multiple") {
-                                    for (var j = 0; j < elem.options.length; j++) {
-                                        if (elem.options[j].selected)
-                                            params.push(elem.getAttribute("name") + "=" + encodeURIComponent(elem.options[j].value));
-                                    }
-                                } else
-                                    params.push(elem.getAttribute("name") + "=" + encodeURIComponent(elem.value));
-                            }
-                        }
-                    });
+                    this.slice.call(this[i].elements).forEach(serializeFn);
                 }
                 return params.join("&");
             },
@@ -1562,14 +1580,30 @@ if (!window.af || typeof(af) !== "function") {
               ```
               $().is(selector)
               ```
-             * param {String|Object} selector to act upon
+             * @param {String|Object} selector to act upon
              * @return boolean
              * @title $().is(selector)
              */
             is: function(selector) {
                 return !!selector && this.filter(selector).length > 0;
+            },
+            /**
+             * adds a result to an existing AF collection
+             ```
+             $().add(selector)
+             ```
+             * @param {String|Object} selector to act upon
+             * @return {object} appframework object
+             * @title $().add(selector)
+             */
+            add:function(selector){
+                var els=$(selector);
+                var i,len=els.length;
+                for(i=0;i<len;i++){
+                    this[this.length++]=els[i];
+                }
+                return this;
             }
-
         };
 
 
@@ -1577,7 +1611,7 @@ if (!window.af || typeof(af) !== "function") {
 
         function empty() {}
         $.ajaxSettings = {
-            type: 'GET',
+            type: "GET",
             beforeSend: empty,
             success: empty,
             error: empty,
@@ -1592,7 +1626,7 @@ if (!window.af || typeof(af) !== "function") {
         * options.success - Success function to call
         * options.error - Error function to call
             ```
-            $.jsonP({url:'mysite.php?callback=?&foo=bar',success:function(){},error:function(){}});
+            $.jsonP({url:"mysite.php?callback=?&foo=bar",success:function(){},error:function(){}});
             ```
 
         * @param {Object} options
@@ -1604,9 +1638,9 @@ if (!window.af || typeof(af) !== "function") {
                 options.dataType = null;
                 return $.get(options);
             }
-            var callbackName = 'jsonp_callback' + (++_jsonPID);
+            var callbackName = "jsonp_callback" + (++_jsonPID);
             var abortTimeout = "",
-                context;
+                context, callback;
             var script = document.createElement("script");
             var abort = function() {
                 $(script).remove();
@@ -1619,17 +1653,28 @@ if (!window.af || typeof(af) !== "function") {
                 delete window[callbackName];
                 options.success.call(context, data);
             };
-            script.src = options.url.replace(/=\?/, '=' + callbackName);
+            if (options.url.indexOf("callback=?") !== -1) {
+                script.src = options.url.replace(/=\?/, "=" + callbackName);
+            } else {
+                callback = options.jsonp ? options.jsonp : "callback";
+                if (options.url.indexOf("?") === -1) {
+                    options.url += ("?" + callback + "=" + callbackName);
+                }
+                else {
+                    options.url += ("&" + callback + "=" + callbackName);
+                }
+                script.src = options.url;
+            }
             if (options.error) {
                 script.onerror = function() {
                     clearTimeout(abortTimeout);
-                    options.error.call(context, "", 'error');
+                    options.error.call(context, "", "error");
                 };
             }
-            $('head').append(script);
+            $("head").append(script);
             if (options.timeout > 0)
                 abortTimeout = setTimeout(function() {
-                    options.error.call(context, "", 'timeout');
+                    options.error.call(context, "", "timeout");
                 }, options.timeout);
             return {};
         };
@@ -1652,7 +1697,7 @@ if (!window.af || typeof(af) !== "function") {
             type:"GET",
             success:function(data){},
             url:"mypage.php",
-            data:{bar:'bar'},
+            data:{bar:"bar"},
             }
             $.ajax(opts);
             ```
@@ -1666,7 +1711,7 @@ if (!window.af || typeof(af) !== "function") {
 
                 var settings = opts || {};
                 for (var key in $.ajaxSettings) {
-                    if (typeof(settings[key]) == 'undefined')
+                    if (typeof(settings[key]) === "undefined")
                         settings[key] = $.ajaxSettings[key];
                 }
 
@@ -1677,9 +1722,9 @@ if (!window.af || typeof(af) !== "function") {
                 if (!settings.headers)
                     settings.headers = {};
 
-                if (!('async' in settings) || settings.async !== false)
+                if (!("async" in settings) || settings.async !== false)
                     settings.async = true;
-                    
+
                 if ($.isObject(settings.data))
                     settings.data = $.param(settings.data);
                 if (settings.type.toLowerCase() === "get" && settings.data) {
@@ -1688,35 +1733,34 @@ if (!window.af || typeof(af) !== "function") {
                     else
                         settings.url += "&" + settings.data;
                 }
-
-		if (!settings.dataType)
+                if (!settings.dataType)
                     settings.dataType = "text/html";
                 else {
                     switch (settings.dataType) {
-                        case "script":
-                            settings.dataType = 'text/javascript, application/javascript';
-                            break;
-                        case "json":
-                            settings.dataType = 'application/json';
-                            break;
-                        case "xml":
-                            settings.dataType = 'application/xml, text/xml';
-                            break;
-                        case "html":
-                            settings.dataType = 'text/html';
-                            break;
-                        case "text":
-                            settings.dataType = 'text/plain';
-                            break;
-                        case "jsonp":
-                            return $.jsonP(settings);
-                            break;
-                        default:
-                            settings.dataType = "text/html";
-                            break;
+                    case "script":
+                        settings.dataType = "text/javascript, application/javascript";
+                        break;
+                    case "json":
+                        settings.dataType = "application/json";
+                        break;
+                    case "xml":
+                        settings.dataType = "application/xml, text/xml";
+                        break;
+                    case "html":
+                        settings.dataType = "text/html";
+                        break;
+                    case "text":
+                        settings.dataType = "text/plain";
+                        break;
+                    case "jsonp":
+                        return $.jsonP(opts);
+                    default:
+                        settings.dataType = "text/html";
+                        break;
                     }
                 }
-                
+
+
                 if (/=\?/.test(settings.url)) {
                     return $.jsonP(settings);
                 }
@@ -1725,7 +1769,7 @@ if (!window.af || typeof(af) !== "function") {
 
                 if (!settings.crossDomain)
                     settings.headers = $.extend({
-                        'X-Requested-With': 'XMLHttpRequest'
+                        "X-Requested-With": "XMLHttpRequest"
                     }, settings.headers);
                 var abortTimeout;
                 var context = settings.context;
@@ -1740,42 +1784,42 @@ if (!window.af || typeof(af) !== "function") {
                     if (xhr.readyState === 4) {
                         clearTimeout(abortTimeout);
                         var result, error = false;
-                        if ((xhr.status >= 200 && xhr.status < 300) || xhr.status === 0 && protocol == 'file:') {
-                            if (mime === 'application/json' && !(/^\s*$/.test(xhr.responseText))) {
+                        if ((xhr.status >= 200 && xhr.status < 300) || xhr.status === 0 && protocol === "file:") {
+                            if (mime === "application/json" && !(/^\s*$/.test(xhr.responseText))) {
                                 try {
                                     result = JSON.parse(xhr.responseText);
                                 } catch (e) {
                                     error = e;
                                 }
-                            } else if (mime === 'application/xml, text/xml') {
+                            } else if (mime === "application/xml, text/xml") {
                                 result = xhr.responseXML;
-                            } else if (mime == "text/html") {
+                            } else if (mime === "text/html") {
                                 result = xhr.responseText;
                                 $.parseJS(result);
                             } else
                                 result = xhr.responseText;
-                            //If we're looking at a local file, we assume that no response sent back means there was an error
+                            //If we"re looking at a local file, we assume that no response sent back means there was an error
                             if (xhr.status === 0 && result.length === 0)
                                 error = true;
                             if (error)
-                                settings.error.call(context, xhr, 'parsererror', error);
+                                settings.error.call(context, xhr, "parsererror", error);
                             else {
-                                settings.success.call(context, result, 'success', xhr);
+                                settings.success.call(context, result, "success", xhr);
                             }
                         } else {
                             error = true;
-                            settings.error.call(context, xhr, 'error');
+                            settings.error.call(context, xhr, "error");
                         }
-                        settings.complete.call(context, xhr, error ? 'error' : 'success');
+                        settings.complete.call(context, xhr, error ? "error" : "success");
                     }
                 };
                 xhr.open(settings.type, settings.url, settings.async);
                 if (settings.withCredentials) xhr.withCredentials = true;
 
                 if (settings.contentType)
-                    settings.headers['Content-Type'] = settings.contentType;
+                    settings.headers["Content-Type"] = settings.contentType;
                 for (var name in settings.headers)
-                    if (typeof settings.headers[name] === 'string')
+                    if (typeof settings.headers[name] === "string")
                         xhr.setRequestHeader(name, settings.headers[name]);
                 if (settings.beforeSend.call(context, xhr, settings) === false) {
                     xhr.abort();
@@ -1786,13 +1830,13 @@ if (!window.af || typeof(af) !== "function") {
                     abortTimeout = setTimeout(function() {
                         xhr.onreadystatechange = empty;
                         xhr.abort();
-                        settings.error.call(context, xhr, 'timeout');
+                        settings.error.call(context, xhr, "timeout");
                     }, settings.timeout);
                 xhr.send(settings.data);
             } catch (e) {
                 // General errors (e.g. access denied) should also be sent to the error callback
                 console.log(e);
-                settings.error.call(context, xhr, 'error', e);
+                settings.error.call(context, xhr, "error", e);
             }
             return xhr;
         };
@@ -1817,7 +1861,7 @@ if (!window.af || typeof(af) !== "function") {
         /**
         * Shorthand call to an Ajax POST request
             ```
-            $.post("mypage.php",{bar:'bar'},function(data){});
+            $.post("mypage.php",{bar:"bar"},function(data){});
             ```
 
         * @param {String} url to hit
@@ -1844,7 +1888,7 @@ if (!window.af || typeof(af) !== "function") {
         /**
         * Shorthand call to an Ajax request that expects a JSON response
             ```
-            $.getJSON("mypage.php",{bar:'bar'},function(data){});
+            $.getJSON("mypage.php",{bar:"bar"},function(data){});
             ```
 
         * @param {String} url to hit
@@ -1869,10 +1913,10 @@ if (!window.af || typeof(af) !== "function") {
         * Converts an object into a key/value par with an optional prefix.  Used for converting objects to a query string
             ```
             var obj={
-            foo:'foo',
-            bar:'bar'
+            foo:"foo",
+            bar:"bar"
             }
-            var kvp=$.param(obj,'data');
+            var kvp=$.param(obj,"data");
             ```
 
         * @param {Object} object
@@ -1946,8 +1990,8 @@ if (!window.af || typeof(af) !== "function") {
          * .os.ieTouch
          * .os.supportsTouch
          * .os.playbook
-         $.os.tizen
-         * .feat.nativetouchScroll
+         * .os.tizen
+         * .feat.nativeTouchScroll
          * @api private
          */
 
@@ -1971,7 +2015,8 @@ if (!window.af || typeof(af) !== "function") {
             $.os.ie = userAgent.match(/MSIE 10.0/i)||userAgent.match(/Trident\/7/i) ? true : false;
             $.os.ieTouch = $.os.ie && userAgent.toLowerCase().match(/touch/i) ? true : false;
             $.os.tizen = userAgent.match(/Tizen/i)?true:false;
-            $.os.supportsTouch = ((window.DocumentTouch && document instanceof window.DocumentTouch) || 'ontouchstart' in window);
+            $.os.supportsTouch = ((window.DocumentTouch && document instanceof window.DocumentTouch) || "ontouchstart" in window);
+            $.os.kindle=userAgent.match(/Silk-Accelerated/)?true:false;
             //features
             $.feat = {};
             var head = document.documentElement.getElementsByTagName("head")[0];
@@ -2033,13 +2078,13 @@ if (!window.af || typeof(af) !== "function") {
 
             var transform = computedStyle.webkitTransform ||
                             computedStyle.transform ||
-                            computedStyle[$.feat.cssPrefix + 'Transform'];
+                            computedStyle[$.feat.cssPrefix + "Transform"];
 
             if (matrixFn)
                 return new matrixFn(transform);
             else if (transform) {
                 //fake css matrix
-                var mat = transform.replace(/[^0-9\-.,]/g, '').split(',');
+                var mat = transform.replace(/[^0-9\-.,]/g, "").split(",");
                 return {
                     a: +mat[0],
                     b: +mat[1],
@@ -2062,10 +2107,10 @@ if (!window.af || typeof(af) !== "function") {
         };
 
         /**
-         * $.create - a faster alertnative to $("<div id='main'>this is some text</div>");
+         * $.create - a faster alertnative to $("<div id="main">this is some text</div>");
           ```
-          $.create("div",{id:'main',innerHTML:'this is some text'});
-          $.create("<div id='main'>this is some text</div>");
+          $.create("div",{id:"main",innerHTML:"this is some text"});
+          $.create("<div id="main">this is some text</div>");
           ```
           * @param {String} DOM Element type or html
           * @param [{Object}] properties to apply to the element
@@ -2076,8 +2121,10 @@ if (!window.af || typeof(af) !== "function") {
             var elem;
             var f = new $afm();
             if (props || type[0] !== "<") {
-                if (props.html)
-                    props.innerHTML = props.html, delete props.html;
+                if (props.html){
+                    props.innerHTML = props.html;
+                    delete props.html;
+                }
 
                 elem = document.createElement(type);
                 for (var j in props) {
@@ -2088,7 +2135,7 @@ if (!window.af || typeof(af) !== "function") {
                 elem = document.createElement("div");
                 if (isWin8) {
                     MSApp.execUnsafeLocalFunction(function() {
-                        elem.innerHTML = selector.trim();
+                        elem.innerHTML = type.trim();
                     });
                 } else
                     elem.innerHTML = type;
@@ -2150,7 +2197,7 @@ if (!window.af || typeof(af) !== "function") {
             if (event.ns)
                 var matcher = matcherFor(event.ns);
             return (handlers[afmid(element)] || []).filter(function(handler) {
-                return handler && (!event.e || handler.e == event.e) && (!event.ns || matcher.test(handler.ns)) && (!fn || handler.fn == fn || (typeof handler.fn === 'function' && typeof fn === 'function' && handler.fn === fn)) && (!selector || handler.sel == selector);
+                return handler && (!event.e || handler.e == event.e) && (!event.ns || matcher.test(handler.ns)) && (!fn || handler.fn == fn || (typeof handler.fn === "function" && typeof fn === "function" && handler.fn === fn)) && (!selector || handler.sel == selector);
             });
         }
         /**
@@ -2161,10 +2208,10 @@ if (!window.af || typeof(af) !== "function") {
          */
 
         function parse(event) {
-            var parts = ('' + event).split('.');
+            var parts = ("" + event).split(".");
             return {
                 e: parts[0],
-                ns: parts.slice(1).sort().join(' ')
+                ns: parts.slice(1).sort().join(" ")
             };
         }
         /**
@@ -2175,7 +2222,7 @@ if (!window.af || typeof(af) !== "function") {
          */
 
         function matcherFor(ns) {
-            return new RegExp('(?:^| )' + ns.replace(' ', ' .* ?') + '(?: |$)');
+            return new RegExp("(?:^| )" + ns.replace(" ", " .* ?") + "(?: |$)");
         }
 
         /**
@@ -2246,7 +2293,7 @@ if (!window.af || typeof(af) !== "function") {
         function remove(element, events, fn, selector) {
 
             var id = afmid(element);
-            eachEvent(events || '', fn, function(event, fn) {
+            eachEvent(events || "", fn, function(event, fn) {
                 findHandlers(element, event, fn, selector).forEach(function(handler) {
                     delete handlers[id][handler.i];
                     element.removeEventListener(handler.e, handler.proxy, false);
@@ -2262,7 +2309,7 @@ if (!window.af || typeof(af) !== "function") {
         /**
         * Binds an event to each element in the collection and executes the callback
             ```
-            $().bind('click',function(){console.log('I clicked '+this.id);});
+            $().bind("click",function(){console.log("I clicked "+this.id);});
             ```
 
         * @param {String|Object} event
@@ -2271,7 +2318,7 @@ if (!window.af || typeof(af) !== "function") {
         * @title $().bind(event,callback)
         */
         $.fn.bind = function(event, callback) {
-            for (var i = 0; i < this.length; i++) {
+            for (var i = 0, len = this.length; i < len; i++) {
                 add(this[i], event, callback);
             }
             return this;
@@ -2279,8 +2326,8 @@ if (!window.af || typeof(af) !== "function") {
         /**
         * Unbinds an event to each element in the collection.  If a callback is passed in, we remove just that one, otherwise we remove all callbacks for those events
             ```
-            $().unbind('click'); //Unbinds all click events
-            $().unbind('click',myFunc); //Unbinds myFunc
+            $().unbind("click"); //Unbinds all click events
+            $().unbind("click",myFunc); //Unbinds myFunc
             ```
 
         * @param {String|Object} event
@@ -2289,7 +2336,7 @@ if (!window.af || typeof(af) !== "function") {
         * @title $().unbind(event,[callback]);
         */
         $.fn.unbind = function(event, callback) {
-            for (var i = 0; i < this.length; i++) {
+            for (var i = 0, len = this.length; i < len; i++) {
                 remove(this[i], event, callback);
             }
             return this;
@@ -2298,7 +2345,7 @@ if (!window.af || typeof(af) !== "function") {
         /**
         * Binds an event to each element in the collection that will only execute once.  When it executes, we remove the event listener then right away so it no longer happens
             ```
-            $().one('click',function(){console.log('I was clicked once');});
+            $().one("click",function(){console.log("I was clicked once");});
             ```
 
         * @param {String|Object} event
@@ -2330,9 +2377,9 @@ if (!window.af || typeof(af) !== "function") {
             return false;
         };
         var eventMethods = {
-            preventDefault: 'isDefaultPrevented',
-            stopImmediatePropagation: 'isImmediatePropagationStopped',
-            stopPropagation: 'isPropagationStopped'
+            preventDefault: "isDefaultPrevented",
+            stopImmediatePropagation: "isImmediatePropagationStopped",
+            stopPropagation: "isPropagationStopped"
         };
         /**
          * Creates a proxy function for event handlers.
@@ -2349,7 +2396,7 @@ if (!window.af || typeof(af) !== "function") {
             $.each(eventMethods, function(name, predicate) {
                 proxy[name] = function() {
                     this[predicate] = returnTrue;
-                    if (name == "stopImmediatePropagation" || name == "stopPropagation") {
+                    if (name === "stopImmediatePropagation" || name === "stopPropagation") {
                         event.cancelBubble = true;
                         if (!event[name])
                             return;
@@ -2364,7 +2411,7 @@ if (!window.af || typeof(af) !== "function") {
         /**
         * Delegate an event based off the selector.  The event will be registered at the parent level, but executes on the selector.
             ```
-            $("#div").delegate("p",'click',callback);
+            $("#div").delegate("p","click",callback);
             ```
 
         * @param {String|Array|Object} selector
@@ -2390,10 +2437,13 @@ if (!window.af || typeof(af) !== "function") {
                     };
                 });
         }
-        $.fn.delegate = function(selector, event,data, callback) {
-
-            for (var i = 0; i < this.length; i++) {
-                addDelegate(this[i],event,callback,selector,data)
+        $.fn.delegate = function(selector, event, data, callback) {
+            if ($.isFunction(data)) {
+                callback = data;
+                data = null;
+            }
+            for (var i = 0, len = this.length; i < len; i++) {
+                addDelegate(this[i],event,callback,selector,data);
             }
             return this;
         };
@@ -2401,8 +2451,8 @@ if (!window.af || typeof(af) !== "function") {
         /**
         * Unbinds events that were registered through delegate.  It acts upon the selector and event.  If a callback is specified, it will remove that one, otherwise it removes all of them.
             ```
-            $("#div").undelegate("p",'click',callback);//Undelegates callback for the click event
-            $("#div").undelegate("p",'click');//Undelegates all click events
+            $("#div").undelegate("p","click",callback);//Undelegates callback for the click event
+            $("#div").undelegate("p","click");//Undelegates all click events
             ```
 
         * @param {String|Array|Object} selector
@@ -2412,7 +2462,7 @@ if (!window.af || typeof(af) !== "function") {
         * @title $().undelegate(selector,event,[callback]);
         */
         $.fn.undelegate = function(selector, event, callback) {
-            for (var i = 0; i < this.length; i++) {
+            for (var i = 0, len = this.length; i < len; i++) {
                 remove(this[i], event, callback, selector);
             }
             return this;
@@ -2432,17 +2482,17 @@ if (!window.af || typeof(af) !== "function") {
         * @return {Object} appframework object
         * @title $().on(event,selector,[data],callback);
         */
-        $.fn.on = function(event, selector,data, callback) {
-            if(!$.isObject(data)){
-                callback=data;
-                data=null;
+        $.fn.on = function(event, selector, data, callback) {
+            if ($.isFunction(data)) {
+                callback = data;
+                data = null;
             }
 
             return selector === nundefined || $.isFunction(selector) ? this.bind(event, selector) : this.delegate(selector, event, data,callback);
         };
         /**
         * Removes event listeners for .on()
-        * If selector is undefined or a function, we call unbind, otherwise it's undelegate
+        * If selector is undefined or a function, we call unbind, otherwise it"s undelegate
             ```
             $().off("click","p",callback); //Remove callback function for click events
             $().off("click","p") //Remove all click events
@@ -2461,7 +2511,7 @@ if (!window.af || typeof(af) !== "function") {
         /**
         This triggers an event to be dispatched.  Usefull for emulating events, etc.
         ```
-        $().trigger("click",{foo:'bar'});//Trigger the click event and pass in data
+        $().trigger("click",{foo:"bar"});//Trigger the click event and pass in data
         ```
 
         * @param {String|Object} event
@@ -2470,10 +2520,10 @@ if (!window.af || typeof(af) !== "function") {
         * @title $().trigger(event,data);
         */
         $.fn.trigger = function(event, data, props) {
-            if (typeof event == 'string')
+            if (typeof event === "string")
                 event = $.Event(event, props);
             event.data = data;
-            for (var i = 0; i < this.length; i++) {
+            for (var i = 0, len = this.length; i < len; i++) {
                 this[i].dispatchEvent(event);
             }
             return this;
@@ -2488,11 +2538,11 @@ if (!window.af || typeof(af) !== "function") {
          */
 
         $.Event = function(type, props) {
-            var event = document.createEvent('Events'),
+            var event = document.createEvent("Events"),
                 bubbles = true;
             if (props)
                 for (var name in props)
-                    (name == 'bubbles') ? (bubbles = !! props[name]) : (event[name] = props[name]);
+                    (name === "bubbles") ? (bubbles = !! props[name]) : (event[name] = props[name]);
             event.initEvent(type, bubbles, true, null, null, null, null, null, null, null, null, null, null, null, null);
             return event;
         };
@@ -2501,7 +2551,7 @@ if (!window.af || typeof(af) !== "function") {
         /**
          * Bind an event to an object instead of a DOM Node
            ```
-           $.bind(this,'event',function(){});
+           $.bind(this,"event",function(){});
            ```
          * @param {Object} object
          * @param {String} event name
@@ -2521,7 +2571,7 @@ if (!window.af || typeof(af) !== "function") {
         /**
          * Trigger an event to an object instead of a DOM Node
            ```
-           $.trigger(this,'event',arguments);
+           $.trigger(this,"event",arguments);
            ```
          * @param {Object} object
          * @param {String} event name
@@ -2547,7 +2597,7 @@ if (!window.af || typeof(af) !== "function") {
         /**
          * Unbind an event to an object instead of a DOM Node
            ```
-           $.unbind(this,'event',function(){});
+           $.unbind(this,"event",function(){});
            ```
          * @param {Object} object
          * @param {String} event name
@@ -2574,7 +2624,7 @@ if (!window.af || typeof(af) !== "function") {
 
 
         /**
-         * Creates a proxy function so you can change the 'this' context in the function
+         * Creates a proxy function so you can change the "this" context in the function
          * Update: now also allows multiple argument call or for you to pass your own arguments
            ```
             var newObj={foo:bar}
@@ -2582,11 +2632,11 @@ if (!window.af || typeof(af) !== "function") {
 
             or
 
-            ( $.proxy(function(foo, bar){console.log(this+foo+bar)}, newObj) )('foo', 'bar');
+            ( $.proxy(function(foo, bar){console.log(this+foo+bar)}, newObj) )("foo", "bar");
 
             or
 
-            ( $.proxy(function(foo, bar){console.log(this+foo+bar)}, newObj, ['foo', 'bar']) )();
+            ( $.proxy(function(foo, bar){console.log(this+foo+bar)}, newObj, ["foo", "bar"]) )();
            ```
          * @param {Function} Callback
          * @param {Object} Context
@@ -2612,7 +2662,7 @@ if (!window.af || typeof(af) !== "function") {
         function cleanUpNode(node, kill) {
             //kill it before it lays eggs!
             if (kill && node.dispatchEvent) {
-                var e = $.Event('destroy', {
+                var e = $.Event("destroy", {
                     bubbles: false
                 });
                 node.dispatchEvent(e);
@@ -2689,7 +2739,7 @@ if (!window.af || typeof(af) !== "function") {
             window.postMessage("afm-asap", "*");
         };
         window.addEventListener("message", function(event) {
-            if (event.source == window && event.data == "afm-asap") {
+            if (event.source == window && event.data === "afm-asap") {
                 event.stopPropagation();
                 if (timeouts.length > 0) { //just in case...
                     (timeouts.shift()).apply(contexts.shift(), params.shift());
@@ -2709,7 +2759,7 @@ if (!window.af || typeof(af) !== "function") {
         $.parseJS = function(div) {
             if (!div)
                 return;
-            if (typeof(div) == "string") {
+            if (typeof(div) === "string") {
                 var elem = document.createElement("div");
                 if (isWin8) {
                     MSApp.execUnsafeLocalFunction(function() {
@@ -2727,11 +2777,11 @@ if (!window.af || typeof(af) !== "function") {
                     var doc = document.createElement("script");
                     doc.type = scripts[i].type;
                     doc.src = scripts[i].src;
-                    document.getElementsByTagName('head')[0].appendChild(doc);
+                    document.getElementsByTagName("head")[0].appendChild(doc);
                     remoteJSPages[scripts[i].src] = 1;
                     doc = null;
                 } else {
-                    window['eval'](scripts[i].innerHTML);
+                    window["eval"](scripts[i].innerHTML);
                 }
             }
         };
@@ -2748,16 +2798,17 @@ if (!window.af || typeof(af) !== "function") {
         });
 
 
-        ['focus', 'blur'].forEach(function(name) {
+        ["focus", "blur"].forEach(function(name) {
             $.fn[name] = function(callback) {
                 if (this.length === 0) return;
                 if (callback)
                     this.bind(name, callback);
-                else
+                else{
                     for (var i = 0; i < this.length; i++) {
                         try {
                             this[i][name]();
                         } catch (e) {}
+                    }
                 }
                 return this;
             };
@@ -2771,19 +2822,21 @@ if (!window.af || typeof(af) !== "function") {
 
     })(window);
     window.jq = af; //backwards compat
-    '$' in window || (window.$ = af);
+    "$" in window || (window.$ = af);
     if (typeof define === "function" && define.amd) {
         define("appframework", [], function() {
+            "use strict";
             return af;
         });
-    } else if (typeof module !== 'undefined' && module.exports) {
+    } else if (typeof module !== "undefined" && module.exports) {
         module.exports.af = af;
         module.exports.$ = af;
     }
     //Helper function used in af.mobi.plugins.
     if (!window.numOnly) {
         window.numOnly = function numOnly(val) {
-            if (val === undefined || val === '') return 0;
+            "use strict";
+            if (val === undefined || val === "") return 0;
             if (isNaN(parseFloat(val))) {
                 if (val.replace) {
                     val = val.replace(/[^0-9.-]/g, "");

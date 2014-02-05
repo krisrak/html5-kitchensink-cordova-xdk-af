@@ -4,7 +4,12 @@
  * @copyright 2011 Intel
  * @author Intel
  * @version 2.0
- */ (function($) {
+ */
+ /* global af*/
+ /* global numOnly*/
+ /* global intel*/
+ /* jshint camelcase:false*/
+(function($) {
     "use strict";
 
     var hasLaunched = false;
@@ -24,51 +29,15 @@
            */
 
         this.availableTransitions = {};
-        this.availableTransitions['default'] = this.availableTransitions.none = this.noTransition;
+        this.availableTransitions["default"] = this.availableTransitions.none = this.noTransition;
         //setup the menu and boot touchLayer
-       
 
-        function checkNodeInserted(i) {
-            if (i.target.id === "afui") {
-                setupCustomTheme();
-                $(document).unbind("DOMNodeInserted", checkNodeInserted);
-            }
-        }
 
         if ($("#afui").length === 1) {
             setupCustomTheme();
-        } else {
-            $(document).bind("DOMNodeInserted", checkNodeInserted);
         }
 
-
-
-        if ("intel" in window){ 
-            document.addEventListener("intel.xdk.device.ready", function() {
-                that.autoBoot();
-            },true);
-        }
-        else if (document.readyState == "complete" || document.readyState == "loaded") {
-            if(that.init)
-                that.autoBoot();
-            else{
-                $(window).one("afui:init", function() {
-        		  that.autoBoot();  
-                });
-            }
-        } else $(document).ready(function() {
-                if(that.init)
-                    that.autoBoot();
-                else{
-                    $(window).one("afui:init", function() {
-                        that.autoBoot();
-                    });
-                }
-            }, false);
-
-        if (!("intel" in window)) window.intel = {xdk:{}}, window.intel.xdk.webRoot = "";
-
-         $(document).ready(function() {
+        var setupAFDom=function(){
             //boot touchLayer
             //create afui element if it still does not exist
             var afui = document.getElementById("afui");
@@ -81,27 +50,60 @@
                 }
                 $(document.body).prepend(afui);
             }
+            that.isIntel="intel" in window&&window.intel&&window.intel.xdk&&window.intel.xdk.app;
             if ($.os.supportsTouch) $.touchLayer(afui);
             setupCustomTheme();
 
-        });
+        };
+
+
+        if (document.readyState === "complete" || document.readyState === "loaded") {
+            setupAFDom();
+            if(that.init)
+                that.autoBoot();
+            else{
+                $(window).one("afui:init", function() {
+                    that.autoBoot();
+                });
+            }
+        } else $(document).ready(
+            function() {
+                setupAFDom();
+                if(that.init)
+                    that.autoBoot();
+                else{
+                    $(window).one("afui:init", function() {
+                        that.autoBoot();
+                    });
+                }
+            },
+        false);
+
+
+
+        if (!("intel" in window)){
+            window.intel = {xdk:{}};
+            window.intel.xdk.webRoot = "";
+        }
+
         //click back event
         window.addEventListener("popstate", function() {
             if(!that.useInteralRouting) return;
             var id = that.getPanelId(document.location.hash);
             var hashChecker = document.location.href.replace(document.location.origin + "/", "");
             //make sure we allow hash changes outside afui
-            if (hashChecker == "#") return;
+            if (hashChecker === "#") return;
             if (id === "" && that.history.length === 1) //Fix going back to first panel and an empty hash
                 id = "#" + that.firstDiv.id;
             if (id === "") return;
             if (af(id).filter(".panel").length === 0) return;
-            if (id != "#" + that.activeDiv.id) that.goBack();
+            if (id !== "#" + that.activeDiv.id) that.goBack();
         }, false);
 
         function setupCustomTheme() {
 
             if (that.useOSThemes) {
+                $("#afui").removeClass("ios,ios7,win8,tizen,bb,android,light,dark");
                 if ($.os.android) $("#afui").addClass("android");
                 else if ($.os.ie) {
                     $("#afui").addClass("win8");
@@ -110,17 +112,34 @@
                     }));
                 } else if ($.os.blackberry||$.os.blackberry10||$.os.playbook) {
                     $("#afui").addClass("bb");
-                    that.backButtonText = "Back";                
+                    that.backButtonText = "Back";
                 } else if ($.os.ios7)
                     $("#afui").addClass("ios7");
                 else if ($.os.ios)
                     $("#afui").addClass("ios");
+                else if($.os.tizen)
+                    $("#afui").addClass("tizen");
             }
             if($.os.ios){
                 $("head").find("#iosBlurrHack").remove();
-                $("head").append("<style id='iosBlurrHack'>#afui .panel > * {-webkit-backface-visibility: hidden;-webkit-perspective: 1000;}</style>");
+                var hackStyle="-webkit-backface-visibility: hidden;";
+                //ios webview still has issues
+                //if(navigator.userAgent.indexOf("Safari") === -1) {
+                hackStyle+="-webkit-perspective:1000;";
+                //}
+                //$("head").append("<style id='iosBlurrHack'>#afui .panel  {"+hackStyle+"} #afui .panel > * {-webkit-backface-visibility:hidden;}</style>");
+                $("head").append("<style id='iosBlurrHack'>#afui .y-scroll > *, #afui .x-scroll > * {"+hackStyle+"}</style>");
             }
-            
+            else if ($.os.anroid&&!$.os.androidICS){
+                $.ui.transitionTime = "150ms";
+            }
+            else if($.os.fennec){
+                $.ui.ready(function(){
+                    var tmpH=numOnly($("#header").height())+numOnly($("#navbar").height());
+                    $("#content").css("height",window.innerHeight-tmpH);
+                });
+            }
+
         }
     };
 
@@ -146,6 +165,8 @@
         defaultFooter: "",
         defaultHeader: null,
         customMenu: false,
+        customAside:false,
+        defaultAside:"",
         defaultMenu: "",
         _readyFunc: null,
         doingTransition: false,
@@ -156,12 +177,14 @@
         scrollingDivs: {},
         firstDiv: "",
         hasLaunched: false,
+        isLaunching:false,
         launchCompleted: false,
         activeDiv: "",
         customClickHandler: "",
         menuAnimation: null,
         togglingSideMenu: false,
         sideMenuWidth: "200px",
+        handheldMinWidth: "768",
         trimBackButtonText: true,
         useOSThemes: true,
         lockPageBounce: false,
@@ -170,6 +193,7 @@
         horizontalScroll:false,
         _currentHeaderID:"defaultHeader",
         useInteralRouting:true,
+
         autoBoot: function() {
             this.hasLaunched = true;
             if (this.autoLaunch) {
@@ -180,22 +204,92 @@
             el = $(el);
             return el.css3Animate(opts);
         },
+        dispatchPanelEvent:function(fnc,myPanel){
+            if (typeof fnc == "string" && window[fnc]) {
+                return window[fnc](myPanel);
+            }
+            else if(fnc.indexOf(".")!==-1){
+                var scope=window,items=fnc.split("."),len=items.length,i=0;
+                for(i;i<len-1;i++){
+                    scope=scope[items[i]];
+                    if(scope===undefined) return;
+                }
+                return scope[items[i]](myPanel);
+            }
+        },
+        /**
+         * This enables the tab bar ability to keep pressed states on elements
+         * ```
+           $.ui.enableTabBar();
+           ```
+           @title $.ui.enableTabBar
+         */
+        enableTabBar:function(e){
+            $(document).on("click",".button-grouped.tabbed",function(e){
+                var $el=$(e.target);
+                $el.closest(".tabbed").find(".button").data("ignore-pressed","true").removeClass("pressed");
+                //this is a hack, but the touchEvents plugn will remove pressed
+                $el.closest(".button").addClass("pressed");
+                setTimeout(function(){
+                    $el.closest(".button").addClass("pressed");
+                });
+            });
+        },
+         /**
+         * This disables the tab bar ability to keep pressed states on elements
+         * ```
+           $.ui.disableTabBar();
+           ```
+           @title $.ui.disableTabBar
+         */
+        disableTabBar:function(e){
+            $(document).off("click",".button-grouped.tabbed");
+            $(".button-grouped.tabbed .button").removeAttr("data-ignore-pressed");
+        },
         /**
          * This changes the side menu width
          * ```
-           $.ui.setSideMenuWidth('300px');
+           $.ui.setLeftSideMenuWidth('300px');
            ```
-         *@title $.ui.setSideMenuWidth
+         *@title $.ui.setLeftSideMenuWidth
          */
 
-        setSideMenuWidth: function(width) {
+        setLeftSideMenuWidth: function(width) {
             this.sideMenuWidth = width;
             //override the css style
             width = width + "";
             width = width.replace("px", "") + "px";
-            $("head").find("#styleWidth").remove();
-            $("head").append("<style id='styleWidth'>#afui #menu {width:" + width + "  !important}</style>");
+            $("head").find("style#afui_sideMenuWidth").remove();
+            var css = "@media handheld, only screen and (min-width: 768px) {"+
+                        "#afui > #navbar.hasMenu.splitview, #afui > #header.hasMenu.splitview, #afui > #content.hasMenu.splitview  {"+
+                        "    margin-left:"+width+" !important;"+
+                        "    width: -webkit-calc(100% -"+width+") !important;"+
+                        "    width: calc(100% - "+width+") !important;"+
+                        "}"+
+                    "}"+
+                    "#afui #menu {width:" + width + "  !important}";
+            $("head").append("<style id='afui_sideMenuWidth'>"+css+"</style>");
         },
+        setSideMenuWidth:function(){
+            this.setLeftSideMenuWidth.apply(this,arguments);
+        },
+        /**
+         * This changes the side menu width
+         * ```
+           $.ui.setRightSideMenuWidth('300px');
+           ```
+         *@title $.ui.setRightSideMenuWidth
+         */
+
+        setRightSideMenuWidth: function(width) {
+            this.sideMenuWidth = width;
+            //override the css style
+            width = width + "";
+            width = width.replace("px", "") + "px";
+            $("head").find("style#afui_asideMenuWidth").remove();
+            $("head").append("<style id='afui_asideMenuWidth'>#afui #aside_menu {width:" + width + "  !important}</style>");
+        },
+
 
         /**
          * this will disable native scrolling on iOS
@@ -312,7 +406,7 @@
          */
         removeFooterMenu: function() {
             $.query("#navbar").hide();
-            $.query("#content").css("bottom", "0px");
+            //$.query("#content").css("bottom", "0px");
             this.showNavMenu = false;
         },
         /**
@@ -365,7 +459,8 @@
          */
         ready: function(param) {
 
-            if (this.launchCompleted) param();
+            if (this.launchCompleted)
+                param();
             else {
                 $(document).on("afui:ready", function(e) {
                     param();
@@ -381,7 +476,8 @@
          * @title $.ui.setBackButtonStyle(class)
          */
         setBackButtonStyle: function(className) {
-            $.query("#backButton").replaceClass(null, className);
+            $.query("#header #backButton").get(0).className=className;
+
         },
         /**
          * Initiate a back transition
@@ -433,9 +529,9 @@
             //push into the browser history
             try {
                 if (!this.manageHistory) return;
-                window.history.pushState(newPage, newPage, startPath + '#' + newPage + hashExtras);
+                window.history.pushState(newPage, newPage, startPath + "#" + newPage + hashExtras);
                 $(window).trigger("hashchange", null, {
-                    newUrl: startPath + '#' + newPage + hashExtras,
+                    newUrl: startPath + "#" + newPage + hashExtras,
                     oldURL: startPath + previousPage
                 });
             } catch (e) {}
@@ -451,7 +547,7 @@
          */
         updateHash: function(newHash) {
             if (!this.manageHistory) return;
-            newHash = newHash.indexOf('#') == -1 ? '#' + newHash : newHash; //force having the # in the begginning as a standard
+            newHash = newHash.indexOf("#") === -1 ? "#" + newHash : newHash; //force having the # in the begginning as a standard
             previousTarget = newHash;
 
             var previousHash = window.location.hash;
@@ -466,8 +562,8 @@
         },
         /*gets the panel name from an hash*/
         getPanelId: function(hash) {
-            var firstSlash = hash.indexOf('/');
-            return firstSlash == -1 ? hash : hash.substring(0, firstSlash);
+            var firstSlash = hash.indexOf("/");
+            return firstSlash === -1 ? hash : hash.substring(0, firstSlash);
         },
 
         /**
@@ -477,7 +573,7 @@
             br = bottom right
             tr = top right (default)
            ```
-           $.ui.updateBadge('#mydiv','3','bl','green');
+           $.ui.updateBadge("#mydiv","3","bl","green");
            ```
          * @param {String} target
          * @param {String} Value
@@ -492,7 +588,7 @@
             var badge = $target.find("span.af-badge");
 
             if (badge.length === 0) {
-                if ($target.css("position") != "absolute") $target.css("position", "relative");
+                if ($target.css("position") !== "absolute") $target.css("position", "relative");
                 badge = $.create("span", {
                     className: "af-badge " + position,
                     html: value
@@ -514,7 +610,7 @@
         /**
          * Removes a badge from the selected target.
            ```
-           $.ui.removeBadge('#mydiv');
+           $.ui.removeBadge("#mydiv");
            ```
          * @param {String} target
          * @title $.ui.removeBadge(target)
@@ -533,12 +629,12 @@
          */
         toggleNavMenu: function(force) {
             if (!this.showNavMenu) return;
-            if ($.query("#navbar").css("display") != "none" && ((force !== undefined && force !== true) || force === undefined)) {
-                $.query("#content").css("bottom", "0px");
+            if ($.query("#navbar").css("display") !== "none" && ((force !== undefined && force !== true) || force === undefined)) {
+               // $.query("#content").css("bottom", "0px");
                 $.query("#navbar").hide();
             } else if (force === undefined || (force !== undefined && force === true)) {
                 $.query("#navbar").show();
-                $.query("#content").css("bottom", $.query("#navbar").css("height"));
+              //  $.query("#content").css("bottom", $.query("#navbar").css("height"));
 
             }
         },
@@ -551,13 +647,24 @@
          * @title $.ui.toggleHeaderMenu([force])
          */
         toggleHeaderMenu: function(force) {
-            if ($.query("#header").css("display") != "none" && ((force !== undefined && force !== true) || force === undefined)) {
-                $.query("#content").css("top", "0px");
+            if ($.query("#header").css("display") !== "none" && ((force !== undefined && force !== true) || force === undefined)) {
+               // $.query("#content").css("top", "0px");
                 $.query("#header").hide();
             } else if (force === undefined || (force !== undefined && force === true)) {
                 $.query("#header").show();
-                $.query("#content").css("top", $.query("#header").css("height"));
+               // $.query("#content").css("top", $.query("#header").css("height"));
             }
+        },
+
+        /**
+        * Toggles the right hand side menu
+        */
+        toggleAsideMenu:function(){
+            this.toggleRightSideMenu.apply(this,arguments);
+        },
+        toggleRightSideMenu:function(force,callback,time){
+            if(!this.isAsideMenuEnabled()) return;
+            return this.toggleLeftSideMenu(force,callback,time,true);
         },
         /**
          * Toggles the side menu.  Force is a boolean to force show or hide.
@@ -569,34 +676,49 @@
          * @param {int} [time] Time to run the transition
          * @title $.ui.toggleSideMenu([force],[callback],[time])
          */
-        toggleSideMenu: function(force, callback, time) {
-            if (!this.isSideMenuEnabled() || this.togglingSideMenu) return;
+        toggleLeftSideMenu: function(force, callback, time, aside) {
+            if ((!this.isSideMenuEnabled()&&!this.isAsideMenuEnabled()) || this.togglingSideMenu) return;
 
+            if(!aside&&!this.isSideMenuEnabled()) return;
+            if(!aside&&$.ui.splitview && window.innerWidth >= $.ui.handheldMinWidth) return;
             var that = this;
             var menu = $.query("#menu");
+            var asideMenu= $.query("#aside_menu");
             var els = $.query("#content,  #header, #navbar");
             var panelMask = $.query(".afui_panel_mask");
             time = time || this.transitionTime;
             var open = this.isSideMenuOn();
-
-            if(panelMask.length === 0 && window.innerWidth < $.ui.fixedSideMenuWidth){
-                els.append('<div class="afui_panel_mask"></div>');
-                $(".afui_panel_mask").bind("touchend", function(){
-                    $.ui.toggleSideMenu(false);
+            var toX=aside?"-"+asideMenu.width():menu.width();
+            // add panel mask to block when side menu is open for phone devices
+            if(panelMask.length === 0 && window.innerWidth < $.ui.handheldMinWidth){
+                els.append("<div class='afui_panel_mask'></div>");
+                panelMask = $.query(".afui_panel_mask");
+                $(".afui_panel_mask").bind("click", function(){
+                    $.ui.toggleSideMenu(false, null, null, aside);
                 });
             }
-            
+            //Here we need to check if we are toggling the left to right, or right to left
+            var menuPos=this.getSideMenuPosition();
+            if(open&&!aside&&menuPos<0)
+                open=false;
+            else if(open&&aside&&menuPos>0)
+                open=false;
+
+
             if (force === 2 || (!open && ((force !== undefined && force !== false) || force === undefined))) {
                 this.togglingSideMenu = true;
-                menu.show();
+                if(!aside)
+                    menu.show();
+                else
+                    asideMenu.show();
                 that.css3animate(els, {
-                    x: that.sideMenuWidth,
+                    x: toX,
                     time: time,
                     complete: function(canceled) {
                         that.togglingSideMenu = false;
                         els.vendorCss("Transition", "");
                         if (callback) callback(canceled);
-                        if(window.innerWidth < $.ui.fixedSideMenuWidth){
+                        if(panelMask.length !== 0 && window.innerWidth < $.ui.handheldMinWidth){
                             panelMask.show();
                         }
                     }
@@ -613,13 +735,19 @@
                         els.vendorCss("Transform", "");
                         that.togglingSideMenu = false;
                         if (callback) callback(canceled);
-                        menu.hide();
-                        if(window.innerWidth < $.ui.fixedSideMenuWidth){
+                        if(!$.ui.splitview)
+                            menu.hide();
+                        asideMenu.hide();
+                        if(panelMask.length !== 0 && window.innerWidth < $.ui.handheldMinWidth){
                             panelMask.hide();
                         }
                     }
                 });
             }
+        },
+        toggleSideMenu:function(){
+
+            this.toggleLeftSideMenu.apply(this,arguments);
         },
         /**
          * Disables the side menu
@@ -629,6 +757,9 @@
         * @title $.ui.disableSideMenu();
         */
         disableSideMenu: function() {
+            this.disableLeftSideMenu();
+        },
+        disableLeftSideMenu:function(){
             var that = this;
             var els = $.query("#content, #header, #navbar");
             if (this.isSideMenuOn()) {
@@ -636,7 +767,6 @@
                     if (!canceled) els.removeClass("hasMenu");
                 });
             } else els.removeClass("hasMenu");
-            $.query("#menu").removeClass("tabletMenu");
         },
         /**
          * Enables the side menu if it has been disabled
@@ -645,13 +775,42 @@
            ```
         * @title $.ui.enableSideMenu();
         */
-        enableSideMenu: function() {
+        enableLeftSideMenu: function() {
             $.query("#content, #header, #navbar").addClass("hasMenu");
-            $.query("#menu").addClass("tabletMenu");
+        },
+        enableSideMenu:function(){
+            return this.enableLeftSideMenu();
+        },
+
+        /**
+         * Disables the side menu
+           ```
+           $.ui.disableSideMenu();
+           ```
+        * @title $.ui.disableSideMenu();
+        */
+        disableRightSideMenu:function(){
+            var that = this;
+            var els = $.query("#content, #header, #navbar");
+            if (this.isSideMenuOn()) {
+                this.toggleSideMenu(false, function(canceled) {
+                    if (!canceled) els.removeClass("hasAside");
+                });
+            } else els.removeClass("hasAside");
+        },
+        /**
+         * Enables the side menu if it has been disabled
+           ```
+           $.ui.enableRightSideMenu();
+           ```
+        * @title $.ui.enableRightSideMenu();
+        */
+        enableRightSideMenu: function() {
+            $.query("#content, #header, #navbar").addClass("hasAside");
         },
         /**
          *
-         * @title $.ui.enableSideMenu();
+         * @title $.ui.isSideMenuEnabled();
          * @api private
          */
         isSideMenuEnabled: function() {
@@ -659,14 +818,48 @@
         },
         /**
          *
+         * @title $.ui.isAsideMenuEnabled();
+         * @api private
+         */
+        isAsideMenuEnabled: function() {
+            return $.query("#content").hasClass("hasAside");
+        },
+        /**
+         *
          * @title $.ui.enableSideMenu();
          * @api private
          */
         isSideMenuOn: function() {
-
-            var menu = parseInt($.getCssMatrix($("#content")).e) > 1 ? true : false;
-            return this.isSideMenuEnabled() && menu;
+            var menu = this.getSideMenuPosition() !==0 ? true : false;
+            return (this.isSideMenuEnabled()||this.isAsideMenuEnabled) && menu;
         },
+        /**
+         * @title $.ui.getSideMenuPosition();
+         * @api private
+         */
+        getSideMenuPosition:function(){
+            return parseFloat($.getCssMatrix($("#content")).e);
+        },
+        /**
+         * Boolean that will disable the splitview before launch
+           ```
+           $.ui.splitView=false;
+           ```
+          * @title $.ui.splitview
+          */
+        splitview:true,
+        /**
+         * Disables the split view on tablets
+           ```
+           $.ui.disableSplitView();
+           ```
+         * @title $.ui.disableSplitView();
+         */
+        disableSplitView:function(){
+            $.query("#content, #header, #navbar, #menu").removeClass("splitview");
+            this.splitview=false;
+        },
+
 
         /**
          * Reference to the default footer
@@ -692,7 +885,7 @@
             }
             $.query("#navbar").append(elems);
             this.prevFooter = elems;
-            var tmpAnchors = $.query("#navbar a");
+            var tmpAnchors = $.query("#navbar > footer > a:not(.button)");
             if (tmpAnchors.length > 0) {
                 tmpAnchors.data("ignore-pressed", "true").data("resetHistory", "true");
                 var width = parseFloat(100 / tmpAnchors.length);
@@ -779,6 +972,36 @@
                 this.prevHeader = elems;
             }
         },
+        /** 
+         * @api private
+         */
+        previAsideMenu:null,
+        /**
+         * Updates the right hand aside menus
+         */
+
+        updateAsideElements:function(){
+            return this.updateRightSideMenuElements.apply(this,arguments);
+        },
+        updateRightSideMenuElements:function(elems){
+            var that = this;
+            if (elems === undefined || elems === null) return;
+            var nb = $.query("#aside_menu_scroller");
+
+            if (this.prevAsideMenu) {
+                this.prevAsideMenu.insertBefore("#afui #aside_menu");
+                this.prevAsideMenu = null;
+            }
+
+            if (!$.is$(elems)) elems = $.query("#" + elems);
+
+            nb.html("");
+            nb.append(elems);
+            this.prevAsideMenu = elems;
+            //Move the scroller to the top and hide it
+            this.scrollingDivs.aside_menu_scroller.hideScrollbars();
+            this.scrollingDivs.aside_menu_scroller.scrollToTop();
+        },
         /**
          * @api private
          * Kept for backwards compatibility
@@ -794,7 +1017,10 @@
          * @param {String|Object} Elements
          * @title $.ui.updateSideMenuElements(Elements)
          */
-        updateSideMenuElements: function(elems) {
+        updateSideMenuElements: function() {
+            return this.updateLeftSideMenuElements.apply(this,arguments);
+        },
+        updateLeftSideMenuElements:function(elems) {
             var that = this;
             if (elems === undefined || elems === null) return;
             var nb = $.query("#menu_scroller");
@@ -806,13 +1032,14 @@
 
             if (!$.is$(elems)) elems = $.query("#" + elems);
 
-            nb.html('');
+            nb.html("");
             nb.append(elems);
             this.prevMenu = elems;
             //Move the scroller to the top and hide it
             this.scrollingDivs.menu_scroller.hideScrollbars();
             this.scrollingDivs.menu_scroller.scrollToTop();
         },
+
         /**
          * Set the title of the current panel
            ```
@@ -823,7 +1050,7 @@
          * @title $.ui.setTitle(value)
          */
         setTitle: function(val) {
-            if(this._currentHeaderID!=="defaultHeader") return;
+            if(this._currentHeaderID !== "defaultHeader") return;
             $.query("#header header:not(.ignore)  #pageTitle").html(val);
         },
         /**
@@ -836,8 +1063,8 @@
          * @title $.ui.setBackButtonText(value)
          */
         setBackButtonText: function(text) {
-            if(this._currentHeaderID!=="defaultHeader") return;
-            if (this.trimBackButtonText)
+            if(this._currentHeaderID !== "defaultHeader") return;
+            if (this.trimBackButtonText && text.length >= 7)
                 text = text.substring(0, 5) + "...";
             if (this.backButtonText.length > 0) $.query("#header header:not(.ignore) #backButton").html(this.backButtonText);
             else $.query("#header header:not(.ignore)  #backButton").html(text);
@@ -873,9 +1100,8 @@
         },
         /**
          * @api private
-        */
+         */
         modalReference_:null,
-
         /**
          * Load a content panel in a modal window.  We set the innerHTML so event binding will not work.  Please use the data-load or panelloaded events to setup any event binding
            ```
@@ -893,40 +1119,74 @@
                 id = "#" + id.replace("#", "");
             var $panel = $.query(id);
             this.modalReference_=$panel;
-
+            var modalParent=$.query("#afui_modal");
             if ($panel.length) {
-                var useScroller = this.scrollingDivs.hasOwnProperty( $panel.attr("id") );
                 var useScroller = this.scrollingDivs.hasOwnProperty($panel.attr("id"));
                 //modalDiv.html($.feat.nativeTouchScroll || !useScroller ? $.query(id).html() : $.query(id).get(0).childNodes[0].innerHTML + '', true);
-                modalDiv.empty();
+
                 var elemsToCopy;
                 if($.feat.nativeTouchScroll || !useScroller ){
                     elemsToCopy=$panel.contents();
+                    modalDiv.append(elemsToCopy);
                 }
                 else {
                     elemsToCopy=$($panel.get(0).childNodes[0]).contents();
+                    //modalDiv.append(elemsToCopy);
+                    modalDiv.children().eq(0).append(elemsToCopy);
                 }
-                modalDiv.append(elemsToCopy);
 
-                modalDiv.append("<a onclick='$.ui.hideModal();' class='closebutton modalbutton'></a>");
-                that.modalWindow.style.display = "block";
 
                 this.runTransition(this.modalTransition, that.modalTransContainer, that.modalWindow, false);
-
+                $(that.modalWindow).css("display","");
+                $(that.modalWindow).addClass("display","flexContainer");
                 if (useScroller) {
                     this.scrollingDivs.modal_container.enable(that.resetScrollers);
                 }
                 else {
                     this.scrollingDivs.modal_container.disable();
                 }
+                modalDiv.addClass("panel").show();
+                //modal header
+                if($panel.data("header") == "none"){ // no header
+                    modalParent.find("#modalHeader").hide();
+                } else if(elemsToCopy.filter("header").length>0){ // custom header
+                    modalParent.find("#modalHeader").append(elemsToCopy.filter("header")).show();
+                } else { // add default header with close
+                    modalParent.find("#modalHeader").append(
+                        $.create("header", {className:"header"}).append(
+                            $.create("h1", {html:$panel.data("title")}).get(0))
+                        .append(
+                            $.create("a", {className:"button icon close"}).attr("onclick","$.ui.hideModal()").get(0)
+                        )).show();
+                }
+                //modal footer
+                if($panel.data("footer") == "none"){ // no footer
+                    modalParent.find("#modalFooter").hide();
+                } else if(elemsToCopy.filter("footer").length>0){ // custom footer
+                    modalParent.find("#modalFooter").append(elemsToCopy.filter("footer")).show();
+                    var tmpAnchors = $.query("#modalFooter > footer > a:not(.button)");
+                    if (tmpAnchors.length > 0) {
+                        var width = parseFloat(100 / tmpAnchors.length);
+                        tmpAnchors.css("width", width + "%");
+                    }
+                    var nodes = $.query("#modalFooter footer");
+                    if (nodes.length === 0) return;
+                    nodes = nodes.get(0).childNodes;
+                    for (var i = 0; i < nodes.length; i++) {
+                        if (nodes[i].nodeType === 3) {
+                            nodes[i].parentNode.removeChild(nodes[i]);
+                        }
+                    }
+                } else { // no default footer
+                    modalParent.find("#modalFooter").hide();
+                }
 
-                this.scrollToTop('modal');
+                this.scrollToTop("modal");
                 modalDiv.data("panel", id);
                 var myPanel=$panel.get(0);
                 var fnc = myPanel.getAttribute("data-load");
-                if (typeof fnc == "string" && window[fnc]) {
-                    window[fnc](myPanel);
-                }
+                if(fnc)
+                    this.dispatchPanelEvent(fnc,myPanel);
                 $panel.trigger("loadpanel");
 
             }
@@ -940,34 +1200,33 @@
          */
         hideModal: function() {
             var self = this;
-            //$.query("#modalContainer").html("", true);
             var $cnt=$.query("#modalContainer");
-            $cnt.find("#closebutton.modalbutton").remove();
+
             var useScroller = this.scrollingDivs.hasOwnProperty(this.modalReference_.attr("id"));
 
 
             this.runTransition(self.modalTransition, self.modalWindow, self.modalTransContainer, true);
             this.scrollingDivs.modal_container.disable();
 
-            //var tmp = $.query($.query("#modalContainer").data("panel"));
             var tmp = $.query($cnt.data("panel"));
-
             var fnc = tmp.data("unload");
-            if (typeof fnc == "string" && window[fnc]) {
-                window[fnc](tmp.get(0));
-            }
+            if(fnc)
+                this.dispatchPanelEvent(fnc,tmp.get(0));
             tmp.trigger("unloadpanel");
-            setTimeout(function(){               
+            setTimeout(function(){
                 if($.feat.nativeTouchScroll || !useScroller){
+                    self.modalReference_.append($("#modalHeader header"));
                     self.modalReference_.append($cnt.contents());
+                    self.modalReference_.append($("#modalFooter footer"));
                 }
                 else {
-                    $(self.modalReference_.get(0).childNodes[0]).append($cnt.contents());
+                    self.modalReference_.children().eq(0).append($("#modalHeader header"));
+                    $(self.modalReference_.get(0).childNodes[0]).append($cnt.children().eq(0).contents());
+                    self.modalReference_.children().eq(0).append($("#modalFooter footer"));
                 }
-                $cnt.html("", true);
+
+               // $cnt.html("", true);
             },this.transitionTime);
-
-
         },
 
         /**
@@ -987,18 +1246,22 @@
             var newDiv = $.create("div", {
                 html: content
             });
-            if (newDiv.children('.panel') && newDiv.children('.panel').length > 0) newDiv = newDiv.children('.panel').get(0);
+            if (newDiv.children(".panel") && newDiv.children(".panel").length > 0) newDiv = newDiv.children(".panel").get(0);
             else newDiv = newDiv.get(0);
 
 
-            if (el.getAttribute("js-scrolling") && (el.getAttribute("js-scrolling").toLowerCase() == "yes" || el.getAttribute("js-scrolling").toLowerCase() == "true")) {
+            if (el.getAttribute("js-scrolling") && (el.getAttribute("js-scrolling").toLowerCase() === "yes" || el.getAttribute("js-scrolling").toLowerCase() === "true")) {
                 $.cleanUpContent(el.childNodes[0], false, true);
                 $(el.childNodes[0]).html(content);
             } else {
                 $.cleanUpContent(el, false, true);
                 $(el).html(content);
+                var scr=this.scrollingDivs[el.id];
+                if(scr&&scr.refresh)
+                    scr.addPullToRefresh();
             }
-            if (newDiv.getAttribute("data-title")) el.setAttribute("data-title",newDiv.getAttribute("data-title"));
+            if (newDiv.getAttribute("data-title"))
+                el.setAttribute("data-title",newDiv.getAttribute("data-title"));
         },
         /**
          * Same as $.ui.updatePanel.  kept for backwards compatibility
@@ -1023,14 +1286,14 @@
          * @title $.ui.addContentDiv(id,content,title);
          */
         addContentDiv: function(el, content, title, refresh, refreshFunc) {
-            el = typeof(el) !== "string" ? el : el.indexOf("#") == -1 ? "#" + el : el;
+            el = typeof(el) !== "string" ? el : el.indexOf("#") === -1 ? "#" + el : el;
             var myEl = $.query(el).get(0);
             var newDiv, newId;
             if (!myEl) {
                 newDiv = $.create("div", {
                     html: content
                 });
-                if (newDiv.children('.panel') && newDiv.children('.panel').length > 0) newDiv = newDiv.children('.panel').get(0);
+                if (newDiv.children(".panel") && newDiv.children(".panel").length > 0) newDiv = newDiv.children(".panel").get(0);
                 else newDiv = newDiv.get(0);
 
                 if (!newDiv.getAttribute("data-title") && title) newDiv.setAttribute("data-title",title);
@@ -1061,38 +1324,39 @@
             var jsScroll = false,
                 scrollEl;
             var overflowStyle = tmp.style.overflow;
-            var hasScroll = overflowStyle != 'hidden' && overflowStyle != 'visible';
+            var hasScroll = overflowStyle !== "hidden" && overflowStyle !== "visible";
 
             container = container || this.content;
             //sets up scroll when required and not supported
             if (!$.feat.nativeTouchScroll && hasScroll) tmp.setAttribute("js-scrolling", "true");
 
-            if (tmp.getAttribute("js-scrolling") && (tmp.getAttribute("js-scrolling").toLowerCase() == "yes" || tmp.getAttribute("js-scrolling").toLowerCase() == "true")) {
+            if (tmp.getAttribute("js-scrolling") && (tmp.getAttribute("js-scrolling").toLowerCase() === "yes" || tmp.getAttribute("js-scrolling").toLowerCase() === "true")) {
                 jsScroll = true;
                 hasScroll = true;
             }
-            var title=tmp.getAttribute("data-title")||tmp.title;
-            tmp.title="";
+            var title = tmp.getAttribute("data-title")||tmp.title;
+            tmp.title = "";
             tmp.setAttribute("data-title",title);
 
 
-
-            if (tmp.getAttribute("scrolling") && tmp.getAttribute("scrolling") == "no") {
+            if($(tmp).hasClass("no-scroll") || (tmp.getAttribute("scrolling") && tmp.getAttribute("scrolling") == "no")) {
                 hasScroll = false;
                 jsScroll = false;
                 tmp.removeAttribute("js-scrolling");
             }
 
-            if (!jsScroll||$.os.desktop) {
+            if (!jsScroll || $.os.desktop) {
                 container.appendChild(tmp);
                 scrollEl = tmp;
-                tmp.style['-webkit-overflow-scrolling'] = "none";
+                tmp.style["-webkit-overflow-scrolling"] = "none";
             } else {
                 //WE need to clone the div so we keep events
-                scrollEl = tmp.cloneNode(false);
+                scrollEl=tmp;
+                container.appendChild(tmp);
+                /*scrollEl = tmp.cloneNode(false);
 
 
-                tmp.title = null;                
+                tmp.title = null;
                 tmp.id = null;
                 var $tmp = $(tmp);
                 $tmp.removeAttr("data-footer data-aside data-nav data-header selected data-load data-unload data-tab data-crc title data-title");
@@ -1102,11 +1366,13 @@
                 scrollEl.appendChild(tmp);
 
                 container.appendChild(scrollEl);
+                */
 
                 if (this.selectBox !== false) this.selectBox.getOldSelects(scrollEl.id);
                 if (this.passwordBox !== false) this.passwordBox.getOldPasswords(scrollEl.id);
 
             }
+
 
             if (hasScroll) {
                 this.scrollingDivs[scrollEl.id] = ($(tmp).scroller({
@@ -1116,18 +1382,22 @@
                     vScrollCSS: "afScrollbar",
                     refresh: refreshPull,
                     useJsScroll: jsScroll,
-                    noParent: !jsScroll,
                     lockBounce: this.lockPageBounce,
                     autoEnable: false //dont enable the events unnecessarilly
                 }));
                 //backwards compatibility
-                if (refreshFunc) $.bind(this.scrollingDivs[scrollEl.id], 'refresh-release', function(trigger) {
+                $(tmp).addClass("y-scroll");
+                if(self.horizontalScroll)
+                    $(tmp).addClass("x-scroll");
+                if (refreshFunc)
+                    $.bind(this.scrollingDivs[scrollEl.id], "refresh-release", function(trigger) {
                         if (trigger) refreshFunc();
                     });
+                if(jsScroll){
+                    $(tmp).children().eq(0).addClass("afScrollPanel");
+                }
             }
-
-            tmp = null;
-            scrollEl = null;
+            return scrollEl.id;
         },
 
         /**
@@ -1180,7 +1450,7 @@
             var hasHeader = what.getAttribute("data-header");
 
             //$asap removed since animations are fixed in css3animate
-            if (hasFooter && hasFooter.toLowerCase() == "none") {
+            if (hasFooter && hasFooter.toLowerCase() === "none") {
                 that.toggleNavMenu(false);
                 hasFooter = false;
             } else {
@@ -1193,7 +1463,7 @@
                 if (that.customFooter) that.updateNavbarElements(that.defaultFooter);
                 that.customFooter = false;
             }
-            if (hasHeader && hasHeader.toLowerCase() == "none") {
+            if (hasHeader && hasHeader.toLowerCase() === "none") {
                 that.toggleHeaderMenu(false);
                 hasHeader=false;
             } else {
@@ -1229,7 +1499,7 @@
             }
             //check if the panel has a footer
             if (what.getAttribute("data-tab")) { //Allow the dev to force the footer menu
-                $.query("#navbar a").removeClass("pressed");
+                $.query("#navbar>footer>a:not(.button)").removeClass("pressed");
                 $.query("#navbar #" + what.getAttribute("data-tab")).addClass("pressed");
             }
 
@@ -1243,23 +1513,33 @@
                 }
                 this.customMenu = false;
             }
-       
+
+
+            var hasAside = what.getAttribute("data-aside");
+            if(hasAside && this.customAside!=hasAside){
+                this.customAside= hasAside;
+                this.updateAsideElements(hasAside);
+            }
+            else if(hasAside != this.customAside) {
+                if(this.customAside){
+                    this.updateAsideElements(this.defaultAside);
+                }
+                this.customAside=false;
+            }
+
 
             if (oldDiv) {
                 fnc = oldDiv.getAttribute("data-unload");
-                if (typeof fnc == "string" && window[fnc]) {
-                    window[fnc](oldDiv);
-                }
+                if(fnc)
+                    this.dispatchPanelEvent(fnc,oldDiv);
                 $(oldDiv).trigger("unloadpanel");
             }
             var fnc = what.getAttribute("data-load");
-            if (typeof fnc == "string" && window[fnc]) {
-                window[fnc](what);
-            }
+            if(fnc)
+                this.dispatchPanelEvent(fnc,what);
             $(what).trigger("loadpanel");
             if (this.isSideMenuOn()) {
-                var that = this;
-                that.toggleSideMenu(false);               
+                that.toggleSideMenu(false);
             }
         },
         /**
@@ -1292,17 +1572,18 @@
             }
             if (target.length === 0) return;
 
+
             var what = null;
             var loadAjax = true;
             anchor = anchor || document.createElement("a"); //Hack to allow passing in no anchor
-            if (target.indexOf("#") == -1) {
+            if (target.indexOf("#") === -1) {
                 var urlHash = "url" + crc32(target); //Ajax urls
                 var crcCheck = $.query("div.panel[data-crc='" + urlHash + "']");
                 if ($.query("#" + target).length > 0) {
                     loadAjax = false;
                 } else if (crcCheck.length > 0) {
                     loadAjax = false;
-                    if (anchor.getAttribute("data-refresh-ajax") === 'true' || (anchor.refresh && anchor.refresh === true || this.isAjaxApp)) {
+                    if (anchor.getAttribute("data-refresh-ajax") === "true" || (anchor.refresh && anchor.refresh === true || this.isAjaxApp)) {
                         loadAjax = true;
                     } else {
                         target = "#" + crcCheck.get(0).id;
@@ -1311,12 +1592,12 @@
 
                     //ajax div already exists.  Let's see if we should be refreshing it.
                     loadAjax = false;
-                    if (anchor.getAttribute("data-refresh-ajax") === 'true' || (anchor.refresh && anchor.refresh === true || this.isAjaxApp)) {
+                    if (anchor.getAttribute("data-refresh-ajax") === "true" || (anchor.refresh && anchor.refresh === true || this.isAjaxApp)) {
                         loadAjax = true;
                     } else target = "#" + urlHash;
                 }
             }
-            if (target.indexOf("#") == -1 && loadAjax) {
+            if (target.indexOf("#") === -1 && loadAjax) {
                 this.loadAjax(target, newTab, back, transition, anchor);
             } else {
                 this.loadDiv(target, newTab, back, transition);
@@ -1339,9 +1620,9 @@
             var that = this;
             var what = target.replace("#", "");
 
-            var slashIndex = what.indexOf('/');
+            var slashIndex = what.indexOf("/");
             var hashLink = "";
-            if (slashIndex != -1) {
+            if (slashIndex !== -1) {
                 // Ignore everything after the slash for loading
                 hashLink = what.substr(slashIndex);
                 what = what.substr(0, slashIndex);
@@ -1362,13 +1643,7 @@
             var oldDiv = this.activeDiv;
             var currWhat = what;
 
-            if (what.getAttribute("data-modal") == "true" || what.getAttribute("modal") == "true") {
-                /*var fnc = what.getAttribute("data-load");
-                if (typeof fnc == "string" && window[fnc]) {
-                    window[fnc](what);
-                }
-                $(what).trigger("loadpanel");                
-                */
+            if (what.getAttribute("data-modal") === "true" || what.getAttribute("modal") === "true") {
                 return this.showModal(what.id);
             }
 
@@ -1385,7 +1660,7 @@
             }
 
 
-            previousTarget = '#' + what.id + hashLink;
+            previousTarget = "#" + what.id + hashLink;
 
 
             this.doingTransition = true;
@@ -1399,11 +1674,17 @@
             this.parsePanelFunctions(what, oldDiv, back);
             //Need to call after parsePanelFunctions, since new headers can override
             this.loadContentData(what, newTab, back, transition);
-            setTimeout(function() {
-                if (that.scrollingDivs[oldDiv.id]) {
-                    that.scrollingDivs[oldDiv.id].disable();
-                }
-            }, numOnly(that.transitionTime) + 50);
+
+            //this fixes a bug in iOS where a div flashes when the the overflow property is changed from auto to hidden
+            if($.feat.nativeTouchScroll) {
+                setTimeout(function() {
+                    if (that.scrollingDivs[oldDiv.id]) {
+                        that.scrollingDivs[oldDiv.id].disable();
+                    }
+                }, numOnly(that.transitionTime) + 50);
+            }
+            else if (typeof that.scrollingDivs[oldDiv.id] !== "undefined")
+                that.scrollingDivs[oldDiv.id].disable();
 
         },
         /**
@@ -1423,8 +1704,8 @@
             if (back) {
                 if (this.history.length > 0) {
                     val = this.history[this.history.length - 1];
-                    slashIndex = val.target.indexOf('/');
-                    if (slashIndex != -1) {
+                    slashIndex = val.target.indexOf("/");
+                    if (slashIndex !== -1) {
                         prevId = val.target.substr(0, slashIndex);
                     } else prevId = val.target;
                     el = $.query(prevId).get(0);
@@ -1469,12 +1750,12 @@
          */
         loadAjax: function(target, newTab, back, transition, anchor) {
             // XML Request
-            if (this.activeDiv.id == "afui_ajax" && target == this.ajaxUrl) return;
+            if (this.activeDiv.id === "afui_ajax" && target == this.ajaxUrl) return;
             var urlHash = "url" + crc32(target); //Ajax urls
             var that = this;
-            if (target.indexOf("http") == -1) target = intel.xdk.webRoot + target;
+            if (target.indexOf("http") === -1) target = intel.xdk.webRoot + target;
             var xmlhttp = new XMLHttpRequest();
-        
+
             if (anchor && typeof(anchor) !== "object") {
                 anchor = document.createElement("a");
                 anchor.setAttribute("data-persist-ajax", true);
@@ -1493,7 +1774,7 @@
                         retainDiv.get(0).setAttribute("data-title",anchor.title ? anchor.title : target);
                     } else if (anchor.getAttribute("data-persist-ajax") || that.isAjaxApp) {
 
-                        var refresh = (anchor.getAttribute("data-pull-scroller") === 'true') ? true : false;
+                        var refresh = (anchor.getAttribute("data-pull-scroller") === "true") ? true : false;
                         refreshFunction = refresh ? function() {
                             anchor.refresh = true;
                             that.loadContent(target, newTab, back, transition, anchor);
@@ -1501,7 +1782,7 @@
                         } : null;
                         //that.addContentDiv(urlHash, xmlhttp.responseText, refresh, refreshFunction);
                         var contents = $(xmlhttp.responseText);
-                        
+
                         if (contents.hasClass("panel"))
                         {
                             urlHash=contents.attr("id");
@@ -1537,11 +1818,14 @@
                     if (that.showLoading) that.hideMask();
                     return null;
                 }
+                else if(xmlhttp.readyState === 4) {
+                    $.ui.hideMask();
+                }
             };
             this.ajaxUrl = target;
-            var newtarget = this.useAjaxCacheBuster ? target + (target.split('?')[1] ? '&' : '?') + "cache=" + Math.random() * 10000000000000000 : target;
+            var newtarget = this.useAjaxCacheBuster ? target + (target.split("?")[1] ? "&" : "?") + "cache=" + Math.random() * 10000000000000000 : target;
             xmlhttp.open("GET", newtarget, true);
-            xmlhttp.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+            xmlhttp.setRequestHeader("X-Requested-With", "XMLHttpRequest");
             xmlhttp.send();
             // show Ajax Mask
             if (this.showLoading) this.showMask();
@@ -1555,7 +1839,11 @@
          * @title $.ui.runTransition(transition,oldDiv,currDiv,back)
          */
         runTransition: function(transition, oldDiv, currWhat, back) {
-            if (!this.availableTransitions[transition]) transition = 'default';
+            if (!this.availableTransitions[transition]) transition = "default";
+            if(oldDiv.style.display==="none")
+                oldDiv.style.display = "block";
+            if(currWhat.style.display==="none")
+                currWhat.style.display = "block";
             this.availableTransitions[transition].call(this, oldDiv, currWhat, back);
         },
 
@@ -1574,9 +1862,12 @@
                 this.hasLaunched = true;
                 return;
             }
+            if(this.isLaunching)
+                return true;
+            this.isLaunching=true;
 
             var that = this;
-            
+
             this.viewportContainer = af.query("#afui");
             this.navbar = af.query("#navbar").get(0);
             this.content = af.query("#content").get(0);
@@ -1594,11 +1885,11 @@
             var enterEditEl = null;
 
             //on enter-edit keep a reference of the actioned element
-            $.bind($.touchLayer, 'enter-edit', function(el) {
+            $.bind($.touchLayer, "enter-edit", function(el) {
                 enterEditEl = el;
             });
             //enter-edit-reshape panel padding and scroll adjust
-            $.bind($.touchLayer, 'enter-edit-reshape', function() {
+            $.bind($.touchLayer, "enter-edit-reshape", function() {
                 //onReshape UI fixes
                 //check if focused element is within active panel
                 var jQel = $(enterEditEl);
@@ -1621,13 +1912,13 @@
                         var containerPos = jQactive.offset();
                         if (elPos.bottom > containerPos.bottom && elPos.height < containerPos.height) {
                             //apply fix
-                            that.scrollingDivs[that.activeDiv.id].scrollToItem(jQel, 'bottom');
+                            that.scrollingDivs[that.activeDiv.id].scrollToItem(jQel, "bottom");
                         }
                     }
                 }
             });
             if ($.os.ios) {
-                $.bind($.touchLayer, 'exit-edit-reshape', function() {
+                $.bind($.touchLayer, "exit-edit-reshape", function() {
                     if (that.activeDiv && that.activeDiv.id && that.scrollingDivs.hasOwnProperty(that.activeDiv.id)) {
                         that.scrollingDivs[that.activeDiv.id].setPaddings(0, 0);
                     }
@@ -1651,7 +1942,7 @@
             if (!this.menu) {
                 this.menu = $.create("div", {
                     id: "menu",
-                    html: '<div id="menu_scroller"></div>'
+                    html: "<div id='menu_scroller'></div>"
                 }).get(0);
                 this.viewportContainer.append(this.menu);
                 this.menu.style.overflow = "hidden";
@@ -1660,31 +1951,30 @@
                     verticalScroll: true,
                     vScrollCSS: "afScrollbar",
                     useJsScroll: !$.feat.nativeTouchScroll,
-                    noParent: $.feat.nativeTouchScroll,
                     autoEnable: true,
-                    lockBounce: this.lockPageBounce
+                    lockBounce: this.lockPageBounce,
+                    hasParent:true
                 });
                 if ($.feat.nativeTouchScroll) $.query("#menu_scroller").css("height", "100%");
 
-                /*this.asideMenu = $.create("div", {
+                this.asideMenu = $.create("div", {
                     id: "aside_menu",
-                    html: '<div id="aside_menu_scroller"></div>'
+                    html: "<div id='aside_menu_scroller'></div>"
                 }).get(0);
                 this.viewportContainer.append(this.asideMenu);
                 this.asideMenu.style.overflow = "hidden";
-                this.scrollingDivs.menu_scroller = $.query("#aside_menu_scroller").scroller({
+                this.scrollingDivs.aside_menu_scroller = $.query("#aside_menu_scroller").scroller({
                     scrollBars: true,
                     verticalScroll: true,
                     vScrollCSS: "afScrollbar",
                     useJsScroll: !$.feat.nativeTouchScroll,
-                    noParent: $.feat.nativeTouchScroll,
                     autoEnable: true,
-                    lockBounce: this.lockPageBounce
+                    lockBounce: this.lockPageBounce,
+                    hasParent:true
                 });
-
                 if ($.feat.nativeTouchScroll) $.query("#aside_menu_scroller").css("height", "100%");
-                */
             }
+
 
             if (!this.content) {
                 this.content = $.create("div", {
@@ -1694,7 +1984,7 @@
             }
 
             //insert backbutton (should optionally be left to developer..)
-            $(this.header).html('<a id="backButton" class="button"></a> <h1 id="pageTitle"></h1>' + this.header.innerHTML);
+            $(this.header).html("<a id='backButton' class='button'></a> <h1 id='pageTitle'></h1>" + this.header.innerHTML);
             this.backButton = $.query("#header #backButton").css("visibility", "hidden");
             $(document).on("click", "#header #backButton", function(e) {
                 e.preventDefault();
@@ -1711,7 +2001,7 @@
                 className: "ui-loader",
                 html: "<span class='ui-icon ui-icon-loading spin'></span><h1>Loading Content</h1>"
             }).css({
-                'z-index': 20000,
+                "z-index": 20000,
                 display: "none"
             });
             document.body.appendChild(maskDiv.get(0));
@@ -1719,10 +2009,19 @@
             var modalDiv = $.create("div", {
                 id: "afui_modal"
             }).get(0);
-
-            modalDiv.appendChild($.create("div", {
-                id: 'modalContainer'
+            $(modalDiv).hide();
+            modalDiv.appendChild($.create("div",{
+                id:"modalHeader",
+                className:"header"
             }).get(0));
+            modalDiv.appendChild($.create("div", {
+                id: "modalContainer"
+            }).get(0));
+            modalDiv.appendChild($.create("div",{
+                id:"modalFooter",
+                className:"footer"
+            }).get(0));
+
             this.modalTransContainer = $.create("div", {
                 id: "modalTransContainer"
             }).appendTo(modalDiv).get(0);
@@ -1731,7 +2030,6 @@
                 scrollBars: true,
                 vertical: true,
                 vScrollCSS: "afScrollbar",
-                noParent: true,
                 lockBounce: this.lockPageBounce
             });
             this.modalWindow = modalDiv;
@@ -1743,7 +2041,7 @@
                 var tmp = el;
                 var id;
                 var prevSibling = el.previousSibling;
-                if (el.parentNode && el.parentNode.id != "content") {
+                if (el.parentNode && el.parentNode.id !== "content") {
 
                     el.parentNode.removeChild(el);
                     id = el.id;
@@ -1768,35 +2066,36 @@
             contentDivs = null;
             var loadingDefer = false;
             var toLoad = Object.keys(defer).length;
+            var loadDeferred=function(j){
+                $.ajax({
+                    url: intel.xdk.webRoot + defer[j],
+                    success: function(data) {
+                        if (data.length > 0) {
+                            that.updatePanel(j, data);
+                            that.parseScriptTags($.query("#" + j).get(0));
+                        }
+                        loaded++;
+                        if (loaded >= toLoad) {
+                            loadingDefer = false;
+                            $(document).trigger("defer:loaded");
+                        }
+                    },
+                    error: function(msg) {
+                        //still trigger the file as being loaded to not block $.ui.ready
+                        console.log("Error with deferred load " + intel.xdk.webRoot + defer[j]);
+                        loaded++;
+                        if (loaded >= toLoad) {
+                            loadingDefer = false;
+                            $(document).trigger("defer:loaded");
+                        }
+                    }
+                });
+            };
             if (toLoad > 0) {
                 loadingDefer = true;
                 var loaded = 0;
                 for (var j in defer) {
-                    (function(j) {
-                        $.ajax({
-                            url: intel.xdk.webRoot + defer[j],
-                            success: function(data) {
-                                if (data.length > 0) {
-                                    that.updatePanel(j, data);
-                                    that.parseScriptTags($.query("#" + j).get(0));
-                                }
-                                loaded++;
-                                if (loaded >= toLoad) {
-                                    loadingDefer = false;
-                                    $(document).trigger("defer:loaded");
-                                }
-                            },
-                            error: function(msg) {
-                                //still trigger the file as being loaded to not block $.ui.ready
-                                console.log("Error with deferred load " + intel.xdk.webRoot + defer[j]);
-                                loaded++;
-                                if (loaded >= toLoad) {
-                                    loadingDefer = false;
-                                    $(document).trigger("defer:loaded");
-                                }
-                            }
-                        });
-                    })(j);
+                    loadDeferred(j);
                 }
             }
             if (this.firstDiv) {
@@ -1809,7 +2108,7 @@
 
 
                     $.query("#navbar").append($.create("footer", {
-                        id: 'defaultNav'
+                        id: "defaultNav"
                     }).append($.query("#navbar").children()));
                     that.defaultFooter = "defaultNav";
                     that.prevFooter = $.query("#defaultNav");
@@ -1821,38 +2120,53 @@
                         that.updateSideMenuElements(that.defaultMenu);
                         that.prevMenu = that.defaultMenu;
                     }
+                    var firstAside = $.query("aside").get(0);
+                    if(firstAside) {
+                        that.defaultAside=$(firstAside);
+                        that.updateAsideElements(that.defaultAside);
+                        that.prevAsideMenu=that.defaultAside;
+                    }
                     //get default header
                     that.defaultHeader = "defaultHeader";
                     $.query("#header").append($.create("header", {
-                        id: 'defaultHeader'
+                        id: "defaultHeader"
                     }).append($.query("#header").children()));
                     that.prevHeader = $.query("#defaultHeader");
-
+                    $.query("#header").addClass("header");
+                    $.query("#navbar").addClass("footer");
                     //
-                    $.query("#navbar").on("click", "a", function(e) {
-                        $.query("#navbar a").not(e.currentTarget).removeClass("pressed");
+                    $.query("#navbar").on("click", "footer>a:not(.button)", function(e) {
+                        $.query("#navbar>footer>a").not(e.currentTarget).removeClass("pressed");
                         $(e.currentTarget).addClass("pressed");
                     });
 
-                    //update the width
-                    var footerLinks = $.query("#navbar a");
-                    if (footerLinks.length > 0) {
-                        footerLinks.css("width", (100 / footerLinks.length) + "%");
-                    }
+                  
 
                     //There is a bug in chrome with @media queries where the header was not getting repainted
                     if ($.query("nav").length > 0) {
-                        $.query("#afui #header").addClass("hasMenu");
-                        $.query("#afui #content").addClass("hasMenu");
-                        $.query("#afui #navbar").addClass("hasMenu");
-                        $.query("#afui #menu").addClass("tabletMenu");
+                        var splitViewClass=that.splitview?" splitview":"";
+                        $.query("#afui #header").addClass("hasMenu"+splitViewClass);
+                        $.query("#afui #content").addClass("hasMenu"+splitViewClass);
+                        $.query("#afui #navbar").addClass("hasMenu"+splitViewClass);
+                        $.query("#afui #menu").addClass("hasMenu"+splitViewClass);
+                        $.query("#afui #aside_menu").addClass(splitViewClass);
                     }
+                    if($.query("aside").length > 0) {
+                        $.query("#afui #header, #afui #content, #afui #navbar").addClass("hasAside");
+                    }
+                    $.query("#afui #menu").addClass("tabletMenu");
                     //go to activeDiv
+
+
+                    if($.ui.splitview&&window.innerWidth>parseInt($.ui.handheldMinWidth,10)){
+                        $.ui.sideMenuWidth=$("#menu").width()+"px";
+                    }
+
                     var firstPanelId = that.getPanelId(defaultHash);
                     //that.history=[{target:'#'+that.firstDiv.id}];   //set the first id as origin of path
-                    var isFirstPanel = !!(firstPanelId == "#" + that.firstDiv.id);
+                    var isFirstPanel = (firstPanelId!==null&&firstPanelId === "#" + that.firstDiv.id);
                     if (firstPanelId.length > 0 && that.loadDefaultHash && !isFirstPanel) {
-                        that.loadContent(defaultHash, true, false, 'none'); //load the active page as a newTab with no transition
+                        that.loadContent(defaultHash, true, false, "none"); //load the active page as a newTab with no transition
                     }
 
                     else {
@@ -1865,7 +2179,7 @@
                         that.loadContentData(that.firstDiv);
 
                         $.query("#header #backButton").css("visibility", "hidden");
-                        if (that.firstDiv.getAttribute("data-modal") == "true" || that.firstDiv.getAttribute("modal") == "true") {
+                        if (that.firstDiv.getAttribute("data-modal") === "true" || that.firstDiv.getAttribute("modal") === "true") {
                             that.showModal(that.firstDiv.id);
                         }
                     }
@@ -1873,11 +2187,10 @@
                     that.launchCompleted = true;
                     //trigger ui ready
                     $.query("#afui #splashscreen").remove();
-                    //Fix a bug with android dispatching events in the middle of other code execution
                     setTimeout(function(){
                         $(document).trigger("afui:ready");
                     });
-                    
+
                 };
                 if (loadingDefer) {
                     $(document).one("defer:loaded", loadFirstDiv);
@@ -1892,8 +2205,8 @@
             if (window.navigator.standalone||this.isIntel) {
                 this.blockPageScroll();
             }
+            this.enableTabBar();
             this.topClickScroll();
-
         },
         /**
          * This simulates the click and scroll to top of browsers
@@ -1901,7 +2214,7 @@
         topClickScroll: function() {
             var that = this;
             document.getElementById("header").addEventListener("click", function(e) {
-                if (e.clientY <= 15 && e.target.nodeName.toLowerCase() == "h1") //hack - the title spans the whole width of the header
+                if (e.clientY <= 15 && e.target.nodeName.toLowerCase() === "h1") //hack - the title spans the whole width of the header
                     that.scrollingDivs[that.activeDiv.id].scrollToTop("100");
             });
 
@@ -1937,7 +2250,7 @@
          * @title $.ui.finishTransition(oldDiv)
          */
         finishTransition: function(oldDiv, currDiv) {
-            oldDiv.style.display = 'none';
+            oldDiv.style.display = "none";
             this.doingTransition = false;
             if (currDiv) this.clearAnimations(currDiv);
             if (oldDiv) this.clearAnimations(oldDiv);
@@ -1951,8 +2264,8 @@
          * @title $.ui.finishTransition(oldDiv)
          */
         clearAnimations: function(inViewDiv) {
-            inViewDiv.style[$.feat.cssPrefix + 'Transform'] = "none";
-            inViewDiv.style[$.feat.cssPrefix + 'Transition'] = "none";
+            inViewDiv.style[$.feat.cssPrefix + "Transform"] = "none";
+            inViewDiv.style[$.feat.cssPrefix + "Transition"] = "none";
         }
 
         /**
@@ -1964,17 +2277,17 @@
 
     //lookup for a clicked anchor recursively and fire UI own actions when applicable
     var checkAnchorClick = function(e, theTarget) {
-
+        var afui = document.getElementById("afui");
         if (theTarget == (afui)) {
             return;
         }
 
         //this technique fails when considerable content exists inside anchor, should be recursive ?
-        if (theTarget.tagName.toLowerCase() != "a" && theTarget.parentNode) return checkAnchorClick(e, theTarget.parentNode); //let's try the parent (recursive)
+        if (theTarget.tagName.toLowerCase() !== "a" && theTarget.parentNode) return checkAnchorClick(e, theTarget.parentNode); //let's try the parent (recursive)
         //anchors
-        if (theTarget.tagName !== "undefined" && theTarget.tagName.toLowerCase() == "a") {
+        if (theTarget.tagName !== "undefined" && theTarget.tagName.toLowerCase() === "a") {
 
-            var custom = (typeof $.ui.customClickHandler == "function") ? $.ui.customClickHandler : false;
+            var custom = (typeof $.ui.customClickHandler === "function") ? $.ui.customClickHandler : false;
             if (custom !== false) {
                 if ($.ui.customClickHandler(theTarget,e)) return e.preventDefault();
 
@@ -1983,8 +2296,6 @@
                 return;
             }
 
-
-            if (theTarget.href.indexOf("tel:") === 0) return false;
 
             //external links
             if (theTarget.hash.indexOf("#") === -1 && theTarget.target.length > 0) {
@@ -2007,13 +2318,18 @@
                 href = href.substring(prefix.length);
             }
             //empty links
-            if (href == "#" || (href.indexOf("#") === href.length - 1) || (href.length === 0 && theTarget.hash.length === 0)) return e.preventDefault();
+            if (href === "#" || (href.indexOf("#") === href.length - 1) || (href.length === 0 && theTarget.hash.length === 0)) return e.preventDefault();
 
             //internal links
-            e.preventDefault();
+            //http urls
+            var urlRegex=/^((http|https|file):\/\/)/;
+            //only call prevent default on http/fileurls.  If it's a protocol handler, do not call prevent default.
+            //It will fall through to the ajax call and fail
+            if(theTarget.href.indexOf(":") !== -1 &&urlRegex.test(theTarget.href))
+                e.preventDefault();
             var mytransition = theTarget.getAttribute("data-transition");
             var resetHistory = theTarget.getAttribute("data-resetHistory");
-            resetHistory = resetHistory && resetHistory.toLowerCase() == "true" ? true : false;
+            resetHistory = resetHistory && resetHistory.toLowerCase() === "true" ? true : false;
             href = theTarget.hash.length > 0 ? theTarget.hash : href;
             $.ui.loadContent(href, resetHistory, 0, mytransition, theTarget);
             return;
@@ -2037,8 +2353,8 @@
 
     $.ui = new ui();
     $.ui.init=true;
-    $(window).trigger('afui:preinit');
-    $(window).trigger('afui:init'); 
+    $(window).trigger("afui:preinit");
+    $(window).trigger("afui:init");
 
 })(af);
 
@@ -2047,28 +2363,30 @@
 //The following functions are utilitiy functions for afui within intel xdk.
 
 (function($) {
+    "use strict";
     $(document).one("intel.xdk.device.ready", function() { //in intel xdk, we need to undo the height stuff since it causes issues.
-        $.ui.isIntel=true;
+
         setTimeout(function() {
-            document.getElementById('afui').style.height = "100%";
+            document.getElementById("afui").style.height = "100%";
             document.body.style.height = "100%";
             document.documentElement.style.minHeight = window.innerHeight;
         }, 300);
-        $.ui.ready(function() {
-            $.ui.blockPageScroll();
-        });
+
     });
     //Fix an ios bug where scrolling will not work with rotation
     if ($.feat.nativeTouchScroll) {
         document.addEventListener("orientationchange", function(e) {
             if ($.ui.scrollingDivs[$.ui.activeDiv.id]) {
                 var tmpscroller = $.ui.scrollingDivs[$.ui.activeDiv.id];
+                if(!tmpscroller) return;
                 if (tmpscroller.el.scrollTop === 0) {
                     tmpscroller.disable();
                     setTimeout(function() {
                         tmpscroller.enable();
                     }, 300);
                 }
+                if(tmpscroller.refresh)
+                    tmpscroller.updateP2rHackPosition();
             }
         });
     }
