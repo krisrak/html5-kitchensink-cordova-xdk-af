@@ -1,14 +1,19 @@
+/*! intel-appframework - v2.1.0 - 2014-04-01 */
+
 /**
- * App Framwork  query selector class for HTML5 mobile apps on a WebkitBrowser.
+ * App Framework  query selector class for HTML5 mobile apps on a WebkitBrowser.
  * Since most mobile devices (Android, iOS, webOS) use a WebKit browser, you only need to target one browser.
  * We are able to increase the speed greatly by removing support for legacy desktop browsers and taking advantage of browser features, like native JSON parsing and querySelectorAll
 
 
  * MIT License
- * @author AppMobi
+ * @author Intel
  * @copyright Intel
  * @api private
  */
+ /* jshint eqeqeq:false */
+  /* global af: false */
+
 if (!window.af || typeof(af) !== "function") {
 
     /**
@@ -49,7 +54,7 @@ if (!window.af || typeof(af) !== "function") {
             isWin8 = (typeof(MSApp) === "object");
 
         /**
-         * internal function used for $().css - checks to see if it's a number and the css property
+         * internal function used for $().css - checks to see if it is a number and the css property
          * needs "px" added to it
          * @api private
          */
@@ -137,6 +142,7 @@ if (!window.af || typeof(af) !== "function") {
          * This is also the start of our query selector engine
          * @param {String|Element|Object|Array} selector
          * @param {String|Element|Object} [context]
+         * @api private
          */
         var $afm = function(toSelect, what) {
             this.length = 0;
@@ -180,6 +186,8 @@ if (!window.af || typeof(af) !== "function") {
          * This calls the $afm function
          * @param {String|Element|Object|Array} selector
          * @param {String|Element|Object} [context]
+         * @title $()
+         * @return {Object} an appframework object
          */
         var $ = function(selector, what) {
             return new $afm(selector, what);
@@ -211,7 +219,7 @@ if (!window.af || typeof(af) !== "function") {
             selector = selector.trim();
 
             if (selector[0] === "#" && selector.indexOf(".") === -1 &&selector.indexOf(",") === -1 && selector.indexOf(" ") === -1 && selector.indexOf(">") === -1) {
-                if (what == document)
+                if (what === document)
                     _shimNodes(what.getElementById(selector.replace("#", "")), this);
                 else
                     _shimNodes(_selectorAll(selector, what), this);
@@ -242,6 +250,7 @@ if (!window.af || typeof(af) !== "function") {
             for (var i = 0, iz = nodes.length; i < iz; i++)
                 obj[obj.length++] = nodes[i];
         }
+
         /**
         * Checks to see if the parameter is a $afm object
             ```
@@ -249,13 +258,14 @@ if (!window.af || typeof(af) !== "function") {
             $.is$(foo);
             ```
 
-        * @param {Object} element
-        * @return {Boolean}
+        * @param {*} obj
+        * @return {boolean}
         * @title $.is$(param)
         */
         $.is$ = function(obj) {
-            return obj instanceof $afm;
+            return (obj instanceof $afm);
         };
+
         /**
         * Map takes in elements and executes a callback function on each and returns a collection
         ```
@@ -353,8 +363,8 @@ if (!window.af || typeof(af) !== "function") {
             $.isArray(arr);
             ```
 
-        * @param {Object} element
-        * @return {Boolean}
+        * @param {*} obj
+        * @return {boolean}
         * @example $.isArray([1]);
         * @title $.isArray(param)
         */
@@ -369,8 +379,8 @@ if (!window.af || typeof(af) !== "function") {
             $.isFunction(func);
             ```
 
-        * @param {Object} element
-        * @return {Boolean}
+        * @param {*} obj
+        * @return {boolean}
         * @title $.isFunction(param)
         */
         $.isFunction = function(obj) {
@@ -381,10 +391,10 @@ if (!window.af || typeof(af) !== "function") {
             ```
             var foo={bar:"bar"};
             $.isObject(foo);
+        
             ```
-
-        * @param {Object} element
-        * @return {Boolean}
+        * @param {*} obj
+        * @returns {boolean}
         * @title $.isObject(param)
         */
         $.isObject = function(obj) {
@@ -392,10 +402,10 @@ if (!window.af || typeof(af) !== "function") {
         };
 
         /**
-         * Prototype for afm object.  Also extens $.fn
+         * Prototype for afm object.  Also extends $.fn
          */
         $.fn = $afm.prototype = {
-            namepsace:"appframework",
+            namespace: "appframework",
             constructor: $afm,
             forEach: emptyArray.forEach,
             reduce: emptyArray.reduce,
@@ -567,9 +577,9 @@ if (!window.af || typeof(af) !== "function") {
                 $().css("background","red")  //Sets the elements background to red
                 ```
 
-            * @param {String} attribute to get
-            * @param {String} value to set as
-            * @return {Object} an appframework object
+            * @param {String} attribute The attribute to get
+            * @param {String} value Value to set as
+            * @return {Object} obj An appframework object
             * @title $().css(attribute,[value])
             */
             css: function(attribute, value, obj) {
@@ -609,10 +619,9 @@ if (!window.af || typeof(af) !== "function") {
             },
             /**
              * Performs a css vendor specific transform:translate operation on the collection.
-             *
-             ```
+                ```
                 $("#main").cssTranslate("200px,0,0");
-             ```
+                ```
              * @param {String} Transform values
              * @return {Object} an appframework object
              * @title $().cssTranslate(value)
@@ -622,10 +631,9 @@ if (!window.af || typeof(af) !== "function") {
             },
             /**
              * Gets the computed style of CSS values
-             *
-            ```
+                ```
                $("#main").computedStyle("display");
-            ```
+                ```
              * @param {String} css property
              * @return {Int|String|Float|} css vlaue
              * @title $().computedStyle()
@@ -749,7 +757,7 @@ if (!window.af || typeof(af) !== "function") {
                 $().attr("foo",{bar:"bar"}) //Adds the object to an internal cache
                 ```
 
-            * @param {String|Object} attribute to act upon.  If it's an object (hashmap), it will set the attributes based off the kvp.
+            * @param {String|Object} attribute to act upon.  If it is an object (hashmap), it will set the attributes based off the kvp.
             * @param {String|Array|Object|function} [value] to set
             * @return {String|Object|Array|Function} If used as a getter, return the attribute value.  If a setter, return an appframework object
             * @title $().attr(attribute,[value])
@@ -758,7 +766,7 @@ if (!window.af || typeof(af) !== "function") {
                 if (this.length === 0)
                     return (value === nundefined) ? undefined : this;
                 if (value === nundefined && !$.isObject(attr)) {
-                    var val = (this[0].afmCacheId && _attrCache[this[0].afmCacheId][attr]) ? (this[0].afmCacheId && _attrCache[this[0].afmCacheId][attr]) : this[0].getAttribute(attr);
+                    var val = (this[0].afmCacheId && _attrCache[this[0].afmCacheId] && _attrCache[this[0].afmCacheId][attr]) ? _attrCache[this[0].afmCacheId][attr] : this[0].getAttribute(attr);
                     return val;
                 }
                 for (var i = 0; i < this.length; i++) {
@@ -780,6 +788,8 @@ if (!window.af || typeof(af) !== "function") {
                             delete _attrCache[this[i].afmCacheId][attr];
                     } else {
                         this[i].setAttribute(attr, value);
+                        if (this[i].afmCacheId && _attrCache[this[i].afmCacheId][attr])
+                            delete _attrCache[this[i].afmCacheId][attr];
                     }
                 }
                 return this;
@@ -797,7 +807,7 @@ if (!window.af || typeof(af) !== "function") {
             removeAttr: function(attr) {
                 var removeFixer=function(param) {
                     that[i].removeAttribute(param);
-                    if (that[i].afmCacheId && _attrCache[that[i].afmCacheId][attr])
+                    if (that[i].afmCacheId && _attrCache[that[i].afmCacheId])
                         delete _attrCache[that[i].afmCacheId][attr];
                 };
                 var that = this;
@@ -816,7 +826,7 @@ if (!window.af || typeof(af) !== "function") {
                 $().prop("foo",{bar:"bar"}) //Adds the object to an internal cache
                 ```
 
-            * @param {String|Object} property to act upon.  If it's an object (hashmap), it will set the attributes based off the kvp.
+            * @param {String|Object} property to act upon.  If it is an object (hashmap), it will set the attributes based off the kvp.
             * @param {String|Array|Object|function} [value] to set
             * @return {String|Object|Array|Function} If used as a getter, return the property value.  If a setter, return an appframework object
             * @title $().prop(property,[value])
@@ -826,7 +836,7 @@ if (!window.af || typeof(af) !== "function") {
                     return (value === nundefined) ? undefined : this;
                 if (value === nundefined && !$.isObject(prop)) {
                     var res;
-                    var val = (this[0].afmCacheId && _propCache[this[0].afmCacheId][prop]) ? (this[0].afmCacheId && _propCache[this[0].afmCacheId][prop]) : !(res = this[0][prop]) && prop in this[0] ? this[0][prop] : res;
+                    var val = (this[0].afmCacheId && _propCache[this[0].afmCacheId] && _propCache[this[0].afmCacheId][prop]) ? _propCache[this[0].afmCacheId][prop] : !(res = this[0][prop]) && prop in this[0] ? this[0][prop] : res;
                     return val;
                 }
                 for (var i = 0; i < this.length; i++) {
@@ -835,7 +845,6 @@ if (!window.af || typeof(af) !== "function") {
                             $(this[i]).prop(key, prop[key]);
                         }
                     } else if ($.isArray(value) || $.isObject(value) || $.isFunction(value)) {
-
                         if (!this[i].afmCacheId)
                             this[i].afmCacheId = $.uuid();
 
@@ -845,6 +854,7 @@ if (!window.af || typeof(af) !== "function") {
                     } else if (value === null && value !== undefined) {
                         $(this[i]).removeProp(prop);
                     } else {
+                        $(this[i]).removeProp(prop);
                         this[i][prop] = value;
                     }
                 }
@@ -864,7 +874,7 @@ if (!window.af || typeof(af) !== "function") {
                 var removePropFn=function(param) {
                     if (that[i][param])
                         that[i][param] = undefined;
-                    if (that[i].afmCacheId && _propCache[that[i].afmCacheId][prop]) {
+                    if (that[i].afmCacheId && _propCache[that[i].afmCacheId]) {
                         delete _propCache[that[i].afmCacheId][prop];
                     }
                 };
@@ -878,14 +888,12 @@ if (!window.af || typeof(af) !== "function") {
             /**
             * Removes elements based off a selector
                 ```
-                $().remove();  //Remove all
-                $().remove(".foo");//Remove off a string selector
-                var element=$("#foo").get(0);
-                $().remove(element); //Remove by an element
-                $().remove($(".foo"));  //Remove by a collection
-
+                    $().remove();  //Remove all
+                    $().remove(".foo");//Remove off a string selector
+                    var element=$("#foo").get(0);
+                    $().remove(element); //Remove by an element
+                    $().remove($(".foo"));  //Remove by a collection
                 ```
-
             * @param {String|Object|Array} selector to filter against
             * @return {Object} appframework object
             * @title $().remove(selector)
@@ -1037,8 +1045,8 @@ if (!window.af || typeof(af) !== "function") {
             /**
             * Appends to the elements
             * We boil everything down to an appframework object and then loop through that.
-            * If it's HTML, we create a dom element so we do not break event bindings.
-            * if it's a script tag, we evaluate it.
+            * If it is HTML, we create a dom element so we do not break event bindings.
+            * if it is a script tag, we evaluate it.
                 ```
                 $().append("<div></div>"); //Creates the object from the string and appends it
                 $().append($("#foo")); //Append an object;
@@ -1195,7 +1203,7 @@ if (!window.af || typeof(af) !== "function") {
                 var obj;
                 if (this.length === 0)
                     return this;
-                if (this[0] == window)
+                if (this[0] === window)
                     return {
                         left: 0,
                         top: 0,
@@ -1228,10 +1236,10 @@ if (!window.af || typeof(af) !== "function") {
                     return this;
                 if (val != nundefined)
                     return this.css("height", val);
-                if (this[0] == this[0].window)
-                    return window.innerHeight + "";
-                if (this[0].nodeType == this[0].DOCUMENT_NODE)
-                    return this[0].documentElement.offsetheight;
+                if (this[0] === this[0].window)
+                    return window.innerHeight;
+                if (this[0].nodeType === this[0].DOCUMENT_NODE)
+                    return this[0].documentElement.offsetHeight;
                 else {
                     var tmpVal = this.css("height").replace("px", "");
                     if (tmpVal)
@@ -1253,10 +1261,10 @@ if (!window.af || typeof(af) !== "function") {
                     return this;
                 if (val != nundefined)
                     return this.css("width", val);
-                if (this[0] == this[0].window)
+                if (this[0] === this[0].window)
                     return window.innerWidth;
-                if (this[0].nodeType == this[0].DOCUMENT_NODE)
-                    return this[0].documentElement.offsetwidth;
+                if (this[0].nodeType === this[0].DOCUMENT_NODE)
+                    return this[0].documentElement.offsetWidth;
                 else {
                     var tmpVal = this.css("width").replace("px", "");
                     if (tmpVal)
@@ -1283,7 +1291,7 @@ if (!window.af || typeof(af) !== "function") {
                 var elems = [];
                 for (var i = 0; i < this.length; i++) {
                     var tmp = this[i];
-                    while (tmp.parentNode && tmp.parentNode != document) {
+                    while (tmp.parentNode && tmp.parentNode !== document) {
                         elems.push(tmp.parentNode);
                         if (tmp.parentNode)
                             tmp = tmp.parentNode;
@@ -1455,7 +1463,7 @@ if (!window.af || typeof(af) !== "function") {
             },
             /**
             * Gets or set data-* attribute parameters on elements (when a string)
-            * When used as a getter, it"s only the first element
+            * When used as a getter, it's only the first element
                 ```
                 $().data("foo"); //Gets the data-foo attribute for the first element
                 $().data("foo","bar"); //Sets the data-foo attribute for all elements
@@ -1556,7 +1564,7 @@ if (!window.af || typeof(af) !== "function") {
                 ```
                $().eq(index)
                ```
-             * @param {Int} index - Index to filter by. If negative, it will go back from the end
+             * @param {Int} ind Index to filter by. If negative, it will go back from the end
              * @return {Object} appframework object
              * @title $().eq(index)
              */
@@ -1568,7 +1576,7 @@ if (!window.af || typeof(af) !== "function") {
                ```
                $().index(elem)
                ```
-             * @param {String|Object} element to look for.  Can be a selector or object
+             * @param {String|Object} elem The element to look for. Can be a selector or object
              * @return integer - index of selected element
              * @title $().index(elem)
              */
@@ -1618,7 +1626,8 @@ if (!window.af || typeof(af) !== "function") {
             complete: empty,
             context: undefined,
             timeout: 0,
-            crossDomain: null
+            crossDomain: null,
+            processData: true
         };
         /**
         * Execute a jsonP call, allowing cross domain scripting
@@ -1656,12 +1665,27 @@ if (!window.af || typeof(af) !== "function") {
             if (options.url.indexOf("callback=?") !== -1) {
                 script.src = options.url.replace(/=\?/, "=" + callbackName);
             } else {
+
                 callback = options.jsonp ? options.jsonp : "callback";
                 if (options.url.indexOf("?") === -1) {
                     options.url += ("?" + callback + "=" + callbackName);
                 }
                 else {
-                    options.url += ("&" + callback + "=" + callbackName);
+                    if(options.url.indexOf("callback=")!==-1){
+
+                        var searcher="callback=";
+                        var offset=options.url.indexOf(searcher)+searcher.length;
+                        var amp=options.url.indexOf(offset);
+                        if(amp===-1)
+                            amp=options.url.length;
+                        var oldCB=options.url.substr(offset,amp);
+                        options.url=options.url.replace(searcher+oldCB,searcher+callbackName);
+                        oldCB=oldCB.replace("window.","");
+                        options.success=window[oldCB];
+                    }
+                    else {
+                        options.url += ("&" + callback + "=" + callbackName);
+                    }
                 }
                 script.src = options.url;
             }
@@ -1694,44 +1718,54 @@ if (!window.af || typeof(af) !== "function") {
         * options.data - data to pass into request.  $.param is called on objects
             ```
             var opts={
-            type:"GET",
-            success:function(data){},
-            url:"mypage.php",
-            data:{bar:"bar"},
+                type:"GET",
+                success:function(data){},
+                url:"mypage.php",
+                data:{bar:"bar"},
             }
             $.ajax(opts);
             ```
 
-        * @param {Object} options
+        * @param {Object} opts Options
         * @title $.ajax(options)
         */
         $.ajax = function(opts) {
             var xhr;
-            try {
-
-                var settings = opts || {};
-                for (var key in $.ajaxSettings) {
-                    if (typeof(settings[key]) === "undefined")
-                        settings[key] = $.ajaxSettings[key];
-                }
-
+            var deferred=$.Deferred();
+            var url;
+            if(typeof(opts)==="string")
+            {
+                var oldUrl=opts;
+                opts={
+                    url:oldUrl
+                };
+            }
+            var settings = opts || {};
+            for (var key in $.ajaxSettings) {
+                if (typeof(settings[key]) === "undefined")
+                    settings[key] = $.ajaxSettings[key];
+            }
+            try{
                 if (!settings.url)
                     settings.url = window.location;
-                if (!settings.contentType)
-                    settings.contentType = "application/x-www-form-urlencoded";
+
                 if (!settings.headers)
                     settings.headers = {};
 
                 if (!("async" in settings) || settings.async !== false)
                     settings.async = true;
 
-                if ($.isObject(settings.data))
+                if (settings.processData && $.isObject(settings.data))
                     settings.data = $.param(settings.data);
                 if (settings.type.toLowerCase() === "get" && settings.data) {
                     if (settings.url.indexOf("?") === -1)
                         settings.url += "?" + settings.data;
                     else
                         settings.url += "&" + settings.data;
+                }
+                if(settings.data) {
+                    if (!settings.contentType && settings.contentType!==false)
+                        settings.contentType = "application/x-www-form-urlencoded; charset=UTF-8";
                 }
                 if (!settings.dataType)
                     settings.dataType = "text/html";
@@ -1765,7 +1799,7 @@ if (!window.af || typeof(af) !== "function") {
                     return $.jsonP(settings);
                 }
                 if (settings.crossDomain === null) settings.crossDomain = /^([\w-]+:)?\/\/([^\/]+)/.test(settings.url) &&
-                        RegExp.$2 != window.location.host;
+                        RegExp.$2 !== window.location.host;
 
                 if (!settings.crossDomain)
                     settings.headers = $.extend({
@@ -1777,40 +1811,57 @@ if (!window.af || typeof(af) !== "function") {
 
                 //ok, we are really using xhr
                 xhr = new window.XMLHttpRequest();
-
+                $.extend(xhr,deferred.promise);
 
                 xhr.onreadystatechange = function() {
                     var mime = settings.dataType;
                     if (xhr.readyState === 4) {
                         clearTimeout(abortTimeout);
                         var result, error = false;
+                        var contentType=xhr.getResponseHeader("content-type")||"";
                         if ((xhr.status >= 200 && xhr.status < 300) || xhr.status === 0 && protocol === "file:") {
-                            if (mime === "application/json" && !(/^\s*$/.test(xhr.responseText))) {
+                            if ((contentType==="application/json")||(mime === "application/json" && !(/^\s*$/.test(xhr.responseText)))) {
                                 try {
                                     result = JSON.parse(xhr.responseText);
                                 } catch (e) {
                                     error = e;
                                 }
-                            } else if (mime === "application/xml, text/xml") {
+                            }
+                            else if(contentType.indexOf("javascript")!==-1){
+                                try{
+                                    result=xhr.responseText;
+                                    window["eval"](result);
+                                }
+                                catch(e){
+                                    console.log(e);
+                                }
+                            }
+                            else if (mime === "application/xml, text/xml") {
                                 result = xhr.responseXML;
                             } else if (mime === "text/html") {
                                 result = xhr.responseText;
                                 $.parseJS(result);
-                            } else
+                            }
+                            else
                                 result = xhr.responseText;
-                            //If we"re looking at a local file, we assume that no response sent back means there was an error
+                            //If we're looking at a local file, we assume that no response sent back means there was an error
                             if (xhr.status === 0 && result.length === 0)
                                 error = true;
-                            if (error)
+                            if (error){
                                 settings.error.call(context, xhr, "parsererror", error);
+                                deferred.reject.call(context, xhr, "parsererror", error);
+                            }
                             else {
+                                deferred.resolve.call(context, result, "succes", xhr);
                                 settings.success.call(context, result, "success", xhr);
                             }
                         } else {
                             error = true;
+                            deferred.reject.call(context,xhr, "error");
                             settings.error.call(context, xhr, "error");
                         }
-                        settings.complete.call(context, xhr, error ? "error" : "success");
+                        var respText=error?"error":"success";
+                        settings.complete.call(context, xhr,respText);
                     }
                 };
                 xhr.open(settings.type, settings.url, settings.async);
@@ -1835,7 +1886,7 @@ if (!window.af || typeof(af) !== "function") {
                 xhr.send(settings.data);
             } catch (e) {
                 // General errors (e.g. access denied) should also be sent to the error callback
-                console.log(e);
+                deferred.resolve(context, xhr, "error",e);
                 settings.error.call(context, xhr, "error", e);
             }
             return xhr;
@@ -1909,6 +1960,42 @@ if (!window.af || typeof(af) !== "function") {
             });
         };
 
+        /**
+        * Shorthand call to an Ajax request that expects a javascript file.
+            ```
+            $.getScript("myscript.js",function(data){});
+            ```
+
+        * @param {String} javascript file to load
+        * @param {Function} [success]
+        * @title $.getScript(url,success)
+        */
+        $.getScript = function(url,success){
+            var isCrossDomain=/^([\w-]+:)?\/\/([^\/]+)/.test(url);
+            if(isCrossDomain){
+                //create the script
+                var deferred = $.Deferred();
+                var scr=$.create("script",{async:true,src:url}).get(0);
+                scr.onload=function(){
+                    success&&success();
+                    deferred.resolve.call(this,"success");
+                    $(this).remove();
+                };
+                scr.onerror=function(){
+                    $(this).remove();
+                    deferred.reject.call(this,"success");
+                };
+                document.head.appendChild(scr);
+                return deferred.promise;
+            }
+            else {
+                return this.ajax({
+                    url:url,
+                    success:success,
+                    dataType:"script"
+                });
+            }
+        };
         /**
         * Converts an object into a key/value par with an optional prefix.  Used for converting objects to a query string
             ```
@@ -2026,6 +2113,11 @@ if (!window.af || typeof(af) !== "function") {
             $.feat.cssTransformEnd = !$.os.opera ? ",0)" : ")";
             if ($.os.android && !$.os.webkit)
                 $.os.android = false;
+            var items=["Webkit","Moz","ms","O"];
+            for(var j=0;j<items.length;j++){
+                if(document.documentElement.style[items[j]+"Transform"]==="")
+                    $.feat.cssPrefix=items[j];
+            }
 
         }
 
@@ -2144,7 +2236,7 @@ if (!window.af || typeof(af) !== "function") {
             return f;
         };
         /**
-         * $.query  - a faster alertnative to $("div");
+         * $.query  - a faster alternative to $("div");
           ```
           $.query(".panel");
           ```
@@ -2197,7 +2289,7 @@ if (!window.af || typeof(af) !== "function") {
             if (event.ns)
                 var matcher = matcherFor(event.ns);
             return (handlers[afmid(element)] || []).filter(function(handler) {
-                return handler && (!event.e || handler.e == event.e) && (!event.ns || matcher.test(handler.ns)) && (!fn || handler.fn == fn || (typeof handler.fn === "function" && typeof fn === "function" && handler.fn === fn)) && (!selector || handler.sel == selector);
+                return handler && (!event.e || handler.e === event.e) && (!event.ns || matcher.test(handler.ns)) && (!fn || handler.fn === fn || (typeof handler.fn === "function" && typeof fn === "function" && handler.fn === fn)) && (!selector || handler.sel === selector);
             });
         }
         /**
@@ -2277,7 +2369,6 @@ if (!window.af || typeof(af) !== "function") {
                 set.push(handler);
                 element.addEventListener(handler.e, proxyfn, false);
             });
-            element=null;
         }
 
         /**
@@ -2300,6 +2391,7 @@ if (!window.af || typeof(af) !== "function") {
                 });
             });
         }
+
 
         $.event = {
             add: add,
@@ -2492,7 +2584,7 @@ if (!window.af || typeof(af) !== "function") {
         };
         /**
         * Removes event listeners for .on()
-        * If selector is undefined or a function, we call unbind, otherwise it"s undelegate
+        * If selector is undefined or a function, we call unbind, otherwise it's undelegate
             ```
             $().off("click","p",callback); //Remove callback function for click events
             $().off("click","p") //Remove all click events
@@ -2530,10 +2622,14 @@ if (!window.af || typeof(af) !== "function") {
         };
 
         /**
-         * Creates a custom event to be used internally.
+         Creates a custom event to be used internally.
+         ```
+         $.Event('MouseEvent');
+         ```
          * @param {String} type
          * @param {Object} [properties]
          * @return {event} a custom event that can then be dispatched
+         * @api private
          * @title $.Event(type,props);
          */
 
@@ -2547,8 +2643,12 @@ if (!window.af || typeof(af) !== "function") {
             return event;
         };
 
-        /* The following are for events on objects */
         /**
+         * The following are for objects and not DOM nodes
+         * @api private
+         */
+
+        /*
          * Bind an event to an object instead of a DOM Node
            ```
            $.bind(this,"event",function(){});
@@ -2613,7 +2713,7 @@ if (!window.af || typeof(af) !== "function") {
                     for (var j = 0; j < evts.length; j++) {
                         if (f == nundefined)
                             delete evts[j];
-                        if (evts[j] == f) {
+                        if (evts[j] === f) {
                             evts.splice(j, 1);
                             break;
                         }
@@ -2621,27 +2721,19 @@ if (!window.af || typeof(af) !== "function") {
                 }
             }
         };
-
-
         /**
-         * Creates a proxy function so you can change the "this" context in the function
-         * Update: now also allows multiple argument call or for you to pass your own arguments
-           ```
-            var newObj={foo:bar}
-            $("#main").bind("click",$.proxy(function(evt){console.log(this)},newObj);
-
-            or
-
-            ( $.proxy(function(foo, bar){console.log(this+foo+bar)}, newObj) )("foo", "bar");
-
-            or
-
-            ( $.proxy(function(foo, bar){console.log(this+foo+bar)}, newObj, ["foo", "bar"]) )();
-           ```
-         * @param {Function} Callback
-         * @param {Object} Context
+         * Creates a proxy function so you can chane "this" context in the function
+            ```
+                var newObj={foo:bar}
+                $("#main").bind("click",$.proxy(function(evt){console.log(this)},newObj);
+                ( $.proxy(function(foo, bar){console.log(this+foo+bar)}, newObj) )("foo", "bar");
+                ( $.proxy(function(foo, bar){console.log(this+foo+bar)}, newObj, ["foo", "bar"]) )();
+            ```
+         * @param {Function} callback
+         * @param {Object} Context         
          * @title $.proxy(callback,context);
          */
+
         $.proxy = function(f, c, args) {
             return function() {
                 if (args) return f.apply(c, args); //use provided arguments
@@ -2739,7 +2831,7 @@ if (!window.af || typeof(af) !== "function") {
             window.postMessage("afm-asap", "*");
         };
         window.addEventListener("message", function(event) {
-            if (event.source == window && event.data === "afm-asap") {
+            if (event.source === window && event.data === "afm-asap") {
                 event.stopPropagation();
                 if (timeouts.length > 0) { //just in case...
                     (timeouts.shift()).apply(contexts.shift(), params.shift());
@@ -2814,6 +2906,16 @@ if (!window.af || typeof(af) !== "function") {
             };
         });
 
+        $.Deferred = function(){
+            return {
+                reject:function(){},
+                resolve:function(){},
+                promise:{
+                    then:function(){},
+                    fail:function(){}
+                }
+            };
+        };
         /**
          * End of APIS
          * @api private
@@ -2846,3 +2948,180 @@ if (!window.af || typeof(af) !== "function") {
         };
     }
 }
+
+/**
+ * ayepromise.js
+ * @license BSD - https://github.com/cburgmer/ayepromise/commit/299eb65b5ce227873b2f1724c8f5b2bfa723680a
+ * https://github.com/cburgmer/ayepromise
+ */
+
+// UMD header
+(function (root, factory) {
+    //remove AMD code
+    root.ayepromise = factory();
+}(this, function () {
+    'use strict';
+
+    var ayepromise = {};
+
+    /* Wrap an arbitrary number of functions and allow only one of them to be
+       executed and only once */
+    var once = function () {
+        var wasCalled = false;
+
+        return function wrapper(wrappedFunction) {
+            return function () {
+                if (wasCalled) {
+                    return;
+                }
+                wasCalled = true;
+                wrappedFunction.apply(null, arguments);
+            };
+        };
+    };
+
+    var getThenableIfExists = function (obj) {
+        // Make sure we only access the accessor once as required by the spec
+        var then = obj && obj.then;
+
+        if (obj !== null &&
+            typeof obj === "object" &&
+            typeof then === "function") {
+
+            return then.bind(obj);
+        }
+    };
+
+    var aThenHandler = function (onFulfilled, onRejected) {
+        var defer = ayepromise.defer();
+
+        var doHandlerCall = function (func, value) {
+            setTimeout(function () {
+                var returnValue;
+                try {
+                    returnValue = func(value);
+                } catch (e) {
+                    defer.reject(e);
+                    return;
+                }
+
+                if (returnValue === defer.promise) {
+                    defer.reject(new TypeError('Cannot resolve promise with itself'));
+                } else {
+                    defer.resolve(returnValue);
+                }
+            }, 1);
+        };
+
+        return {
+            promise: defer.promise,
+            callFulfilled: function (value) {
+                if (onFulfilled && onFulfilled.call) {
+                    doHandlerCall(onFulfilled, value);
+                } else {
+                    defer.resolve(value);
+                }
+            },
+            callRejected: function (value) {
+                if (onRejected && onRejected.call) {
+                    doHandlerCall(onRejected, value);
+                } else {
+                    defer.reject(value);
+                }
+            }
+        };
+    };
+
+    // States
+    var PENDING = 0,
+        FULFILLED = 1,
+        REJECTED = 2;
+
+    ayepromise.defer = function () {
+        var state = PENDING,
+            outcome,
+            thenHandlers = [];
+
+        var doFulfill = function (value) {
+            state = FULFILLED;
+            outcome = value;
+
+            thenHandlers.forEach(function (then) {
+                then.callFulfilled(outcome);
+            });
+        };
+
+        var doReject = function (error) {
+            state = REJECTED;
+            outcome = error;
+
+            thenHandlers.forEach(function (then) {
+                then.callRejected(outcome);
+            });
+        };
+
+        var executeThenHandlerDirectlyIfStateNotPendingAnymore = function (then) {
+            if (state === FULFILLED) {
+                then.callFulfilled(outcome);
+            } else if (state === REJECTED) {
+                then.callRejected(outcome);
+            }
+        };
+
+        var registerThenHandler = function (onFulfilled, onRejected) {
+            var thenHandler = aThenHandler(onFulfilled, onRejected);
+
+            thenHandlers.push(thenHandler);
+
+            executeThenHandlerDirectlyIfStateNotPendingAnymore(thenHandler);
+
+            return thenHandler.promise;
+        };
+
+        var safelyResolveThenable = function (thenable) {
+            // Either fulfill, reject or reject with error
+            var onceWrapper = once();
+            try {
+                thenable(
+                    onceWrapper(transparentlyResolveThenablesAndFulfill),
+                    onceWrapper(doReject)
+                );
+            } catch (e) {
+                onceWrapper(doReject)(e);
+            }
+        };
+
+        var transparentlyResolveThenablesAndFulfill = function (value) {
+            var thenable;
+
+            try {
+                thenable = getThenableIfExists(value);
+            } catch (e) {
+                doReject(e);
+                return;
+            }
+
+            if (thenable) {
+                safelyResolveThenable(thenable);
+            } else {
+                doFulfill(value);
+            }
+        };
+
+        var onceWrapper = once();
+        return {
+            resolve: onceWrapper(transparentlyResolveThenablesAndFulfill),
+            reject: onceWrapper(doReject),
+            promise: {
+                then: registerThenHandler,
+                fail: function (onRejected) {
+                    return registerThenHandler(null, onRejected);
+                }
+            }
+        };
+    };
+    return ayepromise;
+}));
+(function($){
+    $.Deferred=ayepromise.defer;
+})(af);

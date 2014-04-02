@@ -32,6 +32,11 @@
         this.availableTransitions["default"] = this.availableTransitions.none = this.noTransition;
         //setup the menu and boot touchLayer
 
+        //Hack  for AMD/requireJS support
+        //set autolaunch = false
+        if ((typeof define === "function" && define.amd)||(typeof module !== "undefined" && module.exports)) {
+            that.autoLaunch=false;
+        }
 
         if ($("#afui").length === 1) {
             setupCustomTheme();
@@ -50,7 +55,7 @@
                 }
                 $(document.body).prepend(afui);
             }
-            that.isIntel="intel" in window&&window.intel&&window.intel.xdk&&window.intel.xdk.app;
+            that.isIntel="intel" in window&&window.intel&&window.intel.xdk&&"app" in window.intel.xdk;
             if ($.os.supportsTouch) $.touchLayer(afui);
             setupCustomTheme();
 
@@ -88,7 +93,7 @@
 
         //click back event
         window.addEventListener("popstate", function() {
-            if(!that.useInteralRouting) return;
+            if(!that.useInternalRouting) return;
             var id = that.getPanelId(document.location.hash);
             var hashChecker = document.location.href.replace(document.location.origin + "/", "");
             //make sure we allow hash changes outside afui
@@ -131,12 +136,14 @@
                 $("head").append("<style id='iosBlurrHack'>#afui .y-scroll > *, #afui .x-scroll > * {"+hackStyle+"}</style>");
             }
             else if ($.os.anroid&&!$.os.androidICS){
-                $.ui.transitionTime = "150ms";
+                that.transitionTime = "150ms";
             }
             else if($.os.fennec){
-                $.ui.ready(function(){
-                    var tmpH=numOnly($("#header").height())+numOnly($("#navbar").height());
-                    $("#content").css("height",window.innerHeight-tmpH);
+                that.ready(function(){
+                    window.addEventListener("deviceorientation",function(){
+                        var tmpH=numOnly($("#header").height())+numOnly($("#navbar").height());
+                        $("#content").css("height",window.innerHeight-tmpH);
+                    });
                 });
             }
 
@@ -192,12 +199,20 @@
         useAutoPressed: true,
         horizontalScroll:false,
         _currentHeaderID:"defaultHeader",
-        useInteralRouting:true,
+        useInternalRouting:true,
 
         autoBoot: function() {
             this.hasLaunched = true;
+            var that=this;
             if (this.autoLaunch) {
-                this.launch();
+                if(this.isIntel){
+                    $(document).one("intel.xdk.device.ready",function(){
+                        that.launch();
+                    });
+                }
+                else {
+                    this.launch();
+                }
             }
         },
         css3animate: function(el, opts) {
@@ -205,7 +220,7 @@
             return el.css3Animate(opts);
         },
         dispatchPanelEvent:function(fnc,myPanel){
-            if (typeof fnc == "string" && window[fnc]) {
+            if (typeof fnc === "string" && window[fnc]) {
                 return window[fnc](myPanel);
             }
             else if(fnc.indexOf(".")!==-1){
@@ -219,7 +234,7 @@
         },
         /**
          * This enables the tab bar ability to keep pressed states on elements
-         * ```
+           ```
            $.ui.enableTabBar();
            ```
            @title $.ui.enableTabBar
@@ -237,10 +252,10 @@
         },
          /**
          * This disables the tab bar ability to keep pressed states on elements
-         * ```
+           ```
            $.ui.disableTabBar();
            ```
-           @title $.ui.disableTabBar
+         * @title $.ui.disableTabBar
          */
         disableTabBar:function(e){
             $(document).off("click",".button-grouped.tabbed");
@@ -248,10 +263,10 @@
         },
         /**
          * This changes the side menu width
-         * ```
+           ```
            $.ui.setLeftSideMenuWidth('300px');
            ```
-         *@title $.ui.setLeftSideMenuWidth
+         * @title $.ui.setLeftSideMenuWidth
          */
 
         setLeftSideMenuWidth: function(width) {
@@ -259,12 +274,12 @@
             //override the css style
             width = width + "";
             width = width.replace("px", "") + "px";
+            var theWidth=numOnly(window.innerWidth)-numOnly(width);
             $("head").find("style#afui_sideMenuWidth").remove();
             var css = "@media handheld, only screen and (min-width: 768px) {"+
                         "#afui > #navbar.hasMenu.splitview, #afui > #header.hasMenu.splitview, #afui > #content.hasMenu.splitview  {"+
                         "    margin-left:"+width+" !important;"+
-                        "    width: -webkit-calc(100% -"+width+") !important;"+
-                        "    width: calc(100% - "+width+") !important;"+
+                        "    width: "+(theWidth)+"px !important;"+
                         "}"+
                     "}"+
                     "#afui #menu {width:" + width + "  !important}";
@@ -275,7 +290,7 @@
         },
         /**
          * This changes the side menu width
-         * ```
+           ```
            $.ui.setRightSideMenuWidth('300px');
            ```
          *@title $.ui.setRightSideMenuWidth
@@ -293,10 +308,9 @@
 
         /**
          * this will disable native scrolling on iOS
-         *
-         ```
-         $.ui.disableNativeScrolling);
-         ```
+            ```
+            $.ui.disableNativeScrolling);
+            ```
          *@title $.ui.disableNativeScrolling
          */
         disableNativeScrolling: function() {
@@ -305,9 +319,9 @@
 
         /**
           * This is a boolean property.   When set to true, we manage history and update the hash
-          ```
-          $.ui.manageHistory=false;//Don't manage for apps using Backbone
-          ```
+             ```
+            $.ui.manageHistory=false;//Don't manage for apps using Backbone
+            ```
           *@title $.ui.manageHistory
           */
         manageHistory: true,
@@ -348,7 +362,7 @@
                         handler: function () { alert("goodbye"); }
                     }]");
            ```
-         * @param {String,Array} links
+         * @param {(string|Array.<string>)} links
          * @title $.ui.actionsheet()
          */
         actionsheet: function(opts) {
@@ -369,7 +383,7 @@
                       });
            $.ui.popup('Hi there');
            ```
-         * @param {Object|String} options
+         * @param {(object|string)} options
          * @title $.ui.popup(opts)
          */
         popup: function(opts) {
@@ -381,7 +395,7 @@
          ```
          $.ui.blockUI(.9)
          ````
-         * @param {Float} opacity
+         * @param {number} opacity
          * @title $.ui.blockUI(opacity)
          */
         blockUI: function(opacity) {
@@ -454,7 +468,7 @@
            ```
            $.ui.ready(function(){console.log('afui is ready');});
            ```
-         * @param {Function} function to execute
+         * @param {function} param function to execute
          * @title $.ui.ready
          */
         ready: function(param) {
@@ -472,7 +486,7 @@
            ```
            $.ui.setBackButtonStyle('newClass');
            ```
-         * @param {String} new class name
+         * @param {string} className new class name
          * @title $.ui.setBackButtonStyle(class)
          */
         setBackButtonStyle: function(className) {
@@ -486,7 +500,7 @@
            ```
 
          * @title $.ui.goBack()
-         * @param {Number} [delta=1]  relative position from the last element (> 0)
+         * @param {number=} delta relative position from the last element (> 0)
          */
         goBack: function(delta) {
             delta = Math.min(Math.abs(~~delta || 1), this.history.length);
@@ -532,7 +546,7 @@
                 window.history.pushState(newPage, newPage, startPath + "#" + newPage + hashExtras);
                 $(window).trigger("hashchange", null, {
                     newUrl: startPath + "#" + newPage + hashExtras,
-                    oldURL: startPath + previousPage
+                    oldUrl: startPath + previousPage
                 });
             } catch (e) {}
         },
@@ -541,7 +555,7 @@
         /**
          * Updates the current window hash
          *
-         * @param {String} newHash New Hash value
+         * @param {string} newHash New Hash value
          * @title $.ui.updateHash(newHash)
          * @api private
          */
@@ -575,10 +589,10 @@
            ```
            $.ui.updateBadge("#mydiv","3","bl","green");
            ```
-         * @param {String} target
-         * @param {String} Value
-         * @param {String} [position]
-         * @param {String|Object} [color or CSS hash]
+         * @param {string} target
+         * @param {string} value
+         * @param {string=} position
+         * @param {(string=|object)} color Color or CSS hash
          * @title $.ui.updateBadge(target,value,[position],[color])
          */
         updateBadge: function(target, value, position, color) {
@@ -612,7 +626,7 @@
            ```
            $.ui.removeBadge("#mydiv");
            ```
-         * @param {String} target
+         * @param {string} target
          * @title $.ui.removeBadge(target)
          */
         removeBadge: function(target) {
@@ -624,17 +638,15 @@
            $.ui.toggleNavMenu();//toggle it
            $.ui.toggleNavMenu(true); //force show it
            ```
-         * @param {Boolean} [force]
+         * @param {boolean=} force
          * @title $.ui.toggleNavMenu([force])
          */
         toggleNavMenu: function(force) {
             if (!this.showNavMenu) return;
             if ($.query("#navbar").css("display") !== "none" && ((force !== undefined && force !== true) || force === undefined)) {
-               // $.query("#content").css("bottom", "0px");
                 $.query("#navbar").hide();
             } else if (force === undefined || (force !== undefined && force === true)) {
                 $.query("#navbar").show();
-              //  $.query("#content").css("bottom", $.query("#navbar").css("height"));
 
             }
         },
@@ -643,16 +655,14 @@
            ```
            $.ui.toggleHeaderMenu();//toggle it
            ```
-         * @param {Boolean} [force]
+         * @param {boolean=} force
          * @title $.ui.toggleHeaderMenu([force])
          */
         toggleHeaderMenu: function(force) {
             if ($.query("#header").css("display") !== "none" && ((force !== undefined && force !== true) || force === undefined)) {
-               // $.query("#content").css("top", "0px");
                 $.query("#header").hide();
             } else if (force === undefined || (force !== undefined && force === true)) {
                 $.query("#header").show();
-               // $.query("#content").css("top", $.query("#header").css("height"));
             }
         },
 
@@ -671,16 +681,20 @@
            ```
            $.ui.toggleSideMenu();//toggle it
            ```
-         * @param {Boolean} [force]
-         * @param {Function} [callback] Callback function to execute after menu toggle is finished
-         * @param {int} [time] Time to run the transition
+         * @param {boolean=} force
+         * @param {function=} callback Callback function to execute after menu toggle is finished
+         * @param {number=} time Time to run the transition
+         * @param {boolean=} aside 
          * @title $.ui.toggleSideMenu([force],[callback],[time])
          */
         toggleLeftSideMenu: function(force, callback, time, aside) {
             if ((!this.isSideMenuEnabled()&&!this.isAsideMenuEnabled()) || this.togglingSideMenu) return;
 
+
             if(!aside&&!this.isSideMenuEnabled()) return;
+
             if(!aside&&$.ui.splitview && window.innerWidth >= $.ui.handheldMinWidth) return;
+
             var that = this;
             var menu = $.query("#menu");
             var asideMenu= $.query("#aside_menu");
@@ -704,8 +718,8 @@
             else if(open&&aside&&menuPos>0)
                 open=false;
 
-
             if (force === 2 || (!open && ((force !== undefined && force !== false) || force === undefined))) {
+
                 this.togglingSideMenu = true;
                 if(!aside)
                     menu.show();
@@ -838,7 +852,7 @@
          * @api private
          */
         getSideMenuPosition:function(){
-            return parseFloat($.getCssMatrix($("#content")).e);
+            return numOnly(parseFloat($.getCssMatrix($("#content")).e));
         },
         /**
          * Boolean that will disable the splitview before launch
@@ -871,7 +885,7 @@
            ```
            $.ui.updateNavbarElements(elements);
            ```
-         * @param {String|Object} Elements
+         * @param {(string|object)} elems
          * @title $.ui.updateNavbarElements(Elements)
          */
         updateNavbarElements: function(elems) {
@@ -912,7 +926,8 @@
            ```
            $.ui.updateHeaderElements(elements);
            ```
-         * @param {String|Object} Elements
+         * @param {(string|object)} elems
+         * @param {boolean} goBack
          * @title $.ui.updateHeaderElements(Elements)
          */
         updateHeaderElements: function(elems, goBack) {
@@ -921,7 +936,7 @@
             {
                 elems = $.query("#" + elems);
             }
-            if (elems == this.prevHeader) return;
+            if (elems === this.prevHeader) return;
             this._currentHeaderID=elems.prop("id");
             if (this.prevHeader) {
                 //Let's slide them out
@@ -1014,8 +1029,8 @@
            ```
            $.ui.updateSideMenuElements(elements);
            ```
-         * @param {String|Object} Elements
-         * @title $.ui.updateSideMenuElements(Elements)
+         * @param {...(string|object)} elements
+         * @title $.ui.updateSideMenuElements(elements)
          */
         updateSideMenuElements: function() {
             return this.updateLeftSideMenuElements.apply(this,arguments);
@@ -1046,7 +1061,7 @@
            $.ui.setTitle("new title");
            ```
 
-         * @param {String} value
+         * @param {string} val
          * @title $.ui.setTitle(value)
          */
         setTitle: function(val) {
@@ -1059,8 +1074,8 @@
            $.ui.setBackButtonText("GO...");
            ```
 
-         * @param {String} value
-         * @title $.ui.setBackButtonText(value)
+         * @param {string} text
+         * @title $.ui.setBackButtonText(text)
          */
         setBackButtonText: function(text) {
             if(this._currentHeaderID !== "defaultHeader") return;
@@ -1083,7 +1098,7 @@
            $.ui.showMask('Doing work')
            ```
 
-         * @param {String} [text]
+         * @param {string=} text
          * @title $.ui.showMask(text);
          */
         showMask: function(text) {
@@ -1103,12 +1118,12 @@
          */
         modalReference_:null,
         /**
-         * Load a content panel in a modal window.  We set the innerHTML so event binding will not work.  Please use the data-load or panelloaded events to setup any event binding
+         * Load a content panel in a modal window. 
            ```
            $.ui.showModal("#myDiv","fade");
            ```
-         * @param {String|Object} panel to show
-         * @param {String} [transition]
+         * @param {(string|object)} id panel to show
+         * @param {string=} trans
          * @title $.ui.showModal();
          */
         showModal: function(id, trans) {
@@ -1125,7 +1140,7 @@
                 //modalDiv.html($.feat.nativeTouchScroll || !useScroller ? $.query(id).html() : $.query(id).get(0).childNodes[0].innerHTML + '', true);
 
                 var elemsToCopy;
-                if($.feat.nativeTouchScroll || !useScroller ){
+                if($.feat.nativeTouchScroll||$.os.desktop || !useScroller ){
                     elemsToCopy=$panel.contents();
                     modalDiv.append(elemsToCopy);
                 }
@@ -1147,7 +1162,7 @@
                 }
                 modalDiv.addClass("panel").show();
                 //modal header
-                if($panel.data("header") == "none"){ // no header
+                if($panel.data("header") === "none"){ // no header
                     modalParent.find("#modalHeader").hide();
                 } else if(elemsToCopy.filter("header").length>0){ // custom header
                     modalParent.find("#modalHeader").append(elemsToCopy.filter("header")).show();
@@ -1160,7 +1175,7 @@
                         )).show();
                 }
                 //modal footer
-                if($panel.data("footer") == "none"){ // no footer
+                if($panel.data("footer") === "none"){ // no footer
                     modalParent.find("#modalFooter").hide();
                 } else if(elemsToCopy.filter("footer").length>0){ // custom footer
                     modalParent.find("#modalFooter").append(elemsToCopy.filter("footer")).show();
@@ -1214,7 +1229,7 @@
                 this.dispatchPanelEvent(fnc,tmp.get(0));
             tmp.trigger("unloadpanel");
             setTimeout(function(){
-                if($.feat.nativeTouchScroll || !useScroller){
+                if($.feat.nativeTouchScroll||$.os.desktop || !useScroller){
                     self.modalReference_.append($("#modalHeader header"));
                     self.modalReference_.append($cnt.contents());
                     self.modalReference_.append($("#modalFooter footer"));
@@ -1234,8 +1249,8 @@
            ```
            $.ui.updatePanel("#myDiv","This is the new content");
            ```
-         * @param {String,Object} panel
-         * @param {String} html to update with
+         * @param {(string|object)} id
+         * @param {string} content HTML to update with
          * @title $.ui.updatePanel(id,content);
          */
         updatePanel: function(id, content) {
@@ -1268,9 +1283,9 @@
            ```
            $.ui.updateContentDiv("#myDiv","This is the new content");
            ```
-         * @param {String,Object} panel
-         * @param {String} html to update with
-         * @title $.ui.updateContentDiv(id,content);
+         * @param {(string|object)} id
+         * @param {string} content HTML to update with
+         * @title $.ui.updateContentDiv(id, content);
          */
         updateContentDiv: function(id, content) {
             return this.updatePanel(id, content);
@@ -1280,10 +1295,12 @@
            ```
            $.ui.addContentDiv("myDiv","This is the new content","Title");
            ```
-         * @param {String|Object} Element to add
-         * @param {String} Content
-         * @param {String} title
-         * @title $.ui.addContentDiv(id,content,title);
+         * @param {(string|object)} el Element to add
+         * @param {string} content
+         * @param {string} title
+         * @param {boolean=} refresh Enable refresh on pull
+         * @param {function=} refreshFunc 
+         * @title $.ui.addContentDiv(id, content, title);
          */
         addContentDiv: function(el, content, title, refresh, refreshFunc) {
             el = typeof(el) !== "string" ? el : el.indexOf("#") === -1 ? "#" + el : el;
@@ -1299,7 +1316,7 @@
                 if (!newDiv.getAttribute("data-title") && title) newDiv.setAttribute("data-title",title);
                 newId = (newDiv.id) ? newDiv.id : el.replace("#", ""); //figure out the new id - either the id from the loaded div.panel or the crc32 hash
                 newDiv.id = newId;
-                if (newDiv.id != el) newDiv.setAttribute("data-crc", el.replace("#", ""));
+                if (newDiv.id !== el) newDiv.setAttribute("data-crc", el.replace("#", ""));
             } else {
                 newDiv = myEl;
             }
@@ -1315,7 +1332,10 @@
            ```
            $.ui.addDivAndScroll(object);
            ```
-         * @param {Object} Element
+         * @param {object} tmp Element
+         * @param {boolean=} refreshPull
+         * @param {function} refreshFunc
+         * @param {object=} container
          * @title $.ui.addDivAndScroll(element);
          * @api private
          */
@@ -1328,7 +1348,8 @@
 
             container = container || this.content;
             //sets up scroll when required and not supported
-            if (!$.feat.nativeTouchScroll && hasScroll) tmp.setAttribute("js-scrolling", "true");
+
+            if (!$.feat.nativeTouchScroll && hasScroll&&!$.os.desktop) tmp.setAttribute("js-scrolling", "true");
 
             if (tmp.getAttribute("js-scrolling") && (tmp.getAttribute("js-scrolling").toLowerCase() === "yes" || tmp.getAttribute("js-scrolling").toLowerCase() === "true")) {
                 jsScroll = true;
@@ -1339,13 +1360,13 @@
             tmp.setAttribute("data-title",title);
 
 
-            if($(tmp).hasClass("no-scroll") || (tmp.getAttribute("scrolling") && tmp.getAttribute("scrolling") == "no")) {
+            if($(tmp).hasClass("no-scroll") || (tmp.getAttribute("scrolling") && tmp.getAttribute("scrolling") === "no")) {
                 hasScroll = false;
                 jsScroll = false;
                 tmp.removeAttribute("js-scrolling");
             }
 
-            if (!jsScroll || $.os.desktop) {
+            if (!jsScroll ) {
                 container.appendChild(tmp);
                 scrollEl = tmp;
                 tmp.style["-webkit-overflow-scrolling"] = "none";
@@ -1405,8 +1426,8 @@
            ```
            $.ui.scrollToTop(id);
            ```
-         * @param {String} id
-         * @param {string} Time to scroll
+         * @param {string} id
+         * @param {string} time Time to scroll
          * @title $.ui.scrollToTop(id);
          */
         scrollToTop: function(id, time) {
@@ -1421,8 +1442,8 @@
            ```
            $.ui.scrollToBottom(id,time);
            ```
-         * @param {String} id
-         * @param {string} Time to scroll
+         * @param {string} id
+         * @param {string} time Time to scroll
          * @title $.ui.scrollToBottom(id);
          */
         scrollToBottom: function(id, time) {
@@ -1436,11 +1457,12 @@
          *  This is used when a transition fires to do helper events.  We check to see if we need to change the nav menus, footer, and fire
          * the load/onload functions for panels
            ```
-           $.ui.parsePanelFunctions(currentDiv,oldDiv);
+           $.ui.parsePanelFunctions(currentDiv, oldDiv);
            ```
-         * @param {Object} current div
-         * @param {Object} old div
-         * @title $.ui.parsePanelFunctions(currentDiv,oldDiv);
+         * @param {object} what current div
+         * @param {object=} oldDiv old div
+         * @param {boolean=} goBack
+         * @title $.ui.parsePanelFunctions(currentDiv, oldDiv);
          * @api private
          */
         parsePanelFunctions: function(what, oldDiv, goBack) {
@@ -1456,10 +1478,10 @@
             } else {
                 that.toggleNavMenu(true);
             }
-            if (hasFooter && that.customFooter != hasFooter) {
+            if (hasFooter && that.customFooter !== hasFooter) {
                 that.customFooter = hasFooter;
                 that.updateNavbarElements(hasFooter);
-            } else if (hasFooter != that.customFooter) {
+            } else if (hasFooter !== that.customFooter) {
                 if (that.customFooter) that.updateNavbarElements(that.defaultFooter);
                 that.customFooter = false;
             }
@@ -1470,10 +1492,10 @@
                 that.toggleHeaderMenu(true);
             }
 
-            if (hasHeader && that.customHeader != hasHeader) {
+            if (hasHeader && that.customHeader !== hasHeader) {
                 that.customHeader = hasHeader;
                 that.updateHeaderElements(hasHeader, goBack);
-            } else if (hasHeader != that.customHeader) {
+            } else if (hasHeader !== that.customHeader) {
                 if (that.customHeader) {
                     that.updateHeaderElements(that.defaultHeader, goBack);
                     //that.setTitle(that.activeDiv.title);
@@ -1503,11 +1525,11 @@
                 $.query("#navbar #" + what.getAttribute("data-tab")).addClass("pressed");
             }
 
-            var hasMenu = what.getAttribute("data-nav");
-            if (hasMenu && this.customMenu != hasMenu) {
+            var hasMenu = what.getAttribute("data-left-menu")||what.getAttribute("data-nav");
+            if (hasMenu && this.customMenu !== hasMenu) {
                 this.customMenu = hasMenu;
                 this.updateSideMenuElements(hasMenu);
-            } else if (hasMenu != this.customMenu) {
+            } else if (hasMenu !== this.customMenu) {
                 if (this.customMenu) {
                     this.updateSideMenuElements(this.defaultMenu);
                 }
@@ -1515,12 +1537,12 @@
             }
 
 
-            var hasAside = what.getAttribute("data-aside");
-            if(hasAside && this.customAside!=hasAside){
+            var hasAside =what.getAttribute("data-right-menu")|| what.getAttribute("data-aside");
+            if(hasAside && this.customAside !== hasAside){
                 this.customAside= hasAside;
                 this.updateAsideElements(hasAside);
             }
-            else if(hasAside != this.customAside) {
+            else if(hasAside !== this.customAside) {
                 if(this.customAside){
                     this.updateAsideElements(this.defaultAside);
                 }
@@ -1556,11 +1578,12 @@
            ```
            $.ui.loadContent("#main",false,false,"up");
            ```
-         * @param {String} target
-         * @param {Boolean} newtab (resets history)
-         * @param {Boolean} go back (initiate the back click)
-         * @param {String} transition
-         * @title $.ui.loadContent(target,newTab,goBack,transition);
+         * @param {string} target
+         * @param {boolean=} newtab (resets history)
+         * @param {boolean=} go back (initiate the back click)
+         * @param {string=} transition
+         * @param {object=} anchor
+         * @title $.ui.loadContent(target, newTab, goBack, transition, anchor);
          * @api public
          */
         loadContent: function(target, newTab, back, transition, anchor) {
@@ -1608,10 +1631,10 @@
            ```
            $.ui.loadDiv("#main",false,false,"up");
            ```
-         * @param {String} target
-         * @param {Boolean} newtab (resets history)
-         * @param {Boolean} go back (initiate the back click)
-         * @param {String} transition
+         * @param {string} target
+         * @param {boolean=} newtab (resets history)
+         * @param {boolean=} back Go back (initiate the back click)
+         * @param {string=} transition
          * @title $.ui.loadDiv(target,newTab,goBack,transition);
          * @api private
          */
@@ -1634,7 +1657,7 @@
                 $(document).trigger("missingpanel", null, {missingTarget: target});
                 return;
             }
-            if (what == this.activeDiv && !back) {
+            if (what === this.activeDiv && !back) {
                 //toggle the menu if applicable
                 if (this.isSideMenuOn()) this.toggleSideMenu(false);
                 return;
@@ -1649,7 +1672,7 @@
 
 
 
-            if (oldDiv == currWhat) //prevent it from going to itself
+            if (oldDiv === currWhat) //prevent it from going to itself
                 return;
 
             if (newTab) {
@@ -1692,10 +1715,10 @@
            ```
            $.ui.loadContentData("#main",false,false,"up");
            ```
-         * @param {String} target
-         * @param {Boolean} newtab (resets history)
-         * @param {Boolean} go back (initiate the back click)
-         * @param {String} transition
+         * @param {string} target
+         * @param {boolean=} newtab (resets history)
+         * @param {boolean=} go back (initiate the back click)
+         * @param {string=} transition
          * @title $.ui.loadDiv(target,newTab,goBack,transition);
          * @api private
          */
@@ -1720,7 +1743,7 @@
             }
             if (newTab) {
                 this.setBackButtonText(this.firstDiv.getAttribute("data-title"));
-                if (what == this.firstDiv) {
+                if (what === this.firstDiv) {
                     this.history.length = 0;
                 }
             }
@@ -1741,16 +1764,17 @@
            ```
            $.ui.loadDiv("page.html",false,false,"up");
            ```
-         * @param {String} target
-         * @param {Boolean} newtab (resets history)
-         * @param {Boolean} go back (initiate the back click)
-         * @param {String} transition
+         * @param {string} target
+         * @param {boolean=} newtab (resets history)
+         * @param {boolean=} go back (initiate the back click)
+         * @param {string=} transition
+         * @param {object=} anchor
          * @title $.ui.loadDiv(target,newTab,goBack,transition);
          * @api private
          */
         loadAjax: function(target, newTab, back, transition, anchor) {
             // XML Request
-            if (this.activeDiv.id === "afui_ajax" && target == this.ajaxUrl) return;
+            if (this.activeDiv.id === "afui_ajax" && target === this.ajaxUrl) return;
             var urlHash = "url" + crc32(target); //Ajax urls
             var that = this;
             if (target.indexOf("http") === -1) target = intel.xdk.webRoot + target;
@@ -1763,7 +1787,7 @@
 
             anchor = anchor || document.createElement("a");
             xmlhttp.onreadystatechange = function() {
-                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
                     this.doingTransition = false;
                     var refreshFunction;
                     var doReturn = false;
@@ -1875,7 +1899,7 @@
             this.menu = af.query("#menu").get(0);
             //set anchor click handler for UI
             this.viewportContainer.on("click", "a", function(e) {
-                if(that.useInteralRouting)
+                if(that.useInternalRouting)
                     checkAnchorClick(e, e.currentTarget);
             });
 
@@ -1889,25 +1913,14 @@
                 enterEditEl = el;
             });
             //enter-edit-reshape panel padding and scroll adjust
-            $.bind($.touchLayer, "enter-edit-reshape", function() {
-                //onReshape UI fixes
-                //check if focused element is within active panel
-                var jQel = $(enterEditEl);
-                var jQactive = jQel.closest(that.activeDiv);
-                if (jQactive && jQactive.size() > 0) {
-                    if ($.os.ios || $.os.chrome) {
-                        var paddingTop, paddingBottom;
-                        if (document.body.scrollTop) {
-                            paddingTop = document.body.scrollTop - jQactive.offset().top;
-                        } else {
-                            paddingTop = 0;
-                        }
-                        //not exact, can be a little above the actual value
-                        //but we haven't found an accurate way to measure it and this is the best so far
-                        paddingBottom = jQactive.offset().bottom - jQel.offset().bottom;
-                        that.scrollingDivs[that.activeDiv.id].setPaddings(paddingTop, paddingBottom);
-
-                    } else if ($.os.android || $.os.blackberry) {
+            if($.os.android&&!$.os.androidICS)
+            {
+                $.bind($.touchLayer, "enter-edit-reshape", function() {
+                    //onReshape UI fixes
+                    //check if focused element is within active panel
+                    var jQel = $(enterEditEl);
+                    var jQactive = jQel.closest(that.activeDiv);
+                    if (jQactive && jQactive.size() > 0) {
                         var elPos = jQel.offset();
                         var containerPos = jQactive.offset();
                         if (elPos.bottom > containerPos.bottom && elPos.height < containerPos.height) {
@@ -1915,16 +1928,13 @@
                             that.scrollingDivs[that.activeDiv.id].scrollToItem(jQel, "bottom");
                         }
                     }
-                }
-            });
-            if ($.os.ios) {
+                });
                 $.bind($.touchLayer, "exit-edit-reshape", function() {
                     if (that.activeDiv && that.activeDiv.id && that.scrollingDivs.hasOwnProperty(that.activeDiv.id)) {
                         that.scrollingDivs[that.activeDiv.id].setPaddings(0, 0);
                     }
                 });
             }
-
 
             //elements setup
             if (!this.navbar) {
@@ -1938,6 +1948,13 @@
                     id: "header"
                 }).get(0);
                 this.viewportContainer.prepend(this.header);
+            }
+
+            if (!this.content) {
+                this.content = $.create("div", {
+                    id: "content"
+                }).get(0);
+                $(this.content).insertAfter(this.header);
             }
             if (!this.menu) {
                 this.menu = $.create("div", {
@@ -1976,12 +1993,6 @@
             }
 
 
-            if (!this.content) {
-                this.content = $.create("div", {
-                    id: "content"
-                }).get(0);
-                this.viewportContainer.append(this.content);
-            }
 
             //insert backbutton (should optionally be left to developer..)
             $(this.header).html("<a id='backButton' class='button'></a> <h1 id='pageTitle'></h1>" + this.header.innerHTML);
@@ -1992,7 +2003,7 @@
             });
 
             //page title (should optionally be left to developer..)
-            this.titleBar = $.query("#header #pageTitle").get(0);
+            this.titlebar = $.query("#header #pageTitle").get(0);
 
             //setup ajax mask
             this.addContentDiv("afui_ajax", "");
@@ -2036,33 +2047,30 @@
             //get first div, defer
             var defer = {};
             var contentDivs = this.viewportContainer.get(0).querySelectorAll(".panel");
+
+
             for (var i = 0; i < contentDivs.length; i++) {
                 var el = contentDivs[i];
                 var tmp = el;
-                var id;
+                var id = el.id;
                 var prevSibling = el.previousSibling;
                 if (el.parentNode && el.parentNode.id !== "content") {
-
-                    el.parentNode.removeChild(el);
-                    id = el.id;
-                    if (tmp.getAttribute("selected")) this.firstDiv = $.query("#" + id).get(0);
+                    if (tmp.getAttribute("selected")) this.firstDiv = el;
                     this.addDivAndScroll(tmp);
-                    $.query("#" + id).insertAfter(prevSibling);
+                    $.query("#content").append(el);
                 } else if (!el.parsedContent) {
                     el.parsedContent = 1;
-                    el.parentNode.removeChild(el);
-                    id = el.id;
-                    if (tmp.getAttribute("selected")) this.firstDiv = $.query("#" + id).get(0);
-                    this.addDivAndScroll(tmp);
-                    $.query("#" + id).insertAfter(prevSibling);
+                    if (tmp.getAttribute("selected")) this.firstDiv = el;
+                    this.addDivAndScroll(el);
+                    $(el).insertAfter(prevSibling);
                 }
                 if (el.getAttribute("data-defer")) {
-                    defer[id] = el.getAttribute("data-defer");
+                    defer[el.id] = el.getAttribute("data-defer");
                 }
-                if (!this.firstDiv) this.firstDiv = $.query("#" + id).get(0);
-
+                if (!this.firstDiv) this.firstDiv = el;
                 el = null;
             }
+
             contentDivs = null;
             var loadingDefer = false;
             var toLoad = Object.keys(defer).length;
@@ -2140,8 +2148,6 @@
                         $(e.currentTarget).addClass("pressed");
                     });
 
-                  
-
                     //There is a bug in chrome with @media queries where the header was not getting repainted
                     if ($.query("nav").length > 0) {
                         var splitViewClass=that.splitview?" splitview":"";
@@ -2196,6 +2202,12 @@
                     $(document).one("defer:loaded", loadFirstDiv);
                 } else loadFirstDiv();
             }
+            else {
+                //Don't block afui:ready from dispatching, even though there's no content
+                setTimeout(function(){
+                        $(document).trigger("afui:ready");
+                    });
+            }
             $.bind(that, "content-loaded", function() {
                 if (that.loadContentQueue.length > 0) {
                     var tmp = that.loadContentQueue.splice(0, 1)[0];
@@ -2246,7 +2258,8 @@
         /**
          * This must be called at the end of every transition to hide the old div and reset the doingTransition variable
          *
-         * @param {Object} Div that transitioned out
+         * @param {object} oldDiv Div that transitioned out
+         * @param {object=} currDiv 
          * @title $.ui.finishTransition(oldDiv)
          */
         finishTransition: function(oldDiv, currDiv) {
@@ -2260,7 +2273,7 @@
         /**
          * This must be called at the end of every transition to remove all transforms and transitions attached to the inView object (performance + native scroll)
          *
-         * @param {Object} Div that transitioned out
+         * @param {object} inViewDiv Div that transitioned out
          * @title $.ui.finishTransition(oldDiv)
          */
         clearAnimations: function(inViewDiv) {
@@ -2278,7 +2291,7 @@
     //lookup for a clicked anchor recursively and fire UI own actions when applicable
     var checkAnchorClick = function(e, theTarget) {
         var afui = document.getElementById("afui");
-        if (theTarget == (afui)) {
+        if (theTarget === (afui)) {
             return;
         }
 
@@ -2347,17 +2360,14 @@
             x = "0x" + table.substr(n * 9, 8);
             crc = (crc >>> 8) ^ x;
         }
-        return crc ^ (-1);
+        return (crc ^ (-1))>>>0;
     };
-
 
     $.ui = new ui();
     $.ui.init=true;
     $(window).trigger("afui:preinit");
     $(window).trigger("afui:init");
-
 })(af);
-
 
 
 //The following functions are utilitiy functions for afui within intel xdk.
@@ -2365,12 +2375,12 @@
 (function($) {
     "use strict";
     $(document).one("intel.xdk.device.ready", function() { //in intel xdk, we need to undo the height stuff since it causes issues.
-
+        $.ui.isIntel=true;
         setTimeout(function() {
             document.getElementById("afui").style.height = "100%";
             document.body.style.height = "100%";
             document.documentElement.style.minHeight = window.innerHeight;
-        }, 300);
+        }, 30);
 
     });
     //Fix an ios bug where scrolling will not work with rotation
