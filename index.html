@@ -78,6 +78,7 @@
             $.ui.openLinksNewTab = false;
             $.ui.animateHeaders = false;
             $.ui.backButtonText = "Back";
+            $.ui.setRightSideMenuWidth('150px');
             
             $(document).ready(function(){
                 document.addEventListener("intel.xdk.device.ready", onXdkDeviceReady, false);
@@ -103,6 +104,7 @@
                 $.ui.launch();
                 //hide splash screen
                 intel.xdk.device.hideSplashScreen();
+                var a = 3;
                 
                 document.addEventListener("intel.xdk.device.pause", function(){incrementBadge("#xdkEvent_pause");}, false);
                 document.addEventListener("intel.xdk.device.resume", function(){incrementBadge("#xdkEvent_resume");}, false);
@@ -167,14 +169,6 @@
     </head>
     <body>
         <div id="afui" class="">
-            <!-- default footer -->
-            <div id="navbar">
-                <a href="#main" id='navbar_home' class='icon home' data-transition="none">Home</a>
-                <a href="#af" id='navbar_af' class="icon target" data-transition="none">Selector</a>
-                <a href="#afuidemo" id='navbar_ui' class="icon picture" data-transition="none">AF UI</a>
-                <a href="#afweb" id='navbar_plugins' class="icon key" data-transition="none">Plugins</a>
-                <a href="#deviceapi" id='navbar_deviceapi' class="icon camera" data-transition="none">Device</a>
-            </div>
             <!-- default sidemenu -->
             <nav id="default_sidemenu">
                 <ul class="list">
@@ -196,6 +190,71 @@
                     <li><a href="index.html" data-ignore="true">Reset App</a></li>                    
                 </ul>
             </nav>
+            
+            <!-- aside menu -->
+                <aside>
+                    <ul class="list">
+                        <li class="divider">Icons</li> 
+                        <li><a  class="icon home big">Home</a></li>
+                        <li><a  class="icon pencil big">Pencil</a></li>
+                        <li><a  class="icon picture big">Picture</a></li>
+                        <li><a  class="icon camera big">Camera</a></li>
+                        <li><a  class="icon headset big">Headset</a></li>
+                        <li><a  class="icon paper big">Paper</a></li>
+                        <li><a  class="icon stack big">Stack</a></li>
+                        <li><a  class="icon folder big">Folder</a></li>
+                        <li><a  class="icon tag big">Tag</a></li>
+                        <li><a  class="icon basket big">Basket</a></li>
+                        <li><a  class="icon phone big">Phone</a></li>
+                        <li><a  class="icon mail big">Mail</a></li>
+                        <li><a  class="icon location big">Location</a></li>
+                        <li><a  class="icon clock big">Clock</a></li>
+                        <li><a  class="icon calendar big">Calendar</a></li>
+                        <li><a  class="icon message big">Message</a></li>
+                        <li><a  class="icon chat big">Chat</a></li>
+                        <li><a  class="icon user big">User</a></li>
+                        <li><a  class="icon loading big">Loading</a></li>
+                        <li><a  class="icon refresh big">Refresh</a></li>
+                        <li><a  class="icon magnifier big">Magnifier</a></li>
+                        <li><a  class="icon key big">Key</a></li>
+                        <li><a  class="icon settings big">Settings</a></li>
+                        <li><a  class="icon graph big">Graph</a></li>
+                        <li><a  class="icon trash big">Trash</a></li>
+                        <li><a  class="icon pin big">Pin</a></li>
+                        <li><a  class="icon target big">Target</a></li>
+                        <li><a  class="icon download big">Download</a></li>
+                        <li><a  class="icon upload big">Upload</a></li>
+                        <li><a  class="icon star big">Star</a></li>
+                        <li><a  class="icon heart big">Heart</a></li>
+                        <li><a  class="icon warning big">Warning</a></li>
+                        <li><a  class="icon add big">Add</a></li>
+                        <li><a  class="icon remove big">Remove</a></li>
+                        <li><a  class="icon question big">Question</a></li>
+                        <li><a  class="icon info big">Info</a></li>
+                        <li><a  class="icon error big">Error</a></li>
+                        <li><a  class="icon check big">Check</a></li>
+                        <li><a  class="icon minimize big">Minimize</a></li>
+                        <li><a  class="icon close big">Close</a></li>
+                        <li><a  class="icon up big">Up</a></li>
+                        <li><a  class="icon down big">Down</a></li>
+                        <li><a  class="icon left big">Left</a></li>
+                        <li><a  class="icon right big">Right</a></li>
+                        <li><a  class="icon tools big">Tools</a></li>
+                        <li><a  class="icon html5 big">HTML5</a></li>
+                        <li><a  class="icon css big">CSS</a></li>
+                        <li><a  class="icon js big">JS</a></li>
+                        <li><a  class="icon cloud big">Cloud</a></li>
+                        <li><a  class="icon tv big">TV</a></li>
+                        <li><a  class="icon wifi big">Wifi</a></li>
+                        <li><a  class="icon new big">New</a></li>
+                        <li><a  class="icon mic big">Mic</a></li>
+                        <li><a  class="icon database big">Database</a></li>
+                        <li><a  class="icon busy big">Busy</a></li>
+                        <li><a  class="icon bug big">Bug</a></li>
+                        <li><a  class="icon lamp big">Lamp</a></li>
+                    </ul>
+                </aside>            
+            
             <!-- custom header -->
             <header id="custom_header">
                 <h1>Custom Header</h1>
@@ -225,6 +284,7 @@
                 <div title='Welcome' id="main" class="panel" data-tab="navbar_home" selected="true" data-load="loadedPanel">
                     <header>
                         <a id="menubadge" onclick='af.ui.toggleSideMenu()' class='menuButton' style="float:left !important"></a>
+                        <a onclick='af.ui.toggleRightSideMenu()' class='button icon picture' style="float:right"></a>
                         <h1>Welcome</h1>
                     </header> 
                     <h2>Kitchen Sink</h2>
@@ -1809,6 +1869,13 @@
                     <br><br>
                     Grouped flexbox<br><br>
                     <div class="button-grouped flex">
+                        <a class="button">Button 1</a>
+                        <a class="button">Button 2</a>
+                        <a class="button">Button 3</a>
+                    </div>
+                    <br><br>
+                    Grouped button tab<br><br>
+                    <div class="button-grouped tabbed">
                         <a class="button">Button 1</a>
                         <a class="button">Button 2</a>
                         <a class="button">Button 3</a>
@@ -4058,6 +4125,15 @@
                     <div class="samplecode">navigator.splashscreen.hide();</div>
                 </div>    
             </div> 
+            
+            <!-- default footer -->
+            <div id="navbar">
+                <a href="#main" id='navbar_home' class='icon home' data-transition="none">Home</a>
+                <a href="#af" id='navbar_af' class="icon target" data-transition="none">Selector</a>
+                <a href="#afuidemo" id='navbar_ui' class="icon picture" data-transition="none">AF UI</a>
+                <a href="#afweb" id='navbar_plugins' class="icon key" data-transition="none">Plugins</a>
+                <a href="#deviceapi" id='navbar_deviceapi' class="icon camera" data-transition="none">Device</a>
+            </div>
             
             <!-- Device API > Cordova -->
             
