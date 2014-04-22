@@ -74,7 +74,7 @@
 
             /* init app code */
             var webRoot = "./";
-            $.ui.autoLaunch = false;
+       //     $.ui.autoLaunch = false;
             $.ui.openLinksNewTab = false;
             $.ui.animateHeaders = false;
             $.ui.backButtonText = "Back";
@@ -89,7 +89,8 @@
                 $.ui.updateBadge("#devicelink", $("#deviceapi").find("li").length);
                 $.ui.updateBadge("#uiapilink", $("#uiapi").find("li").length);
                 $.ui.updateBadge("#uiproplink", $("#uiprop").find("li").length);
-                $.ui.launch();
+           //     try{if(intel.xdk){}}catch{$.ui.launch()}
+           //     $.ui.launch();
             });
             
             /* This code is used to run as soon as intel.xdk activates */
@@ -101,7 +102,7 @@
                 intel.xdk.device.setAutoRotate(false);
                 webRoot = intel.xdk.webRoot + "";
                 $.ui.blockPageScroll(); //block the page from scrolling at the header/footer
-                $.ui.launch();
+            //    $.ui.launch();
                 //hide splash screen
                 intel.xdk.device.hideSplashScreen();
                 var a = 3;
@@ -168,7 +169,7 @@
         </style>
     </head>
     <body>
-        <div id="afui" class="">
+        <div id="afui" class="default">
             <!-- default sidemenu -->
             <nav id="default_sidemenu" title="Settings">
                 <ul class="list">
@@ -193,6 +194,10 @@
             
             <!-- aside menu -->
                 <aside>
+                    <header class="header">
+                        <h1>Icons</h1>
+                        <a class="button icon settings"></a>
+                    </header>
                     <ul class="list">
                         <li class="divider">Icons</li> 
                         <li><a  class="icon home big">Home</a></li>
