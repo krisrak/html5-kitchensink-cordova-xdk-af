@@ -1,4 +1,4 @@
-/*! intel-appframework - v2.1.0 - 2014-04-07 */
+/*! intel-appframework - v2.1.0 - 2014-11-06 */
 
 /**
  * App Framework  query selector class for HTML5 mobile apps on a WebkitBrowser.
@@ -1094,7 +1094,7 @@ if (!window.af || typeof(af) !== "function") {
                 ```
                 $().appendTo("#foo"); //Append an object;
                 ```
-            * @param {string|Object} selector to append to            
+            * @param {string|Object} selector to append to
             * @title $().appendTo(element)
             */
             appendTo: function(selector) {
@@ -1109,7 +1109,7 @@ if (!window.af || typeof(af) !== "function") {
                 $().prependTo("#foo"); //Prepend an object;
                 ```
             * @param {string|Object} selector Selector to prepend to
-            * @return {$afm} 
+            * @return {$afm}
             * @title $().prependTo(element)
             */
             prependTo: function(selector) {
@@ -1666,6 +1666,7 @@ if (!window.af || typeof(af) !== "function") {
                 $(script).remove();
                 delete window[callbackName];
                 options.success.call(context, data);
+                options.complete.call(context, data);
             };
             if (options.url.indexOf("callback=?") !== -1) {
                 script.src = options.url.replace(/=\?/, "=" + callbackName);
@@ -1821,7 +1822,9 @@ if (!window.af || typeof(af) !== "function") {
                     if (xhr.readyState === 4) {
                         clearTimeout(abortTimeout);
                         var result, error = false;
-                        var contentType=xhr.getResponseHeader("content-type")||"";
+                        var contentType=xhr.getResponseHeader("content-type");
+                        if(!contentType)
+                            contentType="";
                         if ((xhr.status >= 200 && xhr.status < 300) || xhr.status === 0 && protocol === "file:") {
                             if ((contentType==="application/json")||(mime === "application/json" && !(/^\s*$/.test(xhr.responseText)))) {
                                 try {
@@ -1923,12 +1926,18 @@ if (!window.af || typeof(af) !== "function") {
         * @title $.post(url,[data],success,[dataType])
         */
         $.post = function(url, data, success, dataType) {
-            if (typeof(data) === "function") {
+            if ($.isFunction(data)) {
                 success = data;
                 data = {};
             }
+
+            if(typeof(success)==="string"){
+                dataType=success;
+                success=function(){};
+            }
             if (dataType === nundefined)
                 dataType = "html";
+
             return this.ajax({
                 url: url,
                 type: "POST",
@@ -1948,15 +1957,17 @@ if (!window.af || typeof(af) !== "function") {
         * @param {Function} [success]
         * @title $.getJSON(url,data,success)
         */
-        $.getJSON = function(url, data, success) {
+        $.getJSON = function(url, data, success,error) {
             if (typeof(data) === "function") {
-                success = data;
+                error=success;
+                success=data;
                 data = {};
             }
             return this.ajax({
                 url: url,
                 data: data,
                 success: success,
+                error:error,
                 dataType: "json"
             });
         };
@@ -2081,7 +2092,7 @@ if (!window.af || typeof(af) !== "function") {
          * .os.tizen
          * .feat.nativeTouchScroll
          *
-         * @param {Object} $ 
+         * @param {Object} $
          * @param {string} userAgent
          * @api private
          */
@@ -2092,7 +2103,7 @@ if (!window.af || typeof(af) !== "function") {
             $.os.androidICS = $.os.android && userAgent.match(/(Android)\s4/) ? true : false;
             $.os.ipad = userAgent.match(/(iPad).*OS\s([\d_]+)/) ? true : false;
             $.os.iphone = !$.os.ipad && userAgent.match(/(iPhone\sOS)\s([\d_]+)/) ? true : false;
-            $.os.ios7 = ($.os.ipad||$.os.iphone)&&userAgent.match(/7_/) ? true : false;
+            $.os.ios7 = ($.os.ipad||$.os.iphone)&&userAgent.match(/7_/)||($.os.ipad||$.os.iphone)&&userAgent.match(/8_/) ? true : false;
             $.os.webos = userAgent.match(/(webOS|hpwOS)[\s\/]([\d.]+)/) ? true : false;
             $.os.touchpad = $.os.webos && userAgent.match(/TouchPad/) ? true : false;
             $.os.ios = $.os.ipad || $.os.iphone;
@@ -2615,9 +2626,9 @@ if (!window.af || typeof(af) !== "function") {
 
         * @param {String|Object} event
         * @param {String|Array|Object} selector
-        * @param {Sunction} callback
+        * @param {Function()=} [optional] callback
         * @return {Object} appframework object
-        * @title $().off(event,selector,[callback])
+        * @title $().off(event, selector, [callback])
         */
         $.fn.off = function(event, selector, callback) {
             return selector === nundefined || $.isFunction(selector) ? this.unbind(event, selector) : this.undelegate(selector, event, callback);
@@ -2735,6 +2746,10 @@ if (!window.af || typeof(af) !== "function") {
          */
         $.unbind = function(obj, ev, f) {
             if (!obj.__events) return;
+            if(ev==nundefined) {
+                delete obj.__events;
+                return;
+            }
             if (!$.isArray(ev)) ev = [ev];
             for (var i = 0; i < ev.length; i++) {
                 if (obj.__events[ev[i]]) {
@@ -2802,7 +2817,7 @@ if (!window.af || typeof(af) !== "function") {
             //cleanup children
             var children = node.childNodes;
             if (children && children.length > 0) {
-                for (var i; i < children.length; i++) {
+                for (var i=0; i < children.length; i++) {
                     cleanUpContent(children[i], kill);
                 }
             }
@@ -2821,7 +2836,7 @@ if (!window.af || typeof(af) !== "function") {
            $.cleanUpContent(node, itself, kill)
            ```
          * @param {HTMLNode} node
-         * @param {boolean} itself 
+         * @param {boolean} itself
          * @param {boolean=} kill When set to true, this will emit a non-bubbling "destroy" Event on the node
          * @title $.cleanUpContent(node,itself,kill)
          */
